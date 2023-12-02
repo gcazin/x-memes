@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Badge;
 use App\Models\Media;
 use App\Models\User;
 use Inertia\Inertia;
@@ -42,11 +43,17 @@ class DashboardController extends Controller
 
     public function tags()
     {
-        $tags = Tag::all()->map(function($tag) {
-            return $tag->getTranslation('name', 'en');
-        });
+        $tags = Tag::all();
         return Inertia::render('Admin/Tags', [
             'tags' => $tags,
+        ]);
+    }
+
+    public function badges()
+    {
+        $badges = Badge::with('users')->get();
+        return Inertia::render('Admin/Badges', [
+            'badges' => $badges
         ]);
     }
 }

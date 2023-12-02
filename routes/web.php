@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
@@ -44,7 +45,8 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::middleware('verified')->group(function() {
-        Route::middleware('role:super-admin')
+        // Admin dashboard
+        Route::middleware('role:super-admin|admin')
             ->prefix('admin')
             ->name('admin.')
             ->group(function() {
@@ -52,16 +54,25 @@ Route::middleware('auth')->group(function() {
                 Route::get('medias', [DashboardController::class, 'medias'])->name('medias');
                 Route::get('utilisateurs', [DashboardController::class, 'users'])->name('users');
                 Route::get('tags', [DashboardController::class, 'tags'])->name('tags');
+                Route::get('badges', [DashboardController::class, 'badges'])->name('badges');
             });
 
-         Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.tag.')->group(function () {
-             Route::get('tag/create', [TagController::class, 'create'])->name('create');
-             Route::post('tag/create', [TagController::class, 'store']);
-             Route::delete('tag/delete/{name}', [TagController::class, 'destroy'])->name('destroy');
-         });
-    });
+        // Tags
+        Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.tag.')
+            ->group(function () {
+                Route::get('tag/create', [TagController::class, 'create'])->name('create');
+                Route::post('tag/create', [TagController::class, 'store']);
+                Route::delete('tag/delete/{name}', [TagController::class, 'destroy'])->name('destroy');
+            });
 
-//    Route::get('library', [MediaController::class, 'index'])->name('library');
+        // Badges
+        Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.badge.')
+            ->group(function () {
+                Route::get('badge/create', [BadgeController::class, 'create'])->name('create');
+                Route::post('badge/create', [BadgeController::class, 'store']);
+                Route::delete('badge/delete/{id}', [BadgeController::class, 'destroy'])->name('destroy');
+            });
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -6,6 +6,7 @@ import NavLink from "@/Components/NavLink.vue";
 import {ref} from "vue";
 import {usePage} from "@inertiajs/vue3";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import helperService from "@/Services/helper.service.js";
 
 const showingNavigationDropdown = ref(false);
 
@@ -13,8 +14,14 @@ const page = usePage()
 
 const checkRoles = ((role) => {
     if (page.props.auth.roles) {
-        return page.props.auth.roles.includes(role)
+        const roleSplitting = role.split(',')
+        if (roleSplitting.length > 1) {
+            return roleSplitting.some((r) => {
+                return page.props.auth.roles.includes(r)
+            })
+        }
     }
+
     return false
 })
 
@@ -61,7 +68,7 @@ const menuItems = [
 
                     <!-- Navigation Links -->
                     <div
-                        v-if="checkRoles('super-admin')"
+                        v-if="helperService.checkRoles('super-admin,admin')"
                         class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                     >
                         <NavLink :href="route('admin.index')" :active="route().current('admin.dashboard')">

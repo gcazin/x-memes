@@ -6,6 +6,7 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Section from "@/Components/Section.vue";
 import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
+import Table from "@/Pages/Admin/Partials/Table.vue";
 
 defineProps({
     users: {
@@ -40,142 +41,86 @@ const deleteMedia = (id) => {
     <Head title="Administration" />
 
     <AdminDashboardLayout>
-        <div class="pb-6">
-            <Section class="rounded-b-none">
-                {{ medias.filter((media) => !media.approved).length }} médias à approuver
-            </Section>
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg">
-                <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Titre
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Media
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Rôles
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Utilisateur
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Actions
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                            v-for="(media, index) in medias.filter((m) => !m.approved)"
-                            :key="index"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
-                                {{ media.name }}
-                            </th>
-                            <td class="px-6 py-4">
-                                <video controls class="h-full w-full" v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
-                                <img v-else class="w-48" :src="`/storage/${media.filename}`" alt="">
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ media.user.roles.map((role) => role.name).join(', ') }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ media.user.name }} ({{ media.user.email }})
-                            </td>
-                            <td class="px-6 py-4">
-                                <SecondaryButton
-                                    class="ms-3"
-                                    @click="approveMedia(media.id)"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                    </svg>
-                                </SecondaryButton>
-                                <DangerButton
-                                    class="ms-3"
-                                    @click="deleteMedia(media.id)"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </DangerButton>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="flex mb-4">
+            <div class="flex-1">
+                <Text type="subtitle">Médias</Text>
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-t-lg">
-            <div class="p-4 text-gray-900 dark:text-gray-100">
-                {{ medias.filter((media) => media.approved).length }} médias approuvés
+        <Section has-background>
+            <div class="mb-2">
+                <Text type="subtitle">
+                    Médias approuvés ({{ medias.filter((media) => media.approved).length }})
+                </Text>
             </div>
-        </div>
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg">
-            <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Titre
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Media
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Rôles
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Utilisateur
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Actions
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                        v-for="(media, index) in medias.filter((m) => m.approved)"
-                        :key="index"
+            <Table
+                :headers="['Titre', 'Media', 'Rôles', 'Utilisateur']"
+                :items="medias.filter((m) => m.approved)"
+                :properties="['name', 'media', 'role', 'user']"
+                has-action
+            >
+                <template #role="{ user }">
+                    {{ user.roles.map((role) => role.name).join(', ') }}
+                </template>
+                <template #user="{ user }">
+                    {{ user.name }} ({{ user.email }})
+                </template>
+                <template #media="{ extension, filename, name }">
+                    <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>
+                    <img v-else class="w-40" :src="`/storage/${filename}`" alt="">
+                </template>
+                <template #actions="{ id }">
+                    <span
+                        class="hover:text-red-500 cursor-pointer text-2xl transition"
+                        @click="deleteMedia(id)"
                     >
-                        <th
-                            scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            {{ media.name }}
-                        </th>
-                        <td class="px-6 py-4">
-                            <video controls class="h-full w-full" v-if="media.extension === 'mp4'" :src="`storage/${media.name}`"></video>
-                            <img v-else :src="`storage/${media.filename}`" alt="">
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ media.user.roles.map((role) => role.name).join(', ') }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ media.user.name }} ({{ media.user.email }})
-                        </td>
-                        <td class="px-6 py-4">
-                            <DangerButton
-                                class="ms-3"
-                                @click="deleteMedia(media.id)"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </DangerButton>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </span>
+                </template>
+            </Table>
+        </Section>
+
+        <Section has-background>
+            <div class="mb-2">
+                <Text type="subtitle">
+                    Médias en attente ({{ medias.filter((media) => !media.approved).length }})
+                </Text>
             </div>
-        </div>
+            <Table
+                :headers="['Titre', 'Media', 'Rôles', 'Utilisateur']"
+                :items="medias.filter((m) => !m.approved)"
+                :properties="['name', 'media', 'role', 'user']"
+                has-action
+            >
+                <template #role="{ user }">
+                    {{ user.roles.map((role) => role.name).join(', ') }}
+                </template>
+                <template #user="{ user }">
+                    {{ user.name }} ({{ user.email }})
+                </template>
+                <template #media="{ extension, filename, name }">
+                    <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>
+                    <img v-else class="w-40" :src="`/storage/${filename}`" alt="">
+                </template>
+                <template #actions="{ id }">
+                    <SecondaryButton
+                        class="ms-3"
+                        @click="approveMedia(id)"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </SecondaryButton>
+                    <DangerButton
+                        class="ms-3"
+                        @click="deleteMedia(id)"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </DangerButton>
+                </template>
+            </Table>
+        </Section>
     </AdminDashboardLayout>
 </template>

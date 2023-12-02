@@ -14,35 +14,36 @@ import Modal from "@/Components/Modal.vue";
 import InputError from "@/Components/InputError.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
 import Card from "@/Components/Card.vue";
+import Textarea from "@/Components/Textarea.vue";
 
 defineProps({
-    tags: {
+    badges: {
         type: Array
     },
 })
 
 const form = useForm({
-    name: null
+    name: null,
+    description: null,
+    condition: null
 })
 
-const creatingTagModal = ref(false);
+const creatingBadgeModal = ref(false);
 
-const createTagModal = () => {
-    creatingTagModal.value = true;
+const createBadgeModal = () => {
+    creatingBadgeModal.value = true;
 };
 
-const addTag = () => {
-    form.post(route('admin.tag.create', {
-        name:  form.name
-    }), {
+const addBadge = () => {
+    form.post(route('admin.badge.create'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onFinish: () => form.reset(),
     });
 };
 
-const deleteTag = (id) => {
-    form.delete(route('admin.tag.destroy', id), {
+const deleteBadge = (id) => {
+    form.delete(route('admin.badge.destroy', id), {
         preserveScroll: true,
         // onSuccess: () => closeModal(),
         // onError: () => passwordInput.value.focus(),
@@ -51,7 +52,7 @@ const deleteTag = (id) => {
 };
 
 const closeModal = () => {
-    creatingTagModal.value = false;
+    creatingBadgeModal.value = false;
 
     form.reset();
 };
@@ -63,31 +64,31 @@ const closeModal = () => {
     <AdminDashboardLayout>
         <div class="flex mb-4">
             <div class="flex-1">
-                <Text type="subtitle">Tags</Text>
+                <Text type="subtitle">Badges</Text>
             </div>
             <div class="flex-1 text-end">
-                <PrimaryButton @click="createTagModal">Ajouter un tag</PrimaryButton>
+                <PrimaryButton @click="createBadgeModal">Ajouter un badge</PrimaryButton>
             </div>
         </div>
 
-        <Card title="Nombres de tags" :is-link="false">
-            {{ tags.length }}
+        <Card title="Nombres de badges" :is-link="false">
+            {{ badges.length }}
         </Card>
 
         <Section has-background>
             <Table
-                :headers="['Nom']"
-                :items="tags"
-                :properties="['name']"
+                :headers="['Nom', 'Condition', 'Décerné à']"
+                :items="badges"
+                :properties="['name', 'condition', 'users']"
                 has-action
             >
-                <template #name="{ name }">
-                    {{ name.en }}
+                <template #users="{ users }">
+                    {{ users.length }} utilisateurs
                 </template>
-                <template #actions="{ name }">
+                <template #actions="{ id }">
                     <span
                         class="hover:text-red-500 cursor-pointer text-2xl transition"
-                        @click="deleteTag(name.en)"
+                        @click="deleteBadge(id)"
                     >
                         <ion-icon name="trash-outline"></ion-icon>
                     </span>
@@ -95,22 +96,27 @@ const closeModal = () => {
             </Table>
         </Section>
 
-        <Modal :show="creatingTagModal" @close="closeModal">
+        <Modal :show="creatingBadgeModal" @close="closeModal">
             <div class="p-6">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                    Ajouter un tag
+                    Ajouter un badge
                 </h2>
 
-                <form @submit.prevent="addTag" >
-                    <TextInput
-                        v-model="form.name"
-                    />
+                <form @submit.prevent="addBadge">
+                    <InputLabel for="name">Nom</InputLabel>
+                    <TextInput v-model="form.name"/>
+
+                    <InputLabel for="description">Description</InputLabel>
+                    <Textarea v-model="form.description"/>
+
+                    <InputLabel for="condition">Condition</InputLabel>
+                    <TextInput v-model="form.condition" type="number"></TextInput>
 
                     <InputError :message="form.errors.name" />
 
                     <div class="mt-4">
                         <PrimaryButton :disabled="form.processing">
-                            Ajouter le tag
+                            Ajouter le badge
                         </PrimaryButton>
                     </div>
                 </form>

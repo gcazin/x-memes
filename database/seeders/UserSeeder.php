@@ -14,22 +14,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $super_admin = User::factory()
-        ->create([
-            'name' => 'admin',
-            'email' => 'admin@admin.fr',
-            'password' => 'admin',
-        ]);
+        $users = ['super-admin', 'admin', 'moderator', 'guest'];
+        // Super-admin
 
-        $super_admin->assignRole(Role::all()->where('name', 'super-admin'));
-
-        // Guest
-        $user = User::factory()
-            ->create([
-                'name' => 'guest',
-                'email' => 'guest@guest.com',
-                'password' => '1234',
-            ]);
-        $user->assignRole(Role::all()->where('name', 'guest'));
+        foreach ($users as $user) {
+            User::factory()
+                ->create([
+                    'name' => $user,
+                    'email' => "${user}@${user}.fr",
+                    'password' => $user,
+                ])->assignRole(Role::all()->where('name', $user));
+        }
     }
 }
