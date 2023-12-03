@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -22,8 +23,18 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::before(function ($user) {
-            return $user->hasRole('super-admin') ? true : null;
+        $this->registerPolicies();
+
+        Gate::before(function (User $user) {
+            return $user->isSuperAdmin();
         });
+
+        // Access to Laravel Pulse restricted to super-admin
+        Gate::define('viewPulse', function (User $user) {
+            return $user->isSuperAdmin();
+        });
+
+        // Access to Log-Viewer restricted to super-admin
+
     }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm, usePage} from '@inertiajs/vue3';
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -95,7 +95,7 @@ const closeModal = () => {
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <PageLayout>
         <template #header>
             <div class="flex">
                 <div class="flex-1">
@@ -170,7 +170,7 @@ const closeModal = () => {
                 </form>
             </div>
         </Modal>
-    </AuthenticatedLayout>
+    </PageLayout>
 </template>
 <style>
 @import '@vueform/multiselect/themes/tailwind.css';

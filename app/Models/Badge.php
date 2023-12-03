@@ -12,10 +12,14 @@ class Badge extends Model
 
     public $timestamps = false;
 
+    protected $with = [
+        'users',
+    ];
+
     protected $fillable = [
         'name',
         'description',
-        'condition'
+        'condition',
     ];
 
     public function users(): BelongsToMany

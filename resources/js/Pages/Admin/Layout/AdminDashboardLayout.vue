@@ -27,7 +27,32 @@ const menuItems = [
         route: 'badges',
         name: 'Badges'
     },
+    {
+        icon: 'stats-chart',
+        route: 'pulse',
+        name: 'Pulse',
+        isAbsolute: true,
+    },
+    {
+        icon: 'document',
+        route: 'log-viewer.index',
+        name: 'Logs',
+        isAbsolute: true,
+    },
+    {
+        icon: 'arrow-back',
+        route: 'home',
+        name: 'Retour vers le site',
+        isAbsolute: true,
+    },
 ]
+
+const handleRouteLink = (route, isAbsolute = false) => {
+    if (isAbsolute) {
+        return route
+    }
+    return `admin.${route}`
+}
 </script>
 
 <template>
@@ -46,21 +71,16 @@ const menuItems = [
                         v-for="(item, index) in menuItems"
                         :key="index"
                         class="px-3 py-2 rounded-lg"
-                        :class="route().current(`admin.${item.route}`) ? 'bg-gray-800 text-white' : 'text-gray-400'"
+                        :class="route().current(handleRouteLink(item.route, item.isAbsolute)) ? 'bg-gray-800 text-white' : 'text-gray-400'"
                     >
-                        <a :href="route(`admin.${item.route}`)">
+                        <a :href="route(handleRouteLink(item.route, item.isAbsolute))">
                             <ion-icon
                                 class="align-text-top mr-1"
-                                :name="route().current(`admin.${item.route}`) ? item.icon : `${item.icon}-outline`"
+                                :name="route().current(handleRouteLink(item.route, item.isAbsolute)) ? item.icon : `${item.icon}-outline`"
                             >
                             </ion-icon>
                             {{ item.name }}
                         </a>
-                    </li>
-                    <li
-                        class="px-3 py-2 rounded-lg text-white"
-                    >
-                        <a :href="route('home')">Retour vers le site</a>
                     </li>
                 </ul>
             </nav>

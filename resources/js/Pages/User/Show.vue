@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import PageLayout from "@/Layouts/PageLayout.vue";
 import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Text from "@/Components/Text.vue";
 import Tag from "@/Components/Tag.vue";
@@ -11,7 +11,7 @@ defineProps({
 })
 </script>
 <template>
-    <AuthenticatedLayout>
+    <PageLayout>
         <template #header>
             <div class="mb-4">
                 <h1 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -28,5 +28,5 @@ defineProps({
         <Text>{{ user.medias.length }} médias postés</Text>
 
         <MediaGallery :medias="user.medias" number-of-cols="4" />
-    </AuthenticatedLayout>
+    </PageLayout>
 </template>

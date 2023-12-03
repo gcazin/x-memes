@@ -31,6 +31,7 @@ class BadgeController extends Controller
         $badge = new Badge();
 
         $badge->name = $request->name;
+        $badge->description = $request->description;
         $badge->condition = $request->condition;
 
         $badge->save();

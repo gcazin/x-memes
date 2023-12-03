@@ -6,8 +6,6 @@ use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Models\Badge;
 use App\Models\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class AssignBadgeToUser
 {
@@ -51,7 +49,7 @@ class AssignBadgeToUser
          */
         $user = User::find($event->media->user_id);
         $userMediasPublished = $user->medias->where('approved', true)->count();
-//        dd($userMediasPublished, $user->badges, $user->badges()->where('condition', '>', $userMediasPublished)->get());
+        //        dd($userMediasPublished, $user->badges, $user->badges()->where('condition', '>', $userMediasPublished)->get());
         $badgesToRemove = $user->badges->where('condition', '>', $userMediasPublished)->pluck('id');
         $user->badges()->detach($badgesToRemove);
     }

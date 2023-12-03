@@ -23,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MediaController::class, 'index'])->name('home');
 Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
 
-Route::middleware('auth')->group(function() {
-    Route::name('user.')->group(function() {
+Route::middleware('auth')->group(function () {
+    Route::name('user.')->group(function () {
         Route::get('user/{id}', [UserController::class, 'show'])->name('show');
     });
 
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function() {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('destroy');
     });
 
-    Route::name('media.')->prefix('library')->group(function() {
+    Route::name('media.')->prefix('library')->group(function () {
         Route::get('create', [MediaController::class, 'create'])->name('create');
         Route::post('create', [MediaController::class, 'store']);
         Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
@@ -44,12 +44,12 @@ Route::middleware('auth')->group(function() {
         Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');
     });
 
-    Route::middleware('verified')->group(function() {
+    Route::middleware('verified')->group(function () {
         // Admin dashboard
         Route::middleware('role:super-admin|admin')
             ->prefix('admin')
             ->name('admin.')
-            ->group(function() {
+            ->group(function () {
                 Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
                 Route::get('medias', [DashboardController::class, 'medias'])->name('medias');
                 Route::get('utilisateurs', [DashboardController::class, 'users'])->name('users');

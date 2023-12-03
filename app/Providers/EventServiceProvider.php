@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\MediaDestroyed;
-use App\Events\MediaPublished;
-use App\Listeners\AssignBadgeToUser;
 use App\Listeners\MediaEventSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -25,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     protected $subscribe = [
-        MediaEventSubscriber::class
+        MediaEventSubscriber::class,
     ];
 
     /**

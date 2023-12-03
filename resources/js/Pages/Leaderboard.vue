@@ -1,5 +1,4 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -9,6 +8,7 @@ import {computed} from "vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import Card from "@/Components/Card.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
+import PageLayout from "@/Layouts/PageLayout.vue";
 
 defineProps({
     leaderboard: {
@@ -26,7 +26,7 @@ defineProps({
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <PageLayout>
         <template #header>
             <h1 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
                 Classement
@@ -56,5 +56,5 @@ defineProps({
                 <a :href="route('user.show', id)">{{ name }}</a>
             </template>
         </Table>
-    </AuthenticatedLayout>
+    </PageLayout>
 </template>

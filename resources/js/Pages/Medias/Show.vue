@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head} from '@inertiajs/vue3';
 import Section from "@/Components/Section.vue";
 import Text from "@/Components/Text.vue";
@@ -15,7 +15,7 @@ defineProps({
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <PageLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Voir un média
@@ -47,5 +47,5 @@ defineProps({
                 </div>
             </Section>
         </div>
-    </AuthenticatedLayout>
+    </PageLayout>
 </template>

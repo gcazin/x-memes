@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
-use App\Models\Media;
 use Illuminate\Events\Dispatcher;
 
 class MediaEventSubscriber

@@ -13,6 +13,10 @@ class Media extends Model
 
     protected $table = 'medias';
 
+    protected $with = [
+        'user',
+    ];
+
     protected $fillable = [
         'name',
         'filename',
@@ -23,7 +27,7 @@ class Media extends Model
     ];
 
     protected $casts = [
-        'approved' => 'boolean'
+        'approved' => 'boolean',
     ];
 
     public function user(): BelongsTo

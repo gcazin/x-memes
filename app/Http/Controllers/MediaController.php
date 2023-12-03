@@ -23,7 +23,7 @@ class MediaController extends Controller
     {
         return Inertia::render('Library', [
             'medias' => Media::with('user', 'tags')->where('approved', true)->get(),
-            'tags' => Tag::all()
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -111,7 +111,8 @@ class MediaController extends Controller
         return response()->json(['foundedImage' => null]);
     }
 
-    public function approve(int $id) {
+    public function approve(int $id)
+    {
         $media = Media::find($id);
 
         $media->approved = true;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -18,10 +17,11 @@ class HomeController extends Controller
             ->get();
         $users = User::all();
         $medias = Media::with('user')->get();
+
         return Inertia::render('Leaderboard', [
             'leaderboard' => $leaderboard,
             'users' => $users,
-            'medias' => $medias
+            'medias' => $medias,
         ]);
     }
 }

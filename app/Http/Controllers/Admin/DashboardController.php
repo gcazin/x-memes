@@ -14,28 +14,31 @@ class DashboardController extends Controller
     public function index()
     {
         $users = User::all();
-        $medias = Media::with('user')->get();
+        $medias = Media::all();
         $tags = Tag::all();
+
         return Inertia::render('Admin/Dashboard', [
             'users' => $users,
             'medias' => $medias,
-            'tags' => $tags
+            'tags' => $tags,
         ]);
     }
 
     public function medias()
     {
         $users = User::all();
-        $medias = Media::with('user')->get();
+        $medias = Media::all();
+
         return Inertia::render('Admin/Medias', [
             'users' => $users,
-            'medias' => $medias
+            'medias' => $medias,
         ]);
     }
 
     public function users()
     {
-        $users = User::with('roles')->get();
+        $users = User::all();
+
         return Inertia::render('Admin/Users', [
             'users' => $users,
         ]);
@@ -44,6 +47,7 @@ class DashboardController extends Controller
     public function tags()
     {
         $tags = Tag::all();
+
         return Inertia::render('Admin/Tags', [
             'tags' => $tags,
         ]);
@@ -51,9 +55,13 @@ class DashboardController extends Controller
 
     public function badges()
     {
-        $badges = Badge::with('users')->get();
+        $badges = Badge::all()
+            ->sortBy('condition')
+            ->values()
+            ->all();
+
         return Inertia::render('Admin/Badges', [
-            'badges' => $badges
+            'badges' => $badges,
         ]);
     }
 }
