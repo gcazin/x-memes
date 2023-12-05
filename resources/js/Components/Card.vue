@@ -2,7 +2,7 @@
 defineProps({
     title: {
         type: String,
-        required: true,
+        required: false,
     },
     routeTo: {
         type: String,
@@ -11,18 +11,34 @@ defineProps({
     isLink: {
         type: Boolean,
         default: true,
+    },
+    hasBackground: {
+        type: Boolean,
+        default: false,
+    },
+    hasMedia: {
+        type: Boolean,
+        default: false,
     }
 })
 </script>
 <template>
-    <div class="flex-1 pb-6">
+    <div
+        class="card w-full bg-base-300 shadow mb-4"
+        :class="{
+            'bg-base-300': hasBackground,
+            'card-compact': hasMedia,
+        }"
+    >
+        <figure v-if="hasMedia">
+            <slot name="media"></slot>
+        </figure>
         <component
             :is="isLink ? 'a' : 'div'"
             :href="routeTo ? route(routeTo) : null"
-            class="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-800"
-            :class="isLink ? 'hover:bg-gray-100 dark:hover:bg-gray-700' : null"
+            class="card-body"
         >
-            <h5 class="mb-2 text-xl font-normal tracking-tight text-gray-900 dark:text-gray-400">{{ title }}</h5>
+            <h5 v-if="title" class="card-title">{{ title }}</h5>
             <p class="text-2xl font-bold text-gray-700 dark:text-white">
                 <slot />
             </p>

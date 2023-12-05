@@ -44,20 +44,39 @@ const deleteMedia = (id) => {
 <template>
     <Head title="Administration" />
 
-    <AdminDashboardLayout>
-        <div class="flex gap-4">
-            <Card title="Nombre d'utilisateurs inscrits" route-to="admin.users">
-                {{ users.length }}
-            </Card>
-            <Card title="Nombre de medias uploadés approuvés" route-to="admin.medias">
-                {{ medias.filter((media) => media.approved).length }}
-            </Card>
-            <Card title="Nombre de medias uploadés en attente" route-to="admin.medias">
-                {{ medias.filter((media) => !media.approved).length }}
-            </Card>
+    <AdminDashboardLayout title="Dashboard">
+        <div class="stats shadow w-full bg-base-200">
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <ion-icon class="text-3xl" name="people-outline"></ion-icon>
+                </div>
+                <div class="stat-title">Nombre d'utilisateurs inscrits</div>
+                <div class="stat-value">
+                    {{ users.length }}
+                </div>
+<!--                <div class="stat-desc">Jan 1st - Feb 1st</div>-->
+            </div>
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <ion-icon class="text-3xl" name="images-outline"></ion-icon>
+                </div>
+                <div class="stat-title">Nombre de medias uploadés approuvés</div>
+                <div class="stat-value">
+                    {{ medias.filter((media) => media.approved).length }}
+                </div>
+<!--                <div class="stat-desc">↗︎ 400 (22%)</div>-->
+            </div>
+
+            <div class="stat">
+                <div class="stat-figure text-primary">
+                    <ion-icon class="text-3xl" name="pricetags-outline"></ion-icon>
+                </div>
+                <div class="stat-title">Nombre de tags ajoutés</div>
+                <div class="stat-value">
+                    {{ medias.filter((media) => !media.approved).length }}
+                </div>
+<!--                <div class="stat-desc">↘︎ 90 (14%)</div>-->
+            </div>
         </div>
-        <Card title="Nombre de tags ajoutés" route-to="admin.tags" :is-link="false">
-            {{ tags.length }}
-        </Card>
     </AdminDashboardLayout>
 </template>

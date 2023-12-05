@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class CheckDuplicateMediaRequest extends FormRequest
 {
@@ -17,12 +19,16 @@ class CheckDuplicateMediaRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            'media_id' => 'required|mimes:mp4,jpg,jpeg,png,gif',
+            'media_id' => [
+                'required',
+                File::types(['mp4,jpg,jpeg,png,gif'])
+                    ->max('25mb'),
+            ],
         ];
     }
 }

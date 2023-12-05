@@ -8,10 +8,9 @@ defineProps({
 </script>
 <template>
     <div
-        class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm rounded-lg mb-4"
-        :class="hasBackground ? 'rounded-lg shadow dark:bg-gray-900 dark:border-gray-800' : null"
+        class="bg-base-100 overflow-hidden shadow-sm rounded-lg mb-4 p-4 sm:p-8"
     >
-        <div class="p-4 text-gray-900 dark:text-gray-100">
+        <div class="text-gray-900 dark:text-gray-100">
             <slot />
         </div>
     </div>

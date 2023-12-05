@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('badge_user', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('badge_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('badge_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

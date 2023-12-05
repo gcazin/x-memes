@@ -30,36 +30,29 @@ const deleteUser = (id) => {
 <template>
     <Head title="Administration" />
 
-    <AdminDashboardLayout>
-        <div class="flex mb-4">
-            <div class="flex-1">
-                <Text type="subtitle">Utilisateurs</Text>
-            </div>
-        </div>
-
-        <Card title="Nombres d'utilisateurs" :is-link="false">
+    <AdminDashboardLayout title="Utilisateurs">
+        <Card title="Nombres d'utilisateurs" :is-link="false" has-background>
             {{ users.length }}
         </Card>
 
-        <Section has-background>
-            <Table
-                :headers="['Nom', 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
-                :items="users"
-                :properties="['name', 'email', 'role', 'created_at']"
-                has-action
-            >
-                <template #role="{ roles }">
-                    {{ roles.map((role) => role.name).join(', ') }}
-                </template>
-                <template #actions="{ id }">
+        <Table
+            :headers="['Nom', 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
+            :items="users"
+            :properties="['name', 'email', 'role', 'created_at']"
+            has-action
+            has-background
+        >
+            <template #role="{ roles }">
+                {{ roles.map((role) => role.name).join(', ') }}
+            </template>
+            <template #actions="{ id }">
                     <span
                         class="hover:text-red-500 cursor-pointer text-2xl transition"
                         @click="deleteUser(id)"
                     >
                         <ion-icon name="trash-outline"></ion-icon>
                     </span>
-                </template>
-            </Table>
-        </Section>
+            </template>
+        </Table>
     </AdminDashboardLayout>
 </template>

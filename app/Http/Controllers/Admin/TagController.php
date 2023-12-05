@@ -53,15 +53,19 @@ class TagController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tag = Tag::find($id);
+
+        $tag->name = $request->name;
+
+        $tag->save();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $name)
+    public function destroy(int $id)
     {
-        $tag = Tag::findFromString($name);
+        $tag = Tag::find($id);
 
         $tag->delete();
     }

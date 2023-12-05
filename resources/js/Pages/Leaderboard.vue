@@ -26,13 +26,7 @@ defineProps({
 <template>
     <Head title="Dashboard" />
 
-    <PageLayout>
-        <template #header>
-            <h1 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-                Classement
-            </h1>
-        </template>
-
+    <PageLayout title="Classement">
         <div class="flex gap-4">
                 <Card title="Nombre d'utilisateurs inscrits" :is-link="false">
                     {{ users.length }}
@@ -46,6 +40,7 @@ defineProps({
             :headers="['Rang', 'Pseudo', 'Nombre de médias postés']"
             :items="leaderboard"
             :properties="['increment', 'name', 'media_count']"
+            has-background
         >
             <template #increment="item">
                 <span class="font-bold text-blue-500 whitespace-nowrap dark:text-blue-600">

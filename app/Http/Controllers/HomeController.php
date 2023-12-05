@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Home');
+    }
+
     public function leaderboard()
     {
         $leaderboard = DB::table('medias')->join('users as u', 'u.id', '=', 'medias.user_id')

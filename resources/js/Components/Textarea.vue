@@ -6,6 +6,10 @@ defineProps({
         type: String,
         required: true,
     },
+    label: {
+        type: String,
+        required: false,
+    }
 });
 
 defineEmits(['update:modelValue']);
@@ -22,10 +26,15 @@ defineExpose({ focus: () => input.value.focus() });
 </script>
 
 <template>
-    <textarea
-        class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-blue-500 dark:focus:border-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 rounded-md shadow-sm w-full"
-        :model-value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
-        ref="input"
+    <label class="form-control">
+        <div class="label">
+            <span class="label-text">{{ label }}</span>
+        </div>
+        <textarea
+            class="textarea textarea-bordered bg-base-300 h-24"
+            :model-value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
+            ref="input"
         ></textarea>
+    </label>
 </template>

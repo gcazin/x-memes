@@ -16,22 +16,25 @@ defineProps({
         type: Boolean,
         required: false,
         default: false
+    },
+    hasBackground: {
+        type: Boolean,
+        required: false,
     }
 })
 </script>
 <template>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-gray-700 uppercase dark:text-gray-400 border-b border-gray-700">
-        <tr>
+    <table class="table" :class="{'bg-base-300': hasBackground}">
+        <thead>
+        <tr class="text-base">
             <th
                 v-for="(header, index) in headers"
                 :key="index"
                 scope="col"
-                class="px-6 py-3"
             >
                 {{ header }}
             </th>
-            <th v-if="hasAction" scope="col" class="px-6 py-3 text-right">
+            <th v-if="hasAction" scope="col" class="text-right">
                 Actions
             </th>
         </tr>
@@ -39,10 +42,10 @@ defineProps({
         <tbody>
         <tr
             v-if="items.length"
-            class="bg-white dark:bg-gray-900 dark:border-gray-700"
             v-for="(item, index) in items"
+            class="text-base"
         >
-            <td v-if="properties" v-for="(property) in properties" class="px-6 py-4">
+            <td v-if="properties" v-for="(property) in properties">
                 <slot v-if="property === 'increment'" :name="property" v-bind="item">
                     {{ index + 1 }}
                 </slot>
@@ -50,10 +53,10 @@ defineProps({
                     {{ property in item ? item[property] : item }}
                 </slot>
             </td>
-            <td v-else class="px-6 py-4">
+            <td v-else>
                 {{ item }}
             </td>
-            <td v-if="hasAction" class="px-6 py-4 text-right">
+            <td v-if="hasAction" class="text-right">
                 <template v-if="properties">
                     <slot name="actions" v-bind="item" />
                 </template>
@@ -62,7 +65,7 @@ defineProps({
                 </template>
             </td>
         </tr>
-        <tr v-else class="bg-white dark:bg-gray-900 dark:border-gray-700">
+        <tr v-else>
             <td class="px-6 py-4">
                 Aucune donnée à afficher.
             </td>

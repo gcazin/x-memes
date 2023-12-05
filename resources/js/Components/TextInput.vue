@@ -6,6 +6,14 @@ defineProps({
         type: String,
         required: true,
     },
+    label: {
+        type: String,
+        required: false
+    },
+    type: {
+        type: String,
+        default: 'text'
+    }
 });
 
 defineEmits(['update:modelValue']);
@@ -20,12 +28,18 @@ onMounted(() => {
 
 defineExpose({ focus: () => input.value.focus() });
 </script>
-
 <template>
-    <input
-        class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-blue-500 dark:focus:border-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 rounded-md shadow-sm w-full"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
-        ref="input"
-    />
+    <label class="form-control w-full mb-2">
+        <div class="label">
+            <span class="label-text">{{ label }}</span>
+        </div>
+        <input
+            :type="type"
+            class="input input-bordered bg-base-300 w-full"
+            :class="{'file-input file-input-sm w-full': type === 'file'}"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
+            ref="input"
+        />
+    </label>
 </template>

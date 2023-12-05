@@ -86,7 +86,7 @@ const deleteTag = (id) => {
 };
 
 const closeModal = () => {
-    creatingMediaModal.value = false;
+    document.querySelector('#addMediaModal').close()
 
     form.reset();
 };
@@ -95,80 +95,66 @@ const closeModal = () => {
 <template>
     <Head title="Dashboard" />
 
-    <PageLayout>
-        <template #header>
-            <div class="flex">
-                <div class="flex-1">
-                    <h1 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Bibliothèque d'images
-                    </h1>
-                </div>
-                <div class="flex-1 text-right" v-if="$page.props.auth.user">
-                    <PrimaryButton @click="createMediaModal">Ajouter un média</PrimaryButton>
-                </div>
-            </div>
+    <PageLayout title="Bibliothèque d'images">
+        <template #action>
+            <button class="btn btn-primary" onclick="addMediaModal.showModal()">Ajouter un média</button>
         </template>
-
         <MediaGallery :medias="medias" />
 
-        <Modal :show="creatingMediaModal" @close="closeModal" max-width="3xl">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                    Ajouter un média
-                </h2>
+        <Modal id="addMediaModal" title="Ajouter un média" max-width="3xl">
+            <form enctype="multipart/form-data" @submit.prevent="addMedia" >
+                <TextInput
+                    label="Titre"
+                    v-model="form.name"
+                />
 
-                <form enctype="multipart/form-data" @submit.prevent="addMedia" >
-                    <InputLabel for="name" value="Titre" />
-                    <TextInput
-                        v-model="form.name"
-                    />
+                <InputError :message="form.errors.name" />
 
-                    <InputError :message="form.errors.name" />
+                <InputLabel for="name" value="Image" />
+                <input
+                    type="file"
+                    class="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                    id="media_id"
+                    @input="handleMedia"
+                />
 
-                    <div class="mt-2">
-                        <InputLabel for="name" value="Image" />
-                        <input
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="user_avatar_help"
-                            id="media_id"
-                            type="file"
-                            @input="handleMedia"
-                        >
-                    </div>
+                <InputError class="mt-2" :message="form.errors.media_id" />
 
-                    <InputError class="mt-2" :message="form.errors.media_id" />
-
-                    <InputLabel for="tags" value="Tags" class="my-2" />
-                    <Multiselect
-                        id="tags"
-                        v-model="form.tags"
-                        mode="tags"
-                        :close-on-select="false"
-                        :searchable="true"
-                        :create-option="true"
-                        :options="tagsOptions"
-                        :classes="{
+                <InputLabel for="tags" value="Tags" class="my-2" />
+                <Multiselect
+                    id="tags"
+                    v-model="form.tags"
+                    mode="tags"
+                    :close-on-select="false"
+                    :searchable="true"
+                    :create-option="true"
+                    :options="tagsOptions"
+                    :classes="{
                             container: 'dark:bg-gray-900 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-900 rounded bg-white text-base leading-snug outline-none',
                             tag: 'bg-blue-500 dark:bg-blue-600 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
                             containerActive: 'ring ring-blue-500 dark:ring-blue-600 ring-opacity-30',
                             tagsSearch: 'dark:bg-gray-900 text-white absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
                         }"
-                    />
-
-                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                        {{ form.progress.percentage }}%
-                    </progress>
-                    <div v-if="state.foundedImage" class="my-2">
-                        <p class="text-white mb-1">1 image similaire a été trouvé</p>
-                        <img class="w-80" :src="`/storage/${state.foundedImage.filename}`" alt="">
+                />
+                <template v-if="state.foundedImage">
+                    <div
+                        role="alert"
+                        class="alert alert-info"
+                    >
+                        <ion-icon class="text-xl" name="information-outline"></ion-icon>
+                        <span>1 image similaire a été trouvé!</span>
                     </div>
-                    <div class="mt-4">
-                        <PrimaryButton :disabled="form.processing || state.foundedImage">
-                            {{ state.foundedImage ? `Veuillez réessayer en changeant d'image` : 'Ajouter' }}
-                        </PrimaryButton>
+                    <div class="my-2">
+                        <img class="w-40 rounded-xl" :src="`/storage/${state.foundedImage.filename}`" alt="">
                     </div>
-                </form>
-            </div>
+                </template>
+                <div class="mt-4">
+                    <button class="btn btn-primary" :disabled="form.processing || state.foundedImage">
+                        <span v-if="form.processing" class="loading loading-spinner"></span>
+                        {{ state.foundedImage ? `La poster quand même?` : 'Ajouter' }}
+                    </button>
+                </div>
+            </form>
         </Modal>
     </PageLayout>
 </template>

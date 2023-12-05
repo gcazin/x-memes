@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
-use App\Http\Requests\StoreLibraryRequest;
-use App\Http\Requests\UpdateLibraryRequest;
+use App\Http\Requests\StoreMediaRequest;
+use App\Http\Requests\UpdateMediaRequest;
 use App\Models\Media;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -16,6 +16,8 @@ use Spatie\Tags\Tag;
 
 class MediaController extends Controller
 {
+    public const APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN = false;
+
     /**
      * Display a listing of the resource.
      */
@@ -38,19 +40,21 @@ class MediaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLibraryRequest $request)
+    public function store(StoreMediaRequest $request)
     {
         $file = $request->file('media_id');
-        $image_stored = Storage::put('media', $file);
+        $imageStored = Storage::put('media', $file);
         $hashedImage = Comparator::hashImage($file);
-        $is_super_admin = $request->user()->hasRole('super-admin');
+        $isSuperAdmin = self::APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN ?
+            $request->user()->isSuperAdmin()
+            : false;
 
         $media = Media::create([
             'name' => $request->name,
-            'filename' => $image_stored,
+            'filename' => $imageStored,
             'extension' => $file->getClientOriginalExtension(),
             'hash' => Comparator::convertHashToBinaryString($hashedImage),
-            'approved' => $is_super_admin,
+            'approved' => $isSuperAdmin,
             'user_id' => $request->user()->id,
         ]);
 
@@ -58,7 +62,7 @@ class MediaController extends Controller
             $media->attachTags($request->tags);
         }
 
-        MediaPublished::dispatchIf($is_super_admin, $media);
+        MediaPublished::dispatchIf($isSuperAdmin, $media);
 
         return redirect(RouteServiceProvider::HOME);
     }
@@ -86,9 +90,11 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLibraryRequest $request, Library $library)
+    public function update(UpdateMediaRequest $request, Media $media)
     {
-        //
+        $media->fill($request->validated());
+
+        $media->save();
     }
 
     public function random()

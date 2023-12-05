@@ -34,7 +34,7 @@ const submit = () => {
 
 <template>
     <PageLayout>
-        <Head title="Log in" />
+        <Head title="Connexion" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -42,10 +42,8 @@ const submit = () => {
 
         <Section>
             <form @submit.prevent="submit">
-                <div>
-                    <InputLabel for="email" value="Adresse e-mail" />
-
                     <TextInput
+                        label="Adresse e-mail"
                         id="email"
                         type="email"
                         class="mt-1 block w-full"
@@ -54,14 +52,10 @@ const submit = () => {
                         autofocus
                         autocomplete="username"
                     />
-
                     <InputError class="mt-2" :message="form.errors.email" />
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel for="password" value="Mot de passe" />
 
                     <TextInput
+                        label="Mot de passe"
                         id="password"
                         type="password"
                         class="mt-1 block w-full"
@@ -69,9 +63,7 @@ const submit = () => {
                         required
                         autocomplete="current-password"
                     />
-
                     <InputError class="mt-2" :message="form.errors.password" />
-                </div>
 
                 <div class="block mt-4">
                     <label class="flex items-center">
@@ -89,9 +81,9 @@ const submit = () => {
                         Mot de passe oublié?
                     </Link>
 
-                    <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <button class="ms-4 btn btn-primary" :disabled="form.processing">
                         Connexion
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </Section>

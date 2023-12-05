@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
-class StoreLibraryRequest extends FormRequest
+class StoreMediaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,13 +19,17 @@ class StoreLibraryRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
-            'media_id' => 'required|mimes:mp4,jpg,jpeg,png,gif',
+            'media_id' => [
+                'required',
+                File::types(['mp4,jpg,jpeg,png,gif'])
+                    ->max('25mb'),
+            ],
         ];
     }
 }

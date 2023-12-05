@@ -20,10 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Common pages
 Route::get('/', [MediaController::class, 'index'])->name('home');
-Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+Route::get('/home', [HomeController::class, 'index'])->name('test');
 
+// Auth
 Route::middleware('auth')->group(function () {
+    Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+    Route::get('random', [MediaController::class, 'random'])->name('random');
+
     Route::name('user.')->group(function () {
         Route::get('user/{id}', [UserController::class, 'show'])->name('show');
     });
@@ -40,39 +45,50 @@ Route::middleware('auth')->group(function () {
         Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
         Route::patch('media/{id}', [MediaController::class, 'approve'])->name('approve');
         Route::delete('media/{id}', [MediaController::class, 'destroy'])->name('destroy');
-        Route::get('random', [MediaController::class, 'random'])->name('random');
         Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');
     });
+});
 
-    Route::middleware('verified')->group(function () {
-        // Admin dashboard
-        Route::middleware('role:super-admin|admin')
-            ->prefix('admin')
-            ->name('admin.')
-            ->group(function () {
-                Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
-                Route::get('medias', [DashboardController::class, 'medias'])->name('medias');
-                Route::get('utilisateurs', [DashboardController::class, 'users'])->name('users');
-                Route::get('tags', [DashboardController::class, 'tags'])->name('tags');
-                Route::get('badges', [DashboardController::class, 'badges'])->name('badges');
-            });
+// Administration
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Admin dashboard
+    Route::middleware('role:super-admin|admin')
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+            Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
+        });
 
-        // Tags
-        Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.tag.')
-            ->group(function () {
-                Route::get('tag/create', [TagController::class, 'create'])->name('create');
-                Route::post('tag/create', [TagController::class, 'store']);
-                Route::delete('tag/delete/{name}', [TagController::class, 'destroy'])->name('destroy');
-            });
+    // Users
+    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.user.')
+        ->group(function () {
+            Route::get('utilisateurs', [DashboardController::class, 'users'])->name('index');
+        });
 
-        // Badges
-        Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.badge.')
-            ->group(function () {
-                Route::get('badge/create', [BadgeController::class, 'create'])->name('create');
-                Route::post('badge/create', [BadgeController::class, 'store']);
-                Route::delete('badge/delete/{id}', [BadgeController::class, 'destroy'])->name('destroy');
-            });
-    });
+    // Medias
+    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.media.')
+        ->group(function () {
+            Route::get('medias', [DashboardController::class, 'medias'])->name('index');
+        });
+
+    // Tags
+    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.tag.')
+        ->group(function () {
+            Route::get('tags', [DashboardController::class, 'tags'])->name('index');
+            Route::get('tag/create', [TagController::class, 'create'])->name('create');
+            Route::post('tag/create', [TagController::class, 'store']);
+            Route::post('tag/edit/{id}', [TagController::class, 'update'])->name('update');
+            Route::delete('tag/delete/{id}', [TagController::class, 'destroy'])->name('destroy');
+        });
+
+    // Badges
+    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.badge.')
+        ->group(function () {
+            Route::get('badges', [DashboardController::class, 'badges'])->name('index');
+            Route::get('badge/create', [BadgeController::class, 'create'])->name('create');
+            Route::post('badge/create', [BadgeController::class, 'store']);
+            Route::delete('badge/delete/{id}', [BadgeController::class, 'destroy'])->name('destroy');
+        });
 });
 
 require __DIR__.'/auth.php';

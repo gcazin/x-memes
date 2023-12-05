@@ -28,12 +28,6 @@ const form = useForm({
     condition: null
 })
 
-const creatingBadgeModal = ref(false);
-
-const createBadgeModal = () => {
-    creatingBadgeModal.value = true;
-};
-
 const addBadge = () => {
     form.post(route('admin.badge.create'), {
         preserveScroll: true,
@@ -52,7 +46,7 @@ const deleteBadge = (id) => {
 };
 
 const closeModal = () => {
-    creatingBadgeModal.value = false;
+    document.querySelector('#addBadgeModal').close();
 
     form.reset();
 };
@@ -61,66 +55,63 @@ const closeModal = () => {
 <template>
     <Head title="Administration" />
 
-    <AdminDashboardLayout>
-        <div class="flex mb-4">
-            <div class="flex-1">
-                <Text type="subtitle">Badges</Text>
-            </div>
-            <div class="flex-1 text-end">
-                <PrimaryButton @click="createBadgeModal">Ajouter un badge</PrimaryButton>
-            </div>
-        </div>
+    <AdminDashboardLayout title="Badges">
+        <div class="flex justify-end mb-4">
+            <button class="btn btn-primary" onclick="addBadgeModal.showModal()">Ajouter un badge</button>
 
-        <Card title="Nombres de badges" :is-link="false">
-            {{ badges.length }}
-        </Card>
-
-        <Section has-background>
-            <Table
-                :headers="['Nom', 'Condition', 'Décerné à']"
-                :items="badges"
-                :properties="['name', 'condition', 'users']"
-                has-action
-            >
-                <template #users="{ users }">
-                    {{ users.length }} utilisateurs
-                </template>
-                <template #actions="{ id }">
-                    <span
-                        class="hover:text-red-500 cursor-pointer text-2xl transition"
-                        @click="deleteBadge(id)"
-                    >
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </span>
-                </template>
-            </Table>
-        </Section>
-
-        <Modal :show="creatingBadgeModal" @close="closeModal">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                    Ajouter un badge
-                </h2>
-
+            <!-- Modal -->
+            <Modal id="addBadgeModal" title="Ajouter un badge">
                 <form @submit.prevent="addBadge">
-                    <InputLabel for="name">Nom</InputLabel>
-                    <TextInput v-model="form.name"/>
+                    <TextInput label="Nom" v-model="form.name"/>
 
-                    <InputLabel for="description">Description</InputLabel>
-                    <Textarea v-model="form.description"/>
+                    <Textarea label="Description" v-model="form.description"/>
 
-                    <InputLabel for="condition">Condition</InputLabel>
-                    <TextInput v-model="form.condition" type="number"></TextInput>
+                    <TextInput label="Condition" type="number" v-model="form.condition"></TextInput>
 
                     <InputError :message="form.errors.name" />
 
                     <div class="mt-4">
-                        <PrimaryButton :disabled="form.processing">
+                        <button class="btn btn-primary" :disabled="form.processing">
                             Ajouter le badge
-                        </PrimaryButton>
+                        </button>
                     </div>
                 </form>
-            </div>
-        </Modal>
+            </Modal>
+        </div>
+
+        <Card title="Nombres de badges" :is-link="false" has-background>
+            {{ badges.length }}
+        </Card>
+
+        <Table
+            :headers="['Nom', 'Condition', 'Décerné à']"
+            :items="badges"
+            :properties="['name', 'condition', 'users']"
+            has-action
+            has-background
+        >
+            <template #users="{ users }">
+                {{ users.length }} utilisateurs
+            </template>
+            <template #actions="{ name, id }">
+                <button class="btn btn-error btn-outline" :onclick="`deleteBadge${id}.showModal()`">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </button>
+
+                <!-- Modal -->
+                <Modal :id="`deleteBadge${id}`" title="Confimer la suppression du badge">
+                    <template #description>
+                        <p class="py-4">Voulez-vous vraiment supprimer le badge {{ name }} ?</p>
+                    </template>
+                    <form @submit.prevent="deleteBadge(id)">
+                        <div class="mt-4">
+                            <button class="btn btn-error" :disabled="form.processing">
+                                Supprimer le badge
+                            </button>
+                        </div>
+                    </form>
+                </Modal>
+            </template>
+        </Table>
     </AdminDashboardLayout>
 </template>

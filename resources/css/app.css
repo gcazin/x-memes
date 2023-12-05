@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+    height: 2.5rem;
+    max-height: 2.5rem;
+}
