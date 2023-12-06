@@ -1,10 +1,10 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/Elements/Form/InputError.vue';
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue';
 import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue';
 import TextInput from '@/Components/Elements/Form/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import PageLayout from "@/Layouts/PageLayout.vue";
 
 defineProps({
     status: {
@@ -22,7 +22,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <PageLayout title="Mot de passe oublié">
         <Head title="Forgot Password" />
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -57,5 +57,5 @@ const submit = () => {
                 </PrimaryButton>
             </div>
         </form>
-    </GuestLayout>
+    </PageLayout>
 </template>
