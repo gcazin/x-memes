@@ -24,28 +24,6 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * All medias with theirs relations
-     *
-     * @param ...$with
-     * @return Collection|array
-     */
-    public function allWith(...$with): Collection|array
-    {
-        return $this->media->with($with)->get();
-    }
-
-    /**
-     * Find media by id
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function find($id)
-    {
-        return $this->media->find($id);
-    }
-
-    /**
      * All media approved and published
      *
      * @return mixed
@@ -63,5 +41,26 @@ class MediaRepository implements RepositoryInterface
     public function allPendingMedias(): mixed
     {
         return $this->media->where('approved', false)->get();
+    }
+
+    /**
+     * Find media by id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return $this->media->find($id);
+    }
+
+    /**
+     * Returns random media
+     *
+     * @return Collection|\Illuminate\Support\Collection
+     */
+    public function random(): Collection|\Illuminate\Support\Collection
+    {
+        return $this->all()->random();
     }
 }

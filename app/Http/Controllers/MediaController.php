@@ -31,7 +31,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Library', [
-            'medias' => $this->mediaRepository->allWith('tags')->where('approved', true),
+            'medias' => $this->mediaRepository->allApprovedMedias(),
             'tags' => Tag::all(),
         ]);
     }
@@ -84,7 +84,7 @@ class MediaController extends Controller
      */
     public function show(Media $media, int $id)
     {
-        $media = Media::with('user', 'tags')->find($id);
+        $media = $this->mediaRepository->find($id);
 
         return Inertia::render('Medias/Show', [
             'media' => $media,
@@ -111,7 +111,7 @@ class MediaController extends Controller
 
     public function random()
     {
-        $media = Media::all()->random();
+        $media = $this->mediaRepository->random();
 
         return redirect(route('media.show', $media));
     }
