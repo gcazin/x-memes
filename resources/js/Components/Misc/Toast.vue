@@ -20,7 +20,6 @@ watch(() => {
 })
 </script>
 <template>
-    {{ show }}
     <div class="toast toast-center" v-if="$page.props.flash.status && show">
         <div :class="`alert alert-${$page.props.flash.status.class}`">
             <span>
