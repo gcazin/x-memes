@@ -34,7 +34,7 @@ class TagController extends Controller
             flash($request, 'info', 'Ce tag existe déjà, il n\'a pas été crée.');
         } else {
             Tag::create([
-                'name' => $request->name
+                'name' => $request->name,
             ]);
             flash($request, 'success', 'Le tag a bien été crée.');
         }

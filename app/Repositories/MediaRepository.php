@@ -10,13 +10,12 @@ class MediaRepository implements RepositoryInterface
 {
     public function __construct(
         /** @var Media $media */
-       protected Media $media
-    ) {}
+        protected Media $media
+    ) {
+    }
 
     /**
      * All medias
-     *
-     * @return Collection
      */
     public function all(): Collection
     {
@@ -25,8 +24,6 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * All media approved and published
-     *
-     * @return mixed
      */
     public function allApprovedMedias(): mixed
     {
@@ -35,8 +32,6 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * All media pending
-     *
-     * @return mixed
      */
     public function allPendingMedias(): mixed
     {
@@ -46,7 +41,6 @@ class MediaRepository implements RepositoryInterface
     /**
      * Find media by id
      *
-     * @param $id
      * @return mixed
      */
     public function find($id)
@@ -56,8 +50,6 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * Returns random media
-     *
-     * @return Collection|\Illuminate\Support\Collection
      */
     public function random(): Collection|\Illuminate\Support\Collection
     {

@@ -23,7 +23,8 @@ class MediaController extends Controller
 
     public function __construct(
         public MediaRepository $mediaRepository
-    ) {}
+    ) {
+    }
 
     /**
      * Display a listing of the resource.

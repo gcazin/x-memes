@@ -41,7 +41,7 @@ class MediaApproved extends Mailable implements ShouldQueue
         return new Content(
             markdown: 'emails.media.approved',
             with: [
-                'media' => $this->media
+                'media' => $this->media,
             ]
         );
     }
