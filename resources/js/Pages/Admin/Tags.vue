@@ -1,13 +1,17 @@
 <script setup>
 import {Head, useForm} from '@inertiajs/vue3';
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import TextInput from "@/Components/TextInput.vue";
+import TextInput from "@/Components/Elements/Form/TextInput.vue";
 import {ref} from "vue";
-import Modal from "@/Components/Modal.vue";
-import InputError from "@/Components/InputError.vue";
+import Modal from "@/Components/Elements/Modal/Modal.vue";
+import InputError from "@/Components/Elements/Form/InputError.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
-import Card from "@/Components/Card.vue";
-import Toast from "@/Components/Toast.vue";
+import Card from "@/Components/Misc/Card.vue";
+import Toast from "@/Components/Misc/Toast.vue";
+import Icon from "@/Components/Misc/Icon.vue";
+import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
+import formService from "@/Services/form.service.js";
+import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
 
 
 defineProps({
@@ -28,7 +32,6 @@ const addTag = () => {
 };
 
 const editTag = (item) => {
-    console.log(item)
     form.post(route('admin.tag.update', item.id), {
         preserveScroll: true,
         onSuccess: () => closeModal('edit', item),
@@ -44,31 +47,6 @@ const deleteTag = (item) => {
         // onFinish: () => form.reset(),
     });
 };
-
-const handleSelector = (name, item = null) => {
-    let selector = `#${name}TagModal`
-    if (item) {
-        selector = `#${name}TagModal${item.id}`
-    }
-    return selector
-}
-
-const openModal = (name, item = null) => {
-    let selector = handleSelector(name, item)
-    document.querySelector(selector).showModal()
-
-    if (name === 'edit') {
-        form.name = item.name.en
-    }
-}
-
-const closeModal = (name, item = null) => {
-    let selector = handleSelector(name, item)
-    console.log(selector)
-    document.querySelector(selector).close()
-
-    form.reset();
-};
 </script>
 
 <template>
@@ -76,7 +54,7 @@ const closeModal = (name, item = null) => {
 
     <AdminDashboardLayout title="Tags">
         <div class="flex justify-end mb-4">
-            <button class="btn btn-primary" @click="openModal('create')">Ajouter un tag</button>
+            <button class="btn btn-primary" @click="formService.openModal('createTag')">Ajouter un tag</button>
         </div>
 
         <Card title="Nombres de tags" :is-link="false" has-background>
@@ -94,12 +72,10 @@ const closeModal = (name, item = null) => {
                 {{ name.en }}
             </template>
             <template #actions="item">
-                <span
-                    class="hover:text-green-500 cursor-pointer text-2xl transition"
-                    @click="openModal('edit', item)"
-                >
-                    <ion-icon name="create-outline"></ion-icon>
-                </span>
+                <ActionButton
+                    type="edit"
+                    @click="formService.openModal('deleteTag', item)"
+                />
 
                 <!-- Edit tag modal -->
                 <Modal :id="`editTagModal${item.id}`" :title="`Éditer le tag ${item.name.en}`">
@@ -118,42 +94,47 @@ const closeModal = (name, item = null) => {
                     </form>
                 </Modal>
 
-                <span
-                    class="hover:text-red-500 cursor-pointer text-2xl transition"
-                    @click="openModal('delete', item)"
-                >
-                    <ion-icon name="trash-outline"></ion-icon>
-                </span>
+                <ActionButton
+                    type="delete"
+                    @click="formService.openModal('deleteTag', item)"
+                />
 
-                <!-- Delete tag modal -->
-                <Modal :id="`deleteTagModal${item.id}`" title="Supprimer le tag">
-                    <template #description>
-                        Êtes-vous sûr de supprimer le tag {{ item.name.en }} ?
-                    </template>
-                    <form @submit.prevent="deleteTag(item)">
-                        <button class="btn btn-error" :disabled="form.processing">
-                            Supprimer le tag
-                        </button>
-                    </form>
-                </Modal>
+                <ActionModal
+                    name="deleteTag"
+                    route="admin.tag"
+                    :item="item"
+                    :form="form"
+                    @deleting="deleteTag(item)"
+                    type="delete"
+                >
+
+                </ActionModal>
+
+                <!--                &lt;!&ndash; Delete tag modal &ndash;&gt;
+                                <Modal :id="`deleteTagModal${item.id}`" title="Supprimer le tag">
+                                    <template #description>
+                                        Êtes-vous sûr de supprimer le tag {{ item.name.en }} ?
+                                    </template>
+                                    <form @submit.prevent="deleteTag(item)">
+                                        <button class="btn btn-error" :disabled="form.processing">
+                                            Supprimer le tag
+                                        </button>
+                                    </form>
+                                </Modal>-->
             </template>
         </Table>
 
         <!-- Create tag -->
-        <Modal id="createTagModal" title="Ajouter un tag">
-            <form @submit.prevent="addTag" >
-                <TextInput
-                    v-model="form.name"
-                />
+        <ActionModal :form="form" route="admin.tag" name="createTag" type="create">
+            <TextInput
+                v-model="form.name"
+            />
 
-                <InputError :message="form.errors.name" />
+            <InputError :message="form.errors.name" />
+        </ActionModal>
 
-                <div class="mt-4">
-                    <button class="btn btn-primary" :disabled="form.processing">
-                        Ajouter le tag
-                    </button>
-                </div>
-            </form>
-        </Modal>
+<!--        <Modal id="createTagModal" title="Ajouter un tag">
+
+        </Modal>-->
     </AdminDashboardLayout>
 </template>

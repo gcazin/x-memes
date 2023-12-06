@@ -1,6 +1,6 @@
 <script setup>
 import {useForm} from "@inertiajs/vue3";
-import Card from "@/Components/Card.vue";
+import Card from "@/Components/Misc/Card.vue";
 
 defineProps({
     medias: {
@@ -29,19 +29,13 @@ const deleteMedia = (id) => {
         class="grid grid-cols-1 md:grid-cols-3 gap-4"
         :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
     >
-        <Card
+        <div
             v-for="(media, index) in medias"
-            :key="index"
-            has-background
-            has-media
-            :title="media.name"
         >
-            <template #media>
-                <a :href="route('media.show', media.id)">
-                    <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
-                    <img v-else :src="`/storage/${media.filename}`" alt="">
-                </a>
-            </template>
+            <a :href="route('media.show', media.id)">
+                <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
+                <img v-else class="w-full rounded-lg" :src="`/storage/${media.filename}`" alt="">
+            </a>
             <div class="card-actions justify-end" v-if="media.tags">
                 <div
                     class="badge badge-outline"
@@ -51,7 +45,7 @@ const deleteMedia = (id) => {
                     {{ tag }}
                 </div>
             </div>
-        </Card>
+        </div>
     </div>
     <div v-else>
         <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight mt-2">

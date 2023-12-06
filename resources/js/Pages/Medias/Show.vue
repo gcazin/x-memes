@@ -1,10 +1,10 @@
 <script setup>
 import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head} from '@inertiajs/vue3';
-import Section from "@/Components/Section.vue";
+import Section from "@/Components/Layout/Section.vue";
 import Text from "@/Components/Text.vue";
-import Tag from "@/Components/Tag.vue";
-import Card from "@/Components/Card.vue";
+import Tag from "@/Components/Misc/Tag.vue";
+import Card from "@/Components/Misc/Card.vue";
 
 defineProps({
     media: {
@@ -17,12 +17,12 @@ defineProps({
     <Head title="Dashboard" />
 
     <PageLayout :title="`Média ${media.name} par ${media.user.name}`">
-        <div class="flex gap-4">
-            <div class="w-2/4">
+        <div class="flex flex-col lg:flex-row gap-4 pb-6">
+            <div class="lg:w-2/4">
                 <img class="h-full w-full rounded-lg" :src="`/storage/${media.filename}`" alt="">
             </div>
 
-            <Card class="mb-0">
+            <Card class="!mb-0">
                 <Text type="subtitle">{{ media.name }}</Text>
                 <Text>
                     Posté par

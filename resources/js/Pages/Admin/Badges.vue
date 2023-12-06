@@ -1,20 +1,13 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import DangerButton from "@/Components/DangerButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import Section from "@/Components/Section.vue";
-import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import TextInput from "@/Components/TextInput.vue";
-import {nextTick, ref} from "vue";
-import Modal from "@/Components/Modal.vue";
-import InputError from "@/Components/InputError.vue";
+import TextInput from "@/Components/Elements/Form/TextInput.vue";
+import Modal from "@/Components/Elements/Modal/Modal.vue";
+import InputError from "@/Components/Elements/Form/InputError.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
-import Card from "@/Components/Card.vue";
-import Textarea from "@/Components/Textarea.vue";
+import Card from "@/Components/Misc/Card.vue";
+import Textarea from "@/Components/Elements/Form/Textarea.vue";
+import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 
 defineProps({
     badges: {
@@ -94,9 +87,7 @@ const closeModal = () => {
                 {{ users.length }} utilisateurs
             </template>
             <template #actions="{ name, id }">
-                <button class="btn btn-error btn-outline" :onclick="`deleteBadge${id}.showModal()`">
-                    <ion-icon name="trash-outline"></ion-icon>
-                </button>
+                <ActionButton type="delete" :onclick="`deleteBadge${id}.showModal()`" />
 
                 <!-- Modal -->
                 <Modal :id="`deleteBadge${id}`" title="Confimer la suppression du badge">

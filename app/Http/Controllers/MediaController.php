@@ -32,7 +32,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Library', [
-            'medias' => $this->mediaRepository->allApprovedMedias(),
+            'medias' => Media::where('approved', true)->paginate(6),
             'tags' => Tag::all(),
         ]);
     }
@@ -103,11 +103,15 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaRequest $request, Media $media)
+    public function update(UpdateMediaRequest $request, int $id)
     {
-        $media->fill($request->validated());
+        $media = $this->mediaRepository->find($id);
+
+        $media->name = $request->name;
 
         $media->save();
+
+        flash($request, 'success', 'Le média a bien été modifié.');
     }
 
     public function random()
@@ -121,7 +125,7 @@ class MediaController extends Controller
     {
         $imageHash = Comparator::convertHashToBinaryString(Comparator::hashImage($request->file('media_id')));
 
-        $findSimilaryMedia = Media::all()->firstWhere('hash', $imageHash);
+        $findSimilaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
 
         if ($findSimilaryMedia) {
             return response()->json(['foundedImage' => $findSimilaryMedia]);
@@ -132,7 +136,7 @@ class MediaController extends Controller
 
     public function approve(int $id)
     {
-        $media = Media::find($id);
+        $media = $this->mediaRepository->find($id);
 
         $media->approved = true;
 
@@ -147,7 +151,7 @@ class MediaController extends Controller
      */
     public function destroy(int $id)
     {
-        $media = Media::find($id);
+        $media = $this->mediaRepository->find($id);
 
         $media->delete();
 

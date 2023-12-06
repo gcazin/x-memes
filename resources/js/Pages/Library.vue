@@ -1,15 +1,15 @@
 <script setup>
 import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm, usePage} from '@inertiajs/vue3';
-import TextInput from "@/Components/TextInput.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/Elements/Form/TextInput.vue";
+import InputError from "@/Components/Elements/Form/InputError.vue";
+import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
 import {computed, reactive, ref} from "vue";
-import Modal from "@/Components/Modal.vue";
+import Modal from "@/Components/Elements/Modal/Modal.vue";
 import axios from "axios";
 import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Multiselect from '@vueform/multiselect'
+import Pagination from "@/Components/Misc/Pagination.vue";
 
 defineProps({
     medias: {
@@ -17,7 +17,7 @@ defineProps({
     },
     tags: {
         type: Array
-    }
+    },
 })
 
 const page = usePage()
@@ -64,7 +64,7 @@ const handleMedia = (event) => {
             state.foundedImage = null
         }
     }).catch((e) => {
-        console.log(e)
+        /*console.log(e)*/
     })
 }
 
@@ -99,7 +99,10 @@ const closeModal = () => {
         <template #action>
             <button class="btn btn-primary" onclick="addMediaModal.showModal()">Ajouter un média</button>
         </template>
-        <MediaGallery :medias="medias" />
+
+        <MediaGallery :medias="medias.data" />
+
+        <Pagination :item="medias" />
 
         <Modal id="addMediaModal" title="Ajouter un média" max-width="3xl">
             <form enctype="multipart/form-data" @submit.prevent="addMedia" >

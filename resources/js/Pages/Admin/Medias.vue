@@ -1,20 +1,17 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import DangerButton from "@/Components/DangerButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import Section from "@/Components/Section.vue";
 import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
 import {ref} from "vue";
-import InputError from "@/Components/InputError.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import Modal from "@/Components/Modal.vue";
-import TextInput from "@/Components/TextInput.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import Tag from "@/Components/Tag.vue";
-import Badges from "@/Pages/Admin/Badges.vue";
+import InputError from "@/Components/Elements/Form/InputError.vue";
+import Modal from "@/Components/Elements/Modal/Modal.vue";
+import TextInput from "@/Components/Elements/Form/TextInput.vue";
+import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
+import Tag from "@/Components/Misc/Tag.vue";
+import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
+import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
+import formService from "@/Services/form.service.js";
 
 defineProps({
     users: {
@@ -93,21 +90,22 @@ const deleteMedia = (id) => {
                             <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>
                             <img v-else class="w-32 rounded-xl" :src="`/storage/${filename}`" alt="">
                         </template>
-                        <template #actions="{ id }">
-                            <div class="flex gap-1">
-                                <span
-                                    class="hover:text-green-500 cursor-pointer text-2xl transition"
-                                    @click="editTagModal"
-                                >
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </span>
-                                <span
-                                    class="hover:text-red-500 cursor-pointer text-2xl transition"
-                                    @click="deleteMedia(id)"
-                                >
-                                    <ion-icon name="trash-outline"></ion-icon>
-                                </span>
-                            </div>
+                        <template #actions="item">
+                            <ActionButton type="edit" @click="formService.openModal('editMedia', item)" />
+                            <ActionModal
+                                :form="form"
+                                route="media"
+                                name="editMedia"
+                                type="edit"
+                                :item="item"
+                            >
+                                <TextInput
+                                    label="Titre"
+                                    v-model="form.name"
+                                />
+                                <InputError :message="form.errors.name" />
+                            </ActionModal>
+                            <ActionButton type="delete" @click="deleteMedia" />
                         </template>
                     </Table>
                 </div>
@@ -137,22 +135,22 @@ const deleteMedia = (id) => {
                         <img v-else class="w-40 rounded-xl" :src="`/storage/${filename}`" alt="">
                     </template>
                     <template #actions="{ id }">
-                        <SecondaryButton
+                        <button
                             class="ms-3"
                             @click="approveMedia(id)"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
-                        </SecondaryButton>
-                        <DangerButton
+                        </button>
+                        <button
                             class="ms-3"
                             @click="deleteMedia(id)"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                        </DangerButton>
+                        </button>
                     </template>
                 </Table>
             </div>
@@ -166,17 +164,12 @@ const deleteMedia = (id) => {
                 </h2>
 
                 <form @submit.prevent="editMedia">
-                    <InputLabel>Titre</InputLabel>
-                    <TextInput
-                        v-model="form.name"
-                    />
 
-                    <InputError :message="form.errors.name" />
 
                     <div class="mt-4">
-                        <PrimaryButton :disabled="form.processing">
+                        <button :disabled="form.processing">
                             Modifier
-                        </PrimaryButton>
+                        </button>
                     </div>
                 </form>
             </div>

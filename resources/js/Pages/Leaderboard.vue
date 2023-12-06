@@ -1,12 +1,6 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
-import TextInput from "@/Components/TextInput.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import {computed} from "vue";
-import GuestLayout from "@/Layouts/GuestLayout.vue";
-import Card from "@/Components/Card.vue";
+import {Head} from '@inertiajs/vue3';
+import Card from "@/Components/Misc/Card.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
 import PageLayout from "@/Layouts/PageLayout.vue";
 

@@ -35,7 +35,7 @@ defineExpose({ focus: () => input.value.focus() });
         </div>
         <input
             :type="type"
-            class="input input-bordered bg-base-300 w-full"
+            class="input input-bordered w-full"
             :class="{'file-input file-input-sm w-full': type === 'file'}"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"

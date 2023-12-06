@@ -1,13 +1,11 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import DangerButton from "@/Components/DangerButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import Section from "@/Components/Section.vue";
-import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
-import Card from "@/Components/Card.vue";
+import Card from "@/Components/Misc/Card.vue";
+import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
+import formService from "@/Services/form.service.js";
+import DeleteModal from "@/Components/Elements/Modal/ActionModal.vue";
 
 defineProps({
     users: {
@@ -45,13 +43,21 @@ const deleteUser = (id) => {
             <template #role="{ roles }">
                 {{ roles.map((role) => role.name).join(', ') }}
             </template>
-            <template #actions="{ id }">
-                    <span
-                        class="hover:text-red-500 cursor-pointer text-2xl transition"
-                        @click="deleteUser(id)"
-                    >
-                        <ion-icon name="trash-outline"></ion-icon>
-                    </span>
+            <template #actions="item">
+                <ActionButton type="delete" @click="formService.openModal('deleteUser', item)" />
+
+                <!-- Delete tag modal -->
+                <DeleteModal name="deleteUser" :item="item" @deleting="deleteUser(item)" :form="form" />
+<!--                <Modal :id="`deleteUserModal${item.id}`" title="Supprimer le tag">
+                    <template #description>
+                        Êtes-vous sûr de supprimer l'utilisateur {{ item.name.en }} ?
+                    </template>
+                    <form @submit.prevent="deleteTag(item)">
+                        <button class="btn btn-error" :disabled="form.processing">
+                            Supprimer le tag
+                        </button>
+                    </form>
+                </Modal>-->
             </template>
         </Table>
     </AdminDashboardLayout>

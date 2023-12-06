@@ -1,14 +1,10 @@
 <script setup>
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import Checkbox from '@/Components/Elements/Form/Checkbox.vue';
+import InputError from '@/Components/Elements/Form/InputError.vue';
+import TextInput from '@/Components/Elements/Form/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import PageLayout from "@/Layouts/PageLayout.vue";
-import Card from "@/Components/Card.vue";
-import Section from "@/Components/Section.vue";
+import Section from "@/Components/Layout/Section.vue";
 
 defineProps({
     canResetPassword: {
@@ -33,7 +29,7 @@ const submit = () => {
 </script>
 
 <template>
-    <PageLayout>
+    <PageLayout title="Connexion">
         <Head title="Connexion" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">

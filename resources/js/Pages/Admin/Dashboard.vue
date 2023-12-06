@@ -1,13 +1,7 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import DangerButton from "@/Components/DangerButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
-import Section from "@/Components/Section.vue";
-import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import Card from "@/Components/Card.vue";
-import helperService from "@/Services/helper.service.js";
+import Icon from "@/Components/Misc/Icon.vue";
 
 defineProps({
     users: {
@@ -48,7 +42,7 @@ const deleteMedia = (id) => {
         <div class="stats shadow w-full bg-base-300">
             <div class="stat">
                 <div class="stat-figure text-primary">
-                    <ion-icon class="text-3xl" name="people-outline"></ion-icon>
+                    <Icon name="people" size="3xl" />
                 </div>
                 <div class="stat-title">Nombre d'utilisateurs inscrits</div>
                 <div class="stat-value">
@@ -58,7 +52,7 @@ const deleteMedia = (id) => {
             </div>
             <div class="stat">
                 <div class="stat-figure text-primary">
-                    <ion-icon class="text-3xl" name="images-outline"></ion-icon>
+                    <Icon name="images" size="3xl" />
                 </div>
                 <div class="stat-title">Nombre de medias uploadés approuvés</div>
                 <div class="stat-value">
@@ -69,7 +63,7 @@ const deleteMedia = (id) => {
 
             <div class="stat">
                 <div class="stat-figure text-primary">
-                    <ion-icon class="text-3xl" name="pricetags-outline"></ion-icon>
+                    <Icon name="pricetags" size="3xl" />
                 </div>
                 <div class="stat-title">Nombre de tags ajoutés</div>
                 <div class="stat-value">

@@ -1,7 +1,8 @@
 <script setup>
 import Text from "@/Components/Text.vue";
 import helperService from "@/Services/helper.service.js";
-import Toast from "@/Components/Toast.vue";
+import Toast from "@/Components/Misc/Toast.vue";
+import Icon from "@/Components/Misc/Icon.vue";
 
 defineProps({
     title: {
@@ -74,71 +75,120 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
 </script>
 
 <template>
-    <div class="flex h-screen overflow-hidden">
-        <aside
-            class="absolute left-0 top-0 z-9999 flex h-screen w-64 flex-col overflow-y-hidden bg-base-300 shadow duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 -translate-x-full px-4 shadow-sm"
-        >
-            <div class="py-4 text-center">
-                <a :href="route('admin.index')">
-                    <Text>Administration</Text>
-                </a>
-            </div>
-            <nav class="mt-2">
-                <ul class="flex flex-col gap-2 font-bold">
-                    <template
-                        v-for="(item, index) in menuItems"
-                        :key="index"
-                    >
-                        <li
-                            v-if="'onlyFor' in item && helperService.checkRoles(item.onlyFor)"
-                            class="px-3 py-2 rounded-lg"
-                            :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
-                        >
-                            <a :href="handleRouteLink(item.route, item.isAbsolute)">
-                                <ion-icon
-                                    class="align-text-top mr-1"
-                                    :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
-                                >
-                                </ion-icon>
-                                {{ item.name }}
+    <div class="drawer lg:drawer-open">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+
+            <div class="relative min-h-screen bg-base-200">
+                <div id="top-bar" class="px-6 py-4">
+                    <div class="flex items-center">
+                        <label for="my-drawer" class="drawer-button lg:hidden text-2xl mr-2">
+                            <Icon name="reorder-four" />
+                        </label>
+                        <h1 class="text-xl">
+                            {{ title }}
+                        </h1>
+                        <div class="flex-1 text-right">
+                            <a :href="route('user.show', $page.props.auth.user.id)">
+                                <Text class="pb-0">{{ $page.props.auth.user.name }}</Text>
                             </a>
-                        </li>
-                        <li
-                            v-if="!('onlyFor' in item)"
-                            class="px-3 py-2 rounded-lg"
-                            :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
-                        >
-                            <a :href="handleRouteLink(item.route, item.isAbsolute)">
-                                <ion-icon
-                                    class="align-text-top mr-1"
-                                    :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
-                                >
-                                </ion-icon>
-                                {{ item.name }}
-                            </a>
-                        </li>
-                    </template>
-                </ul>
-            </nav>
-        </aside>
-        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-base-200">
-            <div id="top-bar" class="py-4 px-6">
-                <div class="flex items-center">
-                    <div class="flex-1">
-                        <h1 class="text-xl">{{ title }}</h1>
-                    </div>
-                    <div class="flex-1 text-right">
-                        <a :href="route('user.show', $page.props.auth.user.id)">
-                            <Text class="pb-0">{{ $page.props.auth.user.name }}</Text>
-                        </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="py-2 px-6">
-                <slot />
+                <div class="py-2 px-6">
+                    <slot />
+                </div>
             </div>
         </div>
+        <div class="drawer-side">
+            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-300 text-base">
+                <!-- Sidebar content here -->
+                <template
+                    v-for="(item, index) in menuItems"
+                    :key="index"
+                >
+                    <li
+                        v-if="'onlyFor' in item && helperService.checkRoles(item.onlyFor)"
+                        class="mb-1"
+                        :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
+                    >
+                        <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                            <Icon
+                                size="xl"
+                                :name="item.icon"
+                                :outline="!handleRouteLink(item.route, item.isAbsolute, true)"
+                            >
+                            </Icon>
+                            {{ item.name }}
+                        </a>
+                    </li>
+                    <li
+                        v-if="!('onlyFor' in item)"
+                        class="mb-1"
+                        :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
+                    >
+                        <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                            <Icon
+                                size="xl"
+                                :name="item.icon"
+                                :outline="!handleRouteLink(item.route, item.isAbsolute, true)"
+                            >
+                            </Icon>
+                            {{ item.name }}
+                        </a>
+                    </li>
+                </template>
+
+            </ul>
+        </div>
     </div>
+    <!--        <aside
+                class="absolute left-0 top-0 z-9999 flex h-screen w-64 flex-col overflow-y-hidden bg-base-300 shadow duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 -translate-x-full px-4 shadow-sm"
+            >
+                <div class="py-4 text-center">
+                    <a :href="route('admin.index')">
+                        <Text>Administration</Text>
+                    </a>
+                </div>
+                <nav class="mt-2">
+                    <ul class="flex flex-col gap-2 font-bold">
+                        <template
+                            v-for="(item, index) in menuItems"
+                            :key="index"
+                        >
+                            <li
+                                v-if="'onlyFor' in item && helperService.checkRoles(item.onlyFor)"
+                                class="px-3 py-2 rounded-lg"
+                                :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
+                            >
+                                <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                                    <ion-icon
+                                        class="align-text-top mr-1"
+                                        :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
+                                    >
+                                    </ion-icon>
+                                    {{ item.name }}
+                                </a>
+                            </li>
+                            <li
+                                v-if="!('onlyFor' in item)"
+                                class="px-3 py-2 rounded-lg"
+                                :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
+                            >
+                                <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                                    <ion-icon
+                                        class="align-text-top mr-1"
+                                        :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
+                                    >
+                                    </ion-icon>
+                                    {{ item.name }}
+                                </a>
+                            </li>
+                        </template>
+                    </ul>
+                </nav>
+            </aside>-->
 
     <Toast />
 </template>

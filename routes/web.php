@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::get('create', [MediaController::class, 'create'])->name('create');
         Route::post('create', [MediaController::class, 'store']);
         Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
+        Route::put('media/{id}', [MediaController::class, 'update'])->name('update');
         Route::patch('media/{id}', [MediaController::class, 'approve'])->name('approve');
         Route::delete('media/{id}', [MediaController::class, 'destroy'])->name('destroy');
         Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');

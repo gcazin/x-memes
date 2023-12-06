@@ -1,3 +1,20 @@
+<script setup>
+defineProps({
+    size: {
+        type: String,
+        default: 'md'
+    },
+    type: {
+        type: String,
+        default: 'primary'
+    },
+    outline: {
+        type: Boolean,
+        default: false,
+    }
+})
+</script>
+
 <template>
     <div
         class="badge"
@@ -11,24 +28,13 @@
           'badge-secondary': type === 'secondary',
           'badge-neutral': type === 'neutral',
           'badge-accent': type === 'accent',
+
+          'btn-outline': outline,
         }"
     >
         <slot></slot>
     </div>
 </template>
-
-<script setup>
-defineProps({
-    size: {
-        type: String,
-        default: 'md'
-    },
-    type: {
-        type: String,
-        default: 'primary'
-    }
-})
-</script>
 
 <style scoped>
 

@@ -37,13 +37,16 @@ export default {
     daisyui: {
         themes: [
             "light",
-            "dark",
+            "black",
+            "nord",
+            "synthwave",
+            "pastel",
             {
-                memes: {
+                dark: {
                     "primary": "#2563eb",
                     "secondary": "#4f46e5",
                     "accent": "#4c1d95",
-                    "neutral": "#f3f4f6",
+                    "neutral": "#0c111e",
                     "base-100": "#111827",
                     "info": "#0e7490",
                     "success": "#15803d",

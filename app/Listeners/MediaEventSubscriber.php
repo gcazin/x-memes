@@ -4,9 +4,10 @@ namespace App\Listeners;
 
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
+use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
 use Illuminate\Events\Dispatcher;
 
-class MediaEventSubscriber
+class MediaEventSubscriber implements ShouldQueueAfterCommit
 {
     /**
      * Create the event listener.

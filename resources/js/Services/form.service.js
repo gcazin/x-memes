@@ -63,86 +63,25 @@ class FormService {
         };
     }
 
-    /**
-     * In case of editing
-     * @param name
-     * @param data
-     */
-    async openModal(name, data) {
-        let modalId = `#${name}${this.modalName}`
-        if (data) {
-            Object.assign(this, data)
+    openModal(name, item = null) {
+        let selector = this.handleSelector(name, item)
+        document.querySelector(selector).showModal()
 
-            modalId = `#${name}${this.modalName}${data.id}`
-        }
-
-        switch (name) {
-            case 'create':
-                this.setCreate()
-                break
-            /*case 'update':
-                this.setUpdate(data)
-                break*/
-            case 'delete':
-                this.setDelete(data)
-                break
-        }
-
-        /*if (this.transformFields) {
-            this.changeSubPropertyValue()
-        }*/
-
-        this.name = 'ouio'
-
-        document.querySelector(modalId).showModal()
-
-        return this
+        form.name = item.name
     }
 
-    closeModal(crudType, item = null) {
-        let id
+    closeModal(name, item = null) {
+        let selector = this.handleSelector(name, item)
+        document.querySelector(selector).close()
+    }
+
+    handleSelector(name, item = null) {
+        let selector = `#${name}Modal`
         if (item) {
-            id = `#${crudType}${this.modalName}${item.id}`
-        } else {
-            id = `#${crudType}${this.modalName}`
+            selector = `#${name}Modal${item.id}`
         }
-        document.querySelector(id).close()
+        return selector}
 
-        if (crudType === 'update') {
-            this.reset()
-        }
-    }
-
-    setSubPropertyValue(fields) {
-        this.transformFields = fields
-
-        return this
-    }
-
-    getProperty(field) {
-        return this[field]
-    }
-
-    changeSubPropertyValue() {
-        const splitting = []
-        const split = this.transformFields.split(',')
-        if (split) {
-            split.forEach((s) => {
-                const splitByComma = s.split(':')
-                splitting.push(splitByComma)
-            })
-            splitting.forEach((group) => {
-                if (group[0] in this) {
-                    this[group[0]] = _.get(this[group[0]], 'en')
-                }
-            })
-        }
-        return this
-    }
-
-    getForm() {
-        return this
-    }
 }
 
-export default FormService;
+export default new FormService;

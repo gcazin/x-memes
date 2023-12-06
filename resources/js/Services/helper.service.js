@@ -1,6 +1,7 @@
 class HelperService {
     constructor() {
         this.props = {};
+        this.setTheme()
     }
 
     setProps(props) {
@@ -19,6 +20,20 @@ class HelperService {
                 return roles.includes(role)
             }
         }
+    }
+
+    setTheme() {
+        if (typeof localStorage.theme !== "undefined") {
+            this.storeTheme(localStorage.theme)
+        } else {
+            this.storeTheme('dark')
+        }
+    }
+
+    storeTheme(theme) {
+        const handleTheme = localStorage.theme ? theme : 'dark'
+        document.querySelector('body').setAttribute('data-theme', handleTheme)
+        localStorage.theme = handleTheme
     }
 }
 

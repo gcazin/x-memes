@@ -40,19 +40,22 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * Find media by id
-     *
-     * @return mixed
      */
-    public function find($id)
+    public function find($id): Media
     {
         return $this->media->find($id);
+    }
+
+    public function firstWhere($key, $value)
+    {
+        return $this->media->firstWhere($key, $value);
     }
 
     /**
      * Returns random media
      */
-    public function random(): Collection|\Illuminate\Support\Collection
+    public function random(): Media
     {
-        return $this->all()->random();
+        return $this->allApprovedMedias()->random();
     }
 }

@@ -13,7 +13,6 @@ let show = ref(false)
 watch(() => {
     if (usePage().props.flash.status) {
         show.value = true
-        console.log('ici?')
         setTimeout(() => {
             show.value = false
         }, 4000)
