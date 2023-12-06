@@ -1,6 +1,7 @@
 <script setup>
 import Text from "@/Components/Text.vue";
 import helperService from "@/Services/helper.service.js";
+import Toast from "@/Components/Toast.vue";
 
 defineProps({
     title: {
@@ -138,4 +139,6 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
             </div>
         </div>
     </div>
+
+    <Toast />
 </template>

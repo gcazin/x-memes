@@ -74,7 +74,11 @@ const maxWidthClass = computed(() => {
             <dialog :id="id" class="modal">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">{{ title }}</h3>
-                    <slot name="description"></slot>
+                    <template v-if="$slots.description">
+                        <p class="py-4">
+                            <slot name="description"></slot>
+                        </p>
+                    </template>
                     <slot />
                 </div>
                 <form method="dialog" class="modal-backdrop">

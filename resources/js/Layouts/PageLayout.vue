@@ -1,5 +1,6 @@
 <script setup>
 import Navbar from "@/Partials/Navbar.vue";
+import Toast from "@/Components/Toast.vue";
 
 defineProps({
     title: {
@@ -43,4 +44,6 @@ defineProps({
             </main>
         </div>
     </div>
+
+    <Toast />
 </template>

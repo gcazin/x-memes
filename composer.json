@@ -12,6 +12,7 @@
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "mailersend/laravel-driver": "^2.3",
         "opcodesio/log-viewer": "^3.1",
         "sapientpro/image-comparator-laravel": "^1.0",
         "spatie/laravel-permission": "^6.1",
@@ -34,7 +35,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

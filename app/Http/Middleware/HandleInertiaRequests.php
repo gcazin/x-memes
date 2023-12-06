@@ -38,6 +38,9 @@ class HandleInertiaRequests extends Middleware
                     return $request->user() ? $request->user()->roles()->pluck('name') : null;
                 },
             ],
+            'flash' => [
+                'status' => fn () => $request->session()->get('status'),
+            ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

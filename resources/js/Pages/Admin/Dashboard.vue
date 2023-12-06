@@ -45,7 +45,7 @@ const deleteMedia = (id) => {
     <Head title="Administration" />
 
     <AdminDashboardLayout title="Dashboard">
-        <div class="stats shadow w-full bg-base-200">
+        <div class="stats shadow w-full bg-base-300">
             <div class="stat">
                 <div class="stat-figure text-primary">
                     <ion-icon class="text-3xl" name="people-outline"></ion-icon>

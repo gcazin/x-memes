@@ -29,7 +29,15 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        Tag::findOrCreate(['name' => $request->name]);
+        $tag = Tag::findFromString($request->name);
+        if ($tag) {
+            flash($request, 'info', 'Ce tag existe déjà, il n\'a pas été crée.');
+        } else {
+            Tag::create([
+                'name' => $request->name
+            ]);
+            flash($request, 'success', 'Le tag a bien été crée.');
+        }
     }
 
     /**

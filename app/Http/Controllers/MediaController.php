@@ -6,9 +6,11 @@ use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateMediaRequest;
+use App\Mail\MediaApproved;
 use App\Models\Media;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
@@ -60,6 +62,11 @@ class MediaController extends Controller
 
         if ($request->tags) {
             $media->attachTags($request->tags);
+        }
+
+        if (! $isSuperAdmin) {
+            flash($request, 'info', 'Le média est en attente d\'approbation,
+            un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.');
         }
 
         MediaPublished::dispatchIf($isSuperAdmin, $media);
@@ -125,6 +132,7 @@ class MediaController extends Controller
 
         $media->save();
 
+        Mail::to($media->user)->send(new MediaApproved($media));
         MediaPublished::dispatch($media);
     }
 

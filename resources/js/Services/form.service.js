@@ -27,18 +27,18 @@ class FormService {
         return this
     }
 
-    setFields(fields) {
-        Object.assign(this, useForm(fields))
-        return this
-    }
-
     setBaseRoute(route) {
         this.route = route
         return this
     }
 
+    setFields(fields) {
+        this.fields = fields
+        return this
+    }
+
     setCreate() {
-        this.crud.create = () => {
+        return () => {
             this.form.post(route(`${this.route}.create`), {
                 preserveScroll: true,
                 onSuccess: () => this.closeModal('create'),
