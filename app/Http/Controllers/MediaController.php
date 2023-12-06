@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateMediaRequest;
 use App\Mail\MediaApproved;
 use App\Models\Media;
 use App\Providers\RouteServiceProvider;
+use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -20,13 +21,17 @@ class MediaController extends Controller
 {
     public const APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN = false;
 
+    public function __construct(
+        public MediaRepository $mediaRepository
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         return Inertia::render('Library', [
-            'medias' => Media::with('user', 'tags')->where('approved', true)->get(),
+            'medias' => $this->mediaRepository->allWith('tags')->where('approved', true),
             'tags' => Tag::all(),
         ]);
     }
