@@ -24,52 +24,53 @@ defineProps({
 })
 </script>
 <template>
-    <table class="table" :class="{'bg-base-300': hasBackground}">
-        <thead>
-        <tr class="text-base">
-            <th
-                v-for="(header, index) in headers"
-                :key="index"
-                scope="col"
+    <div class="overflow-x">
+        <table class="table table-xs lg:table-lg" :class="{'bg-base-300': hasBackground}">
+            <thead>
+            <tr>
+                <th
+                    v-for="(header, index) in headers"
+                    :key="index"
+                    scope="col"
+                >
+                    {{ header }}
+                </th>
+                <th v-if="hasAction" scope="col" class="text-right">
+                    Actions
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-if="items.length"
+                v-for="(item, index) in items"
             >
-                {{ header }}
-            </th>
-            <th v-if="hasAction" scope="col" class="text-right">
-                Actions
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr
-            v-if="items.length"
-            v-for="(item, index) in items"
-            class="text-base"
-        >
-            <td v-if="properties" v-for="(property) in properties">
-                <slot v-if="property === 'increment'" :name="property" v-bind="item">
-                    {{ index + 1 }}
-                </slot>
-                <slot v-else :name="property" v-bind="item">
-                    {{ property in item ? item[property] : item }}
-                </slot>
-            </td>
-            <td v-else>
-                {{ item }}
-            </td>
-            <td v-if="hasAction" class="text-right">
-                <template v-if="properties">
-                    <slot name="actions" v-bind="item" />
-                </template>
-                <template v-else>
-                    <slot name="actions" v-bind="item" />
-                </template>
-            </td>
-        </tr>
-        <tr v-else>
-            <td class="px-6 py-4">
-                Aucune donnée à afficher.
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <td v-if="properties" v-for="(property) in properties">
+                    <slot v-if="property === 'increment'" :name="property" v-bind="item">
+                        {{ index + 1 }}
+                    </slot>
+                    <slot v-else :name="property" v-bind="item">
+                        {{ property in item ? item[property] : item }}
+                    </slot>
+                </td>
+                <td v-else>
+                    {{ item }}
+                </td>
+                <td v-if="hasAction" class="text-right">
+                    <template v-if="properties">
+                        <slot name="actions" v-bind="item" />
+                    </template>
+                    <template v-else>
+                        <slot name="actions" v-bind="item" />
+                    </template>
+                </td>
+            </tr>
+            <tr v-else class="px-6 py-4">
+                <td class="">
+                    Aucune donnée à afficher.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
