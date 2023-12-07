@@ -24,7 +24,7 @@ class ProfileUpdateRequest extends FormRequest
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id)
+                Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'description' => ['nullable', 'string', 'max:255'],
             'avatar' => [
@@ -32,7 +32,7 @@ class ProfileUpdateRequest extends FormRequest
                 'nullable',
                 File::types(['jpg,jpeg,png,webp'])
                     ->max('5mb'),
-            ]
+            ],
         ];
     }
 }

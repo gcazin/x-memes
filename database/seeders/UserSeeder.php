@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                     'name' => $user,
                     'email' => "${user}@${user}.fr",
                     'password' => $user,
-                    'email_verified_at' => Carbon::now()
+                    'email_verified_at' => Carbon::now(),
                 ])->assignRole(Role::all()->where('name', $user));
         }
     }
