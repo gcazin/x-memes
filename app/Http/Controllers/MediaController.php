@@ -10,7 +10,10 @@ use App\Mail\MediaApproved;
 use App\Models\Media;
 use App\Providers\RouteServiceProvider;
 use App\Repositories\MediaRepository;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -116,9 +119,10 @@ class MediaController extends Controller
 
     public function random()
     {
-        $media = $this->mediaRepository->random();
-
-        return redirect(route('media.show', $media));
+        if ($this->mediaRepository->allApprovedMedias()->count() !== 0) {
+            return redirect(route('media.show', $this->mediaRepository->random()));
+        }
+        return abort('404');
     }
 
     public function duplicate(Request $request)
@@ -152,6 +156,8 @@ class MediaController extends Controller
     public function destroy(int $id)
     {
         $media = $this->mediaRepository->find($id);
+
+        Storage::delete($media->filename);
 
         $media->delete();
 

@@ -64,7 +64,7 @@ const handleMedia = (event) => {
             state.foundedImage = null
         }
     }).catch((e) => {
-        /*console.log(e)*/
+        console.log(e)
     })
 }
 
@@ -87,8 +87,6 @@ const deleteTag = (id) => {
 
 const closeModal = () => {
     document.querySelector('#addMediaModal').close()
-
-    form.reset();
 };
 </script>
 

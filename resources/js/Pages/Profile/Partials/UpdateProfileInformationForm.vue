@@ -1,9 +1,10 @@
 <script setup>
 import InputError from '@/Components/Elements/Form/InputError.vue';
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue';
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue';
 import TextInput from '@/Components/Elements/Form/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import {ref} from "vue";
+import Avatar from "@/Components/Misc/Avatar.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -15,11 +16,26 @@ defineProps({
 });
 
 const user = usePage().props.auth.user;
+const avatar = ref(null)
 
+console.log(user)
 const form = useForm({
     name: user.name,
     email: user.email,
+    description: null,
+    avatar: null,
 });
+
+const editProfile = () => {
+    form.avatar = avatar.value
+    form.post(route('profile.update'), {
+        _method: 'put'
+    })
+}
+
+const handleAvatar = (event) => {
+    avatar.value = event.target.files[0]
+}
 </script>
 
 <template>
@@ -31,7 +47,17 @@ const form = useForm({
         </p>
     </header>
 
-    <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+    <form @submit.prevent="editProfile" class="mt-6 space-y-6">
+        <Avatar size="lg" />
+        <InputLabel for="name" value="Avatar" />
+        <input
+            type="file"
+            class="file-input file-input-bordered file-input w-full"
+            id="avatar"
+            @input="handleAvatar"
+        />
+        <InputError class="mt-2" :message="form.errors.avatar" />
+
         <TextInput
             label="Nom"
             type="text"
@@ -41,6 +67,7 @@ const form = useForm({
             autocomplete="name"
         />
         <InputError class="mt-2" :message="form.errors.name" />
+        {{ form.name }}
 
         <TextInput
             label="Adresse e-mail"
@@ -49,8 +76,17 @@ const form = useForm({
             required
             autocomplete="username"
         />
-
         <InputError class="mt-2" :message="form.errors.email" />
+        {{ form.email }}
+
+        <TextInput
+            label="Description"
+            type="text"
+            v-model="form.description"
+            autofocus
+            autocomplete="description"
+        />
+        <InputError class="mt-2" :message="form.errors.description" />
 
         <div v-if="mustVerifyEmail && user.email_verified_at === null">
             <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

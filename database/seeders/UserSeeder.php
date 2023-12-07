@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -22,6 +23,7 @@ class UserSeeder extends Seeder
                     'name' => $user,
                     'email' => "${user}@${user}.fr",
                     'password' => $user,
+                    'email_verified_at' => Carbon::now()
                 ])->assignRole(Role::all()->where('name', $user));
         }
     }

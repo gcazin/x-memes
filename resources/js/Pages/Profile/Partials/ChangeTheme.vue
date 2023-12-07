@@ -58,40 +58,44 @@ const toggleTheme = (selectedTheme) => {
         </p>
     </header>
 
-    <div class="mt-6">
-        <p class="mb-2 font-bold">Thème foncé</p>
-        <div
-            v-for="(theme) in availableThemes.filter((t) => t.type === 'dark')"
-            class="form-control"
-        >
-            <label class="label cursor-pointer gap-4">
-                <span class="label-text">{{ theme.label }}</span>
-                <input
-                    type="radio"
-                    name="theme-radios"
-                    class="radio theme-controller"
-                    :value="theme.name"
-                    @click="toggleTheme(theme.name)"
-                    :checked="currentTheme() === theme.name"
-                />
-            </label>
+    <div class="flex flex-col lg:flex-row gap-10 mt-6">
+        <div class="flex-1">
+            <p class="mb-2 font-bold">Thème foncé</p>
+            <div
+                v-for="(theme) in availableThemes.filter((t) => t.type === 'dark')"
+                class="form-control"
+            >
+                <label class="label cursor-pointer gap-4">
+                    <span class="label-text">{{ theme.label }}</span>
+                    <input
+                        type="radio"
+                        name="theme-radios"
+                        class="radio theme-controller"
+                        :value="theme.name"
+                        @click="toggleTheme(theme.name)"
+                        :checked="currentTheme() === theme.name"
+                    />
+                </label>
+            </div>
         </div>
-        <p class="mt-4 mb-2 font-bold">Thème clair</p>
-        <div
-            v-for="(theme) in availableThemes.filter((t) => t.type === 'light')"
-            class="form-control"
-        >
-            <label class="label cursor-pointer gap-4">
-                <span class="label-text">{{ theme.label }}</span>
-                <input
-                    type="radio"
-                    name="theme-radios"
-                    class="radio theme-controller"
-                    :value="theme.name"
-                    @click="toggleTheme(theme.name)"
-                    :checked="currentTheme() === theme.name"
-                />
-            </label>
+        <div class="flex-1">
+            <p class="mb-2 font-bold">Thème clair</p>
+            <div
+                v-for="(theme) in availableThemes.filter((t) => t.type === 'light')"
+                class="form-control"
+            >
+                <label class="label cursor-pointer gap-4">
+                    <span class="label-text">{{ theme.label }}</span>
+                    <input
+                        type="radio"
+                        name="theme-radios"
+                        class="radio theme-controller"
+                        :value="theme.name"
+                        @click="toggleTheme(theme.name)"
+                        :checked="currentTheme() === theme.name"
+                    />
+                </label>
+            </div>
         </div>
     </div>
 </template>

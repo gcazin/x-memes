@@ -4,6 +4,7 @@ import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Text from "@/Components/Text.vue";
 import Tag from "@/Components/Misc/Tag.vue";
 import RoleBadge from "@/Components/Misc/RoleBadge.vue";
+import Avatar from "@/Components/Misc/Avatar.vue";
 
 defineProps({
     user: {
@@ -12,8 +13,10 @@ defineProps({
 })
 </script>
 <template>
-    <PageLayout :title="`Profil de ${user.name}`">
+    <PageLayout>
         <template #title>
+            <Avatar size="xl" />
+            Profil de {{ user.name }}
             <RoleBadge />
         </template>
         <template #subtitle>

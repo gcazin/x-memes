@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,11 +32,21 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        if ($request->has('avatar')) {
+            if ($request->user()->getOriginal('avatar')) {
+                Storage::delete($request->user()->getOriginal('avatar'));
+            }
+            $avatar = Storage::put('avatar', $request->file('avatar'));
+            $request->user()->avatar = $avatar;
+        }
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
         $request->user()->save();
+
+        flash($request, 'success', 'Profil modifié chef 🫡');
 
         return Redirect::route('profile.edit');
     }

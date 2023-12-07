@@ -12,6 +12,7 @@ import Tag from "@/Components/Misc/Tag.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
 import formService from "@/Services/form.service.js";
+import Icon from "@/Components/Misc/Icon.vue";
 
 defineProps({
     users: {
@@ -69,7 +70,7 @@ const deleteMedia = (id) => {
                 <div class="mb-4">
                     <Text type="subtitle" class="mb-2">
                         Médias approuvés
-                        <Tag size="lg">
+                        <Tag size="lg" type="primary">
                             {{ medias.filter((media) => media.approved).length }}
                         </Tag>
                     </Text>
@@ -105,7 +106,7 @@ const deleteMedia = (id) => {
                                 />
                                 <InputError :message="form.errors.name" />
                             </ActionModal>
-                            <ActionButton type="delete" @click="deleteMedia" />
+                            <ActionButton type="delete" @click="deleteMedia(item.id)" />
                         </template>
                     </Table>
                 </div>
@@ -113,7 +114,7 @@ const deleteMedia = (id) => {
             <div class="flex-1">
                 <Text type="subtitle" class="mb-2">
                     Médias en attente
-                    <Tag size="lg">
+                    <Tag size="lg" type="warning">
                         {{ medias.filter((media) => !media.approved).length }}
                     </Tag>
                 </Text>
@@ -135,22 +136,13 @@ const deleteMedia = (id) => {
                         <img v-else class="w-40 rounded-xl" :src="`/storage/${filename}`" alt="">
                     </template>
                     <template #actions="{ id }">
-                        <button
-                            class="ms-3"
+                        <span
+                            class="cursor-pointer transition px-1 hover:text-primary"
                             @click="approveMedia(id)"
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                            </svg>
-                        </button>
-                        <button
-                            class="ms-3"
-                            @click="deleteMedia(id)"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
+                            <Icon size="2xl" name="checkmark-done" />
+                        </span>
+                        <ActionButton type="delete" @click="deleteMedia(id)" />
                     </template>
                 </Table>
             </div>

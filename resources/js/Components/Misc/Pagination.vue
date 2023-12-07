@@ -7,7 +7,7 @@ defineProps({
 })
 </script>
 <template>
-    <div class="join grid grid-cols-2 my-6 w-1/2 mx-auto">
+    <div class="join grid grid-cols-2 my-6 w-1/2 mx-auto" v-if="item.length">
         <a
             :href="item.prev_page_url"
             class="join-item btn btn-primary btn-outline"

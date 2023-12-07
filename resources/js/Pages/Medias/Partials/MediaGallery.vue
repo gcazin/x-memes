@@ -47,9 +47,7 @@ const deleteMedia = (id) => {
             </div>
         </div>
     </div>
-    <div v-else>
-        <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight mt-2">
-            Aucune image à afficher
-        </h2>
-    </div>
+    <h2 v-else class="font-semibold text-lg mb-4">
+        Aucune image à afficher
+    </h2>
 </template>
