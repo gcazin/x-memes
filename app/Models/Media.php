@@ -30,7 +30,7 @@ class Media extends Model
 
     protected $casts = [
         'approved' => 'boolean',
-        'download_count' => 'integer'
+        'download_count' => 'integer',
     ];
 
     public function user(): BelongsTo

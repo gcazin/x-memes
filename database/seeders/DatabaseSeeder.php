@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             BadgeSeeder::class,
-            MediaSeeder::class
+            MediaSeeder::class,
         ]);
     }
 }
