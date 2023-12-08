@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('extension');
             $table->text('hash');
             $table->boolean('approved')->default(0);
+            $table->integer('download_count')->default(0);
 
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

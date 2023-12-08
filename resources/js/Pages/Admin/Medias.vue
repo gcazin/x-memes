@@ -40,7 +40,7 @@ const closeModal = () => {
 };
 
 const approveMedia = (id) => {
-    form.patch(route('media.approve', id), {
+    form.patch(route('admin.media.approve', id), {
         preserveScroll: true,
     });
 };
@@ -85,7 +85,7 @@ const deleteMedia = (id) => {
                             {{ user.roles.map((role) => role.name).join(', ') }}
                         </template>
                         <template #user="{ user }">
-                            {{ user.name }} ({{ user.email }})
+                            {{ user.username }} ({{ user.email }})
                         </template>
                         <template #media="{ extension, filename, name }">
                             <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>
@@ -129,7 +129,7 @@ const deleteMedia = (id) => {
                         {{ user.roles.map((role) => role.name).join(', ') }}
                     </template>
                     <template #user="{ user }">
-                        {{ user.name }} ({{ user.email }})
+                        {{ user.username }} ({{ user.email }})
                     </template>
                     <template #media="{ extension, filename, name }">
                         <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>

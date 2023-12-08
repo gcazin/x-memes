@@ -22,13 +22,15 @@ class Media extends Model
         'name',
         'filename',
         'extension',
-        'approved',
         'hash',
+        'approved',
+        'download_count',
         'user_id',
     ];
 
     protected $casts = [
         'approved' => 'boolean',
+        'download_count' => 'integer'
     ];
 
     public function user(): BelongsTo

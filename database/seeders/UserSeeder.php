@@ -14,13 +14,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = ['super-admin', 'admin', 'moderator', 'guest'];
+        $users = ['superadmin', 'admin', 'moderator', 'guest'];
         // Super-admin
 
         foreach ($users as $user) {
             User::factory()
                 ->create([
-                    'name' => $user,
+                    'username' => $user,
                     'email' => "${user}@${user}.fr",
                     'password' => $user,
                     'email_verified_at' => Carbon::now(),

@@ -90,7 +90,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                         </h1>
                         <div class="flex-1 text-right">
                             <a :href="route('user.show', $page.props.auth.user.id)">
-                                <Text class="pb-0">{{ $page.props.auth.user.name }}</Text>
+                                <Text class="pb-0">{{ $page.props.auth.user.username }}</Text>
                             </a>
                         </div>
                     </div>

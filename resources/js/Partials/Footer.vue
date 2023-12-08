@@ -1,6 +1,6 @@
 <template>
     <footer class="footer block p-10 bg-neutral text-neutral-content mt-6">
-        <div class="max-w-7xl mx-auto flex justify-between">
+        <div class="w-9/12 mx-auto flex justify-between">
             <aside>
                 <p>Memes library.<br/>Providing reliable tech since 1992</p>
             </aside>

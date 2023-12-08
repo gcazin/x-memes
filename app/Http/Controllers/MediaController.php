@@ -19,7 +19,7 @@ use Spatie\Tags\Tag;
 
 class MediaController extends Controller
 {
-    public const APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN = false;
+    public const APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN = true;
 
     public function __construct(
         public MediaRepository $mediaRepository
@@ -146,6 +146,17 @@ class MediaController extends Controller
 
         Mail::to($media->user)->send(new MediaApproved($media));
         MediaPublished::dispatch($media);
+    }
+
+    public function download(int $id)
+    {
+        $media = $this->mediaRepository->find($id);
+
+        $media->increment('download_count');
+
+        $media->update();
+
+        return response()->json(['data' => base64_encode(Storage::get($media->filename))]);
     }
 
     /**

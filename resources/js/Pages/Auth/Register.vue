@@ -8,7 +8,7 @@ import PageLayout from "@/Layouts/PageLayout.vue";
 import Section from "@/Components/Layout/Section.vue";
 
 const form = useForm({
-    name: '',
+    username: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -22,33 +22,32 @@ const submit = () => {
 </script>
 
 <template>
-    <PageLayout>
-        <Head title="Register" />
+    <PageLayout title="Inscription">
+        <Head title="Inscription" />
 
         <Section>
             <form @submit.prevent="submit">
                 <TextInput
-                    label="Nom"
-                    id="name"
+                    label="Nom d'utilisateur"
+                    id="username"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.username"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
-
-                <InputLabel for="email" value="Email" />
+                <InputError class="mt-2" :message="form.errors.username" />
 
                 <TextInput
+                    label="Adresse email"
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autocomplete="username"
+                    autocomplete="email"
                 />
                 <InputError class="mt-2" :message="form.errors.email" />
 

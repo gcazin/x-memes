@@ -7,5 +7,6 @@ import Tag from "@/Components/Misc/Tag.vue";
         v-for="(role) in $page.props.auth.user.roles"
         size="xl"
         outline
+        class="align-middle"
     >{{ role.name }}</Tag>
 </template>

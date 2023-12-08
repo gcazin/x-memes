@@ -18,7 +18,7 @@ defineProps({
 const form = useForm({})
 
 const approveMedia = (id) => {
-    form.patch(route('media.approve', id), {
+    form.patch(route('admin.media.approve', id), {
         preserveScroll: true,
         // onSuccess: () => closeModal(),
         // onError: () => passwordInput.value.focus(),

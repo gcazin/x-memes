@@ -16,7 +16,7 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
+    username: '',
     password: '',
     remember: false,
 });
@@ -39,16 +39,16 @@ const submit = () => {
         <Section>
             <form @submit.prevent="submit">
                     <TextInput
-                        label="Adresse e-mail"
-                        id="email"
-                        type="email"
+                        label="Nom d'utilisateur / Adresse e-mail"
+                        id="username"
+                        type="text"
                         class="mt-1 block w-full"
-                        v-model="form.email"
+                        v-model="form.username"
                         required
                         autofocus
                         autocomplete="username"
                     />
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <InputError class="mt-2" :message="form.errors.username" />
 
                     <TextInput
                         label="Mot de passe"

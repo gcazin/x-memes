@@ -31,23 +31,29 @@ const deleteMedia = (id) => {
     >
         <div
             v-for="(media, index) in medias"
+            :key="index"
         >
             <a :href="route('media.show', media.id)">
                 <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
-                <img v-else class="w-full rounded-lg" :src="`/storage/${media.filename}`" alt="">
+                <img v-else class="w-full shadow" :src="`/storage/${media.filename}`" alt="">
             </a>
-            <div class="card-actions justify-end" v-if="media.tags">
-                <div
-                    class="badge badge-outline"
-                    v-for="(tag, index) in media.tags.map((tag) => tag.name.en)"
-                    :key="index"
-                >
-                    {{ tag }}
-                </div>
-            </div>
         </div>
     </div>
     <h2 v-else class="font-semibold text-lg mb-4">
         Aucune image à afficher
     </h2>
 </template>
+<style>
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 10px 10px;
+    grid-auto-flow: row dense;
+}
+
+.featured { grid-area: 1 / 1 / 3 / 2; }
+
+</style>

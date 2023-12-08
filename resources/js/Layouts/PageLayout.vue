@@ -16,13 +16,13 @@ defineProps({
         <Navbar />
 
         <!-- Page Heading -->
-        <header class="bg-base-300 shadow">
-            <div class="max-w-7xl mx-auto py-6">
+        <header>
+            <div class="w-9/12 mx-auto py-6">
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
                             <div class="flex gap-2">
-                                <h1 class="font-semibold text-2xl leading-tight">
+                                <h1 class="font-semibold text-3xl leading-tight">
                                     {{ title }}
                                 </h1>
                                 <slot name="title" />
@@ -48,7 +48,7 @@ defineProps({
         </header>
 
         <!-- Page Content -->
-        <main class="max-w-7xl mx-auto pt-6">
+        <main class="w-9/12 mx-auto">
             <slot />
         </main>
 

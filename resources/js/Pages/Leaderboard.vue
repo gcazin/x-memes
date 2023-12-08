@@ -31,7 +31,7 @@ defineProps({
         </div>
 
         <Table
-            :headers="['Rang', 'Pseudo', 'Nombre de médias postés']"
+            :headers="['Rang', `Nom d'utilisateur`, 'Nombre de médias postés']"
             :items="leaderboard"
             :properties="['increment', 'name', 'media_count']"
             has-background

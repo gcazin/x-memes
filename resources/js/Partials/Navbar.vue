@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
 import {usePage} from "@inertiajs/vue3";
 import helperService from "@/Services/helper.service.js";
 import Avatar from "@/Components/Misc/Avatar.vue";
+import Icon from "@/Components/Misc/Icon.vue";
 
 const page = usePage()
 
@@ -24,7 +25,7 @@ const menuItems = [
 </script>
 <template>
     <div class="bg-base-300 shadow">
-        <div class="navbar max-w-7xl mx-auto px-0">
+        <div class="navbar w-9/12 mx-auto px-0">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -46,10 +47,10 @@ const menuItems = [
                         </li>
                     </ul>
                 </div>
-                <a :href="route('home')" class="text-xl">Memes-library</a>
+                <a :href="route('home')" class="text-2xl">Memes-library</a>
             </div>
             <div class="navbar-center hidden lg:flex">
-                <ul class="menu menu-horizontal px-1">
+                <ul class="menu text-lg menu-horizontal">
                     <li
                         v-for="(item, index) in menuItems"
                         :key="index"
@@ -66,36 +67,37 @@ const menuItems = [
                 </ul>
             </div>
             <div class="navbar-end">
-                <ul class="menu menu-horizontal px-1">
-                    <template v-if="! $page.props.auth.user" >
+                <ul v-if="!$page.props.auth.user" class="menu menu-horizontal px-1">
+                    <template>
                         <li>
                             <a :href="route('login')">Connexion</a>
                         </li>
                         <li>
                             <a :href="route('register')">Inscription</a></li>
                     </template>
-
-                    <li v-else>
-                        <details>
-                            <summary>
-                                <Avatar size="sm" />
-                                {{ $page.props.auth.user.name }}
-                            </summary>
-                            <ul class="p-2">
-                                <li>
-                                    <DropdownLink :href="route('profile.edit')">
-                                        Mon compte
-                                    </DropdownLink>
-                                </li>
-                                <li>
-                                    <DropdownLink :href="route('logout')" method="post">
-                                        Déconnexion
-                                    </DropdownLink>
-                                </li>
-                            </ul>
-                        </details>
-                    </li>
                 </ul>
+                <div v-else class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <Avatar class="w-10" />
+                    </div>
+                    <ul class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52">
+                        <li>
+                            <DropdownLink :href="route('user.show', $page.props.auth.user.id)">
+                                <Icon name="person" size="lg" /> Voir mon profil
+                            </DropdownLink>
+                        </li>
+                        <li>
+                            <DropdownLink :href="route('profile.edit')">
+                                <Icon name="cog" size="lg" /> Paramètres
+                            </DropdownLink>
+                        </li>
+                        <li>
+                            <DropdownLink :href="route('logout')" method="post">
+                                <Icon name="log-out" size="lg" /> Déconnexion
+                            </DropdownLink>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

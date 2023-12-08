@@ -19,13 +19,13 @@ const sizeClass = computed(() => {
 </script>
 <template>
     <div v-if="$page.props.auth.user.avatar" class="avatar">
-        <div class="rounded" :class="[sizeClass]">
+        <div class="rounded-full" :class="[sizeClass]">
             <img :src="`/storage/${$page.props.auth.user.avatar}`" alt="Tailwind-CSS-Avatar-component" />
         </div>
     </div>
     <div v-else class="avatar placeholder">
-        <div class="bg-base-100 text-neutral-content rounded-full" :class="[sizeClass]">
-            <span class="text-xs">{{ $page.props.auth.user.name.slice(0,2) }}</span>
+        <div class="bg-primary text-neutral-content rounded-full" :class="[sizeClass]">
+            <span class="text-xs">{{ $page.props.auth.user.username.slice(0,2) }}</span>
         </div>
     </div>
 </template>

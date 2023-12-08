@@ -20,7 +20,7 @@ const avatar = ref(null)
 
 console.log(user)
 const form = useForm({
-    name: user.name,
+    username: user.username,
     email: user.email,
     description: null,
     avatar: null,
@@ -59,15 +59,14 @@ const handleAvatar = (event) => {
         <InputError class="mt-2" :message="form.errors.avatar" />
 
         <TextInput
-            label="Nom"
+            label="username"
             type="text"
-            v-model="form.name"
+            v-model="form.username"
             required
             autofocus
-            autocomplete="name"
+            autocomplete="username"
         />
-        <InputError class="mt-2" :message="form.errors.name" />
-        {{ form.name }}
+        <InputError class="mt-2" :message="form.errors.username" />
 
         <TextInput
             label="Adresse e-mail"
