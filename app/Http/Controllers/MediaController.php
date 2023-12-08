@@ -73,7 +73,7 @@ class MediaController extends Controller
         if ($isSuperAdmin) {
             $this->approve($request, $media->id);
 
-            MediaPublished::dispatch($media);
+//            MediaPublished::dispatch($media);
         }
 
         if (! $isSuperAdmin) {

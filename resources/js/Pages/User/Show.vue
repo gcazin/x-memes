@@ -7,6 +7,7 @@ import RoleBadge from "@/Components/Misc/RoleBadge.vue";
 import Avatar from "@/Components/Misc/Avatar.vue";
 import Section from "@/Components/Layout/Section.vue";
 import Navbar from "@/Partials/Navbar.vue";
+import {usePage} from "@inertiajs/vue3";
 
 const props = defineProps({
     user: {
@@ -14,14 +15,20 @@ const props = defineProps({
     },
 })
 
-const downloadMediaCount = props.user.medias
+const page = usePage()
+const auth = page.props.auth ?? null
+
+const downloadMediaCount = props.user && props.user.medias.length ? props.user.medias
     .map((media) => media.download_count)
-    .reduce((accumulator, media) => accumulator + media)
+    .reduce((accumulator, media) => accumulator + media) : 0
 </script>
 <template>
     <Navbar />
     <section class="relative block h-96">
-        <div class="absolute top-0 w-full h-full bg-center cover" style="background: url(https://trustmyscience.com/wp-content/uploads/2018/09/definition-galaxie.jpeg)">
+        <!-- style="background: url(https://trustmyscience.com/wp-content/uploads/2018/09/definition-galaxie.jpeg)" -->
+        <div
+            class="absolute top-0 w-full h-full bg-center cover"
+        >
             <span class="w-full h-full absolute opacity-50 bg-black"></span>
         </div>
         <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
@@ -37,9 +44,35 @@ const downloadMediaCount = props.user.medias
                 <div class="relative">
                     <Avatar size="lg" class="absolute -m-16" />
                 </div>
-                <div class="w-full lg:text-right lg:self-center">
-                    <div class="p-4">
-                        <button class="btn btn-primary" type="button">
+                <div class="w-full flex lg:text-left lg:self-center">
+                    <div class="flex-1 p-4">
+                        <div class="flex gap-1">
+                            <template
+                                v-for="(badge, index) in user.badges"
+                                :key="index"
+                            >
+                                <div class="tooltip tooltip-primary" :data-tip="badge.description">
+                                    <img
+                                        class="w-10"
+                                        :src="`/storage/${badge.filename}`"
+                                        :alt="badge.name"
+                                    >
+                                </div>
+                            </template>
+                        </div>
+<!--                        <Tag size="lg" v-for="(badge, index) in user.badges" :key="index">
+                            {{ badge.name }}
+                        </Tag>-->
+                    </div>
+                    <div class="flex-1 text-right space-x-2 p-4">
+                        <a
+                            v-if="user.id === auth.user.id"
+                            :href="route('profile.edit')"
+                            class="btn btn-neutral btn-outline"
+                        >
+                            Modifier mon profil
+                        </a>
+                        <button v-else class="btn btn-primary" type="button">
                             Suivre
                         </button>
                     </div>
@@ -51,7 +84,7 @@ const downloadMediaCount = props.user.medias
                     <div class="text-center">
                         <span
                             class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600">
-                            {{ user.medias.length }}
+                            {{ user.medias ? user.medias.length : 0 }}
                         </span>
                         <span class="text-sm text-blueGray-400">Médias postés</span>
                     </div>
@@ -75,11 +108,6 @@ const downloadMediaCount = props.user.medias
             </div>
         </div>
     </Section>
-    <!--        <template #subtitle>
-                <Tag v-for="(badge, index) in user.badges" :key="index">
-                    {{ badge.name }}
-                </Tag>
-            </template>-->
 
     <Section class="w-9/12 mx-auto mt-8 !p-0">
         <MediaGallery :medias="user.medias" number-of-cols="4" />

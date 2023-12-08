@@ -7,9 +7,9 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function show(User $user, int $id)
+    public function show(int $id)
     {
-        $user = User::all()->find($id)->with('medias', 'badges')->first();
+        $user = User::with('medias', 'badges')->find($id);
 
         return Inertia::render('User/Show', [
             'user' => $user,

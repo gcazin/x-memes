@@ -16,16 +16,19 @@ class BadgeSeeder extends Seeder
             [
                 'Apprenti posteur',
                 'Tu as posté ta première image, félicitations!',
+                'badges/1.png',
                 1,
             ],
             [
                 'Posteur confirmé',
                 'Tu as posté ta 5ème image, wow!',
+                'badges/1.png',
                 5,
             ],
             [
                 'Posteur avancé Honey',
                 'Tu as posté 3 images',
+                'badges/1.png',
                 3,
             ],
         ];
@@ -33,7 +36,8 @@ class BadgeSeeder extends Seeder
             Badge::create([
                 'name' => $badge[0],
                 'description' => $badge[1],
-                'condition' => $badge[2],
+                'filename' => $badge[2],
+                'condition' => $badge[3],
             ]);
         }
     }

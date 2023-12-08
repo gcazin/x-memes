@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Listeners\MediaEventSubscriber;
+use App\Models\Media;
+use App\Observers\MediaObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +24,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     protected $subscribe = [
-        MediaEventSubscriber::class,
+//        MediaEventSubscriber::class,
     ];
 
     /**
@@ -30,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Media::observe(MediaObserver::class);
     }
 
     /**

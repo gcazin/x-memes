@@ -47,7 +47,10 @@ const menuItems = [
                         </li>
                     </ul>
                 </div>
-                <a :href="route('home')" class="text-2xl">X-Memes</a>
+                <a :href="route('home')" class="text-2xl">
+                    <img class="w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
+                    <span class="font-bold">X-Memes</span>
+                </a>
             </div>
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu text-lg menu-horizontal">
