@@ -52,7 +52,7 @@ class MediaController extends Controller
     public function store(StoreMediaRequest $request)
     {
         $file = $request->file('media_id');
-        $imageStored = Storage::put('media', $file);
+        $imageStored = Storage::disk('public')->put('media', $file);
         $hashedImage = Comparator::hashImage($file);
         $isSuperAdmin = self::APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN ?
             $request->user()->isSuperAdmin()
@@ -71,9 +71,9 @@ class MediaController extends Controller
         }
 
         if ($isSuperAdmin) {
-            $this->approve($media->id);
+            $this->approve($request, $media->id);
 
-            MediaPublished::dispatch($isSuperAdmin, $media);
+            MediaPublished::dispatch($media);
         }
 
         if (! $isSuperAdmin) {
