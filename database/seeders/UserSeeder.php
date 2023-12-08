@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = ['superadmin', 'admin', 'moderator', 'guest'];
-        // Super-admin
+        // superadmin
 
         foreach ($users as $user) {
             User::factory()

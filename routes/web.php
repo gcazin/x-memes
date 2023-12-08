@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 // Administration
 Route::middleware(['auth', 'verified'])->group(function () {
     // Admin dashboard
-    Route::middleware('role:super-admin|admin')
+    Route::middleware('role:superadmin|admin')
         ->prefix('admin')
         ->name('admin.')
         ->group(function () {
@@ -61,20 +61,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
     // Users
-    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.user.')
+    Route::middleware('role:admin|superadmin')->prefix('admin')->name('admin.user.')
         ->group(function () {
             Route::get('utilisateurs', [DashboardController::class, 'users'])->name('index');
         });
 
     // Medias
-    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.media.')
+    Route::middleware('role:admin|superadmin')->prefix('admin')->name('admin.media.')
         ->group(function () {
             Route::get('medias', [DashboardController::class, 'medias'])->name('index');
             Route::patch('media/{id}', [MediaController::class, 'approve'])->name('approve');
         });
 
     // Tags
-    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.tag.')
+    Route::middleware('role:admin|superadmin')->prefix('admin')->name('admin.tag.')
         ->group(function () {
             Route::get('tags', [DashboardController::class, 'tags'])->name('index');
             Route::get('tag/create', [TagController::class, 'create'])->name('create');
@@ -84,7 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
 
     // Badges
-    Route::middleware('role:admin|super-admin')->prefix('admin')->name('admin.badge.')
+    Route::middleware('role:admin|superadmin')->prefix('admin')->name('admin.badge.')
         ->group(function () {
             Route::get('badges', [DashboardController::class, 'badges'])->name('index');
             Route::get('badge/create', [BadgeController::class, 'create'])->name('create');

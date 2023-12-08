@@ -81,6 +81,9 @@ const deleteMedia = (id) => {
                         has-action
                         has-background
                     >
+                        <template #name="media">
+                            <a :href="route('media.show', media.id)">{{ media.name }}</a>
+                        </template>
                         <template #role="{ user }">
                             {{ user.roles.map((role) => role.name).join(', ') }}
                         </template>

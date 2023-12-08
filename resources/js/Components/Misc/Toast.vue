@@ -3,13 +3,7 @@ import {onBeforeUpdate, onMounted, onUnmounted, onUpdated, reactive, ref, watch}
 import {usePage} from "@inertiajs/vue3";
 
 let show = ref(false)
-/*onUpdated(() => {
-    show.value = true
-    console.log('ici?')
-    setTimeout(() => {
-        show.value = false
-    }, 2000)
-})*/
+
 watch(() => {
     if (usePage().props.flash.status) {
         show.value = true

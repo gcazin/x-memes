@@ -29,12 +29,12 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isSuperAdmin();
         });
 
-        // Access to Laravel Pulse restricted to super-admin
+        // Access to Laravel Pulse restricted to superadmin
         Gate::define('viewPulse', function (User $user) {
             return $user->isSuperAdmin();
         });
 
-        // Access to Log-Viewer restricted to super-admin
+        // Access to Log-Viewer restricted to superadmin
 
     }
 }

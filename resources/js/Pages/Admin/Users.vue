@@ -34,9 +34,9 @@ const deleteUser = (id) => {
         </Card>
 
         <Table
-            :headers="['Nom', 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
+            :headers="[`Nom d'utilisateur`, 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
             :items="users"
-            :properties="['name', 'email', 'role', 'created_at']"
+            :properties="['username', 'email', 'role', 'created_at']"
             has-action
             has-background
         >

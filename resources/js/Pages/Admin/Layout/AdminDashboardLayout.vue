@@ -40,14 +40,14 @@ const menuItems = [
         icon: 'stats-chart',
         route: 'pulse',
         name: 'Pulse',
-        onlyFor: 'super-admin',
+        onlyFor: 'superadmin',
         isAbsolute: true,
     },
     {
         icon: 'document',
         route: 'log-viewer.index',
         name: 'Logs',
-        onlyFor: 'super-admin',
+        onlyFor: 'superadmin',
         isAbsolute: true,
     },
     {

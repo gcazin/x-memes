@@ -39,7 +39,7 @@ const menuItems = [
                             <a :href="route(item.route)" :active="route().current(item.route)">{{ item.name }}</a>
                         </li>
                         <li
-                            v-if="helperService.checkRoles('super-admin,admin')"
+                            v-if="helperService.checkRoles('superadmin,admin')"
                         >
                             <a :href="route('admin.index')" :active="route().current('admin.dashboard')">
                                 Administration
@@ -58,7 +58,7 @@ const menuItems = [
                         <a :href="route(item.route)" :active="route().current(item.route)">{{ item.name }}</a>
                     </li>
                     <li
-                        v-if="helperService.checkRoles('super-admin,admin')"
+                        v-if="helperService.checkRoles('superadmin,admin')"
                     >
                         <a :href="route('admin.index')" :active="route().current('admin.dashboard')">
                             Administration
@@ -66,16 +66,11 @@ const menuItems = [
                     </li>
                 </ul>
             </div>
-            <div class="navbar-end">
-                <ul v-if="!$page.props.auth.user" class="menu menu-horizontal px-1">
-                    <template>
-                        <li>
-                            <a :href="route('login')">Connexion</a>
-                        </li>
-                        <li>
-                            <a :href="route('register')">Inscription</a></li>
-                    </template>
-                </ul>
+            <div class="navbar-end gap-1">
+                <template v-if="!$page.props.auth.user">
+                    <a class="btn btn-ghost" :href="route('login')">Connexion</a>
+                    <a class="btn btn-primary" :href="route('register')">Inscription</a>
+                </template>
                 <div v-else class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                         <Avatar class="w-10" />

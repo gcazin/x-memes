@@ -10,6 +10,7 @@ use App\Mail\MediaApproved;
 use App\Models\Media;
 use App\Providers\RouteServiceProvider;
 use App\Repositories\MediaRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -62,7 +63,6 @@ class MediaController extends Controller
             'filename' => $imageStored,
             'extension' => $file->getClientOriginalExtension(),
             'hash' => Comparator::convertHashToBinaryString($hashedImage),
-            'approved' => $isSuperAdmin,
             'user_id' => $request->user()->id,
         ]);
 
@@ -70,12 +70,21 @@ class MediaController extends Controller
             $media->attachTags($request->tags);
         }
 
-        if (! $isSuperAdmin) {
-            flash($request, 'info', 'Le média est en attente d\'approbation,
-            un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.');
+        if ($isSuperAdmin) {
+            $this->approve($media->id);
+
+            MediaPublished::dispatch($isSuperAdmin, $media);
         }
 
-        MediaPublished::dispatchIf($isSuperAdmin, $media);
+        if (! $isSuperAdmin) {
+            flash(
+                $request,
+                'info',
+                'Le média est en attente d\'approbation,
+                un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
+            );
+        }
+
 
         return redirect(RouteServiceProvider::HOME);
     }
@@ -136,15 +145,25 @@ class MediaController extends Controller
         return response()->json(['foundedImage' => null]);
     }
 
-    public function approve(int $id)
+    public function approve(Request $request, int $id)
     {
         $media = $this->mediaRepository->find($id);
 
         $media->approved = true;
+        $media->approved_by = auth()->user()->id;
+        $media->approved_at = now()->toDateTime();
 
         $media->save();
 
+        flash(
+            $request,
+            'success',
+            'Le média a bien été approuvé et publié ! 🚀'
+        );
+
         Mail::to($media->user)->send(new MediaApproved($media));
+
+        // Check badges
         MediaPublished::dispatch($media);
     }
 
@@ -152,7 +171,7 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
-        $media->increment('download_count');
+        $media->download_count += 1;
 
         $media->update();
 

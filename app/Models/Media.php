@@ -24,6 +24,8 @@ class Media extends Model
         'extension',
         'hash',
         'approved',
+        'approved_by',
+        'approved_at',
         'download_count',
         'user_id',
     ];
