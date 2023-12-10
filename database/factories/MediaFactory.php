@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -20,7 +21,7 @@ class MediaFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'filename' => 'media/AvWsqIqRnzO7ULgnFeYyFhuw2TwJYd6GExZTLFlf.jpg',
+            'filename' => Storage::allFiles('media')[array_rand(Storage::allFiles('media'))],
             'extension' => 'jpg',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
             'approved' => 1,

@@ -11,7 +11,7 @@ import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Multiselect from '@vueform/multiselect'
 import Pagination from "@/Components/Misc/Pagination.vue";
 
-defineProps({
+const props = defineProps({
     medias: {
         type: Array
     },
@@ -23,7 +23,7 @@ defineProps({
 const page = usePage()
 
 const tagsOptions = computed(() => {
-    return page.props.tags.map((tag) => {
+    return props.tags.map((tag) => {
         return {
             value: tag.name.en,
             label: tag.name.en
@@ -88,6 +88,8 @@ const deleteTag = (id) => {
 const closeModal = () => {
     document.querySelector('#addMediaModal').close()
 };
+
+console.log(props.medias.length)
 </script>
 
 <template>

@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateMediaRequest;
-use App\Mail\MediaApproved;
+use App\Listeners\Media\SendApprovedMediaNotification;
+use App\Mail\MediaApprovedMail;
 use App\Models\Media;
+use App\Notifications\Media\ApprovedMediaNotification;
+use App\Notifications\Media\DeletedMediaNotification;
 use App\Providers\RouteServiceProvider;
 use App\Repositories\MediaRepository;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
@@ -33,7 +37,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Library', [
-            'medias' => Media::where('approved', true)->paginate(6),
+            'medias' => Media::where('approved', true)->orderBy('created_at', 'desc')->paginate(6),
             'tags' => Tag::all(),
         ]);
     }
@@ -72,8 +76,6 @@ class MediaController extends Controller
 
         if ($isSuperAdmin) {
             $this->approve($request, $media->id);
-
-//            MediaPublished::dispatch($media);
         }
 
         if (! $isSuperAdmin) {
@@ -161,7 +163,9 @@ class MediaController extends Controller
             'Le média a bien été approuvé et publié ! 🚀'
         );
 
-        Mail::to($media->user)->send(new MediaApproved($media));
+        Mail::to($media->user)->send(new MediaApprovedMail($media));
+
+        Notification::send($media->user, new ApprovedMediaNotification($media));
 
         // Check badges
         MediaPublished::dispatch($media);
@@ -188,6 +192,8 @@ class MediaController extends Controller
         Storage::delete($media->filename);
 
         $media->delete();
+
+        Notification::send($media->user, new DeletedMediaNotification($media));
 
         MediaDestroyed::dispatch($media);
     }

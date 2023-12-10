@@ -35,7 +35,7 @@ const deleteMedia = (id) => {
         >
             <a :href="route('media.show', media.id)">
                 <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
-                <img v-else class="w-full shadow" :src="`/storage/${media.filename}`" alt="">
+                <img v-else class="w-full h-full object-cover shadow" :src="`/storage/${media.filename}`" alt="">
             </a>
         </div>
     </div>

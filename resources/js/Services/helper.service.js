@@ -9,7 +9,7 @@ class HelperService {
     }
 
     checkRoles(role) {
-        const roles = this.props.auth.roles
+        const roles = this.props.auth?.roles
         if (roles) {
             const roleSplitting = role.split(',')
             if (roleSplitting.length > 1) {

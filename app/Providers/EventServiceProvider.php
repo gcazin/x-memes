@@ -2,13 +2,17 @@
 
 namespace App\Providers;
 
-use App\Listeners\MediaEventSubscriber;
+use App\Events\MediaApproved;
+use App\Events\MediaDestroyed;
+use App\Listeners\Media\SendApprovedMediaNotification;
+use App\Listeners\Media\SendDeletedMediaNotification;
+use App\Listeners\Subscriber\MediaEventSubscriber;
+use App\Listeners\User\SendNewUserNotification;
 use App\Models\Media;
 use App\Observers\MediaObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,11 +24,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            SendNewUserNotification::class,
         ],
     ];
 
     protected $subscribe = [
-//        MediaEventSubscriber::class,
+        MediaEventSubscriber::class,
     ];
 
     /**

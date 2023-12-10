@@ -13,6 +13,9 @@ defineProps({
     type: {
         type: String,
         default: 'text'
+    },
+    placeholder: {
+        type: String,
     }
 });
 
@@ -30,7 +33,7 @@ defineExpose({ focus: () => input.value.focus() });
 </script>
 <template>
     <label class="form-control w-full mb-2">
-        <div class="label">
+        <div v-if="label" class="label">
             <span class="label-text">{{ label }}</span>
         </div>
         <input
@@ -40,6 +43,7 @@ defineExpose({ focus: () => input.value.focus() });
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
+            :placeholder="placeholder"
         />
     </label>
 </template>

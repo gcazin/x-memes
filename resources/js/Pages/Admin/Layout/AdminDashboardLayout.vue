@@ -3,6 +3,7 @@ import Text from "@/Components/Text.vue";
 import helperService from "@/Services/helper.service.js";
 import Toast from "@/Components/Misc/Toast.vue";
 import Icon from "@/Components/Misc/Icon.vue";
+import Avatar from "@/Components/Misc/Avatar.vue";
 
 defineProps({
     title: {
@@ -90,7 +91,10 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                         </h1>
                         <div class="flex-1 text-right">
                             <a :href="route('user.show', $page.props.auth.user.id)">
-                                <Text class="pb-0">{{ $page.props.auth.user.username }}</Text>
+                               <div class="flex float-right gap-2 items-center">
+                                    <Avatar size="sm" />
+                                {{ $page.props.auth.user.username }}
+                               </div>
                             </a>
                         </div>
                     </div>

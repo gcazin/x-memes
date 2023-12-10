@@ -33,6 +33,6 @@ const sizeClass = computed(() => {
 <template>
     <ion-icon
         :name="`${name}${outline ? '-outline' : ''}`"
-        :class="[sizeClass]"
+        :class="[sizeClass, 'align-middle']"
     ></ion-icon>
 </template>

@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+if (env('APP_STAGE') === 'alpha') {
+    Route::get('{any}', [WaitlistController::class, 'index'])
+        ->where('any', '.*');
+    Route::post('/', [WaitlistController::class, 'store'])
+        ->where('any', '.*')->name('waitlist.store');
+}
 
 // Common pages
 Route::get('/', [MediaController::class, 'index'])->name('home');

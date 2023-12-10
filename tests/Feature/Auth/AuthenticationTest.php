@@ -4,16 +4,28 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
 test('login screen can be rendered', function () {
-    $response = $this->get('/login');
+    $response = $this->get('/connexion');
 
     $response->assertStatus(200);
 });
 
-test('users can authenticate using the login screen', function () {
+test('users can authenticate using the login screen with his username', function () {
     $user = User::factory()->create();
 
-    $response = $this->post('/login', [
-        'email' => $user->email,
+    $response = $this->post('/connexion', [
+        'username' => $user->username,
+        'password' => 'password',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(RouteServiceProvider::HOME);
+});
+
+test('users can authenticate using the login screen with his email', function () {
+    $user = User::factory()->create();
+
+    $response = $this->post('/connexion', [
+        'username' => $user->email,
         'password' => 'password',
     ]);
 
@@ -24,8 +36,19 @@ test('users can authenticate using the login screen', function () {
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $this->post('/login', [
-        'email' => $user->email,
+    $this->post('/connexion', [
+        'username' => $user->username,
+        'password' => 'wrong-password',
+    ]);
+
+    $this->assertGuest();
+});
+
+test('users can not authenticate with invalid password with his email', function () {
+    $user = User::factory()->create();
+
+    $this->post('/connexion', [
+        'username' => $user->email,
         'password' => 'wrong-password',
     ]);
 
@@ -35,7 +58,7 @@ test('users can not authenticate with invalid password', function () {
 test('users can logout', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post('/logout');
+    $response = $this->actingAs($user)->post('/deconnexion');
 
     $this->assertGuest();
     $response->assertRedirect('/');

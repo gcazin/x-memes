@@ -5,6 +5,7 @@ import {usePage} from "@inertiajs/vue3";
 import helperService from "@/Services/helper.service.js";
 import Avatar from "@/Components/Misc/Avatar.vue";
 import Icon from "@/Components/Misc/Icon.vue";
+import Tag from "@/Components/Misc/Tag.vue";
 
 const page = usePage()
 
@@ -22,6 +23,9 @@ const menuItems = [
         name: 'Au hasard'
     },
 ]
+
+const notifications = page.props.auth?.notifications
+console.log(notifications)
 </script>
 <template>
     <div class="bg-base-300 shadow">
@@ -49,7 +53,10 @@ const menuItems = [
                 </div>
                 <a :href="route('home')" class="text-2xl">
                     <img class="w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
-                    <span class="font-bold">X-Memes</span>
+                    <span class="font-bold">
+                        X-Memes
+                        <Tag type="secondary" size="sm" class="align-middle">alpha</Tag>
+                    </span>
                 </a>
             </div>
             <div class="navbar-center hidden lg:flex">
@@ -70,32 +77,78 @@ const menuItems = [
                 </ul>
             </div>
             <div class="navbar-end gap-1">
-                <template v-if="!$page.props.auth.user">
+                <template v-if="!$page.props.auth?.user">
                     <a class="btn btn-ghost" :href="route('login')">Connexion</a>
                     <a class="btn btn-primary" :href="route('register')">Inscription</a>
                 </template>
-                <div v-else class="dropdown dropdown-end">
-                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-                        <Avatar class="w-10" />
+                <template v-else>
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <div class="indicator">
+                                <Icon size="xl" name="notifications" />
+                                <span class="badge badge-sm badge-error indicator-item">
+                                    {{ notifications.length }}
+                                </span>
+                            </div>
+                        </div>
+                        <div tabindex="0" class="mt-3 z-[1] dropdown-content w-96 bg-base-100 shadow">
+                            <div
+                                v-if="notifications"
+                                v-for="(notification, index) in notifications"
+                                :key="index"
+                                class="divide-y divide-gray-100 dark:divide-gray-700"
+                            >
+                                <a :href="route('media.show', notification.data.media.id)" class="flex px-4 py-3 hover:bg-base-300">
+                                    <div class="flex-shrink-0">
+                                        <img class="rounded-full w-11 h-11" :src="`/storage/${notification.data.media.filename}`" alt="Jese image">
+<!--                                        <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
+                                            <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                                <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z"/>
+                                                <path d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z"/>
+                                            </svg>
+                                        </div>-->
+                                    </div>
+                                    <div class="w-full ps-3">
+                                        <div class="text-sm font-bold mb-1">
+                                            {{ notification.data.title }}
+                                        </div>
+                                        <div class="text-xs text-primary">
+                                            {{ notification.created_at }}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                                <div class="inline-flex items-center">
+                                    <Icon name="eye" class="mr-1" />
+                                    Voir tout
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <ul class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52">
-                        <li>
-                            <DropdownLink :href="route('user.show', $page.props.auth.user.id)">
-                                <Icon name="person" size="lg" /> Voir mon profil
-                            </DropdownLink>
-                        </li>
-                        <li>
-                            <DropdownLink :href="route('profile.edit')">
-                                <Icon name="cog" size="lg" /> Paramètres
-                            </DropdownLink>
-                        </li>
-                        <li>
-                            <DropdownLink :href="route('logout')" method="post">
-                                <Icon name="log-out" size="lg" /> Déconnexion
-                            </DropdownLink>
-                        </li>
-                    </ul>
-                </div>
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <Avatar class="w-10" />
+                        </div>
+                        <ul class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52">
+                            <li>
+                                <DropdownLink :href="route('user.show', $page.props.auth.user.id)">
+                                    <Icon name="person" size="lg" /> Voir mon profil
+                                </DropdownLink>
+                            </li>
+                            <li>
+                                <DropdownLink :href="route('profile.edit')">
+                                    <Icon name="cog" size="lg" /> Paramètres
+                                </DropdownLink>
+                            </li>
+                            <li>
+                                <DropdownLink :href="route('logout')" method="post">
+                                    <Icon name="log-out" size="lg" /> Déconnexion
+                                </DropdownLink>
+                            </li>
+                        </ul>
+                    </div>
+                </template>
             </div>
         </div>
     </div>

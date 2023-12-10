@@ -9,7 +9,7 @@ test('password can be updated', function () {
     $response = $this
         ->actingAs($user)
         ->from('/profile')
-        ->put('/password', [
+        ->put('/mot-de-passe', [
             'current_password' => 'password',
             'password' => 'new-password',
             'password_confirmation' => 'new-password',

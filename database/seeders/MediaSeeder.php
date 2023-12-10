@@ -15,12 +15,17 @@ class MediaSeeder extends Seeder
     public function run(): void
     {
         Media::factory(10)->create([
-            'name' => 'Title',
-            'filename' => 'media/AvWsqIqRnzO7ULgnFeYyFhuw2TwJYd6GExZTLFlf.jpg',
-            'extension' => 'jpg',
+            'extension' => 'png',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
             'approved' => 1,
             'user_id' => 1,
+        ]);
+
+        Media::factory(10)->create([
+            'extension' => 'png',
+            'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
+            'approved' => 0,
+            'user_id' => 2,
         ]);
     }
 }

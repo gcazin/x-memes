@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Subscriber;
 
+use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
+use App\Listeners\Media\SendMediaApprovedNotification;
+use App\Listeners\Media\SendApprovedMediaNotification;
+use App\Listeners\User\AssignBadgeToUser;
 use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
 use Illuminate\Events\Dispatcher;
 
