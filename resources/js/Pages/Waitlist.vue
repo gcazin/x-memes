@@ -75,7 +75,7 @@ const submit = () => {
                         </button>
                     </form>
                     <div v-else>
-                        <p class="text-lg mb-8 italic font-bold">
+                        <p class="text-xl mb-8 font-bold text-success">
                             Ton inscription a bien été prise en compte, tu recevras un mail sous peu !
                         </p>
                     </div>
