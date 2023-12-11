@@ -88,8 +88,6 @@ const deleteTag = (id) => {
 const closeModal = () => {
     document.querySelector('#addMediaModal').close()
 };
-
-console.log(props.medias.length)
 </script>
 
 <template>
@@ -100,9 +98,7 @@ console.log(props.medias.length)
             <button class="btn btn-primary" onclick="addMediaModal.showModal()">Ajouter un média</button>
         </template>
 
-        <MediaGallery :medias="medias.data" />
-
-        <Pagination :item="medias" />
+        <MediaGallery :medias="medias" />
 
         <Modal id="addMediaModal" title="Ajouter un média" max-width="3xl">
             <form enctype="multipart/form-data" @submit.prevent="addMedia" >

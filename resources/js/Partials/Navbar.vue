@@ -25,11 +25,10 @@ const menuItems = [
 ]
 
 const notifications = page.props.auth?.notifications
-console.log(notifications)
 </script>
 <template>
     <div class="bg-base-300 shadow">
-        <div class="navbar w-9/12 mx-auto px-0">
+        <div class="navbar w-full lg:w-9/12 mx-auto px-2 lg:px-0">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -52,10 +51,10 @@ console.log(notifications)
                     </ul>
                 </div>
                 <a :href="route('home')" class="text-2xl">
-                    <img class="w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
+                    <img class="w-8 lg:w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
                     <span class="font-bold">
                         X-Memes
-                        <Tag type="secondary" size="sm" class="align-middle">alpha</Tag>
+                        <Tag type="secondary" size="sm" class="hidden lg:inline align-middle">alpha</Tag>
                     </span>
                 </a>
             </div>
@@ -78,8 +77,29 @@ console.log(notifications)
             </div>
             <div class="navbar-end gap-1">
                 <template v-if="!$page.props.auth?.user">
-                    <a class="btn btn-ghost" :href="route('login')">Connexion</a>
-                    <a class="btn btn-primary" :href="route('register')">Inscription</a>
+                    <div class="hidden lg:block">
+                        <a class="btn btn-ghost" :href="route('login')">Connexion</a>
+                        <a class="btn btn-primary" :href="route('register')">Inscription</a>
+                    </div>
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <Icon class="text-3xl" name="person-circle" outline="false" />
+                        </div>
+                        <div tabindex="0" class="mt-3 z-[1] dropdown-content w-96 bg-base-100 shadow">
+                            <ul class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52">
+                                <li>
+                                    <DropdownLink :href="route('login')">
+                                        Connexion
+                                    </DropdownLink>
+                                </li>
+                                <li>
+                                    <DropdownLink :href="route('register')">
+                                        Inscription
+                                    </DropdownLink>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </template>
                 <template v-else>
                     <div class="dropdown dropdown-end">
@@ -101,12 +121,6 @@ console.log(notifications)
                                 <a :href="route('media.show', notification.data.media.id)" class="flex px-4 py-3 hover:bg-base-300">
                                     <div class="flex-shrink-0">
                                         <img class="rounded-full w-11 h-11" :src="`/storage/${notification.data.media.filename}`" alt="Jese image">
-<!--                                        <div class="absolute flex items-center justify-center w-5 h-5 ms-6 -mt-5 bg-blue-600 border border-white rounded-full dark:border-gray-800">
-                                            <svg class="w-2 h-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                                                <path d="M1 18h16a1 1 0 0 0 1-1v-6h-4.439a.99.99 0 0 0-.908.6 3.978 3.978 0 0 1-7.306 0 .99.99 0 0 0-.908-.6H0v6a1 1 0 0 0 1 1Z"/>
-                                                <path d="M4.439 9a2.99 2.99 0 0 1 2.742 1.8 1.977 1.977 0 0 0 3.638 0A2.99 2.99 0 0 1 13.561 9H17.8L15.977.783A1 1 0 0 0 15 0H3a1 1 0 0 0-.977.783L.2 9h4.239Z"/>
-                                            </svg>
-                                        </div>-->
                                     </div>
                                     <div class="w-full ps-3">
                                         <div class="text-sm font-bold mb-1">

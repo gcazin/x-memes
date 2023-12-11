@@ -1,8 +1,9 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import Card from "@/Components/Misc/Card.vue";
+import {onMounted, ref, watchEffect} from "vue";
 
-defineProps({
+const props = defineProps({
     medias: {
         type: Object
     },
@@ -12,25 +13,47 @@ defineProps({
     }
 })
 
+const page = usePage()
+
+const allPosts = ref(props.medias)
+const inertiaUrl = ref(page.url)
+const loadMoreIntersect = ref(null)
+
+onMounted(() => {
+    const observer = new IntersectionObserver(
+        entries => {
+            entries
+                .forEach(entry => entry.isIntersecting && loadMorePosts())
+        })
+
+    observer.observe(loadMoreIntersect.value);
+})
 const form = useForm({})
 
-const deleteMedia = (id) => {
-    form.delete(route('media.destroy', id), {
+const loadMorePosts = () => {
+    if (props.medias.next_page_url === null) {
+        return
+    }
+
+    form.get(props.medias.next_page_url, {
+        only: ['data'],
         preserveScroll: true,
-        // onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
-    });
-};
+    }, {
+        onSuccess: () => {
+            console.log('ici?')
+            allPosts.value = [...allPosts.value, ...props.medias]
+            // window.history.replaceState({}, this.$page.title, inertiaUrl.value)
+        }
+    })
+}
 </script>
 <template>
     <div
-        v-if="medias.length"
         class="grid grid-cols-1 md:grid-cols-3 gap-4"
         :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
     >
         <div
-            v-for="(media, index) in medias"
+            v-for="(media, index) in medias.data"
             :key="index"
         >
             <a :href="route('media.show', media.id)">
@@ -38,10 +61,8 @@ const deleteMedia = (id) => {
                 <img v-else class="w-full h-full object-cover shadow" :src="`/storage/${media.filename}`" alt="">
             </a>
         </div>
+        <span ref="loadMoreIntersect" id="box"></span>
     </div>
-    <h2 v-else class="font-semibold text-lg mb-4">
-        Aucune image à afficher
-    </h2>
 </template>
 <style>
 .gallery {

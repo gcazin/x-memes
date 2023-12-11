@@ -98,8 +98,6 @@ const submit = () => {
             </div>
         </div>
     </div>
-
-    <Toast />
 </template>
 
 <style>

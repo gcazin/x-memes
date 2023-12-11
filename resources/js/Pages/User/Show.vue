@@ -8,6 +8,8 @@ import Avatar from "@/Components/Misc/Avatar.vue";
 import Section from "@/Components/Layout/Section.vue";
 import Navbar from "@/Partials/Navbar.vue";
 import {usePage} from "@inertiajs/vue3";
+import Footer from "@/Partials/Footer.vue";
+import Icon from "@/Components/Misc/Icon.vue";
 
 const props = defineProps({
     user: {
@@ -38,7 +40,7 @@ const downloadMediaCount = props.user && props.user.medias.length ? props.user.m
         </div>
     </section>
 
-    <Section class="w-9/12 text-center mx-auto mt-32 !p-0">
+    <Section class="w-11/12 lg:w-9/12 text-center mx-auto mt-32 !p-0">
         <div class="container mx-auto">
             <div class="relative flex flex-col bg-base-300 shadow rounded-lg -mt-64">
                 <div class="relative">
@@ -60,9 +62,6 @@ const downloadMediaCount = props.user && props.user.medias.length ? props.user.m
                                 </div>
                             </template>
                         </div>
-<!--                        <Tag size="lg" v-for="(badge, index) in user.badges" :key="index">
-                            {{ badge.name }}
-                        </Tag>-->
                     </div>
                     <div class="flex-1 text-right space-x-2 p-4">
                         <a
@@ -70,7 +69,7 @@ const downloadMediaCount = props.user && props.user.medias.length ? props.user.m
                             :href="route('profile.edit')"
                             class="btn btn-neutral btn-outline"
                         >
-                            Modifier mon profil
+                            <Icon name="create" size="xl" />
                         </a>
                         <button v-else class="btn btn-primary" type="button">
                             Suivre
@@ -109,7 +108,9 @@ const downloadMediaCount = props.user && props.user.medias.length ? props.user.m
         </div>
     </Section>
 
-    <Section class="w-9/12 mx-auto mt-8 !p-0">
+    <Section class="w-11/12 lg:w-9/12 text-center mx-auto mt-8 !p-0">
         <MediaGallery :medias="user.medias" number-of-cols="4" />
     </Section>
+
+    <Footer />
 </template>

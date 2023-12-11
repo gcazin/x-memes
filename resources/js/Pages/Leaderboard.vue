@@ -21,7 +21,7 @@ defineProps({
     <Head title="Dashboard" />
 
     <PageLayout title="Classement">
-        <div class="flex gap-4">
+        <div class="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-4">
                 <Card title="Nombre d'utilisateurs inscrits" :is-link="false">
                     {{ users.length }}
                 </Card>

@@ -8,7 +8,7 @@ defineProps({
 </script>
 <template>
     <section
-        class="bg-base-100 shadow-sm rounded-lg mb-4 p-4 sm:p-8"
+        class="bg-base-100 shadow-sm rounded-lg mb-4 sm:p-8"
     >
         <slot />
     </section>

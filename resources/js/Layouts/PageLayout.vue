@@ -17,7 +17,7 @@ defineProps({
 
         <!-- Page Heading -->
         <header>
-            <div class="w-9/12 mx-auto py-6">
+            <div class="lg:w-9/12 mx-auto py-6 px-6 lg:px-0">
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
@@ -48,7 +48,7 @@ defineProps({
         </header>
 
         <!-- Page Content -->
-        <main class="w-9/12 mx-auto">
+        <main class="lg:w-9/12 px-6 lg:px-0 mx-auto">
             <slot />
         </main>
 
