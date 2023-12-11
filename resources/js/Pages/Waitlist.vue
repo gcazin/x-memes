@@ -33,7 +33,7 @@ const submit = () => {
         <div class="flex flex-col lg:flex-row lg:gap-20 py-10 lg:px-20">
             <div class="flex-1 mb-10">
                 <div class="text-center">
-                    <img class="mask mask-squircle w-32 inline me-2 shadow mb-8" src="/storage/misc/favicon-with-background.jpg" alt="">
+                    <img class="mask mask-squircle w-32 inline me-2 shadow mb-8" src="images/favicon-with-background.jpg" alt="">
 
                     <h1 class="text-5xl uppercase font-black mb-8">
                         <span
@@ -83,7 +83,7 @@ const submit = () => {
             </div>
             <div class="flex-1">
                 <p class="mb-2"><span class="font-bold">Aperçu de la plateforme</span> (en cours de développement)</p>
-                <img class="w-full shadow border-2 border-primary/50 rounded mb-4" src="/storage/misc/home.png" alt="">
+                <img class="w-full shadow border-2 border-primary/50 rounded mb-4" src="images/home.png" alt="">
 
                 <p class="text-xl mb-2">
                     En t'inscrivant, tu bénéficieras de ces
