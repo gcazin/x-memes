@@ -35,14 +35,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
 
-            if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
-                Route::get('/', [WaitlistController::class, 'index']);
-                Route::post('/', [WaitlistController::class, 'store'])->name('waitlist.store');
-                Route::redirect('{any}', '/');
-            } else {
-                Route::middleware('web')
-                    ->group(base_path('routes/web.php'));
-            }
+            Route::middleware('web')
+                ->group(base_path('routes/web.php'));
         });
     }
 }
