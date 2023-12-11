@@ -93,7 +93,7 @@ const submit = () => {
                 <div class="space-y-1 text-xl mb-4">
                     <p><Icon class="text-success" name="checkbox" /> Un accès anticipé à la plateforme. 🚀</p>
                     <p><Icon class="text-success" name="checkbox" /> Un badge exclusif aux alpha/bêta testeurs. 👑</p>
-                    <p><Icon class="text-success" name="checkbox" /> Un accès anticipés aux futurs fonctionnalités 🤫</p>
+                    <p><Icon class="text-success" name="checkbox" /> Un accès anticipés aux futurs fonctionnalités. 🤫</p>
                 </div>
             </div>
         </div>
