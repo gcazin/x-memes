@@ -41,12 +41,6 @@ const state = reactive({
     foundedImage: null,
 })
 
-const creatingMediaModal = ref(false);
-
-const createMediaModal = () => {
-    creatingMediaModal.value = true;
-};
-
 const handleMedia = (event) => {
     form.media_id = event.target.files[0]
 
@@ -69,19 +63,10 @@ const handleMedia = (event) => {
 }
 
 const addMedia = () => {
-    form.post(route('media.create'), {
+    form.post(route('media.store'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onFinish: () => form.reset(),
-    });
-};
-
-const deleteTag = (id) => {
-    form.delete(route('admin.tag.destroy', id), {
-        preserveScroll: true,
-        // onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
     });
 };
 

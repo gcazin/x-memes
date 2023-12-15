@@ -12,127 +12,86 @@ import Icon from "@/Components/Misc/Icon.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import formService from "@/Services/form.service.js";
 import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
-
+import Textarea from "@/Components/Elements/Form/Textarea.vue";
+import Stack from "@/Components/Layout/Stack.vue";
 
 defineProps({
     tags: {
         type: Array
     },
 })
+
 const form = useForm({
-    name: null
+    name: null,
 })
 
-const addTag = () => {
-    form.post(route('admin.tag.create'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal('create'),
-        onFinish: () => form.reset(),
-    });
-};
+formService
+    .setForm(form)
+    .setRouteName('admin.tag')
 
-const editTag = (item) => {
-    form.post(route('admin.tag.update', item.id), {
-        preserveScroll: true,
-        onSuccess: () => closeModal('edit', item),
-        onFinish: () => form.reset(),
-    });
-};
-
-const deleteTag = (item) => {
-    form.delete(route('admin.tag.destroy', item.id), {
-        preserveScroll: true,
-        onSuccess: () => closeModal('delete', item),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
-    });
-};
+const openModal = (name, item) => {
+    formService.openModal(name, item)
+}
 </script>
 
 <template>
     <AdminDashboardLayout title="Tags">
-        <div class="flex justify-end mb-4">
-            <button class="btn btn-primary" @click="formService.openModal('createTag')">Ajouter un tag</button>
-        </div>
+        <Stack>
+            <div class="flex justify-end">
+                <button class="btn btn-primary" @click="formService.openModal('createTag')">Ajouter un tag</button>
+            </div>
 
-        <Card title="Nombres de tags" :is-link="false" has-background>
-            {{ tags.length }}
-        </Card>
+            <!-- Modal -->
+            <Modal id="createTagModal" title="Ajouter un badge">
+                <form @submit.prevent="formService.handle('store')">
+                    <TextInput label="Nom" v-model="form.name"/>
 
-        <Table
-            :headers="['Nom']"
-            :items="tags"
-            :properties="['name']"
-            has-action
-            has-background
-        >
-            <template #name="{ name }">
-                {{ name.en }}
-            </template>
-            <template #actions="item">
-                <ActionButton
-                    type="edit"
-                    @click="formService.openModal('deleteTag', item)"
-                />
+                    <InputError :message="form.errors.name" />
 
-                <!-- Edit tag modal -->
-                <Modal :id="`editTagModal${item.id}`" :title="`Éditer le tag ${item.name.en}`">
-                    <form @submit.prevent="editTag(item)">
-                        <TextInput
-                            v-model="form.name"
-                        />
+                    <div class="mt-4">
+                        <button class="btn btn-primary" :disabled="form.processing">
+                            Ajouter le tag
+                        </button>
+                    </div>
+                </form>
+            </Modal>
 
-                        <InputError :message="form.errors.name" />
+            <Card title="Nombres de tags" :is-link="false" has-background>
+                {{ tags.length }}
+            </Card>
 
-                        <div class="mt-4">
-                            <button class="btn btn-primary" :disabled="form.processing">
+            <Table
+                :headers="['Nom']"
+                :items="tags"
+                :properties="['name']"
+                has-action
+                has-background
+            >
+                <template #name="{ name }">
+                    {{ name.en }}
+                </template>
+                <template #actions="item">
+                    <ActionButton type="edit" @click="openModal('editTag', item)"/>
+
+                    <!-- Edit tag modal -->
+                    <Modal :id="`editTagModal${item.id}`" :title="`Éditer le tag ${item.name.en}`">
+                        <form @submit.prevent="formService.handle('update', item)">
+                            <TextInput label="Nom" v-model="form.name" />
+
+                            <InputError :message="form.errors.name" />
+
+                            <button class="btn btn-primary mt-4" :disabled="form.processing">
                                 Éditer le tag
                             </button>
-                        </div>
-                    </form>
-                </Modal>
+                        </form>
+                    </Modal>
 
-                <ActionButton
-                    type="delete"
-                    @click="formService.openModal('deleteTag', item)"
-                />
-
-                <ActionModal
-                    name="deleteTag"
-                    route="admin.tag"
-                    :item="item"
-                    :form="form"
-                    @deleting="deleteTag(item)"
-                    type="delete"
-                >
-
-                </ActionModal>
-
-                <!--                &lt;!&ndash; Delete tag modal &ndash;&gt;
-                                <Modal :id="`deleteTagModal${item.id}`" title="Supprimer le tag">
-                                    <template #description>
-                                        Êtes-vous sûr de supprimer le tag {{ item.name.en }} ?
-                                    </template>
-                                    <form @submit.prevent="deleteTag(item)">
-                                        <button class="btn btn-error" :disabled="form.processing">
-                                            Supprimer le tag
-                                        </button>
-                                    </form>
-                                </Modal>-->
-            </template>
-        </Table>
-
-        <!-- Create tag -->
-        <ActionModal :form="form" route="admin.tag" name="createTag" type="create">
-            <TextInput
-                v-model="form.name"
-            />
-
-            <InputError :message="form.errors.name" />
-        </ActionModal>
-
-<!--        <Modal id="createTagModal" title="Ajouter un tag">
-
-        </Modal>-->
+                    <ActionButton
+                        type="delete"
+                        @click="formService.handle('destroy', item)"
+                    />
+                </template>
+            </Table>
+        </Stack>
     </AdminDashboardLayout>
 </template>

@@ -11,7 +11,7 @@ const page = usePage()
 
 const menuItems = [
     {
-        route: 'home',
+        route: 'index',
         name: 'Bibliothéque'
     },
     {
@@ -50,7 +50,7 @@ const notifications = page.props.auth?.notifications
                         </li>
                     </ul>
                 </div>
-                <a :href="route('home')" class="text-2xl">
+                <a :href="route('index')" class="text-2xl">
                     <img class="w-8 lg:w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
                     <span class="font-bold">
                         X-Memes

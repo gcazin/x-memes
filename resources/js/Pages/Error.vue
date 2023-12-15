@@ -26,7 +26,7 @@ const description = computed(() => {
             <p class="mt-4">{{ description }}</p>
 
             <a
-                :href="route('home')"
+                :href="route('index')"
                 class="btn btn-primary mt-4"
             >
                 Retour à l'accueil

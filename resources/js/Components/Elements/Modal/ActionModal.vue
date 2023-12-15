@@ -25,7 +25,7 @@ const props = defineProps({
 })
 
 const createItem = () => {
-    props.form.post(route(`${props.route}.create`), {
+    props.form.post(route(`${props.route}.store`), {
         preserveScroll: true,
         onSuccess: () => formService.closeModal(props.name),
         onFinish: () => form.reset(),

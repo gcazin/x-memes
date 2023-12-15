@@ -93,21 +93,18 @@ const deleteMedia = (id) => {
                             <img v-else class="w-32 rounded-xl" :src="`/storage/${filename}`" alt="">
                         </template>
                         <template #actions="item">
-                            <ActionButton type="edit" @click="formService.openModal('editMedia', item)" />
-                            <ActionModal
-                                :form="form"
-                                route="media"
-                                name="editMedia"
-                                type="edit"
-                                :item="item"
-                            >
+                            <ActionButton type="edit" :onclick="`editMediaModal${item.id}.showModal()`" />
+                            <Modal :id="`editMediaModal${item.id}`" title="Modifier le média">
                                 <TextInput
                                     label="Titre"
                                     v-model="form.name"
                                 />
                                 <InputError :message="form.errors.name" />
-                            </ActionModal>
-                            <ActionButton type="delete" @click="deleteMedia(item.id)" />
+
+                                <button class="btn btn-info mt-4" @click="deleteMedia(item.id)">
+                                    Modifier le média
+                                </button>
+                            </Modal>
                         </template>
                     </Table>
                 </div>

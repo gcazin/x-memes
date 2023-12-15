@@ -8,6 +8,9 @@ import { Head } from '@inertiajs/vue3';
 defineProps({
     title: {
         type: String,
+    },
+    backButton: {
+        type: Boolean
     }
 })
 
@@ -53,7 +56,7 @@ const menuItems = [
     },
     {
         icon: 'arrow-back',
-        route: 'home',
+        route: 'index',
         name: 'Retour vers le site',
         isAbsolute: true,
     },
@@ -93,13 +96,18 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                         </h1>
                         <div class="flex-1 text-right">
                             <a :href="route('user.show', $page.props.auth.user.username)">
-                               <div class="flex float-right gap-2 items-center">
+                                <div class="flex float-right gap-2 items-center">
                                     <Avatar size="sm" />
-                                {{ $page.props.auth.user.username }}
-                               </div>
+                                    {{ $page.props.auth.user.username }}
+                                </div>
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="py-2 px-6" v-if="backButton">
+                   <a class="btn btn-ghost" :href="route('admin.index')">
+                       <Icon name="arrow-back" size="lg" /> Retour en arrière
+                   </a>
                 </div>
                 <div class="py-2 px-6">
                     <slot />
@@ -145,56 +153,8 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                         </a>
                     </li>
                 </template>
-
             </ul>
         </div>
     </div>
-    <!--        <aside
-                class="absolute left-0 top-0 z-9999 flex h-screen w-64 flex-col overflow-y-hidden bg-base-300 shadow duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 -translate-x-full px-4 shadow-sm"
-            >
-                <div class="py-4 text-center">
-                    <a :href="route('admin.index')">
-                        <Text>Administration</Text>
-                    </a>
-                </div>
-                <nav class="mt-2">
-                    <ul class="flex flex-col gap-2 font-bold">
-                        <template
-                            v-for="(item, index) in menuItems"
-                            :key="index"
-                        >
-                            <li
-                                v-if="'onlyFor' in item && helperService.checkRoles(item.onlyFor)"
-                                class="px-3 py-2 rounded-lg"
-                                :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
-                            >
-                                <a :href="handleRouteLink(item.route, item.isAbsolute)">
-                                    <ion-icon
-                                        class="align-text-top mr-1"
-                                        :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
-                                    >
-                                    </ion-icon>
-                                    {{ item.name }}
-                                </a>
-                            </li>
-                            <li
-                                v-if="!('onlyFor' in item)"
-                                class="px-3 py-2 rounded-lg"
-                                :class="handleRouteLink(item.route, item.isAbsolute, true) ? 'bg-blue-900/50 text-blue-400' : 'text-gray-400'"
-                            >
-                                <a :href="handleRouteLink(item.route, item.isAbsolute)">
-                                    <ion-icon
-                                        class="align-text-top mr-1"
-                                        :name="handleRouteLink(item.route, item.isAbsolute, true) ? item.icon : `${item.icon}-outline`"
-                                    >
-                                    </ion-icon>
-                                    {{ item.name }}
-                                </a>
-                            </li>
-                        </template>
-                    </ul>
-                </nav>
-            </aside>-->
-
     <Toast />
 </template>

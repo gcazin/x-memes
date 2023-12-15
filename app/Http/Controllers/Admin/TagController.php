@@ -4,60 +4,45 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Spatie\Tags\Tag;
 
 class TagController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the tags.
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/Tags', [
+            'tags' => Tag::all(),
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created tag in storage.
      */
     public function store(Request $request)
     {
+        // TODO: ajouter les règles de validation
+
         $tag = Tag::findFromString($request->name);
+
         if ($tag) {
-            flash($request, 'info', 'Ce tag existe déjà, il n\'a pas été crée.');
-        } else {
-            Tag::create([
-                'name' => $request->name,
-            ]);
-            flash($request, 'success', 'Le tag a bien été crée.');
+            flash($request, 'error', 'Ce tag existe déjà.');
+
+            return;
         }
+
+        Tag::create([
+            'name' => $request->name,
+        ]);
+
+        flash($request, 'success', 'Le tag a bien été crée.');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the specified tag in storage.
      */
     public function update(Request $request, string $id)
     {
@@ -65,11 +50,11 @@ class TagController extends Controller
 
         $tag->name = $request->name;
 
-        $tag->save();
+        $tag->update();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified tag from storage.
      */
     public function destroy(int $id)
     {

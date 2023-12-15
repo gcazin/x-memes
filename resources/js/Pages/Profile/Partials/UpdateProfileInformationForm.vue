@@ -18,7 +18,6 @@ defineProps({
 const user = usePage().props.auth.user;
 const avatar = ref(null)
 
-console.log(user)
 const form = useForm({
     username: user.username,
     email: user.email,
@@ -52,7 +51,7 @@ const handleAvatar = (event) => {
         <InputLabel for="name" value="Avatar" />
         <input
             type="file"
-            class="file-input file-input-bordered file-input w-full"
+            class="file-input file-input-bordered w-full"
             id="avatar"
             @input="handleAvatar"
         />

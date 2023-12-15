@@ -6,6 +6,7 @@ import Card from "@/Components/Misc/Card.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import formService from "@/Services/form.service.js";
 import DeleteModal from "@/Components/Elements/Modal/ActionModal.vue";
+import Stack from "@/Components/Layout/Stack.vue";
 
 defineProps({
     users: {
@@ -27,36 +28,38 @@ const deleteUser = (id) => {
 
 <template>
     <AdminDashboardLayout title="Utilisateurs">
-        <Card title="Nombres d'utilisateurs" :is-link="false" has-background>
-            {{ users.length }}
-        </Card>
+        <Stack>
+            <Card title="Nombres d'utilisateurs" :is-link="false" has-background>
+                {{ users.length }}
+            </Card>
 
-        <Table
-            :headers="[`Nom d'utilisateur`, 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
-            :items="users"
-            :properties="['username', 'email', 'role', 'created_at']"
-            has-action
-            has-background
-        >
-            <template #role="{ roles }">
-                {{ roles.map((role) => role.name).join(', ') }}
-            </template>
-            <template #actions="item">
-                <ActionButton type="delete" @click="formService.openModal('deleteUser', item)" />
+            <Table
+                :headers="[`Nom d'utilisateur`, 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
+                :items="users"
+                :properties="['username', 'email', 'role', 'created_at']"
+                has-action
+                has-background
+            >
+                <template #role="{ roles }">
+                    {{ roles.map((role) => role.name).join(', ') }}
+                </template>
+                <template #actions="item">
+                    <ActionButton type="delete" @click="formService.openModal('deleteUser', item)" />
 
-                <!-- Delete tag modal -->
-                <DeleteModal name="deleteUser" :item="item" @deleting="deleteUser(item)" :form="form" />
-<!--                <Modal :id="`deleteUserModal${item.id}`" title="Supprimer le tag">
-                    <template #description>
-                        Êtes-vous sûr de supprimer l'utilisateur {{ item.name.en }} ?
-                    </template>
-                    <form @submit.prevent="deleteTag(item)">
-                        <button class="btn btn-error" :disabled="form.processing">
-                            Supprimer le tag
-                        </button>
-                    </form>
-                </Modal>-->
-            </template>
-        </Table>
+                    <!-- Delete tag modal -->
+                    <DeleteModal name="deleteUser" :item="item" @deleting="deleteUser(item)" :form="form" />
+                    <!--                <Modal :id="`deleteUserModal${item.id}`" title="Supprimer le tag">
+                                        <template #description>
+                                            Êtes-vous sûr de supprimer l'utilisateur {{ item.name.en }} ?
+                                        </template>
+                                        <form @submit.prevent="deleteTag(item)">
+                                            <button class="btn btn-error" :disabled="form.processing">
+                                                Supprimer le tag
+                                            </button>
+                                        </form>
+                                    </Modal>-->
+                </template>
+            </Table>
+        </Stack>
     </AdminDashboardLayout>
 </template>

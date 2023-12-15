@@ -13,55 +13,25 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        $medias = Media::all();
-        $tags = Tag::all();
-
-        return Inertia::render('Admin/Dashboard', [
-            'users' => $users,
-            'medias' => $medias,
-            'tags' => $tags,
+        return Inertia::render('Admin/Index', [
+            'users' => User::all(),
+            'medias' => Media::all(),
+            'tags' => Tag::all(),
         ]);
     }
 
     public function medias()
     {
-        $users = User::all();
-        $medias = Media::all();
-
         return Inertia::render('Admin/Medias', [
-            'users' => $users,
-            'medias' => $medias,
+            'users' => User::all(),
+            'medias' => Media::all(),
         ]);
     }
 
     public function users()
     {
-        $users = User::all();
-
         return Inertia::render('Admin/Users', [
-            'users' => $users,
-        ]);
-    }
-
-    public function tags()
-    {
-        $tags = Tag::all();
-
-        return Inertia::render('Admin/Tags', [
-            'tags' => $tags,
-        ]);
-    }
-
-    public function badges()
-    {
-        $badges = Badge::all()
-            ->sortBy('condition')
-            ->values()
-            ->all();
-
-        return Inertia::render('Admin/Badges', [
-            'badges' => $badges,
+            'users' => User::all(),
         ]);
     }
 }

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Media;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Badge;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BadgeController extends Controller
 {
@@ -13,19 +14,13 @@ class BadgeController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/Badges', [
+            'badges' => Badge::all(),
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Store a newly created badge in storage.
      */
     public function store(Request $request)
     {
@@ -47,19 +42,19 @@ class BadgeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        // TODO: ajouter les règles de validation
+
+        $badge = Badge::find($id);
+
+        $badge->name = $request->name;
+        $badge->description = $request->description;
+        $badge->condition = $request->condition;
+
+        $badge->update();
     }
 
     /**

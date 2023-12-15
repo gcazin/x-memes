@@ -4,21 +4,9 @@ import { _ } from 'lodash'
 class FormService {
     constructor() {
         this.form = null;
-        this.route = null;
-        this.crud = {
-            create: null,
-            update: null,
-            delete: null,
-        }
+        this.routeName = null;
         this.props = null;
         this.modalName = null;
-        this.transformFields = null;
-        this.fields = null;
-        return this
-    }
-
-    setModalName(name) {
-        this.modalName = name.charAt(0).toUpperCase() + name.slice(1)
         return this
     }
 
@@ -27,52 +15,51 @@ class FormService {
         return this
     }
 
-    setBaseRoute(route) {
-        this.route = route
+    setForm(form) {
+        this.form = form
+
         return this
     }
 
-    setFields(fields) {
-        this.fields = fields
+    setModalName(name) {
+        this.modalName = name
+
         return this
     }
 
-    setCreate() {
-        return () => {
-            this.form.post(route(`${this.route}.create`), {
-                preserveScroll: true,
-                onSuccess: () => this.closeModal('create'),
-                onFinish: () => this.reset(),
-            });
-        };
+    setRouteName(routeName) {
+        this.routeName = routeName
+
+        return this
     }
 
-    setUpdate(item) {
-        return this.post(route(`${this.route}.update`, item.id), {
-            preserveScroll: true,
-            onSuccess: () => this.closeModal('update', item),
-            onFinish: () => this.reset(),
-        });
+    setProperties(item) {
+        Object.keys(this.form.data()).map((property) => {
+            if (property in item) {
+                this.form[property] = item[property]
+            }
+        })
     }
-    setDelete(item) {
-        this.crud.delete = () => {
-            this.delete(route('admin.tag.destroy', item.id), {
-                preserveScroll: true,
-                onSuccess: () => this.closeModal('delete', item),
-            });
-        };
+
+    getRouteName() {
+        return this.routeName
     }
 
     openModal(name, item = null) {
         let selector = this.handleSelector(name, item)
-        document.querySelector(selector).showModal()
 
-        form.name = item.name
+        this.setModalName(selector)
+
+        console.log(this.form)
+        if (item) {
+            this.setProperties(item)
+        }
+
+        document.querySelector(this.modalName).showModal()
     }
 
-    closeModal(name, item = null) {
-        let selector = this.handleSelector(name, item)
-        document.querySelector(selector).close()
+    closeModal() {
+        document.querySelector(this.modalName).close()
     }
 
     handleSelector(name, item = null) {
@@ -80,8 +67,32 @@ class FormService {
         if (item) {
             selector = `#${name}Modal${item.id}`
         }
-        return selector}
+        return selector
+    }
 
+    handle(method, item) {
+        const routeName = this.getRouteName()
+        switch (method) {
+            case 'store':
+                this.form.post(route(`${routeName}.store`), {
+                    preserveScroll: true,
+                    onSuccess: () => this.closeModal()
+                })
+                break
+            case 'update':
+                this.form.put(route(`${routeName}.update`, item.id), {
+                    preserveScroll: true,
+                    onSuccess: () => this.closeModal(),
+                })
+                break
+            case 'destroy':
+                this.form.delete(route(`${routeName}.destroy`, item.id), {
+                    preserveScroll: true,
+                    onBefore: () => confirm('Es-tu sûr de supprimer cet élément ?'),
+                })
+                break
+        }
+    }
 }
 
 export default new FormService;
