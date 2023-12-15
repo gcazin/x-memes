@@ -7,7 +7,7 @@
     <img src="./public/images/favicon.png" alt="Logo" width="150">
   </a>
 
-<h3 align="center">X-Memes</h3>
+<h1 align="center">X-Memes</h3>
 
   <p align="center">
     Retrouve tes memes préférés en un clin d'œil !
@@ -21,7 +21,7 @@
   </p>
 </div>
 
-## Capture d'écran
+## 🖼️ Capture d'écran
 
 ![Product Name Screen Shot](./public/images/home.png)
 
@@ -36,7 +36,7 @@ Pour mettre en place une copie locale et la faire fonctionner, suivez les étape
 
 ### Pré-requis
 
-### Installation
+### ⚙️ Installation
 
 1. Cloner le repo
    ```sh
@@ -58,13 +58,13 @@ Pour mettre en place une copie locale et la faire fonctionner, suivez les étape
    npm run dev
    ```
 
-## Roadmap
+## 🛣️ Roadmap
 
 - [ ] //
 
 Voir les [issues](https://github.com/gcazin/x-memes/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 
-## Contribuer
+## ✍🏻 Contribuer
 
 Les contributions sont ce qui fait de la communauté open source un endroit extraordinaire pour apprendre, inspirer et créer. Toutes vos contributions sont **très appréciées**.
 
@@ -76,11 +76,11 @@ Si vous avez une suggestion qui permettrait d'améliorer ce projet, merci de for
 4. Poussez vers votre branche (`git push origin feature/AmazingFeature`)
 5. Ouvrez une pull request
 
-## License
+## 📄 License
 
 Distribué sous la licence MIT. Voir `LICENSE.txt` pour plus d'informations.
 
-## Contact
+## 🔗 Contact
 
 Guillaume - [@gcazinonx](https://twitter.com/gcazinonx) - contact@guillaume-cazin.fr
 
