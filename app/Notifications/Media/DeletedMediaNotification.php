@@ -3,10 +3,7 @@
 namespace App\Notifications\Media;
 
 use App\Models\Media;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class DeletedMediaNotification extends Notification
@@ -18,8 +15,7 @@ class DeletedMediaNotification extends Notification
      */
     public function __construct(
         public Media $media,
-    )
-    {
+    ) {
         //
     }
 

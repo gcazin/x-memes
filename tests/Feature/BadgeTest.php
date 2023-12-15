@@ -1,9 +1,6 @@
 <?php
 
 use App\Models\Badge;
-use App\Models\User;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 test('badges page is displayed only for admin', function () {
     $superadmin = actingAsSuperAdmin()
@@ -30,7 +27,7 @@ it('can create a new badge', function () {
         'name' => 'Badge created',
         'description' => 'Badge description',
         'filename' => 'storage/badges/1.png',
-        'condition' => 100
+        'condition' => 100,
     ]);
 
     $badge = Badge::first();

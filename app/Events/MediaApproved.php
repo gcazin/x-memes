@@ -17,8 +17,7 @@ class MediaApproved
      */
     public function __construct(
         public Media $media
-    )
-    {
+    ) {
         //
     }
 

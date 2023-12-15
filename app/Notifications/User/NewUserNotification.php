@@ -34,7 +34,7 @@ class NewUserNotification extends Notification
      */
     public function toMail(object $notifiable)
     {
-       //
+        //
     }
 
     /**
@@ -47,7 +47,7 @@ class NewUserNotification extends Notification
         return [
             'title' => 'Un nouveau utilisateur a été crée',
             'username' => $this->user->username,
-            'email' => $this->user->email
+            'email' => $this->user->email,
         ];
     }
 }

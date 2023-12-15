@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Waitlist;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,7 +29,7 @@ class WaitlistController extends Controller
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(Waitlist::class)
+                Rule::unique(Waitlist::class),
             ],
         ]);
 

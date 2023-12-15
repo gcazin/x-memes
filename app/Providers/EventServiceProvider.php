@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\MediaApproved;
-use App\Events\MediaDestroyed;
-use App\Listeners\Media\SendApprovedMediaNotification;
-use App\Listeners\Media\SendDeletedMediaNotification;
 use App\Listeners\Subscriber\MediaEventSubscriber;
 use App\Listeners\User\SendNewUserNotification;
 use App\Models\Media;

@@ -28,11 +28,11 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') !== 'local' && env('APP_ENV')
         ->where('any', '.*')->name('waitlist.store');
     Route::redirect('{any}', '/');
 } else {
-// Common pages
+    // Common pages
     Route::get('/', [MediaController::class, 'index'])->name('home');
     Route::get('/home', [HomeController::class, 'index'])->name('test');
 
-// Auth
+    // Auth
     Route::middleware('auth')->group(function () {
         Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
         Route::get('random', [MediaController::class, 'random'])->name('random');
@@ -58,7 +58,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') !== 'local' && env('APP_ENV')
         });
     });
 
-// Administration
+    // Administration
     Route::middleware(['auth', 'verified'])->group(function () {
         // Admin dashboard
         Route::middleware('role:superadmin|admin')
@@ -101,5 +101,5 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') !== 'local' && env('APP_ENV')
             });
     });
 
-    require __DIR__ . '/auth.php';
+    require __DIR__.'/auth.php';
 }

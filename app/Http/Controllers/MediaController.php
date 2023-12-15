@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateMediaRequest;
-use App\Listeners\Media\SendApprovedMediaNotification;
 use App\Mail\MediaApprovedMail;
 use App\Models\Media;
-use App\Models\User;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Providers\RouteServiceProvider;
@@ -89,7 +86,6 @@ class MediaController extends Controller
                 un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
             );
         }
-
 
         return redirect(RouteServiceProvider::HOME);
     }

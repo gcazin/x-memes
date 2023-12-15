@@ -20,7 +20,7 @@ class BadgeFactory extends Factory
             'name' => $this->faker->name,
             'description' => $this->faker->text,
             'filename' => 'storage/1.png',
-            'condition' => $this->faker->randomDigit()
+            'condition' => $this->faker->randomDigit(),
         ];
     }
 }

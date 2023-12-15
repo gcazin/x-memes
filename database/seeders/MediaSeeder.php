@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Media;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Nette\Utils\Random;
 
 class MediaSeeder extends Seeder
 {
