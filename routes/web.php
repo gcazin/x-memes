@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-if (env('APP_STAGE') === 'alpha' && env('APP_ENV') !== 'local' && env('APP_ENV') !== 'testing') {
+if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::get('/', [WaitlistController::class, 'index'])
         ->where('any', '.*');
     Route::post('/', [WaitlistController::class, 'store'])
