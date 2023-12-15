@@ -15,12 +15,15 @@ const props = defineProps({
     user: {
         type: Object
     },
+    medias: {
+        type: Object
+    }
 })
 
 const page = usePage()
 const auth = page.props.auth ?? null
 
-const downloadMediaCount = props.user && props.user.medias.length ? props.user.medias
+const downloadMediaCount = props.medias && props.medias.length ? props.medias
     .map((media) => media.download_count)
     .reduce((accumulator, media) => accumulator + media) : 0
 </script>
@@ -109,7 +112,7 @@ const downloadMediaCount = props.user && props.user.medias.length ? props.user.m
     </Section>
 
     <Section class="w-11/12 lg:w-9/12 text-center mx-auto mt-8 !p-0">
-        <MediaGallery :medias="user.medias" number-of-cols="4" />
+        <MediaGallery :medias="medias" number-of-cols="4" />
     </Section>
 
     <Footer />

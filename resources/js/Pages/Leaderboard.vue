@@ -41,8 +41,8 @@ defineProps({
                     {{ item.key + 1 }}
                 </span>
             </template>
-            <template #name="{ id, name }">
-                <a :href="route('user.show', id)">{{ name }}</a>
+            <template #name="{ id, username }">
+                <a :href="route('user.show', id)">{{ username }}</a>
             </template>
         </Table>
     </PageLayout>

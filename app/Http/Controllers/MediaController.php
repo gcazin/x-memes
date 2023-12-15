@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateMediaRequest;
 use App\Listeners\Media\SendApprovedMediaNotification;
 use App\Mail\MediaApprovedMail;
 use App\Models\Media;
+use App\Models\User;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Providers\RouteServiceProvider;
@@ -34,10 +35,12 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
+        $medias = $this->mediaRepository->paginate();
+
         return Inertia::render('Library', [
-            'medias' => Media::where('approved', true)->orderBy('created_at', 'desc')->paginate(6),
+            'medias' => $medias,
             'tags' => Tag::all(),
         ]);
     }
@@ -45,7 +48,7 @@ class MediaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
         return Inertia::render('Medias/Create');
     }
@@ -155,7 +158,7 @@ class MediaController extends Controller
         $media->approved_by = auth()->user()->id;
         $media->approved_at = now()->toDateTime();
 
-        $media->save();
+        $media->update();
 
         flash(
             $request,

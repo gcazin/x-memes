@@ -24,8 +24,8 @@ class MediaFactory extends Factory
             'filename' => Storage::allFiles('media')[array_rand(Storage::allFiles('media'))],
             'extension' => 'jpg',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
-            'approved' => 1,
             'user_id' => 1,
+            'approved' => 0
         ];
     }
 }

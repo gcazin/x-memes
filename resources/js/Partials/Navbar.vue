@@ -77,11 +77,11 @@ const notifications = page.props.auth?.notifications
             </div>
             <div class="navbar-end gap-1">
                 <template v-if="!$page.props.auth?.user">
-                    <div class="hidden lg:block">
+                    <div class="hidden lg:block space-x-1">
                         <a class="btn btn-ghost" :href="route('login')">Connexion</a>
                         <a class="btn btn-primary" :href="route('register')">Inscription</a>
                     </div>
-                    <div class="dropdown dropdown-end">
+                    <div class="dropdown dropdown-end block lg:hidden">
                         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                             <Icon class="text-3xl" name="person-circle" outline="false" />
                         </div>
@@ -106,14 +106,14 @@ const notifications = page.props.auth?.notifications
                         <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
                             <div class="indicator">
                                 <Icon size="xl" name="notifications" />
-                                <span class="badge badge-sm badge-error indicator-item">
+                                <span class="badge badge-sm badge-error indicator-item" v-if="notifications.length">
                                     {{ notifications.length }}
                                 </span>
                             </div>
                         </div>
                         <div tabindex="0" class="mt-3 z-[1] dropdown-content w-96 bg-base-100 shadow">
                             <div
-                                v-if="notifications"
+                                v-if="notifications.length"
                                 v-for="(notification, index) in notifications"
                                 :key="index"
                                 class="divide-y divide-gray-100 dark:divide-gray-700"
@@ -131,6 +131,9 @@ const notifications = page.props.auth?.notifications
                                         </div>
                                     </div>
                                 </a>
+                            </div>
+                            <div v-else>
+                                <p class="p-4">Aucune notification à afficher</p>
                             </div>
                             <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
                                 <div class="inline-flex items-center">

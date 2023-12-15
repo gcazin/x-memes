@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 /*
@@ -42,7 +45,36 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function actingAsSuperAdmin()
 {
-    // ..
+    $role = Role::create(['name' => 'superadmin']);
+
+    $user = User::factory()->create()->assignRole($role->name);
+
+    return test()->actingAs($user);
+}
+function actingAsAdmin()
+{
+    $role = Role::create(['name' => 'admin']);
+
+    $user = User::factory()->create()->assignRole($role->name);
+
+    return test()->actingAs($user);
+}
+function actingAsModerator()
+{
+    $role = Role::create(['name' => 'moderator']);
+
+    $user = User::factory()->create()->assignRole($role->name);
+
+    return test()->actingAs($user);
+}
+
+function actingAsGuest()
+{
+    $role = Role::create(['name' => 'guest']);
+
+    $user = User::factory()->create()->assignRole($role->name);
+
+    return test()->actingAs($user);
 }

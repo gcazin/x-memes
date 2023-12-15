@@ -38,6 +38,16 @@ class MediaRepository implements RepositoryInterface
         return $this->media->where('approved', false)->get();
     }
 
+    public function paginate()
+    {
+        return $this->media->where('approved', true)->orderBy('created_at', 'desc')->paginate(3);
+    }
+
+    public function paginateByUser($id)
+    {
+        return $this->allApprovedMedias()->where('user_id', $id)->orderBy('created_at', 'desc')->paginate(3);
+    }
+
     /**
      * Find media by id
      */

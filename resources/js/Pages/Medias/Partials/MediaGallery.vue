@@ -1,7 +1,7 @@
 <script setup>
 import {useForm, usePage} from "@inertiajs/vue3";
-import Card from "@/Components/Misc/Card.vue";
-import {onMounted, ref, watchEffect} from "vue";
+import {onMounted, reactive, ref, toRef, watchEffect} from "vue";
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
     medias: {
@@ -15,19 +15,22 @@ const props = defineProps({
 
 const page = usePage()
 
-const allPosts = ref(props.medias)
-const inertiaUrl = ref(page.url)
+const allPosts = ref([...props.medias.data])
+const pagination = toRef(props.medias)
 const loadMoreIntersect = ref(null)
+const loading = ref(false)
 
 onMounted(() => {
     const observer = new IntersectionObserver(
         entries => {
-            entries
-                .forEach(entry => entry.isIntersecting && loadMorePosts())
+            entries.forEach(entry => {
+                entry.isIntersecting && loadMorePosts()
+            })
         })
 
     observer.observe(loadMoreIntersect.value);
 })
+
 const form = useForm({})
 
 const loadMorePosts = () => {
@@ -35,14 +38,19 @@ const loadMorePosts = () => {
         return
     }
 
-    form.get(props.medias.next_page_url, {
-        only: ['data'],
+    loading.value = true
+    router.visit(pagination.value.next_page_url, {
+        only: ['medias'],
         preserveScroll: true,
-    }, {
+        preserveState: true,
         onSuccess: () => {
-            console.log('ici?')
-            allPosts.value = [...allPosts.value, ...props.medias]
-            // window.history.replaceState({}, this.$page.title, inertiaUrl.value)
+            allPosts.value = [
+                ...allPosts.value,
+                ...props.medias.data,
+            ]
+            pagination.value = props.medias
+            window.history.replaceState({}, '', pagination.value.path)
+            loading.value = false
         }
     })
 }
@@ -53,19 +61,25 @@ const loadMorePosts = () => {
         :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
     >
         <div
-            v-for="(media, index) in medias.data"
+            v-for="(media, index) in allPosts"
             :key="index"
+            class="animate-[pulse_0.5s_ease-in-out]"
         >
             <a :href="route('media.show', media.id)">
                 <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
                 <img v-else class="w-full h-full object-cover shadow" :src="`/storage/${media.filename}`" alt="">
             </a>
         </div>
-        <span ref="loadMoreIntersect" id="box"></span>
+    </div>
+    <div class="flex items-center justify-center py-4" ref="loadMoreIntersect">
+        <template v-if="loading">
+            <span class="loading loading-infinity loading-lg text-5xl"></span>
+            <div class="font-bold">Chargement...</div>
+        </template>
     </div>
 </template>
 <style>
-.gallery {
+/*.gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -75,6 +89,5 @@ const loadMorePosts = () => {
     grid-auto-flow: row dense;
 }
 
-.featured { grid-area: 1 / 1 / 3 / 2; }
-
+.featured { grid-area: 1 / 1 / 3 / 2; }*/
 </style>
