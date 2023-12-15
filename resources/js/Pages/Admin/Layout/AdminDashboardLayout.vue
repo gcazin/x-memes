@@ -92,7 +92,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                             {{ title }}
                         </h1>
                         <div class="flex-1 text-right">
-                            <a :href="route('user.show', $page.props.auth.user.id)">
+                            <a :href="route('user.show', $page.props.auth.user.username)">
                                <div class="flex float-right gap-2 items-center">
                                     <Avatar size="sm" />
                                 {{ $page.props.auth.user.username }}

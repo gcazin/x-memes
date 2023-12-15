@@ -149,7 +149,7 @@ const notifications = page.props.auth?.notifications
                         </div>
                         <ul class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52">
                             <li>
-                                <DropdownLink :href="route('user.show', $page.props.auth.user.id)">
+                                <DropdownLink :href="route('user.show', $page.props.auth.user.username)">
                                     <Icon name="person" size="lg" /> Voir mon profil
                                 </DropdownLink>
                             </li>

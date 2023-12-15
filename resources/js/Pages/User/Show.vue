@@ -13,19 +13,21 @@ import Icon from "@/Components/Misc/Icon.vue";
 
 const props = defineProps({
     user: {
-        type: Object
+        type: Array
     },
     medias: {
-        type: Object
+        type: Array
     }
 })
 
 const page = usePage()
 const auth = page.props.auth ?? null
 
-const downloadMediaCount = props.medias && props.medias.length ? props.medias
-    .map((media) => media.download_count)
-    .reduce((accumulator, media) => accumulator + media) : 0
+const downloadMediaCount = props.user.medias && props.user.medias.length
+    ? props.user.medias
+        .map((media) => media.download_count)
+        .reduce((accumulator, media) => accumulator + media)
+    : 0
 </script>
 <template>
     <Navbar />
@@ -47,7 +49,7 @@ const downloadMediaCount = props.medias && props.medias.length ? props.medias
         <div class="container mx-auto">
             <div class="relative flex flex-col bg-base-300 shadow rounded-lg -mt-64">
                 <div class="relative">
-                    <Avatar size="lg" class="absolute -m-16" />
+                    <Avatar :user="user" size="lg" class="absolute -m-16" />
                 </div>
                 <div class="w-full flex lg:text-left lg:self-center">
                     <div class="flex-1 p-4">
@@ -86,7 +88,7 @@ const downloadMediaCount = props.medias && props.medias.length ? props.medias
                     <div class="text-center">
                         <span
                             class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600">
-                            {{ user.medias ? user.medias.length : 0 }}
+                            {{ medias ? medias.total : 0 }}
                         </span>
                         <span class="text-sm text-blueGray-400">Médias postés</span>
                     </div>

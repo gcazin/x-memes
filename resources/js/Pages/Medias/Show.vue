@@ -43,7 +43,7 @@ const downloadItem = (item) => {
                 <Text type="subtitle">{{ media.name }}</Text>
                 <Text>
                     Posté par
-                    <Text type="link" :href="route('user.show', media.user.id)" class="font-bold">{{ media.user.username }}</Text>
+                    <Text type="link" :href="route('user.show', media.user.username)" class="font-bold">{{ media.user.username }}</Text>
                     le {{ new Date(media.created_at).toLocaleDateString() }}
                     à {{ new Date(media.created_at).toLocaleTimeString() }}
                 </Text>
