@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Media\BadgeController;
+use App\Http\Controllers\Media\MediaController;
+use App\Http\Controllers\User\FollowController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WaitlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
 
         Route::name('user.')->group(function () {
             Route::get('{username}', [UserController::class, 'show'])->name('show');
+            Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');
         });
 
         Route::name('profile.')->group(function () {

@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Badge;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use function Pest\Laravel\json;
 
-class BadgeController extends Controller
+class FollowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,15 +29,12 @@ class BadgeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, int $id)
     {
-        $badge = new Badge();
+        $followerId = User::find($request->user_id);
+        $followableId = User::find($id);
 
-        $badge->name = $request->name;
-        $badge->description = $request->description;
-        $badge->condition = $request->condition;
-
-        $badge->save();
+        $followerId->toggleFollow($followableId);
     }
 
     /**
@@ -66,8 +66,6 @@ class BadgeController extends Controller
      */
     public function destroy(string $id)
     {
-        $badge = Badge::find($id);
-
-        $badge->delete();
+        //
     }
 }

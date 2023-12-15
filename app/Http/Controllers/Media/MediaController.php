@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Media;
 
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Library;
 use App\Http\Requests\StoreMediaRequest;
 use App\Http\Requests\UpdateMediaRequest;
 use App\Mail\MediaApprovedMail;

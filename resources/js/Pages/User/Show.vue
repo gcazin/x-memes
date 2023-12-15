@@ -7,7 +7,7 @@ import RoleBadge from "@/Components/Misc/RoleBadge.vue";
 import Avatar from "@/Components/Misc/Avatar.vue";
 import Section from "@/Components/Layout/Section.vue";
 import Navbar from "@/Partials/Navbar.vue";
-import {usePage} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import Footer from "@/Partials/Footer.vue";
 import Icon from "@/Components/Misc/Icon.vue";
 
@@ -17,17 +17,36 @@ const props = defineProps({
     },
     medias: {
         type: Array
-    }
+    },
 })
 
 const page = usePage()
-const auth = page.props.auth ?? null
+const auth = page.props.auth?.user
+
+console.log(auth)
 
 const downloadMediaCount = props.user.medias && props.user.medias.length
     ? props.user.medias
         .map((media) => media.download_count)
         .reduce((accumulator, media) => accumulator + media)
     : 0
+const checkIfAuthIsFollowing = () => {
+    return props.user.followers
+        .map((follower) => follower.username)
+        .includes(auth.username)
+}
+
+const form = useForm({
+    user_id: auth.id
+})
+
+const submit = () => {
+    form.post(route('user.follow', props.user.id), {
+        onSuccess: () => {
+            checkIfAuthIsFollowing()
+        }
+    });
+};
 </script>
 <template>
     <Navbar />
@@ -38,11 +57,11 @@ const downloadMediaCount = props.user.medias && props.user.medias.length
         >
             <span class="w-full h-full absolute opacity-50 bg-black"></span>
         </div>
-        <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
-            <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-                <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
-        </div>
+        <!--        <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
+                    <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                        <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+                    </svg>
+                </div>-->
     </section>
 
     <Section class="w-11/12 lg:w-9/12 text-center mx-auto mt-32 !p-0">
@@ -70,15 +89,22 @@ const downloadMediaCount = props.user.medias && props.user.medias.length
                     </div>
                     <div class="flex-1 text-right space-x-2 p-4">
                         <a
-                            v-if="user.id === auth.user.id"
+                            v-if="user.id === auth.id"
                             :href="route('profile.edit')"
                             class="btn btn-neutral btn-outline"
                         >
                             <Icon name="create" size="xl" />
                         </a>
-                        <button v-else class="btn btn-primary" type="button">
-                            Suivre
-                        </button>
+                        <template v-else>
+                            <form @submit.prevent="submit">
+                                <button
+                                    class="btn btn-primary"
+                                    :class="{'btn-outline': checkIfAuthIsFollowing()}"
+                                >
+                                    {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
+                                </button>
+                            </form>
+                        </template>
                     </div>
                 </div>
                 <h3 class="text-4xl py-2 font-semibold leading-normal">
@@ -104,7 +130,7 @@ const downloadMediaCount = props.user.medias && props.user.medias.length
                         <span
                             class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600"
                         >
-                            0
+                            {{ user.followers.length }}
                         </span>
                         <span class="text-sm text-blueGray-400">followers</span>
                     </div>
