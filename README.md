@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/gcazin/x-memes">
-    <img src="./public/images/favicon-with-background.jpg" alt="Logo" width="80" height="80">
+    <img src="./public/favicon.ico" alt="Logo" width="150">
   </a>
 
 <h3 align="center">X-Memes</h3>
