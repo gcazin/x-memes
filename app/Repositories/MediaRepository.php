@@ -25,9 +25,13 @@ class MediaRepository implements RepositoryInterface
     /**
      * All media approved and published
      */
-    public function allApprovedMedias(): mixed
+    public function allApprovedMedias($force = true): mixed
     {
-        return $this->media->where('approved', true)->get();
+        $model = $this->media->where('approved', true);
+
+        return $force
+            ? $model->get()
+            : $model;
     }
 
     /**
@@ -38,14 +42,30 @@ class MediaRepository implements RepositoryInterface
         return $this->media->where('approved', false)->get();
     }
 
+    /**
+     * Paginate medias
+     *
+     * @return mixed
+     */
     public function paginate()
     {
-        return $this->media->where('approved', true)->orderBy('created_at', 'desc')->paginate(3);
+        return $this->allApprovedMedias(false)
+            ->where('approved', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(3);
     }
 
+    /**
+     * Paginate medias by user
+     *
+     * @return mixed
+     */
     public function paginateByUser($id)
     {
-        return $this->allApprovedMedias()->where('user_id', $id)->orderBy('created_at', 'desc')->paginate(3);
+        return $this->allApprovedMedias(false)
+            ->where('user_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(3);
     }
 
     /**
@@ -56,6 +76,11 @@ class MediaRepository implements RepositoryInterface
         return $this->media->find($id);
     }
 
+    /**
+     * Find the first element returned by where
+     *
+     * @return mixed
+     */
     public function firstWhere($key, $value)
     {
         return $this->media->firstWhere($key, $value);
