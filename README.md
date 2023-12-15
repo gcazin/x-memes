@@ -1,3 +1,5 @@
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F4a94f5fa-7a25-4af8-9dec-ff0900c9c25d&style=plastic)](https://forge.laravel.com/servers/741129/sites/2186314)
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -19,48 +21,16 @@
   </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table des matières</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
 ## Capture d'écran
 
 ![Product Name Screen Shot](./public/images/home.png)
 
 ### Construit avec
 
-[![Tailwind][Tailwind]][Tailwind-url]
-[![Vue][Vue.js]][Vue-url]
 [![Laravel][Laravel.com]][Laravel-url]
-[![Symfony][Symfony.com]][Symfony-url]
+[![Vue][Vue.js]][Vue-url]
 
 ## Pour commencer
-
-Il s'agit d'un exemple de la manière dont vous pouvez donner des instructions sur la configuration locale de votre projet. 
 
 Pour mettre en place une copie locale et la faire fonctionner, suivez les étapes simples de cet exemple.
 
