@@ -1,61 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/gcazin/x-memes">
+    <img src="./public/images/favicon-with-background.jpg" alt="Logo" width="80" height="80">
+  </a>
 
-[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F4a94f5fa-7a25-4af8-9dec-ff0900c9c25d&style=flat)](https://forge.laravel.com/servers/741129/sites/2186314)
+<h3 align="center">X-Memes</h3>
 
-## À propos
+  <p align="center">
+    Retrouve tes memes préférés en un clin d'œil !
+    <br />
+    <br />
+    <a href="https://x-memes.com">Voir le site</a>
+    ·
+    <a href="https://github.com/gcazin/x-memes/issues">Signaler un bug</a>
+    ·
+    <a href="https://github.com/gcazin/x-memes/issues">Demande de fonctionnalité</a>
+  </p>
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table des matières</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-## Learning Laravel
+## Capture d'écran
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Product Name Screen Shot](./public/images/home.png)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Construit avec
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+[![Tailwind][Tailwind]][Tailwind-url]
+[![Vue][Vue.js]][Vue-url]
+[![Laravel][Laravel.com]][Laravel-url]
+[![Symfony][Symfony.com]][Symfony-url]
 
-## Laravel Sponsors
+## Pour commencer
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Il s'agit d'un exemple de la manière dont vous pouvez donner des instructions sur la configuration locale de votre projet. 
 
-### Premium Partners
+Pour mettre en place une copie locale et la faire fonctionner, suivez les étapes simples de cet exemple.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Pré-requis
 
-## Contributing
+### Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Cloner le repo
+   ```sh
+   git clone https://github.com/gcazin/x-memes.git
+   ```
+2. Installer les dépendances
+    ```sh
+   composer install
+   ```
+3. Installer les paquets NPM
+   ```sh
+   npm install
+   ```
+4. Démarrer le projet
+    ```sh
+   php artisan serve
+   ```
+   ```sh
+   npm run dev
+   ```
 
-## Code of Conduct
+## Roadmap
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- [ ] //
 
-## Security Vulnerabilities
+Voir les [issues](https://github.com/gcazin/x-memes/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Contribuer
+
+Les contributions sont ce qui fait de la communauté open source un endroit extraordinaire pour apprendre, inspirer et créer. Toutes vos contributions sont **très appréciées**.
+
+Si vous avez une suggestion qui permettrait d'améliorer ce projet, merci de forker le repo et de créer une pull request. Vous pouvez aussi simplement ouvrir un problème avec le tag "enhancement". N'oubliez pas de donner une étoile au projet ! Merci à tous !
+
+1. Fork le projet
+2. Créez votre branche de fonctionnalités (`git checkout -b feature/AmazingFeature`)
+3. Commitez vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Poussez vers votre branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une pull request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distribué sous la licence MIT. Voir `LICENSE.txt` pour plus d'informations.
+
+## Contact
+
+Guillaume - [@gcazinonx](https://twitter.com/gcazinonx) - contact@guillaume-cazin.fr
+
+Lien du projet: [https://github.com/gcazin/x-memes](https://github.com/gcazin/x-memes)
+
+[contributors-shield]: https://img.shields.io/github/contributors/gcazin/x-memes.svg?style=for-the-badge
+[contributors-url]: https://github.com/gcazin/x-memes/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/gcazin/x-memes.svg?style=for-the-badge
+[forks-url]: https://github.com/gcazin/x-memes/network/members
+[stars-shield]: https://img.shields.io/github/stars/gcazin/x-memes.svg?style=for-the-badge
+[stars-url]: https://github.com/gcazin/x-memes/stargazers
+[issues-shield]: https://img.shields.io/github/issues/gcazin/x-memes.svg?style=for-the-badge
+[issues-url]: https://github.com/gcazin/x-memes/issues
+[license-shield]: https://img.shields.io/github/license/gcazin/x-memes.svg?style=for-the-badge
+[license-url]: https://github.com/gcazin/x-memes/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Vue-url]: https://tailwindcss.css/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
