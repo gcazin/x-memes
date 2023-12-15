@@ -33,8 +33,6 @@ const downloadItem = (item) => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
-
     <PageLayout :title="`Média ${media.name} par ${media.user.username}`">
         <div class="flex flex-col lg:flex-row gap-4 pb-6">
             <div class="lg:w-2/4">

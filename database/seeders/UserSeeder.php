@@ -15,7 +15,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = ['superadmin', 'admin', 'moderator', 'guest'];
-        // superadmin
 
         foreach ($users as $user) {
             User::factory()
@@ -23,8 +22,9 @@ class UserSeeder extends Seeder
                     'username' => $user,
                     'email' => "${user}@${user}.fr",
                     'password' => $user,
-                    'email_verified_at' => Carbon::now(),
                 ])->assignRole(Role::all()->where('name', $user));
         }
+
+        User::factory()->create()->assignRole('guest');
     }
 }

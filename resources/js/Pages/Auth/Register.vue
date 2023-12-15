@@ -23,8 +23,6 @@ const submit = () => {
 
 <template>
     <PageLayout title="Inscription">
-        <Head title="Inscription" />
-
         <Section>
             <form @submit.prevent="submit">
                 <TextInput

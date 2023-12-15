@@ -1,9 +1,9 @@
 <script setup>
-import Text from "@/Components/Text.vue";
 import helperService from "@/Services/helper.service.js";
 import Toast from "@/Components/Misc/Toast.vue";
 import Icon from "@/Components/Misc/Icon.vue";
 import Avatar from "@/Components/Misc/Avatar.vue";
+import { Head } from '@inertiajs/vue3';
 
 defineProps({
     title: {
@@ -76,6 +76,8 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
 </script>
 
 <template>
+    <Head :title="title" />
+
     <div class="drawer lg:drawer-open">
         <input id="my-drawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">

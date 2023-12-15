@@ -46,8 +46,6 @@ const closeModal = () => {
 </script>
 
 <template>
-    <Head title="Administration" />
-
     <AdminDashboardLayout title="Badges">
         <div class="flex justify-end mb-4">
             <button class="btn btn-primary" onclick="addBadgeModal.showModal()">Ajouter un badge</button>

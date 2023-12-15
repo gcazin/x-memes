@@ -38,7 +38,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         Route::get('random', [MediaController::class, 'random'])->name('random');
 
         Route::name('user.')->group(function () {
-            Route::get('user/{id}', [UserController::class, 'show'])->name('show');
+            Route::get('{username}', [UserController::class, 'show'])->name('show');
         });
 
         Route::name('profile.')->group(function () {

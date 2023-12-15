@@ -50,8 +50,6 @@ const deleteTag = (item) => {
 </script>
 
 <template>
-    <Head title="Administration" />
-
     <AdminDashboardLayout title="Tags">
         <div class="flex justify-end mb-4">
             <button class="btn btn-primary" @click="formService.openModal('createTag')">Ajouter un tag</button>

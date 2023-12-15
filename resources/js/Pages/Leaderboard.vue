@@ -18,8 +18,6 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Dashboard" />
-
     <PageLayout title="Classement">
         <div class="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-4">
                 <Card title="Nombre d'utilisateurs inscrits" :is-link="false">

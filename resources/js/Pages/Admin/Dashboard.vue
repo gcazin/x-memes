@@ -36,8 +36,6 @@ const deleteMedia = (id) => {
 </script>
 
 <template>
-    <Head title="Administration" />
-
     <AdminDashboardLayout title="Dashboard">
         <div class="stats shadow w-full bg-base-300">
             <div class="stat">

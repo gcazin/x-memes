@@ -33,8 +33,6 @@ const submit = () => {
 
 <template>
     <PageLayout title="Reset mot de passe">
-        <Head title="Reset Password" />
-
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="email" value="Email" />

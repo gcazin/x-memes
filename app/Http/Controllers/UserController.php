@@ -13,10 +13,10 @@ class UserController extends Controller
     ) {
     }
 
-    public function show(int $id)
+    public function show(string $username)
     {
-        $user = User::with('badges')->find($id);
-        $medias = $this->mediaRepository->paginateByUser($id);
+        $user = User::with('badges')->where('username', $username)->first();
+        $medias = $this->mediaRepository->paginateByUser($user->id);
 
         return Inertia::render('User/Show', [
             'user' => $user,

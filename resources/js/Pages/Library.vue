@@ -91,8 +91,6 @@ const closeModal = () => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
-
     <PageLayout title="Bibliothèque d'images">
         <template #action>
             <button class="btn btn-primary" onclick="addMediaModal.showModal()">Ajouter un média</button>

@@ -2,6 +2,7 @@
 import Navbar from "@/Partials/Navbar.vue";
 import Toast from "@/Components/Misc/Toast.vue";
 import Footer from "@/Partials/Footer.vue";
+import { Head } from '@inertiajs/vue3';
 
 defineProps({
     title: {
@@ -12,6 +13,8 @@ defineProps({
 </script>
 
 <template>
+    <Head :title="title"></Head>
+
     <div class="min-h-screen bg-base-200">
         <Navbar />
 

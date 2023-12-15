@@ -26,8 +26,6 @@ const deleteUser = (id) => {
 </script>
 
 <template>
-    <Head title="Administration" />
-
     <AdminDashboardLayout title="Utilisateurs">
         <Card title="Nombres d'utilisateurs" :is-link="false" has-background>
             {{ users.length }}

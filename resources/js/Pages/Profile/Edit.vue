@@ -18,8 +18,6 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Profile" />
-
     <PageLayout title="Mon compte">
         <Section>
             <ChangeTheme />
