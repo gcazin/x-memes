@@ -30,11 +30,9 @@
 [![Laravel][Laravel.com]][Laravel-url]
 [![Vue][Vue.js]][Vue-url]
 
-## Pour commencer
+## 🚀 Pour commencer
 
 Pour mettre en place une copie locale et la faire fonctionner, suivez les étapes simples de cet exemple.
-
-### Pré-requis
 
 ### ⚙️ Installation
 
