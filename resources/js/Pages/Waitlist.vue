@@ -30,12 +30,12 @@ const submit = () => {
     <Head title="Accueil" />
 
     <div class="lg:grid h-screen place-content-center px-4 waitlist-section">
-        <div class="flex flex-col lg:flex-row lg:gap-20 py-10 lg:px-20">
+        <div class="flex flex-col lg:flex-row lg:gap-20 py-5 lg:py-10 lg:px-20">
             <div class="flex-1 mb-10">
                 <div class="text-center">
                     <img class="mask mask-squircle w-32 inline me-2 shadow mb-8" src="images/favicon-with-background.jpg" alt="">
 
-                    <h1 class="text-5xl uppercase font-black mb-8">
+                    <h1 class="text-3xl lg:text-5xl uppercase font-black mb-8">
                         <span
                             class="bg-gradient-to-r from-blue-800 via-blue-600 to-blue-400 inline-block text-transparent bg-clip-text"
                         >
@@ -43,18 +43,18 @@ const submit = () => {
                         </span>, lui qui n'oubliera jamais
                     </h1>
 
-                    <p class="text-2xl mb-8">
+                    <p class="text-xl lg:text-2xl mb-8">
                         <span class="text-primary">
                             Une image ou une vidéo
                         </span> t'a fait (sou)rire sur X, et <span class="text-error-content">impossible de remettre la main dessus</span>?
                         Je comprends cette frustration, ça m'est arrivé aussi... j'ai donc décidé de créer un site web pour y remédier!
                     </p>
 
-                    <p class="text-2xl mb-8">
+                    <p class="text-xl lg:text-2xl mb-8">
                         Je t'offre donc durant un temps limité la possibilité de t'inscrire et d'avoir un accès anticipé pour ma/notre futur plateforme.
                     </p>
 
-                    <p class="text-lg mb-8 italic font-bold">
+                    <p class="text-base lg:text-lg mb-8 italic font-bold">
                         Les places sont très limitées et l'inscription sera fermée dans très peu de temps.
                     </p>
 
@@ -85,12 +85,12 @@ const submit = () => {
                 <p class="mb-2"><span class="font-bold">Aperçu de la plateforme</span> (en cours de développement)</p>
                 <img class="w-full shadow border-2 border-primary/50 rounded mb-4" src="images/home.png" alt="">
 
-                <p class="text-xl mb-2">
+                <p class="text-lg lg:text-xl mb-2">
                     En t'inscrivant, tu bénéficieras de ces
                     <span class="font-bold">avantages suivants</span> :
                 </p>
 
-                <div class="space-y-1 text-xl mb-4">
+                <div class="text-lg lg:text-xl space-y-1 mb-4">
                     <p><Icon class="text-success" name="checkbox" /> Un accès anticipé à la plateforme. 🚀</p>
                     <p><Icon class="text-success" name="checkbox" /> Un badge exclusif aux alpha/bêta testeurs. 👑</p>
                     <p><Icon class="text-success" name="checkbox" /> Un accès anticipés aux futurs fonctionnalités. 🤫</p>
