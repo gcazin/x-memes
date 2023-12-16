@@ -73,6 +73,11 @@ class FormService {
     }
 
     handle(method, item) {
+        /**
+         * TODO: ForceFormData
+         *
+         * @see https://inertiajs.com/file-uploads
+         */
         const routeName = this.getRouteName()
         switch (method) {
             case 'store':

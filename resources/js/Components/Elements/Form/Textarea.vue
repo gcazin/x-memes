@@ -26,7 +26,7 @@ defineExpose({ focus: () => input.value.focus() });
 </script>
 
 <template>
-    <label class="form-control">
+    <label class="form-control mb-2">
         <div class="label">
             <span class="label-text">{{ label }}</span>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Requests\Badge;
 use App\Models\Badge;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class StoreBadgeRequest extends FormRequest
 {
@@ -26,6 +27,7 @@ class StoreBadgeRequest extends FormRequest
         return [
             'name' => ['string', 'required', 'max:100', Rule::unique(Badge::class)],
             'description' => ['string', 'required'],
+            'media_id' => ['required', File::types(['jpg,jpeg,png,gif,webp'])->max('5mb')],
             'condition' => ['integer', Rule::unique(Badge::class)],
         ];
     }

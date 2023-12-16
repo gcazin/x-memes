@@ -28,10 +28,6 @@ const form = useForm({
 formService
     .setForm(form)
     .setRouteName('admin.tag')
-
-const openModal = (name, item) => {
-    formService.openModal(name, item)
-}
 </script>
 
 <template>
@@ -60,9 +56,6 @@ const openModal = (name, item) => {
                 {{ tags.length }}
             </Card>
 
-            <template v-for="tag in tags">
-                {{ tag.name }}
-            </template>
             <Table
                 :headers="['Nom']"
                 :items="tags"
@@ -71,16 +64,15 @@ const openModal = (name, item) => {
                 has-background
             >
                 <template #name="{ name }">
-                    {{ name.en }}
+                    {{ name }}
                 </template>
                 <template #actions="item">
-                    <ActionButton type="edit" @click="openModal('editTag', item)"/>
+                    <ActionButton type="edit" @click="formService.openModal('editTag', item)"/>
 
                     <!-- Edit tag modal -->
-                    <Modal :id="`editTagModal${item.id}`" :title="`Éditer le tag ${item.name.en}`">
+                    <Modal :id="`editTagModal${item.id}`" :title="`Modifier le tag ${item.name}`">
                         <form @submit.prevent="formService.handle('update', item)">
                             <TextInput label="Nom" v-model="form.name" />
-
                             <InputError :message="form.errors.name" />
 
                             <button class="btn btn-primary mt-4" :disabled="form.processing">

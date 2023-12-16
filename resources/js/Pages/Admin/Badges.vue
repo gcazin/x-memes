@@ -10,6 +10,7 @@ import Textarea from "@/Components/Elements/Form/Textarea.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import formService from "@/Services/form.service.js";
 import Stack from "@/Components/Layout/Stack.vue";
+import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
 
 defineProps({
     badges: {
@@ -20,6 +21,7 @@ defineProps({
 const form = useForm({
     name: null,
     description: null,
+    filename: null,
     condition: null
 })
 
@@ -43,6 +45,19 @@ formService
                         <Textarea label="Description" v-model="form.description"/>
                         <InputError :message="form.errors.description" />
 
+                        <label class="form-control w-full mb-2">
+                            <div class="label">
+                                <span class="label-text">Image</span>
+                            </div>
+                            <input
+                                type="file"
+                                class="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                                id="media_id"
+                                @input="form.filename = $event.target.files[0]"
+                            />
+                        </label>
+                        <InputError class="mt-2" :message="form.errors.filename" />
+
                         <TextInput label="Condition" type="number" v-model="form.condition"></TextInput>
                         <InputError :message="form.errors.condition" />
 
@@ -60,12 +75,15 @@ formService
             </Card>
 
             <Table
-                :headers="['Nom', 'Condition', 'Décerné à']"
+                :headers="['Nom', 'Description', 'Condition', 'Fichier', 'Décerné à']"
                 :items="badges"
-                :properties="['name', 'condition', 'users']"
+                :properties="['name', 'description', 'condition', 'filename', 'users']"
                 has-action
                 has-background
             >
+                <template #filename="item">
+                    <img class="w-10" :src="`/storage/${item.filename}`" alt="">
+                </template>
                 <template #users="{ users }">
                     {{ users.length }} utilisateurs
                 </template>

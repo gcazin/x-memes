@@ -25,12 +25,6 @@ class BadgeSeeder extends Seeder
                 'badges/1.png',
                 5,
             ],
-            [
-                'Posteur avancé Honey',
-                'Tu as posté 3 images',
-                'badges/1.png',
-                3,
-            ],
         ];
         foreach ($badges as $badge) {
             Badge::create([

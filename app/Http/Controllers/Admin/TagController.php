@@ -5,27 +5,34 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tag\StoreTagRequest;
 use App\Http\Requests\Tag\UpdateTagRequest;
+use App\Repositories\TagRepository;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Tags\Tag;
 
 class TagController extends Controller
 {
+    public function __construct(
+        public TagRepository $tagRepository
+    ) {
+    }
+
     /**
      * Display a listing of the tags.
      */
     public function index()
     {
         return Inertia::render('Admin/Tags', [
-            'tags' => Tag::all(),
+            'tags' => $this->tagRepository->all(),
         ]);
     }
 
     /**
      * Store a newly created tag in storage.
      */
-    public function store(StoreTagRequest $request)
+    public function store(Request $request)
     {
-        \App\Models\Tag::create(['name' => $request->name]);
+        Tag::findOrCreate($request->name);
 
         flash($request, 'success', 'Le tag a bien été crée.');
     }
@@ -33,7 +40,7 @@ class TagController extends Controller
     /**
      * Update the specified tag in storage.
      */
-    public function update(UpdateTagRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
         $tag = Tag::find($id);
 
@@ -47,7 +54,7 @@ class TagController extends Controller
      */
     public function destroy(int $id)
     {
-        $tag = Tag::find($id);
+        $tag = $this->tagRepository->find($id);
 
         $tag->delete();
     }

@@ -31,11 +31,10 @@ defineProps({
                 <th
                     v-for="(header, index) in headers"
                     :key="index"
-                    scope="col"
                 >
                     {{ header }}
                 </th>
-                <th v-if="hasAction" scope="col" class="text-right">
+                <th v-if="hasAction" class="text-right">
                     Actions
                 </th>
             </tr>

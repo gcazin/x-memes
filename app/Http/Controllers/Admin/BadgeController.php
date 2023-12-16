@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Badge\StoreBadgeRequest;
 use App\Http\Requests\Badge\UpdateBadgeRequest;
 use App\Models\Badge;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BadgeController extends Controller
@@ -29,6 +30,7 @@ class BadgeController extends Controller
 
         $badge->name = $request->name;
         $badge->description = $request->description;
+        // TODO: Add filename (rename to badge_path/media_path/media_id) ?
         $badge->condition = $request->condition;
 
         $badge->save();
@@ -49,8 +51,12 @@ class BadgeController extends Controller
     {
         $badge = Badge::find($id);
 
+        $image = Storage::disk('public')
+            ->put('badges', $request->file('media_id'));
+
         $badge->name = $request->name;
         $badge->description = $request->description;
+        $badge->filename = $image;
         $badge->condition = $request->condition;
 
         $badge->update();
