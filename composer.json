@@ -11,6 +11,7 @@
         "laravel/framework": "^10.10",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.2",
+        "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
         "mailersend/laravel-driver": "^2.3",
         "opcodesio/log-viewer": "^3.1",

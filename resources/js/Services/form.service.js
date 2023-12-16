@@ -60,6 +60,8 @@ class FormService {
 
     closeModal() {
         document.querySelector(this.modalName).close()
+
+        this.form.reset()
     }
 
     handleSelector(name, item = null) {

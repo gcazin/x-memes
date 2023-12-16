@@ -55,6 +55,13 @@ const menuItems = [
         isAbsolute: true,
     },
     {
+        icon: 'telescope',
+        route: 'telescope',
+        name: 'Telescope',
+        onlyFor: 'superadmin',
+        isAbsolute: true,
+    },
+    {
         icon: 'arrow-back',
         route: 'index',
         name: 'Retour vers le site',

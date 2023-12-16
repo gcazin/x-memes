@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Tag\StoreTagRequest;
+use App\Http\Requests\Tag\UpdateTagRequest;
 use Inertia\Inertia;
 use Spatie\Tags\Tag;
 
@@ -22,21 +23,9 @@ class TagController extends Controller
     /**
      * Store a newly created tag in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTagRequest $request)
     {
-        // TODO: ajouter les règles de validation
-
-        $tag = Tag::findFromString($request->name);
-
-        if ($tag) {
-            flash($request, 'error', 'Ce tag existe déjà.');
-
-            return;
-        }
-
-        Tag::create([
-            'name' => $request->name,
-        ]);
+        \App\Models\Tag::create(['name' => $request->name]);
 
         flash($request, 'success', 'Le tag a bien été crée.');
     }
@@ -44,7 +33,7 @@ class TagController extends Controller
     /**
      * Update the specified tag in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTagRequest $request, string $id)
     {
         $tag = Tag::find($id);
 

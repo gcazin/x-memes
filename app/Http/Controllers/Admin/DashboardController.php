@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Badge;
 use App\Models\Media;
 use App\Models\User;
 use Inertia\Inertia;

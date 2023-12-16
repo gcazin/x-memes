@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +22,7 @@ class MediaFactory extends Factory
             'filename' => Storage::allFiles('media')[array_rand(Storage::allFiles('media'))],
             'extension' => 'jpg',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
-            'user_id' => fake()->randomElement([1,2,3,4,5]),
+            'user_id' => fake()->randomElement([1, 2, 3, 4, 5]),
             'approved' => fake()->boolean,
         ];
     }

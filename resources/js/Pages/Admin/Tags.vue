@@ -60,6 +60,9 @@ const openModal = (name, item) => {
                 {{ tags.length }}
             </Card>
 
+            <template v-for="tag in tags">
+                {{ tag.name }}
+            </template>
             <Table
                 :headers="['Nom']"
                 :items="tags"

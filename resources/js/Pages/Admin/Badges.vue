@@ -38,12 +38,13 @@ formService
                 <Modal id="createBadgeModal" title="Ajouter un badge">
                     <form @submit.prevent="formService.handle('store')">
                         <TextInput label="Nom" v-model="form.name"/>
+                        <InputError :message="form.errors.name" />
 
                         <Textarea label="Description" v-model="form.description"/>
+                        <InputError :message="form.errors.description" />
 
                         <TextInput label="Condition" type="number" v-model="form.condition"></TextInput>
-
-                        <InputError :message="form.errors.name" />
+                        <InputError :message="form.errors.condition" />
 
                         <div class="mt-4">
                             <button class="btn btn-primary" :disabled="form.processing">

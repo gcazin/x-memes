@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Media;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class MediaSeeder extends Seeder

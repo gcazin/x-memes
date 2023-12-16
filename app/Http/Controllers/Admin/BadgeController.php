@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Badge\StoreBadgeRequest;
+use App\Http\Requests\Badge\UpdateBadgeRequest;
 use App\Models\Badge;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BadgeController extends Controller
@@ -22,7 +23,7 @@ class BadgeController extends Controller
     /**
      * Store a newly created badge in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBadgeRequest $request)
     {
         $badge = new Badge();
 
@@ -44,10 +45,8 @@ class BadgeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateBadgeRequest $request, string $id)
     {
-        // TODO: ajouter les règles de validation
-
         $badge = Badge::find($id);
 
         $badge->name = $request->name;
