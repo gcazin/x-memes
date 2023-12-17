@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Badge;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -13,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = ['superadmin', 'admin', 'moderator'];
+        $users = ['super-admin', 'admin', 'moderator'];
 
         foreach ($users as $user) {
             User::factory()
@@ -21,7 +22,11 @@ class UserSeeder extends Seeder
                     'username' => $user,
                     'email' => "${user}@${user}.fr",
                     'password' => $user,
-                ])->assignRole(Role::all()->where('name', $user));
+                ])
+                ->assignRole(Role::all()->where('name', $user))
+                ->badges()
+                ->attach(Badge::all()->firstWhere('condition', $user)->id)
+            ;
         }
     }
 }
