@@ -50,7 +50,6 @@ class FormService {
 
         this.setModalName(selector)
 
-        console.log(this.form)
         if (item) {
             this.setProperties(item)
         }
@@ -61,7 +60,7 @@ class FormService {
     closeModal() {
         document.querySelector(this.modalName).close()
 
-        this.form.reset()
+        this.form.reset().clearErrors()
     }
 
     handleSelector(name, item = null) {

@@ -81,7 +81,7 @@ const maxWidthClass = computed(() => {
                     </template>
                     <slot />
                 </div>
-                <form method="dialog" class="modal-backdrop">
+                <form method="dialog" class="modal-backdrop" @click="close">
                     <button>close</button>
                 </form>
             </dialog>

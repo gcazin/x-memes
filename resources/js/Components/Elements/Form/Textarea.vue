@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import {onMounted, ref, watch} from 'vue';
 
 defineProps({
     modelValue: {
@@ -9,6 +9,9 @@ defineProps({
     label: {
         type: String,
         required: false,
+    },
+    value: {
+        type: String,
     }
 });
 
@@ -32,7 +35,7 @@ defineExpose({ focus: () => input.value.focus() });
         </div>
         <textarea
             class="textarea textarea-bordered bg-base-300 h-24"
-            :model-value="modelValue"
+            :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
         ></textarea>

@@ -24,7 +24,7 @@ class UpdateBadgeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'required', 'max:100', Rule::unique(Badge::class)],
+            'name' => ['string', 'required', 'max:100'],
             'description' => ['string', 'required'],
             'condition' => ['integer', Rule::unique(Badge::class, 'name')],
         ];

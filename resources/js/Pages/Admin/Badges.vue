@@ -91,7 +91,11 @@ formService
                     <ActionButton type="edit" @click="formService.openModal('editBadge', item)"/>
 
                     <!-- Edit tag modal -->
-                    <Modal :id="`editBadgeModal${item.id}`" :title="`Éditer le tag ${item.name}`">
+                    <Modal
+                        :id="`editBadgeModal${item.id}`"
+                        :title="`Éditer le tag ${item.name}`"
+                        @close="formService.closeModal()"
+                    >
                         <form @submit.prevent="formService.handle('update', item)">
                             <TextInput label="Nom" v-model="form.name" />
                             <InputError :message="form.errors.name" />
