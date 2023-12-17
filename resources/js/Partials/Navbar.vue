@@ -12,7 +12,7 @@ const page = usePage()
 const menuItems = [
     {
         route: 'index',
-        name: 'Bibliothéque'
+        name: 'Bibliothèque'
     },
     {
         route: 'leaderboard',
