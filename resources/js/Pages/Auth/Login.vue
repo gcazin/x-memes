@@ -30,10 +30,6 @@ const submit = () => {
 
 <template>
     <PageLayout title="Connexion">
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
         <Section>
             <form @submit.prevent="submit">
                     <TextInput

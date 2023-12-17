@@ -30,7 +30,7 @@ class BadgeSeeder extends Seeder
             Badge::create([
                 'name' => $badge[0],
                 'description' => $badge[1],
-                'filename' => $badge[2],
+                'path' => $badge[2],
                 'condition' => $badge[3],
             ]);
         }

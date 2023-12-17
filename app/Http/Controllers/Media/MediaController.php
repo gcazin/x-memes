@@ -52,9 +52,7 @@ class MediaController extends Controller
         $file = $request->file('media_id');
         $imageStored = Storage::disk('public')->put('media', $file);
         $hashedImage = Comparator::hashImage($file);
-        $isSuperAdmin = self::APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN ?
-            $request->user()->isSuperAdmin()
-            : false;
+        $isSuperAdmin = self::APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN && $request->user()->isSuperAdmin();
 
         $media = Media::create([
             'name' => $request->name,
@@ -99,7 +97,7 @@ class MediaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Library $library)
+    public function edit(Media $media)
     {
         //
     }
@@ -124,7 +122,7 @@ class MediaController extends Controller
             return redirect(route('media.show', $this->mediaRepository->random()));
         }
 
-        return abort('404');
+        abort('404');
     }
 
     public function duplicate(Request $request)

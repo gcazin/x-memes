@@ -80,7 +80,7 @@ const submit = () => {
                                 <div class="tooltip tooltip-primary" :data-tip="badge.description">
                                     <img
                                         class="w-10"
-                                        :src="`/storage/${badge.filename}`"
+                                        :src="`/storage/${badge.path}`"
                                         :alt="badge.name"
                                     >
                                 </div>

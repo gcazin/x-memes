@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = ['superadmin', 'admin', 'moderator', 'guest'];
+        $users = ['superadmin', 'admin', 'moderator'];
 
         foreach ($users as $user) {
             User::factory()
@@ -23,7 +23,5 @@ class UserSeeder extends Seeder
                     'password' => $user,
                 ])->assignRole(Role::all()->where('name', $user));
         }
-
-        User::factory()->create()->assignRole('guest');
     }
 }

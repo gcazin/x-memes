@@ -21,7 +21,7 @@ defineProps({
 const form = useForm({
     name: null,
     description: null,
-    filename: null,
+    path: null,
     condition: null
 })
 
@@ -53,10 +53,10 @@ formService
                                 type="file"
                                 class="file-input file-input-bordered file-input-sm w-full max-w-xs"
                                 id="media_id"
-                                @input="form.filename = $event.target.files[0]"
+                                @input="form.path = $event.target.files[0]"
                             />
                         </label>
-                        <InputError class="mt-2" :message="form.errors.filename" />
+                        <InputError class="mt-2" :message="form.errors.path" />
 
                         <TextInput label="Condition" type="number" v-model="form.condition"></TextInput>
                         <InputError :message="form.errors.condition" />
@@ -77,12 +77,12 @@ formService
             <Table
                 :headers="['Nom', 'Description', 'Condition', 'Fichier', 'Décerné à']"
                 :items="badges"
-                :properties="['name', 'description', 'condition', 'filename', 'users']"
+                :properties="['name', 'description', 'condition', 'path', 'users']"
                 has-action
                 has-background
             >
-                <template #filename="item">
-                    <img class="w-10" :src="`/storage/${item.filename}`" alt="">
+                <template #path="item">
+                    <img class="w-10" :src="`/storage/${item.path}`" alt="">
                 </template>
                 <template #users="{ users }">
                     {{ users.length }} utilisateurs

@@ -26,11 +26,14 @@ class BadgeController extends Controller
      */
     public function store(StoreBadgeRequest $request)
     {
+        $image = Storage::disk('public')
+            ->put('badges', $request->file('path'));
+
         $badge = new Badge();
 
         $badge->name = $request->name;
         $badge->description = $request->description;
-        // TODO: Add filename (rename to badge_path/media_path/media_id) ?
+        $badge->path = $image;
         $badge->condition = $request->condition;
 
         $badge->save();
@@ -51,12 +54,8 @@ class BadgeController extends Controller
     {
         $badge = Badge::find($id);
 
-        $image = Storage::disk('public')
-            ->put('badges', $request->file('media_id'));
-
         $badge->name = $request->name;
         $badge->description = $request->description;
-        $badge->filename = $image;
         $badge->condition = $request->condition;
 
         $badge->update();

@@ -26,7 +26,7 @@ it('can create a new badge', function () {
     actingAsSuperAdmin()->post(route('admin.badge.create'), [
         'name' => 'Badge created',
         'description' => 'Badge description',
-        'filename' => 'storage/badges/1.png',
+        'path' => 'storage/badges/1.png',
         'condition' => 100,
     ]);
 
@@ -35,7 +35,7 @@ it('can create a new badge', function () {
     expect($badge->name)->toBe('Badge created')
         ->and($badge->description)->toBe('Badge description')
         ->and($badge->condition)->toBe(100)
-        ->and($badge->filename)->toBeNull();
+        ->and($badge->path)->toBeNull();
 });
 
 it('should update an existing badge', function () {
