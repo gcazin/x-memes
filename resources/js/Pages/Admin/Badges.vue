@@ -11,18 +11,24 @@ import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import formService from "@/Services/form.service.js";
 import Stack from "@/Components/Layout/Stack.vue";
 import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
+import Badge from "@/Components/Misc/Badge.vue";
+import Select from "@/Components/Elements/Form/Select.vue";
 
 defineProps({
     badges: {
         type: Array
     },
+    badgeTypes: {
+        type: Array,
+    }
 })
 
 const form = useForm({
     name: null,
     description: null,
     path: null,
-    condition: null
+    condition: null,
+    type: null,
 })
 
 formService
@@ -45,21 +51,10 @@ formService
                         <Textarea label="Description" v-model="form.description"/>
                         <InputError :message="form.errors.description" />
 
-                        <label class="form-control w-full mb-2">
-                            <div class="label">
-                                <span class="label-text">Image</span>
-                            </div>
-                            <input
-                                type="file"
-                                class="file-input file-input-bordered file-input-sm w-full max-w-xs"
-                                id="media_id"
-                                @input="form.path = $event.target.files[0]"
-                            />
-                        </label>
-                        <InputError class="mt-2" :message="form.errors.path" />
-
-                        <TextInput label="Condition" type="number" v-model="form.condition"></TextInput>
+                        <TextInput label="Condition" v-model="form.condition"></TextInput>
                         <InputError :message="form.errors.condition" />
+
+                       <Select label="Type" :model-value="form.type" :options="badgeTypes" />
 
                         <div class="mt-4">
                             <button class="btn btn-primary" :disabled="form.processing">
@@ -82,7 +77,8 @@ formService
                 has-background
             >
                 <template #path="item">
-                    <img class="w-10" :src="`/storage/${item.path}`" alt="">
+                    <Badge :badge="item" />
+<!--                    <img class="w-10" :src="`/images/${item.path}`" alt="">-->
                 </template>
                 <template #users="{ users }">
                     {{ users.length }} utilisateurs
@@ -103,8 +99,10 @@ formService
                             <Textarea label="Description" v-model="form.description" />
                             <InputError :message="form.errors.description" />
 
-                            <TextInput type="number" label="Condition" v-model="form.condition" />
+                            <TextInput label="Condition" v-model="form.condition" />
                             <InputError :message="form.errors.condition" />
+
+                            <Select label="Type" :model-value="form.type" :options="badgeTypes" />
 
                             <button class="btn btn-primary mt-4" :disabled="form.processing">
                                 Modifier le badge

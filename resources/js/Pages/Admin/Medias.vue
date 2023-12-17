@@ -11,8 +11,10 @@ import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
 import Tag from "@/Components/Misc/Tag.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
 import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
-import formService from "@/Services/form.service.js";
+import formServiceAdminMedia from "@/Services/form.service.js";
+import formServiceMedia from "@/Services/form.service.js";
 import Icon from "@/Components/Misc/Icon.vue";
+import LoadingButton from "@/Components/Elements/Button/LoadingButton.vue";
 
 defineProps({
     users: {
@@ -27,38 +29,18 @@ const form = useForm({
     name: null
 })
 
-const editingMediaModal = ref(false);
-
-const editTagModal = () => {
-    editingMediaModal.value = true;
-};
-
-const closeModal = () => {
-    editingMediaModal.value = false;
-
-    form.reset();
-};
-
 const approveMedia = (id) => {
     form.patch(route('admin.media.approve', id), {
         preserveScroll: true,
     });
 };
-const editMedia = () => {
-    form.post(route('admin.media.edit'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onFinish: () => form.reset(),
-    });
-};
-const deleteMedia = (id) => {
-    form.delete(route('media.destroy', id), {
-        preserveScroll: true,
-        // onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
-    });
-};
+
+formServiceMedia
+    .setForm(form)
+    .setRouteName('admin.media')
+formServiceMedia
+    .setForm(form)
+    .setRouteName('media')
 </script>
 
 <template>
@@ -93,7 +75,9 @@ const deleteMedia = (id) => {
                             <img v-else class="w-32 rounded-xl" :src="`/storage/${filename}`" alt="">
                         </template>
                         <template #actions="item">
-                            <ActionButton type="edit" :onclick="`editMediaModal${item.id}.showModal()`" />
+                            <ActionButton type="edit" @click="formServiceMedia.openModal('editMedia', item)" />
+                            <ActionButton type="delete" @click="formService.handle('destroy', item)" />
+
                             <Modal :id="`editMediaModal${item.id}`" title="Modifier le média">
                                 <TextInput
                                     label="Titre"
@@ -101,9 +85,12 @@ const deleteMedia = (id) => {
                                 />
                                 <InputError :message="form.errors.name" />
 
-                                <button class="btn btn-info mt-4" @click="deleteMedia(item.id)">
+                                <LoadingButton
+                                    @click="formServiceMedia.handle('update', item)"
+                                    :loading="form.processing"
+                                >
                                     Modifier le média
-                                </button>
+                                </LoadingButton>
                             </Modal>
                         </template>
                     </Table>

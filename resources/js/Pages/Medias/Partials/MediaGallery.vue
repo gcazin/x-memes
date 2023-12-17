@@ -2,6 +2,7 @@
 import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, toRef, watchEffect} from "vue";
 import { router } from '@inertiajs/vue3'
+import {all} from "axios";
 
 const props = defineProps({
     medias: {
@@ -57,6 +58,7 @@ const loadMorePosts = () => {
 </script>
 <template>
     <div
+        v-if="allPosts.length"
         class="grid grid-cols-1 md:grid-cols-3 gap-4"
         :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
     >
@@ -70,6 +72,9 @@ const loadMorePosts = () => {
                 <img v-else class="w-full h-full object-cover shadow" :src="`/storage/${media.filename}`" alt="">
             </a>
         </div>
+    </div>
+    <div v-else>
+        Rien a afficher ici pour l'instant...
     </div>
     <div class="flex items-center justify-center py-4" ref="loadMoreIntersect">
         <template v-if="loading">
