@@ -13,7 +13,7 @@ class BadgeType extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function badges(): HasMany

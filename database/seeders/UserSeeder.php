@@ -25,8 +25,7 @@ class UserSeeder extends Seeder
                 ])
                 ->assignRole(Role::all()->where('name', $user))
                 ->badges()
-                ->attach(Badge::all()->firstWhere('condition', $user)->id)
-            ;
+                ->attach(Badge::all()->firstWhere('condition', $user)->id);
         }
     }
 }

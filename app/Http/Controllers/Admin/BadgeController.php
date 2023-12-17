@@ -19,7 +19,7 @@ class BadgeController extends Controller
     {
         return Inertia::render('Admin/Badges', [
             'badges' => Badge::all(),
-            'badgeTypes' => BadgeType::all()
+            'badgeTypes' => BadgeType::all(),
         ]);
     }
 

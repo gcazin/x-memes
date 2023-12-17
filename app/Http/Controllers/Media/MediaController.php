@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Media;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Library;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Mail\MediaApprovedMail;
@@ -159,7 +158,7 @@ class MediaController extends Controller
         Notification::send($media->user, new ApprovedMediaNotification($media));
 
         // Check badges
-//        MediaPublished::dispatch($media);
+        //        MediaPublished::dispatch($media);
     }
 
     public function download(int $id)
@@ -186,6 +185,6 @@ class MediaController extends Controller
 
         Notification::send($media->user, new DeletedMediaNotification($media));
 
-//        MediaDestroyed::dispatch($media);
+        //        MediaDestroyed::dispatch($media);
     }
 }

@@ -15,7 +15,7 @@ class Badge extends Model
 
     protected $with = [
         'users',
-        'type'
+        'type',
     ];
 
     protected $fillable = [
@@ -23,7 +23,7 @@ class Badge extends Model
         'description',
         'path',
         'condition',
-        'badge_type_id'
+        'badge_type_id',
     ];
 
     public function users(): BelongsToMany

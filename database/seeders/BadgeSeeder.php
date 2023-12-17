@@ -13,20 +13,20 @@ class BadgeSeeder extends Seeder
      */
     public function run(): void
     {
-        $createBadge = function($name, $description, $condition, $type) {
-          return [
-              $name,
-              $description,
-              'badges/'.$condition.'.png',
-              $condition,
-              $type,
-          ];
+        $createBadge = function ($name, $description, $condition, $type) {
+            return [
+                $name,
+                $description,
+                'badges/'.$condition.'.png',
+                $condition,
+                $type,
+            ];
         };
 
         $badges = [
             $createBadge('Apprenti posteur', 'Première image postée', 1, 'media'),
             $createBadge('Posteur confirmé', '5 images postées', 5, 'media'),
-            $createBadge('Posteur avancé', '10 images postées', 10, 'media')
+            $createBadge('Posteur avancé', '10 images postées', 10, 'media'),
         ];
         $rolesBadges = [
             $createBadge(

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Badge;
-use App\Models\BadgeType;
 use App\Models\User;
 use App\Repositories\MediaRepository;
 use Inertia\Inertia;
@@ -40,7 +38,7 @@ class UserController extends Controller
 
         return Inertia::render('User/Badges', [
             'user' => $user,
-            'medias' => $medias
+            'medias' => $medias,
         ]);
     }
 }

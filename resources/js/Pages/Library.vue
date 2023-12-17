@@ -1,6 +1,6 @@
 <script setup>
 import PageLayout from '@/Layouts/PageLayout.vue';
-import {Head, useForm, usePage} from '@inertiajs/vue3';
+import {useForm, usePage} from '@inertiajs/vue3';
 import TextInput from "@/Components/Elements/Form/TextInput.vue";
 import InputError from "@/Components/Elements/Form/InputError.vue";
 import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
@@ -9,7 +9,7 @@ import Modal from "@/Components/Elements/Modal/Modal.vue";
 import axios from "axios";
 import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Multiselect from '@vueform/multiselect'
-import Pagination from "@/Components/Misc/Pagination.vue";
+import formService from "@/Services/form.service.js";
 
 const props = defineProps({
     medias: {
@@ -25,8 +25,8 @@ const page = usePage()
 const tagsOptions = computed(() => {
     return props.tags.map((tag) => {
         return {
-            value: tag.name.en,
-            label: tag.name.en
+            value: tag.name.fr,
+            label: tag.name.fr
         }
     })
 })
@@ -62,29 +62,19 @@ const handleMedia = (event) => {
     })
 }
 
-const addMedia = () => {
-    form.post(route('media.store'), {
-        preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onFinish: () => form.reset(),
-    });
-};
-
-const closeModal = () => {
-    document.querySelector('#addMediaModal').close()
-};
+formService.setForm(form).setRouteName('media')
 </script>
 
 <template>
     <PageLayout title="Bibliothèque d'images">
         <template #action>
-            <button class="btn btn-primary" onclick="addMediaModal.showModal()">Ajouter un média</button>
+            <button class="btn btn-primary" @click="formService.openModal('addMedia')">Ajouter un média</button>
         </template>
 
         <MediaGallery :medias="medias" />
 
         <Modal id="addMediaModal" title="Ajouter un média" max-width="3xl">
-            <form enctype="multipart/form-data" @submit.prevent="addMedia" >
+            <form enctype="multipart/form-data" @submit.prevent="formService.handle('store')">
                 <TextInput
                     label="Titre"
                     v-model="form.name"
