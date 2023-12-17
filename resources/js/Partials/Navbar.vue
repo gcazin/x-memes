@@ -42,7 +42,7 @@ const notifications = page.props.auth?.notifications
                             <a :href="route(item.route)" :active="route().current(item.route)">{{ item.name }}</a>
                         </li>
                         <li
-                            v-if="helperService.checkRoles('superadmin,admin')"
+                            v-if="helperService.checkRoles('super-admin,admin')"
                         >
                             <a :href="route('admin.index')" :active="route().current('admin.dashboard')">
                                 Administration
@@ -67,7 +67,7 @@ const notifications = page.props.auth?.notifications
                         <a :href="route(item.route)" :active="route().current(item.route)">{{ item.name }}</a>
                     </li>
                     <li
-                        v-if="helperService.checkRoles('superadmin,admin')"
+                        v-if="helperService.checkRoles('super-admin,admin')"
                     >
                         <a :href="route('admin.index')" :active="route().current('admin.dashboard')">
                             Administration

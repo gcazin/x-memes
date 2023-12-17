@@ -22,10 +22,9 @@ class AssignBadgeToUser
      */
     public function handleAssignBadge(MediaPublished $event): void
     {
-        // Count user total medias published;
-        /** @var User $user */
-        $user = User::find($event->media->user_id);
+        $user = User::all()->find($event->media->user_id);
         $userMediasPublished = $user->medias->where('approved', true)->count();
+
         $badge = Badge::all()->where('condition', $userMediasPublished)->first;
         $userBadge = $user->badges()->where('badge_id', $badge->id);
 

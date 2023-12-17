@@ -21,7 +21,7 @@ class SendNewUserNotification
      */
     public function handle(object $event): void
     {
-        $superAdmins = User::role('superadmin')->get();
+        $superAdmins = User::role('super-admin')->get();
 
         Notification::send($superAdmins, new NewUserNotification($event->user));
     }

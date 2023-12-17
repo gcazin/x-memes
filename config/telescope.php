@@ -78,7 +78,7 @@ return [
     'middleware' => [
         'web',
         Authorize::class,
-        'role:superadmin',
+        'role:super-admin',
     ],
 
     /*

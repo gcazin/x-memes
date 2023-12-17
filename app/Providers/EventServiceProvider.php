@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Listeners\Subscriber\MediaEventSubscriber;
 use App\Listeners\User\SendNewUserNotification;
 use App\Models\Media;
+use App\Models\User;
 use App\Observers\MediaObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     protected $subscribe = [
-        MediaEventSubscriber::class,
+        //
     ];
 
     /**

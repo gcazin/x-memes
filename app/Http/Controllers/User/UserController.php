@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Badge;
+use App\Models\BadgeType;
 use App\Models\User;
 use App\Repositories\MediaRepository;
 use Inertia\Inertia;
@@ -16,13 +18,29 @@ class UserController extends Controller
 
     public function show(string $username)
     {
-        $user = User::with('badges', 'medias', 'followers', 'followings')->where('username', $username)->first();
+        $user = User::with('badges', 'medias', 'followers', 'followings')
+            ->where('username', $username)
+            ->first();
 
         $medias = $this->mediaRepository->paginateByUser($user->id);
 
         return Inertia::render('User/Show', [
             'user' => $user,
             'medias' => $medias,
+        ]);
+    }
+
+    public function badges(string $username)
+    {
+        $user = User::with('badges', 'medias', 'followers', 'followings')
+            ->where('username', $username)
+            ->first();
+        // TODO: refactoriser ce fichier
+        $medias = $this->mediaRepository->paginateByUser($user->id);
+
+        return Inertia::render('User/Badges', [
+            'user' => $user,
+            'medias' => $medias
         ]);
     }
 }

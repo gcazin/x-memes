@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Media\MediaController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['role:superadmin|admin'])->prefix('admin')->name('admin.')
+Route::middleware(['role:super-admin|admin'])->prefix('admin')->name('admin.')
     ->group(function () {
         // Admin dashboard
         Route::get('dashboard', [DashboardController::class, 'index'])->name('index');

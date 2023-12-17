@@ -13,11 +13,16 @@ class MediaObserver
      */
     public function created(Media $media): void
     {
-        // Count user total medias published;
-        /** @var User $user */
         $user = User::find($media->user_id);
-        $userMediasPublished = $user->medias->where('approved', true)->count();
-        $badge = Badge::all()->where('condition', $userMediasPublished)->first;
+
+        $userMediasPublished = $user->medias
+            ->where('approved', true)
+            ->count();
+
+        $badge = Badge::all()
+            ->where('condition', $userMediasPublished)
+            ->first;
+
         $userBadge = $user->badges()->where('badge_id', $badge->id);
 
         // Attach badge
@@ -41,7 +46,7 @@ class MediaObserver
     {
         $user = User::find($media->user_id);
         $userMediasPublished = $user->medias->where('approved', true)->count();
-        $badgesToRemove = $user->badges->where('condition', '>', $userMediasPublished)->pluck('id');
+        $badgesToRemove = $user->badges->where('condition', '>', (string) $userMediasPublished)->pluck('id');
         $user->badges()->detach($badgesToRemove);
 
         if ($userMediasPublished === 0) {

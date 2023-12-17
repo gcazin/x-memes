@@ -46,7 +46,7 @@ expect()->extend('toBeOne', function () {
 
 function actingAsSuperAdmin()
 {
-    $role = Role::create(['name' => 'superadmin']);
+    $role = Role::create(['name' => 'super-admin']);
 
     $user = User::factory()->create()->assignRole($role->name);
 

@@ -32,6 +32,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::middleware('auth')->group(function () {
         Route::name('user.')->group(function () {
             Route::get('membre/{username}', [UserController::class, 'show'])->name('show');
+            Route::get('membre/{username}/badges', [UserController::class, 'badges'])->name('badges');
             Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');
         });
 

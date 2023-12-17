@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Badge\StoreBadgeRequest;
 use App\Http\Requests\Badge\UpdateBadgeRequest;
 use App\Models\Badge;
+use App\Models\BadgeType;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -18,6 +19,7 @@ class BadgeController extends Controller
     {
         return Inertia::render('Admin/Badges', [
             'badges' => Badge::all(),
+            'badgeTypes' => BadgeType::all()
         ]);
     }
 
@@ -26,14 +28,10 @@ class BadgeController extends Controller
      */
     public function store(StoreBadgeRequest $request)
     {
-        $image = Storage::disk('public')
-            ->put('badges', $request->file('path'));
-
         $badge = new Badge();
 
         $badge->name = $request->name;
         $badge->description = $request->description;
-        $badge->path = $image;
         $badge->condition = $request->condition;
 
         $badge->save();

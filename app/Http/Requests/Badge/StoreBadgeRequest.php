@@ -27,7 +27,6 @@ class StoreBadgeRequest extends FormRequest
         return [
             'name' => ['string', 'required', 'max:100', Rule::unique(Badge::class)],
             'description' => ['string', 'required'],
-            'path' => ['required', File::types(['jpg,jpeg,png,gif,webp'])->max('5mb')],
             'condition' => ['integer', Rule::unique(Badge::class)],
         ];
     }

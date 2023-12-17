@@ -159,7 +159,7 @@ class MediaController extends Controller
         Notification::send($media->user, new ApprovedMediaNotification($media));
 
         // Check badges
-        MediaPublished::dispatch($media);
+//        MediaPublished::dispatch($media);
     }
 
     public function download(int $id)
@@ -186,6 +186,6 @@ class MediaController extends Controller
 
         Notification::send($media->user, new DeletedMediaNotification($media));
 
-        MediaDestroyed::dispatch($media);
+//        MediaDestroyed::dispatch($media);
     }
 }
