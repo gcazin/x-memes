@@ -62,7 +62,7 @@ const downloadItem = (item) => {
                 >
                     <Tag
                         size="sm"
-                        v-for="(tag, index) in media.tags.map((tag) => tag.name.en)"
+                        v-for="(tag, index) in media.tags.map((tag) => tag.name.fr)"
                         :key="index"
                     >
                         {{ tag }}

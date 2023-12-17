@@ -33,7 +33,8 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
-        if ($request->has('avatar')) {
+        // TODO: Vérifier quand un avatar est déjà posté (avatar d'avant supprimé)
+        if ($request->filled('avatar')) {
             if ($request->user()->getOriginal('avatar')) {
                 Storage::delete($request->user()->getOriginal('avatar'));
             }
