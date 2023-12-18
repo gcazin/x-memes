@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Events\MediaPublished;
 use App\Models\Media;
 use Illuminate\Database\Seeder;
 

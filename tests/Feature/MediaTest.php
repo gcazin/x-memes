@@ -4,7 +4,6 @@ use App\Models\Media;
 use App\Models\User;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
-use App\Repositories\MediaRepository;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -37,9 +36,8 @@ it('should store media and attach tags', function () {
 
     $response = actingAsGuest()->post(route('media.store'), [
         'name' => 'Test Media',
-        'media_id' => $image = UploadedFile::fake()->image('test.jpg')
+        'media_id' => $image = UploadedFile::fake()->image('test.jpg'),
     ]);
-
 
     $media = Media::first();
     Storage::disk('public')->assertExists('media/'.$image->hashName());

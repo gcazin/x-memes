@@ -19,11 +19,11 @@ test('profile information can be updated', function () {
         ->put(route('profile.update'), [
             'username' => 'Test User',
             'email' => 'test@example.com',
-//            'avatar' => $image = UploadedFile::fake()->image('avatar.png'),
-//            'description' => 'Test'
+            //            'avatar' => $image = UploadedFile::fake()->image('avatar.png'),
+            //            'description' => 'Test'
         ]);
 
-//    Storage::disk('public')->assertExists('avatar/'.$image->hashName());
+    //    Storage::disk('public')->assertExists('avatar/'.$image->hashName());
     $response->assertSessionHasNoErrors();
 
     $user->refresh();

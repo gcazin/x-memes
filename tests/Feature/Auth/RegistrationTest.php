@@ -1,7 +1,6 @@
 <?php
 
 use App\Providers\RouteServiceProvider;
-use Spatie\Permission\Models\Role;
 
 test('registration screen can be rendered', function () {
     $response = $this->get(route('register'));

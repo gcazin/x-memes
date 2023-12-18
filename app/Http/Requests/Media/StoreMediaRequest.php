@@ -30,7 +30,7 @@ class StoreMediaRequest extends FormRequest
                 File::types(['mp4,jpg,jpeg,png,gif,webp'])
                     ->max('25mb'),
             ],
-            'tags' => ['sometimes']
+            'tags' => ['sometimes'],
         ];
     }
 }

@@ -9,7 +9,6 @@ use App\Mail\MediaApprovedMail;
 use App\Models\Media;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
-use App\Providers\RouteServiceProvider;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -138,7 +137,7 @@ class MediaController extends Controller
 
         $media->update();
 
-        flash('success','Le média a bien été approuvé et publié ! 🚀');
+        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
 
         Mail::to($media->user)->send(new MediaApprovedMail($media));
 

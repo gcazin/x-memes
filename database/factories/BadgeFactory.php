@@ -22,7 +22,7 @@ class BadgeFactory extends Factory
             'description' => $this->faker->text(),
             'path' => 'storage/badges/1.png',
             'condition' => $this->faker->randomDigit(),
-            'badge_type_id' => BadgeType::all()->random()->id
+            'badge_type_id' => BadgeType::all()->random()->id,
         ];
     }
 }

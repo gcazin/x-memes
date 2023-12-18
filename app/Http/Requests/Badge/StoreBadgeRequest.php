@@ -28,7 +28,7 @@ class StoreBadgeRequest extends FormRequest
             'name' => ['string', 'required', 'max:100', Rule::unique(Badge::class)],
             'description' => ['string', 'required'],
             'condition' => ['string', Rule::unique(Badge::class)],
-            'badge_type_id' => ['integer', Rule::exists(BadgeType::class, 'id')]
+            'badge_type_id' => ['integer', Rule::exists(BadgeType::class, 'id')],
         ];
     }
 }

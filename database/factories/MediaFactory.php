@@ -21,6 +21,7 @@ class MediaFactory extends Factory
         $filename = Storage::has('media')
             ? Storage::allFiles('media')[array_rand(Storage::allFiles('media'))]
             : 'media/1.jpg';
+
         return [
             'name' => $this->faker->name,
             'filename' => $filename,

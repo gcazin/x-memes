@@ -48,7 +48,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        flash( 'success', 'Profil modifié chef 🫡');
+        flash('success', 'Profil modifié chef 🫡');
     }
 
     /**

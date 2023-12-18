@@ -34,15 +34,15 @@ it('should create a new badge', function () {
     actingAsSuperAdmin()->post(route('admin.badge.store'), [
         'name' => 'Badge created',
         'description' => 'Badge description',
-        'condition' => "100",
-        'badge_type_id' => $badgeType->id
+        'condition' => '100',
+        'badge_type_id' => $badgeType->id,
     ]);
 
     $badge = Badge::first();
 
     expect($badge->name)->toBe('Badge created')
         ->and($badge->description)->toBe('Badge description')
-        ->and($badge->condition)->toBe("100")
+        ->and($badge->condition)->toBe('100')
         ->and($badge->path)->toBeNull();
 });
 
@@ -51,7 +51,7 @@ test('should update an existing badge', function () {
 
     $badge = Badge::factory()->create([
         'name' => 'Badge name',
-        'badge_type_id' => BadgeType::create(['name' => 'media'])
+        'badge_type_id' => BadgeType::create(['name' => 'media']),
     ]);
 
     actingAsSuperAdmin()->patch(route('admin.badge.update', $badge->id), [
