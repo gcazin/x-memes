@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Badge;
+use App\Models\BadgeType;
 use App\Models\Media;
 use App\Models\User;
 
@@ -19,15 +20,19 @@ class MediaObserver
             ->where('approved', true)
             ->count();
 
-        $badge = Badge::all()
-            ->where('condition', $userMediasPublished)
-            ->first;
+        $badgeType = BadgeType::all()->where('name', 'media');
+        if ($badgeType->count() > 0) {
+            $badge = Badge::all()
+                ->where('condition', $userMediasPublished)
+                ->firstWhere('badge_type_id', $badgeType->first()->id);
 
-        $userBadge = $user->badges()->where('badge_id', $badge->id);
-
-        // Attach badge
-        if ($badge && ! $userBadge->exists()) {
-            $user->badges()->attach($badge->id);
+            if ($badge && $badge->exists) {
+                $userBadge = $user->badges()->firstWhere('badge_id', $badge->id);
+                if (! $userBadge) {
+                    // Attach badge
+                    $user->badges()->attach($badge->id);
+                }
+            }
         }
     }
 

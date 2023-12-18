@@ -31,10 +31,10 @@ it('can create a new badge', function () {
 
     $badgeType = BadgeType::factory()->create(['name' => 'media']);
 
-    actingAsSuperAdmin()->post(route('admin.badge.store'), [
+    $response = actingAsSuperAdmin()->post(route('admin.badge.store'), [
         'name' => 'Badge created',
         'description' => 'Badge description',
-        'condition' => 100,
+        'condition' => "100",
         'badge_type_id' => $badgeType->id
     ]);
 

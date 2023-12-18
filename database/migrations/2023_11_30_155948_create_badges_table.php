@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->text('description');
             $table->string('path')->nullable();
-            $table->string('condition')->unique();
+            $table->string('condition');
             $table->foreignId('badge_type_id')->constrained();
         });
     }

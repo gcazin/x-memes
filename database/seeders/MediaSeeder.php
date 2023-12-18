@@ -16,8 +16,6 @@ class MediaSeeder extends Seeder
         Media::factory(100)->create([
             'extension' => 'png',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
-        ])->each(function ($media) {
-            MediaPublished::dispatch($media);
-        });
+        ]);
     }
 }

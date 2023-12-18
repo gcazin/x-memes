@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Media;
 
-use App\Events\MediaDestroyed;
-use App\Events\MediaPublished;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
