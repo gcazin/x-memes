@@ -46,7 +46,7 @@ test('badge is not attached to user multiples times', function() {
 
     $userBadges = User::all()->first()->badges();
     expect($userBadges->count())->toBe(1);
-})->only();
+});
 
 test('badge is not attached to user when media is not approved', function() {
     $user = User::factory()->create();
