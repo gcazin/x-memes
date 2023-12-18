@@ -42,7 +42,7 @@ jobs:
           key: package.json-${{ hashFiles('package-lock.json') }}
 
       - name: Run npm
-        run: npm install && npm run dev
+        run: npm install && npm run build
 
       - name: Run tests
         run: ./vendor/bin/pest
