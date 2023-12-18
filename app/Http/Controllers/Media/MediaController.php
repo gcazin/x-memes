@@ -65,7 +65,6 @@ class MediaController extends Controller
             $this->approve($request, $media->id);
         } else {
             flash(
-                $request,
                 'info',
                 'Le média est en attente d\'approbation,
                 un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
@@ -104,7 +103,7 @@ class MediaController extends Controller
 
         $media->save();
 
-        flash($request, 'success', 'Le média a bien été modifié.');
+        flash('success', 'Le média a bien été modifié.');
     }
 
     public function random()
@@ -139,11 +138,7 @@ class MediaController extends Controller
 
         $media->update();
 
-        flash(
-            $request,
-            'success',
-            'Le média a bien été approuvé et publié ! 🚀'
-        );
+        flash('success','Le média a bien été approuvé et publié ! 🚀');
 
         Mail::to($media->user)->send(new MediaApprovedMail($media));
 

@@ -17,19 +17,16 @@ class FormService {
 
     setForm(form) {
         this.form = form
-
         return this
     }
 
     setModalName(name) {
         this.modalName = name
-
         return this
     }
 
     setRouteName(routeName) {
         this.routeName = routeName
-
         return this
     }
 
@@ -58,7 +55,10 @@ class FormService {
     }
 
     closeModal() {
-        document.querySelector(this.modalName).close()
+        const modal = document.querySelector(this.modalName)
+        if (modal) {
+            modal.close()
+        }
 
         this.form.reset().clearErrors()
     }
@@ -72,12 +72,8 @@ class FormService {
     }
 
     handle(method, item) {
-        /**
-         * TODO: ForceFormData
-         *
-         * @see https://inertiajs.com/file-uploads
-         */
         const routeName = this.getRouteName()
+        console.log(routeName)
         switch (method) {
             case 'store':
                 this.form.post(route(`${routeName}.store`), {
@@ -86,17 +82,23 @@ class FormService {
                 })
                 break
             case 'update':
-                this.form.put(route(`${routeName}.update`, item.id), {
+                this.form.put(route(`${routeName}.update`, item?.id), {
                     preserveScroll: true,
                     onSuccess: () => this.closeModal(),
                 })
                 break
             case 'destroy':
-                this.form.delete(route(`${routeName}.destroy`, item.id), {
+                this.form.delete(route(`${routeName}.destroy`, item?.id), {
                     preserveScroll: true,
                     onBefore: () => confirm('Es-tu sûr de supprimer cet élément ?'),
                 })
                 break
+            case method:
+                console.log(item?.id)
+                this.form.put(route(`${routeName}.${method}`, item?.id), {
+                    preserveScroll: true,
+                    onSuccess: () => this.closeModal(),
+                })
         }
     }
 }

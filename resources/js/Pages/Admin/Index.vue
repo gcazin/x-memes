@@ -1,5 +1,4 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
 import Icon from "@/Components/Misc/Icon.vue";
 
@@ -14,25 +13,6 @@ defineProps({
         type: Object
     }
 })
-
-const form = useForm({})
-
-const approveMedia = (id) => {
-    form.patch(route('admin.media.approve', id), {
-        preserveScroll: true,
-        // onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
-    });
-};
-const deleteMedia = (id) => {
-    form.delete(route('media.destroy', id), {
-        preserveScroll: true,
-        // onSuccess: () => closeModal(),
-        // onError: () => passwordInput.value.focus(),
-        // onFinish: () => form.reset(),
-    });
-};
 </script>
 
 <template>

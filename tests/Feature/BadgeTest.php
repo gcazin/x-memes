@@ -26,12 +26,12 @@ test('badges page is displayed only for admin', function () {
     $guest->assertSeeText('Forbidden');
 });
 
-it('can create a new badge', function () {
+it('should create a new badge', function () {
     User::factory()->create();
 
     $badgeType = BadgeType::factory()->create(['name' => 'media']);
 
-    $response = actingAsSuperAdmin()->post(route('admin.badge.store'), [
+    actingAsSuperAdmin()->post(route('admin.badge.store'), [
         'name' => 'Badge created',
         'description' => 'Badge description',
         'condition' => "100",
@@ -46,7 +46,7 @@ it('can create a new badge', function () {
         ->and($badge->path)->toBeNull();
 });
 
-it('should update an existing badge', function () {
+test('should update an existing badge', function () {
     User::factory()->create();
 
     $badge = Badge::factory()->create([
@@ -58,9 +58,7 @@ it('should update an existing badge', function () {
         'name' => 'Updated badge',
     ]);
 
-    $badge = Badge::first();
-
-    expect($badge->name)->toBe('Updated badge');
+    expect($badge->refresh()->name)->toBe('Updated badge');
 });
 
 it('should delete a badge', function () {

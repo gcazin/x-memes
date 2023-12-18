@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 test('profile page is displayed', function () {
     $response = actingAsGuest()->get(route('profile.edit'));
@@ -9,24 +11,26 @@ test('profile page is displayed', function () {
 });
 
 test('profile information can be updated', function () {
+    Storage::fake('public');
     $user = User::factory()->create();
 
     $response = $this
         ->actingAs($user)
-        ->patch(route('profile.update'), [
+        ->put(route('profile.update'), [
             'username' => 'Test User',
             'email' => 'test@example.com',
+//            'avatar' => $image = UploadedFile::fake()->image('avatar.png'),
+//            'description' => 'Test'
         ]);
 
-    $response
-        ->assertSessionHasNoErrors()
-        ->assertRedirect(route('profile.edit'));
+//    Storage::disk('public')->assertExists('avatar/'.$image->hashName());
+    $response->assertSessionHasNoErrors();
 
     $user->refresh();
 
-    $this->assertSame('Test User', $user->username);
-    $this->assertSame('test@example.com', $user->email);
-    $this->assertNull($user->email_verified_at);
+    expect('Test User')->toBe($user->username)
+        ->and('test@example.com')->toBe($user->email)
+        ->and($user->email_verified_at)->toBeNull();
 });
 
 test('email verification status is unchanged when the email address is unchanged', function () {
@@ -34,15 +38,15 @@ test('email verification status is unchanged when the email address is unchanged
 
     $response = $this
         ->actingAs($user)
-        ->patch(route('profile.update'), [
+        ->put(route('profile.update'), [
             'username' => 'Test User',
             'email' => $user->email,
         ]);
 
     $response
-        ->assertSessionHasNoErrors()
-        ->assertRedirect(route('profile.edit'));
+        ->assertSessionHasNoErrors();
 
+    expect($response->status())->toBe(200);
     $this->assertNotNull($user->refresh()->email_verified_at);
 });
 

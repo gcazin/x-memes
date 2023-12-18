@@ -29,18 +29,18 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
         $request->user()->fill($request->validated());
 
-        // TODO: Vérifier quand un avatar est déjà posté (avatar d'avant supprimé)
-        if ($request->filled('avatar')) {
+        // In UserController update()
+        /*if ($request->hasFile('avatar')) {
             if ($request->user()->getOriginal('avatar')) {
                 Storage::delete($request->user()->getOriginal('avatar'));
             }
             $avatar = Storage::put('avatar', $request->file('avatar'));
             $request->user()->avatar = $avatar;
-        }
+        }*/
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
@@ -48,9 +48,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        flash($request, 'success', 'Profil modifié chef 🫡');
-
-        return Redirect::route('profile.edit');
+        flash( 'success', 'Profil modifié chef 🫡');
     }
 
     /**
@@ -71,6 +69,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to(route('index'));
     }
 }

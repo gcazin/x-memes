@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia;
 
-// TODO: Faire les tests
-
 it('should index approved medias', function () {
     $user = User::factory()->create();
 
@@ -57,9 +55,9 @@ it('should approve media and send notification', function () {
 
     $media = Media::factory()->create(['approved' => 0]);
 
-    actingAsSuperAdmin()->patch(route('admin.media.approve', $media->id));
+    actingAsSuperAdmin()->put(route('admin.media.approve', $media->id));
 
-    $media = Media::first();
+    $media = $media->refresh();
     Notification::assertCount(1);
     Notification::assertSentTo(
         [$media->user], ApprovedMediaNotification::class
@@ -70,14 +68,12 @@ it('should approve media and send notification', function () {
 
 it('should download media and increment download count', function () {
     User::factory()->create();
-    $media = Media::factory()->create([
-        'name' => 'Downloadable Media',
-    ]);
+    $media = Media::factory()->create();
 
     $response = actingAsGuest()->get(route('media.download', $media->id));
 
     expect($response->status())->toBe(200)
-        ->and(Media::first()->download_count)->toBe(1);
+        ->and($media->refresh()->download_count)->toBe(1);
 });
 
 it('should destroy media and send notification', function () {

@@ -32,7 +32,7 @@ class TagController extends Controller
     {
         Tag::findOrCreate($request->name);
 
-        flash($request, 'success', 'Le tag a bien été crée.');
+        flash('success', 'Le tag a bien été crée.');
     }
 
     /**

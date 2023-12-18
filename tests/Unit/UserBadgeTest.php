@@ -15,8 +15,7 @@ test('badge is not attached to user when not necessary', function() {
 
     Media::factory()->create(['user_id' => $user->id, 'approved' => 1]);
 
-    $userBadges = User::all()->first()->badges();
-    expect($userBadges->count())->toBe(0);
+    expect($user->refresh()->badges()->count())->toBe(0);
 });
 
 test('badge is correctly attached to user', function() {
@@ -29,27 +28,28 @@ test('badge is correctly attached to user', function() {
 
     Media::factory()->create(['user_id' => $user->id, 'approved' => 1]);
 
-    $userBadges = User::all()->first()->badges();
+    $userBadges = $user->refresh()->badges();
     expect($userBadges->first()->id)->toBe($badge->id)
         ->and($userBadges->first()->name)->toBe('Media badge');
 });
 
 test('badge is not attached to user multiples times', function() {
     $user = User::factory()->create();
+
     BadgeType::factory()->create(['name' => 'media']);
-    $badge = Badge::factory()->create([
+    Badge::factory()->create([
         'name' => 'Media badge 1',
         'condition' => '1'
     ]);
 
     Media::factory(10)->create(['user_id' => $user->id, 'approved' => 1]);
 
-    $userBadges = User::all()->first()->badges();
-    expect($userBadges->count())->toBe(1);
+    expect($user->refresh()->badges()->count())->toBe(1);
 });
 
 test('badge is not attached to user when media is not approved', function() {
     $user = User::factory()->create();
+
     BadgeType::factory()->create(['name' => 'media']);
     Badge::factory()->create([
         'name' => 'Media badge',
@@ -61,7 +61,7 @@ test('badge is not attached to user when media is not approved', function() {
         'approved' => 0
     ]);
 
-    $userBadges = User::all()->first()->badges();
+    $userBadges = $user->refresh()->badges();
     expect($userBadges->count())->toBe(0);
 });
 
@@ -88,7 +88,7 @@ test('badge attached to user is not interfering with other type', function() {
 
     Media::factory(5)->create(['user_id' => $user->id, 'approved' => 1]);
 
-    $userBadges = User::all()->first()->badges();
+    $userBadges = $user->refresh()->badges();
     expect($userBadges->first()->id)->toBe($mediaBadge->id)
         ->and($userBadges->first()->name)->toBe('Badge 1 is media')
         ->and($userBadges->first()->badge_type_id)->toBe($mediaBadge->id)
@@ -107,7 +107,7 @@ test('badge is correctly attached to the user when he has been registered for a 
             'condition' => 1,
         ]);
 
-        $userBadges = User::all()->first()->badges();
+        $userBadges = $user->refresh()->badges();
         expect($userBadges->count())->toBe(0);
     }
 );

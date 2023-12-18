@@ -1,18 +1,14 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
+import {useForm} from '@inertiajs/vue3';
 import Text from "@/Components/Text.vue";
 import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
 import Table from "@/Pages/Admin/Partials/Table.vue";
-import {ref} from "vue";
 import InputError from "@/Components/Elements/Form/InputError.vue";
 import Modal from "@/Components/Elements/Modal/Modal.vue";
 import TextInput from "@/Components/Elements/Form/TextInput.vue";
-import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
 import Tag from "@/Components/Misc/Tag.vue";
 import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
-import ActionModal from "@/Components/Elements/Modal/ActionModal.vue";
-import formServiceAdminMedia from "@/Services/form.service.js";
-import formServiceMedia from "@/Services/form.service.js";
+import formService from "@/Services/form.service.js";
 import Icon from "@/Components/Misc/Icon.vue";
 import LoadingButton from "@/Components/Elements/Button/LoadingButton.vue";
 
@@ -29,18 +25,8 @@ const form = useForm({
     name: null
 })
 
-const approveMedia = (id) => {
-    form.patch(route('admin.media.approve', id), {
-        preserveScroll: true,
-    });
-};
-
-formServiceMedia
+formService
     .setForm(form)
-    .setRouteName('admin.media')
-formServiceMedia
-    .setForm(form)
-    .setRouteName('media')
 </script>
 
 <template>
@@ -75,7 +61,7 @@ formServiceMedia
                             <img v-else class="w-32 rounded-xl" :src="`/storage/${filename}`" alt="">
                         </template>
                         <template #actions="item">
-                            <ActionButton type="edit" @click="formServiceMedia.openModal('editMedia', item)" />
+                            <ActionButton type="edit" @click="formService.openModal('editMedia', item)" />
                             <ActionButton type="delete" @click="formService.handle('destroy', item)" />
 
                             <Modal :id="`editMediaModal${item.id}`" title="Modifier le média">
@@ -86,7 +72,7 @@ formServiceMedia
                                 <InputError :message="form.errors.name" />
 
                                 <LoadingButton
-                                    @click="formServiceMedia.handle('update', item)"
+                                    @click="formService.setRouteName('media').handle('update', item)"
                                     :loading="form.processing"
                                 >
                                     Modifier le média
@@ -123,33 +109,14 @@ formServiceMedia
                     <template #actions="item">
                         <span
                             class="cursor-pointer transition px-1 hover:text-primary"
-                            @click="approveMedia(id)"
+                            @click="formService.setRouteName('admin.media').handle('approve', item)"
                         >
                             <Icon size="2xl" name="checkmark-done" />
                         </span>
-                        <ActionButton type="delete" @click="formServiceMedia.handle('destroy', id)" />
+                        <ActionButton type="delete" @click="formService.handle('destroy', item)" />
                     </template>
                 </Table>
             </div>
         </div>
-
-        <!-- Edit medias -->
-        <Modal :show="editingMediaModal" @close="closeModal">
-            <div class="p-6">
-                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-                    Modifier le média
-                </h2>
-
-                <form @submit.prevent="editMedia">
-
-
-                    <div class="mt-4">
-                        <button :disabled="form.processing">
-                            Modifier
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </Modal>
     </AdminDashboardLayout>
 </template>

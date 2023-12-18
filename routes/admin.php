@@ -17,7 +17,7 @@ Route::middleware(['role:super-admin|admin'])->prefix('admin')->name('admin.')
         // Medias
         Route::name('media.')->group(function () {
             Route::get('medias', [DashboardController::class, 'medias'])->name('index');
-            Route::patch('media/{id}', [MediaController::class, 'approve'])->name('approve');
+            Route::put('media/{id}', [MediaController::class, 'approve'])->name('approve');
         });
 
         // Tags

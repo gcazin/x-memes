@@ -17,6 +17,7 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) })
         app.config.globalProperties.helperService = HelperService
         app.config.globalProperties.helperService.setProps(props)
+        app.config.globalProperties.formService = FormService
         app.use(plugin)
         app.use(ZiggyVue, Ziggy)
         return app.mount(el)
