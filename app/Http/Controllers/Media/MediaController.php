@@ -23,8 +23,6 @@ use Spatie\Tags\Tag;
 
 class MediaController extends Controller
 {
-    public const APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN = true;
-
     public function __construct(
         public MediaRepository $mediaRepository
     ) {
@@ -49,15 +47,15 @@ class MediaController extends Controller
     public function store(StoreMediaRequest $request)
     {
         $file = $request->file('media_id');
-        $imageStored = Storage::disk('public')->put('media', $file);
-        $hashedImage = Comparator::hashImage($file);
-        $isSuperAdmin = self::APPROVE_AUTOMATICALLY_IF_SUPER_ADMIN && $request->user()->isSuperAdmin();
+        $path = Storage::disk('public')->put('media', $file);
 
         $media = Media::create([
             'name' => $request->name,
-            'filename' => $imageStored,
+            'filename' => $path,
             'extension' => $file->getClientOriginalExtension(),
-            'hash' => Comparator::convertHashToBinaryString($hashedImage),
+            'hash' => Comparator::convertHashToBinaryString(
+                Comparator::hashImage($file)
+            ),
             'user_id' => $request->user()->id,
         ]);
 
@@ -65,11 +63,9 @@ class MediaController extends Controller
             $media->attachTags($request->tags);
         }
 
-        if ($isSuperAdmin) {
+        if ($request->user()->isSuperAdmin()) {
             $this->approve($request, $media->id);
-        }
-
-        if (! $isSuperAdmin) {
+        } else {
             flash(
                 $request,
                 'info',
@@ -77,8 +73,6 @@ class MediaController extends Controller
                 un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
             );
         }
-
-        return redirect(RouteServiceProvider::HOME);
     }
 
     /**
@@ -156,9 +150,6 @@ class MediaController extends Controller
         Mail::to($media->user)->send(new MediaApprovedMail($media));
 
         Notification::send($media->user, new ApprovedMediaNotification($media));
-
-        // Check badges
-        //        MediaPublished::dispatch($media);
     }
 
     public function download(int $id)

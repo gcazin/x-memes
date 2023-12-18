@@ -120,14 +120,14 @@ formServiceMedia
                         <video controls class="h-full w-full" v-if="extension === 'mp4'" :src="`storage/${name}`"></video>
                         <img v-else class="w-40 rounded-xl" :src="`/storage/${filename}`" alt="">
                     </template>
-                    <template #actions="{ id }">
+                    <template #actions="item">
                         <span
                             class="cursor-pointer transition px-1 hover:text-primary"
                             @click="approveMedia(id)"
                         >
                             <Icon size="2xl" name="checkmark-done" />
                         </span>
-                        <ActionButton type="delete" @click="deleteMedia(id)" />
+                        <ActionButton type="delete" @click="formServiceMedia.handle('destroy', id)" />
                     </template>
                 </Table>
             </div>

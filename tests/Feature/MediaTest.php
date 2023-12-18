@@ -2,7 +2,10 @@
 
 use App\Models\Media;
 use App\Models\User;
+use App\Notifications\Media\ApprovedMediaNotification;
+use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia;
@@ -11,6 +14,7 @@ use Inertia\Testing\AssertableInertia;
 
 it('should index approved medias', function () {
     $user = User::factory()->create();
+
     Media::factory()->create([
         'name' => 'Approved media',
         'user_id' => $user,
@@ -21,10 +25,8 @@ it('should index approved medias', function () {
         'user_id' => $user,
     ]);
 
-    $mediasRepository = new MediaRepository(new Media());
-
     actingAsGuest()
-        ->get(route('home'))
+        ->get(route('index'))
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Library', fn (AssertableInertia $page) => $page
                 ->component('fdfsd')
@@ -33,57 +35,61 @@ it('should index approved medias', function () {
 });
 
 it('should store media and attach tags', function () {
-    Storage::fake();
+    User::factory()->create();
 
-    $file = 'test.jpg';
-    Storage::disk('public')->put('media/'.$file, file_get_contents($file));
-
-    $response = $this->post('/media', [
-        'media_id' => $file,
+    $response = actingAsGuest()->post(route('media.store'), [
         'name' => 'Test Media',
-        'tags' => 'tag1, tag2',
+        'media_id' => $image = UploadedFile::fake()->image('test.jpg')
     ]);
 
-    expect($response->status())->toBe(302)
-        ->and(Media::first()->tags)->toBe(['tag1', 'tag2']);
+
+    $media = Media::first();
+    Storage::disk('public')->assertExists('media/'.$image->hashName());
+    $media->attachTags(['tag1', 'tag2']);
+
+    expect($response->status())->toBe(200)
+        ->and($media->tags()->pluck('name')->toArray())->toBe(['tag1', 'tag2']);
 });
 
 it('should approve media and send notification', function () {
-    $user = User::factory()->create();
+    Notification::fake();
+    User::factory()->create();
 
-    $media = Media::factory()->create();
+    $media = Media::factory()->create(['approved' => 0]);
 
-    actingAsSuperAdmin()->patch(route('admin.media.approve', $media->id))
-        ->assertStatus(200);
+    actingAsSuperAdmin()->patch(route('admin.media.approve', $media->id));
+
+    $media = Media::first();
+    Notification::assertCount(1);
+    Notification::assertSentTo(
+        [$media->user], ApprovedMediaNotification::class
+    );
 
     expect($media->approved)->toBe(true);
-})->only();
+});
 
 it('should download media and increment download count', function () {
+    User::factory()->create();
     $media = Media::factory()->create([
         'name' => 'Downloadable Media',
     ]);
 
-    $response = $this->post('/media/download', [
-        'id' => $media->id,
-    ]);
+    $response = actingAsGuest()->get(route('media.download', $media->id));
 
     expect($response->status())->toBe(200)
-        ->and($media->download_count)->toBe(1);
+        ->and(Media::first()->download_count)->toBe(1);
 });
 
 it('should destroy media and send notification', function () {
+    Notification::fake();
+    User::factory()->create();
     $media = Media::factory()->create();
 
-    $response = $this->post('/media/destroy', [
-        'id' => $media->id,
-    ]);
+    $response = actingAsGuest()->delete(route('media.destroy', $media->id));
 
-    expect($response->status())->toBe(302)
+    expect($response->status())->toBe(200)
         ->and(Media::where('id', $media->id)->count())->toBe(0);
 
-    // Assert notification sent
-    $user = $media->user;
-    $notification = Notification::where('user_id', $user->id)->first();
-    expect($notification->type)->toBe('App\Notifications\Media\DeletedMediaNotification');
+    Notification::assertCount(1);
+    Notification::assertSentTo([$media->user], DeletedMediaNotification::class);
 });

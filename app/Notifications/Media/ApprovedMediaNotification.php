@@ -30,14 +30,6 @@ class ApprovedMediaNotification extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable)
-    {
-        //
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>

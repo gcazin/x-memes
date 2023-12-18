@@ -5,6 +5,7 @@ namespace App\Listeners\User;
 use App\Models\User;
 use App\Notifications\User\NewUserNotification;
 use Illuminate\Support\Facades\Notification;
+use Spatie\Permission\Models\Role;
 
 class SendNewUserNotification
 {
@@ -21,8 +22,10 @@ class SendNewUserNotification
      */
     public function handle(object $event): void
     {
-        $superAdmins = User::role('super-admin')->get();
+        if (Role::all()->where('name', 'super-admin')->count() !== 0) {
+            $superAdmins = User::role('super-admin')->get();
 
-        Notification::send($superAdmins, new NewUserNotification($event->user));
+            Notification::send($superAdmins, new NewUserNotification($event->user));
+        }
     }
 }

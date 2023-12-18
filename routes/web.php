@@ -38,7 +38,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
 
         Route::name('profile.')->group(function () {
             Route::get('profile', [ProfileController::class, 'edit'])->name('edit');
-            Route::post('profile', [ProfileController::class, 'update'])->name('update');
+            Route::patch('profile', [ProfileController::class, 'update'])->name('update');
             Route::delete('profile', [ProfileController::class, 'destroy'])->name('destroy');
         });
 

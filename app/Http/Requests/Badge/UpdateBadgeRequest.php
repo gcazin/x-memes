@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Badge;
 
 use App\Models\Badge;
+use App\Models\BadgeType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,8 +26,9 @@ class UpdateBadgeRequest extends FormRequest
     {
         return [
             'name' => ['string', 'required', 'max:100'],
-            'description' => ['string', 'required'],
+            'description' => ['string', 'sometimes'],
             'condition' => ['integer', Rule::unique(Badge::class, 'name')],
+            'badge_type_id' => ['integer', Rule::exists(BadgeType::class), 'sometimes']
         ];
     }
 }

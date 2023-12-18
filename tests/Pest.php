@@ -71,9 +71,7 @@ function actingAsModerator()
 
 function actingAsGuest()
 {
-    $role = Role::create(['name' => 'guest']);
-
-    $user = User::factory()->create()->assignRole($role->name);
+    $user = User::factory()->create();
 
     return test()->actingAs($user);
 }

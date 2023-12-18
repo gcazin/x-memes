@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\BadgeType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,10 @@ class BadgeFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'description' => $this->faker->text,
+            'description' => $this->faker->text(),
             'path' => 'storage/1.png',
             'condition' => $this->faker->randomDigit(),
+            'badge_type_id' => BadgeType::all()->random()->id
         ];
     }
 }

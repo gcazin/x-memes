@@ -33,6 +33,7 @@ class BadgeController extends Controller
         $badge->name = $request->name;
         $badge->description = $request->description;
         $badge->condition = $request->condition;
+        $badge->badge_type_id = $request->badge_type_id;
 
         $badge->save();
     }
@@ -52,11 +53,7 @@ class BadgeController extends Controller
     {
         $badge = Badge::find($id);
 
-        $badge->name = $request->name;
-        $badge->description = $request->description;
-        $badge->condition = $request->condition;
-
-        $badge->update();
+        $badge->update($request->validated());
     }
 
     /**
