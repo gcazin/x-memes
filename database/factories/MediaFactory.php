@@ -18,9 +18,12 @@ class MediaFactory extends Factory
      */
     public function definition(): array
     {
+        $filename = Storage::has('media')
+            ? Storage::allFiles('media')[array_rand(Storage::allFiles('media'))]
+            : 'media/1.jpg';
         return [
             'name' => $this->faker->name,
-            'filename' => Storage::allFiles('media')[array_rand(Storage::allFiles('media'))],
+            'filename' => $filename,
             'extension' => 'jpg',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
             'user_id' => User::all()->random()->id,
