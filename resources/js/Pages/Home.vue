@@ -123,7 +123,7 @@ formService.setForm(form).setRouteName('waitlist')
                 <div class="grid grid-cols-1 lg:grid-cols-5 lg:w-9/12 mx-auto py-16 gap-16">
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-lg p-4" size="5xl" name="add" />
+                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="add" />
                             <p class="text-xl">Poste tes mèmes préférés.</p>
                         </Stack>
                     </div>
@@ -141,13 +141,13 @@ formService.setForm(form).setRouteName('waitlist')
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-lg p-4" size="5xl" name="diamond" />
+                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="diamond" />
                             <p class="text-xl">Des badges décernés en fonction de ton activité sur le site.</p>
                         </Stack>
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-lg p-4" size="5xl" name="people" />
+                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="people" />
                             <p class="text-xl">Un classement des utilisateurs les plus actifs.</p>
                         </Stack>
                     </div>
