@@ -91,7 +91,7 @@ formService.setForm(form).setRouteName('media')
                         <InputLabel for="name" value="Image" />
                         <input
                             type="file"
-                            class="file-input file-input-bordered w-full"
+                            class="file-input file-input-primary file-input-bordered w-full"
                             id="media_id"
                             @input="handleMedia"
                         />

@@ -41,8 +41,8 @@ defineExpose({ focus: () => input.value.focus() });
         </div>
         <input
             :type="type"
-            class="input input-bordered w-full bg-base-300"
-            :class="{'file-input file-input-sm w-full': type === 'file'}"
+            class="input input-bordered input-primary w-full bg-base-300"
+            :class="{'file-input file-input-primary w-full': type === 'file'}"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
@@ -54,8 +54,4 @@ defineExpose({ focus: () => input.value.focus() });
     </label>
 </template>
 <style>
-.input:focus, .input:focus-within {
-    border-color: var(--fallback-bc,oklch(var(--p)/0.3));
-    outline-color: var(--fallback-bc,oklch(var(--p)/0.3));
-}
 </style>
