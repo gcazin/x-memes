@@ -51,11 +51,13 @@ const notifications = page.props.auth?.notifications
                     </ul>
                 </div>
                 <a :href="route('index')" class="text-2xl">
-                    <img class="w-8 lg:w-10 inline me-2" src="/storage/misc/favicon.png" alt="">
-                    <span class="font-bold">
+                    <div class="flex items-center gap-x-2 w-full">
+                        <img class="w-8 lg:w-12 inline" src="/storage/misc/favicon.png" alt="">
+                        <span class="font-bold">
                         X-Memes
-                        <Tag type="secondary" size="sm" class="hidden lg:inline align-middle">alpha</Tag>
+                        <Tag type="secondary" size="sm" class="hidden lg:block align-middle">alpha</Tag>
                     </span>
+                    </div>
                 </a>
             </div>
             <div class="navbar-center hidden lg:flex">

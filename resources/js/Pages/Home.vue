@@ -27,7 +27,7 @@ defineProps({
     <Head title="Accueil" />
     <PageLayout :header="false" full-size>
         <div class="hero flex flex-col justify-center bg-primary/40">
-            <div class="hero-content pt-40 text-center">
+            <div class="hero-content pt-12 lg:pt-40 text-center">
                 <div class="flex flex-col">
                     <h1 class="text-5xl font-bold">Première plateforme permettant de retrouver tes memes préférés!</h1>
                     <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
@@ -52,14 +52,14 @@ defineProps({
             </div>
         </div>
 
-        <div class="pt-20 pb-16 bg-base-200 text-center">
+        <div class="px-8 lg:px-0 pt-20 pb-16 bg-base-200 text-center">
             <Stack>
                 <p class="uppercase text-primary font-bold">Services</p>
                 <h2 class="text-4xl">Fonctionnalités</h2>
                 <p class="text-xl">
                     <a class="link-primary" :href="route('index')">X-Memes</a> t'offre une variété de fonctionnalités te permettant de poster, télécharger et suivre les personnes que tu aimes.
                 </p>
-                <div class="flex lg:w-9/12 mx-auto py-16 gap-16">
+                <div class="grid grid-cols-1 lg:grid-cols-5 lg:w-9/12 mx-auto py-16 gap-16">
                     <div class="flex-1">
                         <Stack>
                             <Icon class="bg-primary rounded-lg p-4" size="5xl" name="add" />
@@ -94,7 +94,7 @@ defineProps({
             </Stack>
         </div>
 
-        <div class="pt-20 pb-16 bg-base-300 text-center">
+        <div class="px-8 lg:px-0 pt-20 pb-16 bg-base-300 text-center">
             <Stack class="mb-16">
                 <p class="uppercase text-primary font-bold">FAQ</p>
                 <h2 class="text-4xl">Une question ?</h2>
