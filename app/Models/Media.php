@@ -17,7 +17,7 @@ class Media extends Model
     protected $with = [
         'user',
         'tags',
-        'likers'
+        'likers',
     ];
 
     protected $fillable = [

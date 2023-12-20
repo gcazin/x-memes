@@ -18,7 +18,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Notifiable, Liker;
+    use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Liker, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     protected $with = [
         'roles',
-        'followers'
+        'followers',
     ];
 
     public function isSuperAdmin()

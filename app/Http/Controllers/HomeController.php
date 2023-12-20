@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Media;
 use App\Models\User;
 use App\Models\Waitlist;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class HomeController extends Controller

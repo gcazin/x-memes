@@ -82,7 +82,7 @@ class MediaController extends Controller
 
         return Inertia::render('Medias/Show', [
             'media' => $media,
-            'data' => session('data')
+            'data' => session('data'),
         ]);
     }
 
@@ -122,9 +122,6 @@ class MediaController extends Controller
 
     /**
      * Checks if file is duplicated.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function duplicate(Request $request): JsonResponse
     {
@@ -142,8 +139,6 @@ class MediaController extends Controller
     /**
      * Approves media.
      *
-     * @param Request $request
-     * @param int $id
      * @return void
      */
     public function approve(Request $request, int $id)
@@ -166,7 +161,6 @@ class MediaController extends Controller
     /**
      * Download media.
      *
-     * @param int $id
      * @return RedirectResponse
      */
     public function download(int $id)
@@ -183,7 +177,6 @@ class MediaController extends Controller
     /**
      * Like media.
      *
-     * @param int $id
      * @return void
      */
     public function like(int $id)
