@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'local') {
+if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::get('/', [HomeController::class, 'index'])
         ->where('any', '.*');
     Route::post('/', [WaitlistController::class, 'store'])
