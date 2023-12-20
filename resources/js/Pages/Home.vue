@@ -34,7 +34,7 @@ formService.setForm(form).setRouteName('waitlist')
                 <div class="flex flex-col">
                     <img class="mask mask-squircle w-32 shadow mb-8 mx-auto" src="images/favicon-with-background.jpg" alt="">
                     <h1 class="text-3xl lg:text-5xl font-bold">
-                        La plateforme qui permet de retrouver tes mèmes préférés!
+                        La plateforme qui te permet de retrouver tes mèmes préférés!
                     </h1>
                     <p class="lg:text-xl py-6">X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté.</p>
                     <div v-if="stage !== 'alpha'" class="space-x-2">
