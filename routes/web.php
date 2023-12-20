@@ -27,7 +27,8 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::redirect('{any}', '/');
 } else {
     // Common pages
-    Route::get('/', [MediaController::class, 'index'])->name('index');
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
     // Auth
     Route::middleware('auth')->group(function () {
         Route::name('user.')->group(function () {

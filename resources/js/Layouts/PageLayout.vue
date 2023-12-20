@@ -8,6 +8,14 @@ defineProps({
     title: {
         type: String,
         required: false
+    },
+    fullSize: {
+        type: Boolean,
+        default: false,
+    },
+    header: {
+        type: Boolean,
+        default: true,
     }
 })
 </script>
@@ -19,7 +27,7 @@ defineProps({
         <Navbar />
 
         <!-- Page Heading -->
-        <header>
+        <header v-if="header">
             <div class="lg:w-9/12 mx-auto py-6 px-6 lg:px-0">
                 <div class="flex">
                     <div class="flex-1 gap-2">
@@ -51,7 +59,7 @@ defineProps({
         </header>
 
         <!-- Page Content -->
-        <main class="lg:w-9/12 px-6 lg:px-0 mx-auto">
+        <main :class="fullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'">
             <slot />
         </main>
 

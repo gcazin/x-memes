@@ -11,7 +11,7 @@ const page = usePage()
 
 const menuItems = [
     {
-        route: 'index',
+        route: 'library',
         name: 'Bibliothèque'
     },
     {

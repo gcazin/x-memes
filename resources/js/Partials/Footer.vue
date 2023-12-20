@@ -1,18 +1,23 @@
 <template>
-    <footer class="footer block p-10 bg-neutral text-neutral-content mt-6">
-        <div class="lg:w-9/12 mx-auto flex justify-between">
-            <aside>
-                <p>X-Memes.</p>
-                <p>Retrouve tes memes préférés en un clin d'œil !</p>
+    <footer class="footer p-4 bg-neutral text-neutral-content border-t border-t-primary/10">
+        <div class="lg:w-9/12 mx-auto flex items-center justify-between">
+            <aside class="items-center grid-flow-col">
+                <Stack spacing="2">
+                    <img src="/images/favicon.png" class="w-12" alt="">
+                    <p>X-Memes © 2023 - Tous droits réservés</p>
+                    <p>Développé avec ❤️ par <a class="font-bold" href="https://guillaume-cazin.fr">Guillaume</a></p>
+                </Stack>
             </aside>
-            <nav>
-                <header class="footer-title">Réseaux sociaux</header>
-                <div class="grid grid-flow-col gap-4">
-                    <a href="https://twitter.com/gcazinonx" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="none" viewBox="0 0 1200 1227"><path fill="#fff" d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"/></svg>
-                    </a>
-                </div>
+            <nav class="flex gap-4 md:place-self-center md:justify-self-end">
+                <a href="https://twitter.com/gcazinonx" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"/>
+                    </svg>
+                </a>
             </nav>
         </div>
     </footer>
 </template>
+<script setup>
+import Stack from "@/Components/Layout/Stack.vue";
+</script>

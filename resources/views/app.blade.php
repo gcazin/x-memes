@@ -27,7 +27,7 @@
         {{--@vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}Create.vue"])--}}
         @inertiaHead
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased !mb-0">
         @inertia
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

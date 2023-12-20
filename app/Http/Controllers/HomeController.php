@@ -11,6 +11,9 @@ class HomeController extends Controller
 {
     public function index()
     {
+        /*if (auth()->user()) {
+            return redirect()->to(route('library'));
+        }*/
         return Inertia::render('Home');
     }
 
