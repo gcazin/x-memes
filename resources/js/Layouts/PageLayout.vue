@@ -3,17 +3,22 @@ import Navbar from "@/Partials/Navbar.vue";
 import Toast from "@/Components/Misc/Toast.vue";
 import Footer from "@/Partials/Footer.vue";
 import { Head } from '@inertiajs/vue3';
+import BlobBackground from "@/Components/Misc/BlobBackground.vue";
 
 defineProps({
     title: {
         type: String,
         required: false
     },
-    fullSize: {
+    isFullSize: {
         type: Boolean,
         default: false,
     },
-    header: {
+    hasHeader: {
+        type: Boolean,
+        default: true,
+    },
+    hasNavbar: {
         type: Boolean,
         default: true,
     }
@@ -23,11 +28,12 @@ defineProps({
 <template>
     <Head :title="title"></Head>
 
-    <div class="min-h-screen bg-base-200">
-        <Navbar />
+    <div class="relative min-h-screen bg-slate-900">
+        <Navbar v-if="hasNavbar" />
 
+        <BlobBackground />
         <!-- Page Heading -->
-        <header v-if="header">
+        <header v-if="hasHeader">
             <div class="lg:w-9/12 mx-auto py-6 px-6 lg:px-0">
                 <div class="flex">
                     <div class="flex-1 gap-2">
@@ -59,12 +65,12 @@ defineProps({
         </header>
 
         <!-- Page Content -->
-        <main :class="fullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'">
+        <main class="relative" :class="isFullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'">
             <slot />
         </main>
-
-        <Footer />
     </div>
+
+    <Footer />
 
     <Toast />
 </template>

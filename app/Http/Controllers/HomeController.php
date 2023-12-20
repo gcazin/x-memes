@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use App\Models\User;
+use App\Models\Waitlist;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -11,10 +12,16 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // When is launched
         /*if (auth()->user()) {
             return redirect()->to(route('library'));
         }*/
-        return Inertia::render('Home');
+
+        $waitlist = Waitlist::all()->take(10);
+        return Inertia::render('Home', [
+            'stage' => env('APP_STAGE'),
+            'waitlist' => $waitlist
+        ]);
     }
 
     public function leaderboard()

@@ -10,6 +10,7 @@ import axios from "axios";
 import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Multiselect from '@vueform/multiselect'
 import formService from "@/Services/form.service.js";
+import BlobBackground from "@/Components/Misc/BlobBackground.vue";
 
 const props = defineProps({
     medias: {
