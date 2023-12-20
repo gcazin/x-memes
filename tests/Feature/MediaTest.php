@@ -23,10 +23,10 @@ it('should index approved medias', function () {
     ]);
 
     actingAsGuest()
-        ->get(route('index'))
+        ->get(route('library'))
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Library', fn (AssertableInertia $page) => $page
-                ->component('fdfsd')
+                ->component('MediaGallery')
             )
         );
 });
