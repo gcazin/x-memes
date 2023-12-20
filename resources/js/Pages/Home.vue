@@ -151,9 +151,9 @@ defineProps({
                                 <p>
                                     Tu t'inscris, tu cliques sur "Bibliothèque" en haut, tu auras un bouton "Ajouter un média",
                                     tu remplis le formulaire et c'est tout !
-                                    <span class="font-bold">
+                                </p>
+                                <p class="font-bold">
                                     (Pour éviter toutes dérives, tout les médias envoyés sont approuvés manuellement par un administrateur)
-                                </span>
                                 </p>
                             </Stack>
                         </div>

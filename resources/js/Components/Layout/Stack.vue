@@ -7,7 +7,7 @@ defineProps({
 </script>
 <template>
     <section
-        :class="spacing ? `gap-${spacing}` : 'space-y-4'"
+        :class="spacing ? `space-y-${spacing}` : 'space-y-4'"
     >
         <slot />
     </section>
