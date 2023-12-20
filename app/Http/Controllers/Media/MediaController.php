@@ -10,6 +10,8 @@ use App\Models\Media;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
@@ -80,6 +82,7 @@ class MediaController extends Controller
 
         return Inertia::render('Medias/Show', [
             'media' => $media,
+            'data' => session('data')
         ]);
     }
 
@@ -105,16 +108,25 @@ class MediaController extends Controller
         flash('success', 'Le média a bien été modifié.');
     }
 
+    /**
+     * Returns random resource.
+     */
     public function random()
     {
         if ($this->mediaRepository->allApprovedMedias()->count() !== 0) {
             return redirect(route('media.show', $this->mediaRepository->random()));
         }
 
-        abort('404');
+        abort(404);
     }
 
-    public function duplicate(Request $request)
+    /**
+     * Checks if file is duplicated.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function duplicate(Request $request): JsonResponse
     {
         $imageHash = Comparator::convertHashToBinaryString(Comparator::hashImage($request->file('media_id')));
 
@@ -127,6 +139,13 @@ class MediaController extends Controller
         return response()->json(['foundedImage' => null]);
     }
 
+    /**
+     * Approves media.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return void
+     */
     public function approve(Request $request, int $id)
     {
         $media = $this->mediaRepository->find($id);
@@ -144,6 +163,12 @@ class MediaController extends Controller
         Notification::send($media->user, new ApprovedMediaNotification($media));
     }
 
+    /**
+     * Download media.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
     public function download(int $id)
     {
         $media = $this->mediaRepository->find($id);
@@ -152,7 +177,20 @@ class MediaController extends Controller
 
         $media->update();
 
-        return response()->json(['data' => base64_encode(Storage::get($media->filename))]);
+        return redirect()->back()->with('data', base64_encode(Storage::get($media->filename)));
+    }
+
+    /**
+     * Like media.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function like(int $id)
+    {
+        $media = $this->mediaRepository->find($id);
+
+        auth()->user()->toggleLike($media);
     }
 
     /**

@@ -1,5 +1,6 @@
 <script setup>
-import {useForm, usePage} from "@inertiajs/vue3";
+import {usePage} from "@inertiajs/vue3";
+import FollowButton from "@/Components/Elements/Button/FollowButton.vue";
 
 const props = defineProps({
     user: {
@@ -8,26 +9,7 @@ const props = defineProps({
     }
 })
 
-const checkIfAuthIsFollowing = () => {
-    return props.user.followers
-        .map((follower) => follower.username)
-        .includes(auth.username)
-}
-
-const page = usePage()
-const auth = page.props.auth?.user
-
-const form = useForm({
-    user_id: auth.id
-})
-
-const submit = () => {
-    form.post(route('user.follow', props.user.id), {
-        onSuccess: () => {
-            checkIfAuthIsFollowing()
-        }
-    });
-};
+const auth = usePage().props.auth?.user
 </script>
 
 <template>
@@ -53,14 +35,7 @@ const submit = () => {
         </div>
         <div class="flex-1 text-right p-1">
             <template v-if="user.id !== auth.id">
-                <form @submit.prevent="submit">
-                    <button
-                        class="btn btn-primary"
-                        :class="{'btn-outline': checkIfAuthIsFollowing()}"
-                    >
-                        {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
-                    </button>
-                </form>
+                <FollowButton />
             </template>
         </div>
     </div>

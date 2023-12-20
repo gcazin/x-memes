@@ -18,25 +18,19 @@ class HomeController extends Controller
         }*/
 
         $waitlist = Waitlist::all()->take(10);
+
         return Inertia::render('Home', [
             'stage' => env('APP_STAGE'),
-            'waitlist' => $waitlist
+            'waitlist' => $waitlist,
         ]);
     }
 
     public function leaderboard()
     {
-        $leaderboard = DB::table('medias')->join('users as u', 'u.id', '=', 'medias.user_id')
-            ->select('u.*', DB::raw('count(*) as media_count'))
-            ->groupBy('user_id')
-            ->get();
-        $users = User::all();
-        $medias = Media::with('user')->get();
+        $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->get();
 
         return Inertia::render('Leaderboard', [
             'leaderboard' => $leaderboard,
-            'users' => $users,
-            'medias' => $medias,
         ]);
     }
 }

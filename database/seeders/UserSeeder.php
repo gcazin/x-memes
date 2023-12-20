@@ -27,5 +27,7 @@ class UserSeeder extends Seeder
                 ->badges()
                 ->attach(Badge::all()->firstWhere('condition', $user)->id);
         }
+
+        User::factory(50)->create();
     }
 }

@@ -71,10 +71,10 @@ class FormService {
         return selector
     }
 
-    handle(method, item) {
+    handle(action, item, method = 'put') {
         const routeName = this.getRouteName()
-        console.log(routeName)
-        switch (method) {
+
+        switch (action) {
             case 'store':
                 this.form.post(route(`${routeName}.store`), {
                     preserveScroll: true,
@@ -93,9 +93,9 @@ class FormService {
                     onBefore: () => confirm('Es-tu sûr de supprimer cet élément ?'),
                 })
                 break
-            case method:
+            case action:
                 console.log(item?.id)
-                this.form.put(route(`${routeName}.${method}`, item?.id), {
+                this.form[method](route(`${routeName}.${action}`, item?.id), {
                     preserveScroll: true,
                     onSuccess: () => this.closeModal(),
                 })

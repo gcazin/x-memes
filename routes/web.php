@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::get('/', [HomeController::class, 'index'])
-        ->where('any', '.*');
+        ->where('any', '.*')->name('index');
     Route::post('/', [WaitlistController::class, 'store'])
         ->where('any', '.*')->name('waitlist.store');
     Route::redirect('{any}', '/');
 } else {
     // Common pages
-    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
     // Auth
     Route::middleware('auth')->group(function () {
@@ -49,6 +49,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         Route::name('media.')->group(function () {
             Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');
             Route::get('media/download/{id}', [MediaController::class, 'download'])->name('download');
+            Route::get('media/like/{id}', [MediaController::class, 'like'])->name('like');
         });
     });
 

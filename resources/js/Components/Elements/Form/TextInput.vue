@@ -16,6 +16,9 @@ defineProps({
     },
     placeholder: {
         type: String,
+    },
+    helpText: {
+        type: String,
     }
 });
 
@@ -45,5 +48,14 @@ defineExpose({ focus: () => input.value.focus() });
             ref="input"
             :placeholder="placeholder"
         />
+        <div v-if="helpText" class="label ms-auto pb-0">
+            <span class="label-text-alt">{{ helpText }}</span>
+        </div>
     </label>
 </template>
+<style>
+.input:focus, .input:focus-within {
+    border-color: var(--fallback-bc,oklch(var(--p)/0.3));
+    outline-color: var(--fallback-bc,oklch(var(--p)/0.3));
+}
+</style>

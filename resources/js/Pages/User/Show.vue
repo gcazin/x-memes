@@ -20,34 +20,6 @@ const props = defineProps({
         type: Array
     },
 })
-
-const page = usePage()
-const auth = page.props.auth?.user
-
-console.log(auth)
-
-const downloadMediaCount = props.user.medias && props.user.medias.length
-    ? props.user.medias
-        .map((media) => media.download_count)
-        .reduce((accumulator, media) => accumulator + media)
-    : 0
-const checkIfAuthIsFollowing = () => {
-    return props.user.followers
-        .map((follower) => follower.username)
-        .includes(auth.username)
-}
-
-const form = useForm({
-    user_id: auth.id
-})
-
-const submit = () => {
-    form.post(route('user.follow', props.user.id), {
-        onSuccess: () => {
-            checkIfAuthIsFollowing()
-        }
-    });
-};
 </script>
 <template>
     <UserLayout :user="user" :medias="medias">

@@ -27,9 +27,9 @@ class FollowController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, int $id)
+    public function store(int $id)
     {
-        $followerId = User::find($request->user_id);
+        $followerId = auth()->user();
         $followableId = User::find($id);
 
         $followerId->toggleFollow($followableId);

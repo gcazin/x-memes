@@ -16,6 +16,7 @@
         "mailersend/laravel-driver": "^2.3",
         "opcodesio/log-viewer": "^3.1",
         "overtrue/laravel-follow": "^5.1",
+        "overtrue/laravel-like": "^5.2",
         "sapientpro/image-comparator-laravel": "^1.0",
         "spatie/laravel-permission": "^6.1",
         "spatie/laravel-tags": "^4.5",

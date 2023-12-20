@@ -11,6 +11,7 @@ import MediaGallery from "@/Pages/Medias/Partials/MediaGallery.vue";
 import Multiselect from '@vueform/multiselect'
 import formService from "@/Services/form.service.js";
 import BlobBackground from "@/Components/Misc/BlobBackground.vue";
+import Stack from "@/Components/Layout/Stack.vue";
 
 const props = defineProps({
     medias: {
@@ -74,41 +75,42 @@ formService.setForm(form).setRouteName('media')
 
         <MediaGallery :medias="medias" />
 
-        <Modal id="addMediaModal" title="Ajouter un média" max-width="3xl">
+        <Modal id="addMediaModal" title="Ajouter un média" max-width="2xl">
             <form enctype="multipart/form-data" @submit.prevent="formService.handle('store')">
-                <TextInput
-                    label="Titre"
-                    v-model="form.name"
-                />
+                <Stack>
+                    <div>
+                        <TextInput
+                            label="Titre"
+                            v-model="form.name"
+                            help-text="25 caractères maximum."
+                        />
+                        <InputError :message="form.errors.name" />
+                    </div>
 
-                <InputError :message="form.errors.name" />
+                    <div>
+                        <InputLabel for="name" value="Image" />
+                        <input
+                            type="file"
+                            class="file-input file-input-bordered w-full"
+                            id="media_id"
+                            @input="handleMedia"
+                        />
+                        <InputError class="mt-2" :message="form.errors.media_id" />
+                    </div>
 
-                <InputLabel for="name" value="Image" />
-                <input
-                    type="file"
-                    class="file-input file-input-bordered file-input-sm w-full max-w-xs"
-                    id="media_id"
-                    @input="handleMedia"
-                />
-
-                <InputError class="mt-2" :message="form.errors.media_id" />
-
-                <InputLabel for="tags" value="Tags" class="my-2" />
-                <Multiselect
-                    id="tags"
-                    v-model="form.tags"
-                    mode="tags"
-                    :close-on-select="false"
-                    :searchable="true"
-                    :create-option="true"
-                    :options="tagsOptions"
-                    :classes="{
-                            container: 'dark:bg-gray-900 relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-900 rounded bg-white text-base leading-snug outline-none',
-                            tag: 'bg-blue-500 dark:bg-blue-600 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap min-w-0 rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
-                            containerActive: 'ring ring-blue-500 dark:ring-blue-600 ring-opacity-30',
-                            tagsSearch: 'dark:bg-gray-900 text-white absolute inset-0 border-0 outline-none focus:ring-0 appearance-none p-0 text-base font-sans box-border w-full',
-                        }"
-                />
+                    <div>
+                        <InputLabel for="tags" value="Tags" class="my-2" />
+                        <Multiselect
+                            id="tags"
+                            v-model="form.tags"
+                            mode="tags"
+                            :close-on-select="false"
+                            :searchable="true"
+                            :create-option="true"
+                            :options="tagsOptions"
+                        />
+                    </div>
+                </Stack>
                 <template v-if="state.foundedImage">
                     <div
                         role="alert"
@@ -133,4 +135,26 @@ formService.setForm(form).setRouteName('media')
 </template>
 <style>
 @import '@vueform/multiselect/themes/tailwind.css';
+
+.multiselect,
+.multiselect-tags-search,
+.multiselect-dropdown,
+.multiselect-no-options {
+    background: oklch(var(--b3));
+}
+.multiselect {
+    --tw-border-opacity: 1;
+    border-color: oklch(var(--bc)/0.2);
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-tag {
+    background: oklch(var(--p));
+}
+.multiselect.is-active {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) oklch(var(--p)/0.3);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) oklch(var(--p)/0.3);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: oklch(var(--p)/0.2);
+    --tw-ring-opacity: 0.3;
+}
 </style>

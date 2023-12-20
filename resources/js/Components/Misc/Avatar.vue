@@ -20,7 +20,7 @@ const avatarSizeClass = computed(() => {
     return {
         'full': 'w-96',
         'xl': 'w-64',
-        'lg': 'w-32',
+        'lg': 'w-24',
         'md': 'w-16',
         'sm': 'w-8',
     }[props.size]

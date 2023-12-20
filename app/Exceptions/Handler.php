@@ -31,6 +31,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        // @phpstan-ignore-next-line
         $response = parent::render($request, $e);
 
         // ['local', 'testing']

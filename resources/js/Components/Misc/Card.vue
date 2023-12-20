@@ -24,7 +24,7 @@ defineProps({
 </script>
 <template>
     <div
-        class="card w-full bg-base-300 shadow"
+        class="card !rounded-lg w-full bg-base-300 shadow"
         :class="{
             'bg-base-300': hasBackground,
             'card-compact': hasMedia,

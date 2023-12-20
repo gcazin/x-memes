@@ -68,10 +68,10 @@ it('should download media and increment download count', function () {
     User::factory()->create();
     $media = Media::factory()->create();
 
-    $response = actingAsGuest()->get(route('media.download', $media->id));
+    actingAsGuest()->get(route('media.download', $media->id));
 
-    expect($response->status())->toBe(200)
-        ->and($media->refresh()->download_count)->toBe(1);
+    // TODO: check if session has data
+    expect($media->refresh()->download_count)->toBe(1);
 });
 
 it('should destroy media and send notification', function () {

@@ -1,13 +1,10 @@
 <script setup>
-import {Head, Link, useForm} from '@inertiajs/vue3';
+import {useForm} from '@inertiajs/vue3';
 import PageLayout from "@/Layouts/PageLayout.vue";
 import Icon from "@/Components/Misc/Icon.vue";
 import Stack from "@/Components/Layout/Stack.vue";
-import Section from "@/Components/Layout/Section.vue";
 import formService from "@/Services/form.service.js";
 import TextInput from "@/Components/Elements/Form/TextInput.vue";
-import InputError from "@/Components/Elements/Form/InputError.vue";
-import BlobBackground from "@/Components/Misc/BlobBackground.vue";
 
 defineProps({
     stage: {

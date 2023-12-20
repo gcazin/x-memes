@@ -5,7 +5,7 @@ defineProps({
         required: true,
     },
     items: {
-        type: [Object, Array],
+        type: Array,
         required: true
     },
     properties: {
@@ -25,7 +25,7 @@ defineProps({
 </script>
 <template>
     <div class="overflow-x">
-        <table class="table table-xs lg:table-lg" :class="{'bg-base-300': hasBackground}">
+        <table class="table table-xs rounded-lg lg:table-lg" :class="{'bg-base-300': hasBackground}">
             <thead>
             <tr>
                 <th
@@ -45,7 +45,7 @@ defineProps({
                 v-for="(item, index) in items"
             >
                 <td v-if="properties" v-for="(property) in properties">
-                    <slot v-if="property === 'increment'" :name="property" v-bind="item">
+                    <slot v-if="property === 'increment'" :name="property" v-bind="{ index }">
                         {{ index + 1 }}
                     </slot>
                     <slot v-else :name="property" v-bind="item">

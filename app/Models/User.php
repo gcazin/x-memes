@@ -13,11 +13,12 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Overtrue\LaravelFollow\Traits\Followable;
 use Overtrue\LaravelFollow\Traits\Follower;
+use Overtrue\LaravelLike\Traits\Liker;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Notifiable;
+    use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Notifiable, Liker;
 
     /**
      * The attributes that are mass assignable.
@@ -54,6 +55,7 @@ class User extends Authenticatable
 
     protected $with = [
         'roles',
+        'followers'
     ];
 
     public function isSuperAdmin()

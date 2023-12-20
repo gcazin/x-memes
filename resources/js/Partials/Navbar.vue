@@ -27,7 +27,7 @@ const menuItems = [
 const notifications = page.props.auth?.notifications
 </script>
 <template>
-    <div class="sticky top-0 z-50 backdrop-blur-xl border-b border-slate-100/5">
+    <div class="sticky top-0 z-50 bg-slate-900/40 backdrop-blur-xl border-b border-slate-100/5">
         <div class="navbar w-full lg:w-9/12 mx-auto px-2 lg:px-0">
             <div class="navbar-start">
                 <div class="dropdown">
