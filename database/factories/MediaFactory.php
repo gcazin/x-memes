@@ -18,17 +18,17 @@ class MediaFactory extends Factory
      */
     public function definition(): array
     {
-        $filename = Storage::has('media')
+        $filename = Storage::has('media') && count(Storage::allFiles())
             ? Storage::allFiles('media')[array_rand(Storage::allFiles('media'))]
             : 'media/1.jpg';
 
         return [
-            'name' => $this->faker->name,
+            'name' => fake()->name,
             'filename' => $filename,
             'extension' => 'jpg',
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
             'user_id' => User::all()->random()->id,
-            'approved' => $this->faker->boolean,
+            'approved' => fake()->boolean,
         ];
     }
 }

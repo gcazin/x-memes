@@ -82,7 +82,8 @@ class MediaController extends Controller
 
         return Inertia::render('Medias/Show', [
             'media' => $media,
-            'data' => session('data'),
+            'downloaded_file' => session('downloaded_file'),
+            'related' => session('related'),
         ]);
     }
 
@@ -171,7 +172,7 @@ class MediaController extends Controller
 
         $media->update();
 
-        return redirect()->back()->with('data', base64_encode(Storage::get($media->filename)));
+        return redirect()->back()->with('downloaded_file', base64_encode(Storage::get($media->filename)));
     }
 
     /**
@@ -184,6 +185,25 @@ class MediaController extends Controller
         $media = $this->mediaRepository->find($id);
 
         auth()->user()->toggleLike($media);
+    }
+
+    /**
+     * Get related medias to another.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function related(int $id)
+    {
+        $media = Media::find($id);
+        $tags = $media->tags->pluck('name')->toArray();
+
+        $related = Media::withAnyTags($tags)
+            ->get()
+            ->where('id', '!=', $media->id)
+            ->take(4);
+
+        return back()->with('related', $related);
     }
 
     /**

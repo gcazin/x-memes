@@ -3,6 +3,8 @@ import {useForm, usePage} from "@inertiajs/vue3";
 import {onMounted, reactive, ref, toRef, watchEffect} from "vue";
 import { router } from '@inertiajs/vue3'
 import {all} from "axios";
+import MediaItem from "@/Components/Misc/MediaItem.vue";
+import MediaLayout from "@/Components/Misc/MediaLayout.vue";
 
 const props = defineProps({
     medias: {
@@ -67,16 +69,7 @@ const loadMorePosts = () => {
             :key="index"
             class="animate-[pulse_0.5s_ease-in-out]"
         >
-            <a :href="route('media.show', media.id)">
-                <video controls v-if="media.extension === 'mp4'" :src="`/storage/${media.name}`"></video>
-                <img
-                    v-else
-                    class="w-full h-full object-cover shadow"
-                    :src="`/storage/${media.filename}`"
-                    :alt="media.name"
-                    loading="lazy"
-                >
-            </a>
+            <MediaItem :media="media" />
         </div>
     </div>
     <div v-else>

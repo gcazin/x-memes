@@ -41,7 +41,7 @@ const formatUsername = (username) => {
 }
 </script>
 <template>
-    <div v-if="user?.avatar || authUser.avatar" class="avatar">
+    <div v-if="user?.avatar || authUser?.avatar" class="avatar">
         <div class="rounded-full" :class="[avatarSizeClass]">
             <img :src="`/storage/${user ? user.avatar : authUser.avatar}`" alt="Tailwind-CSS-Avatar-component" />
         </div>

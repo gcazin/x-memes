@@ -1,6 +1,6 @@
 <script setup>
 import PageLayout from '@/Layouts/PageLayout.vue';
-import {Head, useForm} from '@inertiajs/vue3';
+import {Head, useForm, usePage, router} from '@inertiajs/vue3';
 import Text from "@/Components/Text.vue";
 import Tag from "@/Components/Misc/Tag.vue";
 import Card from "@/Components/Misc/Card.vue";
@@ -10,14 +10,23 @@ import Avatar from "@/Components/Misc/Avatar.vue";
 import Stack from "@/Components/Layout/Stack.vue";
 import Icon from "@/Components/Misc/Icon.vue";
 import formService from "@/Services/form.service.js";
+import {onMounted} from "vue";
+import MediaItem from "@/Components/Misc/MediaItem.vue";
 
 const props = defineProps({
     media: {
         type: Object
     },
-    data: {
+    downloaded_file: {
+        type: Array,
+    },
+    related: {
         type: Array,
     }
+})
+
+onMounted(() => {
+    getRelatedMedias()
 })
 
 const form = useForm({
@@ -27,12 +36,25 @@ const form = useForm({
 const downloadItem = (item) => {
     form.get(route('media.download', form.media_id), {
         onSuccess: (page) => {
-            const blob = new Blob([page.props.data])
+            const blob = new Blob([page.props.downloaded_file])
             const link = document.createElement('a')
             link.href = URL.createObjectURL(blob)
             link.download = `${item.name}.${item.extension}`
             link.click()
             URL.revokeObjectURL(link.href)
+        }
+    })
+}
+
+const page = usePage()
+const auth = page.auth?.user
+
+const getRelatedMedias = () => {
+    router.visit(route('media.related', props.media.id), {
+        only: ['related'],
+        preserveState: true,
+        onSuccess: (page) => {
+            console.log(page.props.related)
         }
     })
 }
@@ -50,7 +72,7 @@ const downloadItem = (item) => {
                         </div>
                         <div class="flex flex-col">
                             <a :href="route('user.show', media.user.username)">{{ media.user.username }}</a>
-                            <a class="link-primary font-bold" href="">Suivre</a>
+                            <a v-if="auth" class="link-primary font-bold" href="">Suivre</a>
                         </div>
                     </div>
                 </div>
@@ -58,8 +80,8 @@ const downloadItem = (item) => {
                     <button
                         class="btn btn-circle btn-outline"
                         @click="formService.setForm(form).setRouteName('media').handle('like', media, 'get')"
-                        :disabled="form.processing"
-                        :class="media.likers?.map((liker) => liker.id).includes($page.props.auth.user.id) ? 'btn-error' : ''"
+                        :disabled="form.processing || !auth"
+                        :class="auth ? (media.likers?.map((liker) => liker.id).includes($page.props.auth.user.id) ? 'btn-error' : '') : ''"
                     >
                         <Icon
                             size="xl"
@@ -81,34 +103,41 @@ const downloadItem = (item) => {
                 <img class="object-contain mx-auto" :src="`/storage/${media.filename}`" alt="">
             </div>
 
-            <!-- IMAGES SIMILAIRES (galère) -->
-
-<!--            <div class="flex flex-col lg:flex-row gap-4 pb-6">
-                <div class="lg:w-2/4">
-                </div>
-
-                <Card class="!mb-0">
-                    <Text type="subtitle">{{ media.name }}</Text>
-                    <Text>
-                        Posté par
-                        <a class="link-primary font-bold" :href="route('user.show', media.user.username)">{{ media.user.username }}</a>
-                        le {{ new Date(media.created_at).toLocaleDateString() }}
-                        à {{ new Date(media.created_at).toLocaleTimeString() }}
-                    </Text>
-
-                    <div
-                        class="flex gap-1"
-                    >
-                        <Tag
-                            size="sm"
-                            v-for="(tag, index) in media.tags.map((tag) => tag.name.fr)"
-                            :key="index"
-                        >
-                            {{ tag }}
-                        </Tag>
+            <div class="mt-8" v-if="related && related.length">
+                <Stack>
+                    <Text type="subtitle">Images similaires</Text>
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                        <MediaItem v-for="(related, index) in related" :key="index" :media="related" />
                     </div>
-                </Card>
-            </div>-->
+                </Stack>
+            </div>
+
+            <!--            <div class="flex flex-col lg:flex-row gap-4 pb-6">
+                            <div class="lg:w-2/4">
+                            </div>
+
+                            <Card class="!mb-0">
+                                <Text type="subtitle">{{ media.name }}</Text>
+                                <Text>
+                                    Posté par
+                                    <a class="link-primary font-bold" :href="route('user.show', media.user.username)">{{ media.user.username }}</a>
+                                    le {{ new Date(media.created_at).toLocaleDateString() }}
+                                    à {{ new Date(media.created_at).toLocaleTimeString() }}
+                                </Text>
+
+                                <div
+                                    class="flex gap-1"
+                                >
+                                    <Tag
+                                        size="sm"
+                                        v-for="(tag, index) in media.tags.map((tag) => tag.name.fr)"
+                                        :key="index"
+                                    >
+                                        {{ tag }}
+                                    </Tag>
+                                </div>
+                            </Card>
+                        </div>-->
         </Stack>
     </PageLayout>
 </template>

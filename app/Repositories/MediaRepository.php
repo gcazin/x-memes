@@ -50,7 +50,7 @@ class MediaRepository implements RepositoryInterface
     {
         return $this->allApprovedMedias(false)
             ->where('approved', true)
-            ->orderBy('created_at', 'desc')
+            ->orderByDesc('approved_at')
             ->paginate(6);
     }
 

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import {computed, onMounted, onUnmounted, watch, watchEffect} from 'vue';
 
 const props = defineProps({
     show: {
@@ -25,7 +25,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-watch(
+watchEffect(
     () => props.show,
     () => {
         if (props.show) {
