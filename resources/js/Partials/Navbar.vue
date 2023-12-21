@@ -105,7 +105,12 @@ const notifications = page.props.auth?.notifications
                 </template>
                 <template v-else>
                     <div class="dropdown dropdown-end">
-                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <div
+                            tabindex="0"
+                            role="button"
+                            class="btn btn-ghost btn-circle"
+                            aria-labelledby="Notifications"
+                        >
                             <div class="indicator">
                                 <Icon size="xl" name="notifications" />
                                 <span class="badge badge-sm badge-error indicator-item" v-if="notifications.length">

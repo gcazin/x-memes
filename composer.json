@@ -18,12 +18,12 @@
         "overtrue/laravel-follow": "^5.1",
         "overtrue/laravel-like": "^5.2",
         "sapientpro/image-comparator-laravel": "^1.0",
+        "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.1",
         "spatie/laravel-tags": "^4.5",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "larastan/larastan": "^2.0",
         "laravel/breeze": "^1.26",

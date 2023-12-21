@@ -73,7 +73,7 @@ const maxWidthClass = computed(() => {
         <Transition leave-active-class="duration-200">
             <dialog :id="id" class="modal">
                 <div class="modal-box" :class="[maxWidthClass]">
-                    <h3 class="font-bold text-lg">{{ title }}</h3>
+                    <p class="font-bold text-lg mb-2">{{ title }}</p>
                     <template v-if="$slots.description">
                         <p class="py-4">
                             <slot name="description"></slot>

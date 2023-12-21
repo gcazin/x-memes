@@ -9,11 +9,11 @@
                 </Stack>
             </aside>
             <nav class="flex gap-4 md:place-self-center md:justify-self-end">
-                <a href="https://twitter.com/gcazinonx" target="_blank">
-                    <img class="w-6" src="/images/misc/x.svg" alt="">
+                <a href="https://twitter.com/gcazinonx" target="_blank" aria-label="X de Guillaume">
+                    <img class="w-6" src="/images/misc/x.svg" alt="X de Guillaume">
                 </a>
-                <a href="https://github.com/gcazin/x-memes" target="_blank">
-                    <img class="w-6" src="/images/misc/github.svg" alt="">
+                <a href="https://github.com/gcazin/x-memes" target="_blank" aria-label="GitHub de Guillaume">
+                    <img class="w-6" src="/images/misc/github.svg" alt="GitHub de X-Memes">
                 </a>
             </nav>
         </div>
