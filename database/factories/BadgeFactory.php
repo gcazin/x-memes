@@ -18,10 +18,10 @@ class BadgeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
-            'description' => $this->faker->text(),
+            'name' => fake()->name,
+            'description' => fake()->text(),
             'path' => 'storage/badges/1.png',
-            'condition' => $this->faker->randomDigit(),
+            'condition' => fake()->randomDigit(),
             'badge_type_id' => BadgeType::all()->random()->id,
         ];
     }
