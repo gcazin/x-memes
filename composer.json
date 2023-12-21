@@ -18,7 +18,7 @@
         "overtrue/laravel-follow": "^5.1",
         "overtrue/laravel-like": "^5.2",
         "sapientpro/image-comparator-laravel": "^1.0",
-        "spatie/laravel-medialibrary": "*",
+        "spatie/laravel-medialibrary": "^10.15",
         "spatie/laravel-permission": "^6.1",
         "spatie/laravel-tags": "^4.5",
         "tightenco/ziggy": "^1.0"
