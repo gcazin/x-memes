@@ -18,7 +18,7 @@ const props = defineProps({
     tags: {
         type: Array,
     },
-})
+});
 
 const form = useForm({})
 const allPosts = ref([...props.medias.data])

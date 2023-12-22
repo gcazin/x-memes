@@ -14,6 +14,6 @@ class MediaSeeder extends Seeder
     {
         Media::factory(50)
             ->create()
-            ->each(fn ($media) => $media->attachTag(fake()->boolean ? 'humour' : 'meme'));
+            ->each(fn ($media) => $media->attachTag(fake()->boolean ? 'humour': 'meme'));
     }
 }
