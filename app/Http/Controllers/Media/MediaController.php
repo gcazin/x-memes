@@ -194,7 +194,6 @@ class MediaController extends Controller
     /**
      * Get related medias to another.
      *
-     * @param int $id
      * @return RedirectResponse
      */
     public function related(int $id)
