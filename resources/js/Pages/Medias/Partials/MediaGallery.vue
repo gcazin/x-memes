@@ -28,7 +28,6 @@ const loadMoreIntersect = ref(null)
 const loading = ref(false)
 const selectedTags = ref([])
 const urlParams = new URLSearchParams(window.location.search)
-const pathContainsTag = ref(urlParams.get('tags'))
 
 onMounted(() => {
     addQueryTagsToSelectedTags()
