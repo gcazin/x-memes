@@ -1,0 +1,4 @@
+# Ignore artifacts:
+vendor
+public
+app
