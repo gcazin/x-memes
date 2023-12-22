@@ -49,9 +49,16 @@ class MediaRepository implements RepositoryInterface
     public function paginate()
     {
         return $this->allApprovedMedias(false)
+            ->orderByDesc('approved_at')
+            ->paginate();
+    }
+
+    public function paginateWithSelectedTags(string $tags)
+    {
+        return Media::withAnyTags(explode(',', $tags))
             ->where('approved', true)
             ->orderByDesc('approved_at')
-            ->paginate(6);
+            ->paginate();
     }
 
     /**
@@ -64,7 +71,7 @@ class MediaRepository implements RepositoryInterface
         return $this->allApprovedMedias(false)
             ->where('user_id', $id)
             ->orderBy('created_at', 'desc')
-            ->paginate(3);
+            ->paginate();
     }
 
     /**

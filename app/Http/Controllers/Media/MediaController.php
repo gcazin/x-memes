@@ -30,9 +30,13 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $medias = $this->mediaRepository->paginate();
+
+        if ($request->query('tags')) {
+            $medias = $this->mediaRepository->paginateWithSelectedTags($request->query('tags'));
+        }
 
         return Inertia::render('Library', [
             'medias' => $medias,

@@ -37,6 +37,8 @@ class Media extends Model
         'download_count' => 'integer',
     ];
 
+    protected $perPage = 6;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->with('roles');

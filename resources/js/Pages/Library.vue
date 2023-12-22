@@ -73,7 +73,7 @@ formService.setForm(form).setRouteName('media')
             <button class="btn btn-primary" @click="formService.openModal('addMedia')">Ajouter un média</button>
         </template>
 
-        <MediaGallery :medias="medias" />
+        <MediaGallery :medias="medias" :tags="tags" />
 
         <Modal id="addMediaModal" title="Ajouter un média" max-width="2xl">
             <form enctype="multipart/form-data" @submit.prevent="formService.handle('store')">
