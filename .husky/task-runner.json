@@ -1,0 +1,5 @@
+{
+    "command": "yarn",
+    "args": ["prettier", "${staged}"],
+    "pathMode": "absolute"
+}

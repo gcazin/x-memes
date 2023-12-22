@@ -10,6 +10,7 @@ use App\Models\Media;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
+use App\Repositories\TagRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ use Spatie\Tags\Tag;
 class MediaController extends Controller
 {
     public function __construct(
-        public MediaRepository $mediaRepository
+        public MediaRepository $mediaRepository,
+        public TagRepository $tagRepository
     ) {
     }
 
@@ -40,7 +42,7 @@ class MediaController extends Controller
 
         return Inertia::render('Library', [
             'medias' => $medias,
-            'tags' => Tag::all(),
+            'tags' => $this->tagRepository->all(),
         ]);
     }
 

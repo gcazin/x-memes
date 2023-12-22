@@ -1,10 +1,11 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3'
-import { onMounted, ref, toRef } from 'vue'
+import { onBeforeMount, onMounted, ref, toRef } from 'vue'
 import { router } from '@inertiajs/vue3'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import { all } from 'axios'
 
 const props = defineProps({
     medias: {
@@ -22,12 +23,15 @@ const props = defineProps({
 const form = useForm({})
 const allPosts = ref([...props.medias.data])
 const pagination = toRef(props.medias)
+const wrapper = ref(null)
 const loadMoreIntersect = ref(null)
 const loading = ref(false)
 const selectedTags = ref([])
 const urlParams = new URLSearchParams(window.location.search)
+const pathContainsTag = ref(urlParams.get('tags'))
 
 onMounted(() => {
+    addQueryTagsToSelectedTags()
     infiniteScrolling()
 })
 
@@ -52,57 +56,79 @@ const loadMorePosts = () => {
         return
     }
 
-    fetchData(pagination.value.next_page_url)
+    /*
+     If some tags are selected,
+     we send tags to fetch data
+     */
+    if (selectedTags.value.length) {
+        fetchData(pagination.value.next_page_url, getTagsToSend(), true)
+    } else {
+        fetchData(pagination.value.next_page_url)
+    }
 }
 
 /**
- * Check if path has the given tag
+ * Format the tags used to fetch data
  *
- * @param tag
- * @returns {boolean}
+ * @returns {{tags: string}}
  */
-const checkIfPathHaveTag = (tag) => {
-    console.log(typeof tag)
-    /*if (urlParams.get('tags')) {
-        const tags = urlParams.get('tags').split(',')
-        return tags.includes(tag)
-    }*/
+const getTagsToSend = () => {
+    return {
+        tags: selectedTags.value.join(','),
+    }
 }
 
-const filterByTags = (tag) => {
+/**
+ * Add query tags to selected tags
+ */
+const addQueryTagsToSelectedTags = () => {
+    if (urlParams.get('tags')) {
+        const tags = urlParams.get('tags').split(',')
+
+        tags.forEach((tag) => {
+            addSelectedTag(tag)
+        })
+    }
+}
+
+/**
+ * Returns
+ * @param tag
+ * @returns {{tags: string}}
+ */
+const addSelectedTag = (tag) => {
     if (selectedTags.value.includes(tag)) {
         selectedTags.value.splice(selectedTags.value.indexOf(tag), 1)
     } else {
         selectedTags.value.push(tag)
     }
 
-    let tags = {
-        tags: selectedTags.value.join(','),
-    }
+    return getTagsToSend()
+}
 
-    fetchData(pagination.value.first_page_url, tags, true)
+/**
+ * Fetch data when user clicks on tags selection
+ *
+ * @param tag
+ */
+const filterByTags = (tag) => {
+    fetchData(pagination.value.first_page_url, addSelectedTag(tag), true)
 }
 
 const fetchData = (url, data = {}, filtered = false) => {
     loading.value = true
-    router.visit(pagination.value.first_page_url, {
+    router.visit(url, {
         data: data,
         only: ['medias'],
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => {
-            allPosts.value = filtered
-                ? props.medias.data
-                : [...allPosts.value, ...props.medias.data]
-
-            if (filtered) {
-                if (selectedTags.value.length === 0) {
-                    window.history.replaceState({}, '', pagination.value.path)
-                }
+            if (url === pagination.value.first_page_url) {
+                allPosts.value = [...props.medias.data]
             } else {
-                window.history.replaceState({}, '', pagination.value.path)
+                allPosts.value = [...allPosts.value, ...props.medias.data]
             }
-
+            window.history.replaceState({}, '', pagination.value.path)
             pagination.value = props.medias
             loading.value = false
         },
@@ -168,17 +194,14 @@ const sortBy = [
                         <li v-for="(tag, index) in tags" :key="index">
                             <div class="flex items-center">
                                 <input
-                                    :id="`checkbox-item-${tag.name['fr']}`"
+                                    :id="`checkbox-item-${tag.name}`"
                                     type="checkbox"
-                                    :value="tag.name['fr']"
+                                    :value="tag.name"
                                     class="checkbox checkbox-primary checkbox-sm"
-                                    :checked="
-                                        checkIfPathHaveTag(tag.name['fr'])
-                                    "
-                                    @click="filterByTags(tag.name['fr'])"
+                                    @click="filterByTags(tag.name)"
                                 />
                                 <label for="checkbox-item-1" class="label">
-                                    {{ tag.name['fr'] }}
+                                    {{ tag.name }}
                                 </label>
                             </div>
                         </li>
@@ -187,6 +210,7 @@ const sortBy = [
             </div>
         </div>
         <div
+            ref="wrapper"
             v-if="allPosts.length"
             class="grid grid-cols-1 md:grid-cols-3 gap-4"
             :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
@@ -198,19 +222,19 @@ const sortBy = [
             >
                 <MediaItem :media="media" />
             </div>
+            <div
+                class="flex items-center justify-center py-4 mt-28"
+                ref="loadMoreIntersect"
+            >
+                <template v-if="loading">
+                    <span
+                        class="loading loading-infinity loading-lg text-5xl"
+                    ></span>
+                    <div class="font-bold">Chargement...</div>
+                </template>
+            </div>
         </div>
         <div v-else>Rien a afficher ici pour l'instant...</div>
-        <div
-            class="flex items-center justify-center py-4"
-            ref="loadMoreIntersect"
-        >
-            <template v-if="loading">
-                <span
-                    class="loading loading-infinity loading-lg text-5xl"
-                ></span>
-                <div class="font-bold">Chargement...</div>
-            </template>
-        </div>
     </Stack>
 </template>
 <style>

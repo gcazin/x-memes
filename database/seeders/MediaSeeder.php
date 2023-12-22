@@ -12,6 +12,8 @@ class MediaSeeder extends Seeder
      */
     public function run(): void
     {
-        Media::factory(50)->create();
+        Media::factory(50)
+            ->create()
+            ->each(fn ($media) => $media->attachTag(fake()->boolean ? 'humour': 'meme'));
     }
 }
