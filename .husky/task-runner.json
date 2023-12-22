@@ -1,5 +1,5 @@
 {
     "command": "yarn",
-    "args": ["prettier", "${staged}"],
+    "args": ["prettier", "--ignore-unknown", "--write", "${staged}"],
     "pathMode": "absolute"
 }
