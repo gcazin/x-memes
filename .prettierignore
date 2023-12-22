@@ -2,3 +2,6 @@
 vendor
 public
 app
+node_modules
+storage
+bootstrap
