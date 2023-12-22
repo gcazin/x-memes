@@ -1,5 +1,5 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import { Head, useForm } from '@inertiajs/vue3'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Stack from '@/Components/Layout/Stack.vue'
@@ -24,7 +24,7 @@ formService.setForm(form).setRouteName('waitlist')
 </script>
 
 <template>
-    <Head title="Accueil" />
+    <Head title="Waitlist" />
     <PageLayout :has-header="false" :has-navbar="false" is-full-size>
         <div
             class="hero relative flex flex-col justify-center dark:bg-bottom dark:border-b dark:border-slate-100/5"
