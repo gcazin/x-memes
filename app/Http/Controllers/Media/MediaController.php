@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
-use Spatie\Tags\Tag;
 
 class MediaController extends Controller
 {
