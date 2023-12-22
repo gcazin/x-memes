@@ -55,10 +55,10 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
 
-      - name: Install npm dependencies
+      - name: Install yarn dependencies
         run: yarn install
 
-      - name: Run npm
+      - name: Run yarn
         run: yarn run build
 
       - name: Run tests
