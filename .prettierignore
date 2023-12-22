@@ -6,3 +6,16 @@ node_modules
 storage
 bootstrap
 composer.lock
+.editorconfig
+.env
+.env.*
+*.config.js
+resources/js/bootstrap.js
+resources/js/ziggy.js
+composer.json
+jsconfig.json
+package.json
+.prettierrc.
+.github
+.gitattributes
+.gitignore
