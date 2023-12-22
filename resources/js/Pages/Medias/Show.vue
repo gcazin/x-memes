@@ -53,9 +53,6 @@ const getRelatedMedias = () => {
     router.visit(route('media.related', props.media.id), {
         only: ['related'],
         preserveState: true,
-        onSuccess: (page) => {
-            console.log(page.props.related)
-        },
     })
 }
 </script>
@@ -135,7 +132,7 @@ const getRelatedMedias = () => {
                 />
             </div>
 
-            <div class="mt-8" v-if="related && related.length">
+            <div class="mt-8" v-if="related">
                 <Stack>
                     <Text type="subtitle">Images similaires</Text>
                     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
