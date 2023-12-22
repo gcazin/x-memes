@@ -1,4 +1,5 @@
 [![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F4a94f5fa-7a25-4af8-9dec-ff0900c9c25d&style=plastic)](https://forge.laravel.com/servers/741129/sites/2186314)
+![Unit tests](https://github.com/gcazin/x-memes/actions/workflows/test.yml/badge.svg)
 
 <!-- PROJECT LOGO -->
 <br />
