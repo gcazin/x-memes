@@ -4,8 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "styleguide": "vue-cli-service styleguidist",
-        "styleguide:build": "vue-cli-service styleguidist:build"
+        "prettier": "prettier . --write"
     },
     "dependencies": {
         "@vueform/multiselect": "^2.6.6",
