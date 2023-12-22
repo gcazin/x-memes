@@ -1,11 +1,11 @@
 <script setup>
-import {useForm, usePage} from "@inertiajs/vue3";
+import { useForm, usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
     user: {
         type: Array,
         required: true,
-    }
+    },
 })
 
 const page = usePage()
@@ -22,22 +22,20 @@ const submit = () => {
     form.post(route('user.follow', props.user.id), {
         onSuccess: () => {
             checkIfAuthIsFollowing()
-        }
-    });
-};
+        },
+    })
+}
 </script>
 
 <template>
     <form @submit.prevent="submit">
         <button
             class="btn btn-primary"
-            :class="{'btn-outline': checkIfAuthIsFollowing()}"
+            :class="{ 'btn-outline': checkIfAuthIsFollowing() }"
         >
             {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
         </button>
     </form>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,6 @@
 class HelperService {
     constructor() {
-        this.props = {};
+        this.props = {}
         this.setTheme()
     }
 
@@ -23,7 +23,7 @@ class HelperService {
     }
 
     setTheme() {
-        if (typeof localStorage.theme !== "undefined") {
+        if (typeof localStorage.theme !== 'undefined') {
             this.storeTheme(localStorage.theme)
         } else {
             this.storeTheme('dark')
@@ -37,4 +37,4 @@ class HelperService {
     }
 }
 
-export default new HelperService();
+export default new HelperService()

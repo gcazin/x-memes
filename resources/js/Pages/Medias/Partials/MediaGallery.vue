@@ -1,22 +1,22 @@
 <script setup>
-import {useForm} from "@inertiajs/vue3";
-import {onMounted, ref, toRef} from "vue";
+import { useForm } from '@inertiajs/vue3'
+import { onMounted, ref, toRef } from 'vue'
 import { router } from '@inertiajs/vue3'
-import MediaItem from "@/Components/Misc/MediaItem.vue";
-import Stack from "@/Components/Layout/Stack.vue";
-import Icon from "@/Components/Misc/Icon.vue";
+import MediaItem from '@/Components/Misc/MediaItem.vue'
+import Stack from '@/Components/Layout/Stack.vue'
+import Icon from '@/Components/Misc/Icon.vue'
 
 const props = defineProps({
     medias: {
-        type: Array
+        type: Array,
     },
     numberOfCols: {
         type: Number,
-        default: 3
+        default: 3,
     },
     tags: {
-        type: Array
-    }
+        type: Array,
+    },
 })
 
 const form = useForm({})
@@ -35,14 +35,13 @@ onMounted(() => {
  * Add infinite scrolling to fetch medias
  */
 const infiniteScrolling = () => {
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                entry.isIntersecting && loadMorePosts()
-            })
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            entry.isIntersecting && loadMorePosts()
         })
+    })
 
-    observer.observe(loadMoreIntersect.value);
+    observer.observe(loadMoreIntersect.value)
 }
 
 /**
@@ -78,7 +77,7 @@ const filterByTags = (tag) => {
     }
 
     let tags = {
-        tags: selectedTags.value.join(',')
+        tags: selectedTags.value.join(','),
     }
 
     fetchData(pagination.value.first_page_url, tags, true)
@@ -106,19 +105,19 @@ const fetchData = (url, data = {}, filtered = false) => {
 
             pagination.value = props.medias
             loading.value = false
-        }
+        },
     })
 }
 
 const sortBy = [
     {
         name: 'Par date',
-        value: 'created_at'
+        value: 'created_at',
     },
     {
         name: 'Par titre',
-        value: 'name'
-    }
+        value: 'name',
+    },
 ]
 </script>
 <template>
@@ -126,15 +125,22 @@ const sortBy = [
         <div class="flex">
             <div class="flex-1">
                 <span class="text-sm">
-                    {{ medias.total }} médias affiché{{ medias.total > 1 ? 's' : '' }}
+                    {{ medias.total }} médias affiché{{
+                        medias.total > 1 ? 's' : ''
+                    }}
                 </span>
             </div>
             <div class="flex-1 text-right space-x-2" v-if="tags.length">
-                <div class="dropdown dropdown-end border-r border-gray-500 pe-2">
+                <div
+                    class="dropdown dropdown-end border-r border-gray-500 pe-2"
+                >
                     <div tabindex="0" role="button" class="">
                         Trier <Icon name="chevron-down" />
                     </div>
-                    <ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" aria-labelledby="dropdownCheckboxButton">
+                    <ul
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        aria-labelledby="dropdownCheckboxButton"
+                    >
                         <li v-for="(sort, index) in sortBy" :key="index">
                             <div class="flex items-center">
                                 <input
@@ -143,7 +149,7 @@ const sortBy = [
                                     :value="sort.value"
                                     class="checkbox checkbox-primary checkbox-sm"
                                     @click="filterByTags(sort.value)"
-                                >
+                                />
                                 <label for="checkbox-item-1" class="label">
                                     {{ sort.name }}
                                 </label>
@@ -155,7 +161,10 @@ const sortBy = [
                     <div tabindex="0" role="button" class="">
                         Filter par tags <Icon name="chevron-down" />
                     </div>
-                    <ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" aria-labelledby="dropdownCheckboxButton">
+                    <ul
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        aria-labelledby="dropdownCheckboxButton"
+                    >
                         <li v-for="(tag, index) in tags" :key="index">
                             <div class="flex items-center">
                                 <input
@@ -163,9 +172,11 @@ const sortBy = [
                                     type="checkbox"
                                     :value="tag.name['fr']"
                                     class="checkbox checkbox-primary checkbox-sm"
-                                    :checked="checkIfPathHaveTag(tag.name['fr'])"
+                                    :checked="
+                                        checkIfPathHaveTag(tag.name['fr'])
+                                    "
                                     @click="filterByTags(tag.name['fr'])"
-                                >
+                                />
                                 <label for="checkbox-item-1" class="label">
                                     {{ tag.name['fr'] }}
                                 </label>
@@ -188,12 +199,15 @@ const sortBy = [
                 <MediaItem :media="media" />
             </div>
         </div>
-        <div v-else>
-            Rien a afficher ici pour l'instant...
-        </div>
-        <div class="flex items-center justify-center py-4" ref="loadMoreIntersect">
+        <div v-else>Rien a afficher ici pour l'instant...</div>
+        <div
+            class="flex items-center justify-center py-4"
+            ref="loadMoreIntersect"
+        >
             <template v-if="loading">
-                <span class="loading loading-infinity loading-lg text-5xl"></span>
+                <span
+                    class="loading loading-infinity loading-lg text-5xl"
+                ></span>
                 <div class="font-bold">Chargement...</div>
             </template>
         </div>

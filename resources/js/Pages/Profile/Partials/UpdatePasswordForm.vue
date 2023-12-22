@@ -1,20 +1,20 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue';
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue';
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue';
-import TextInput from '@/Components/Elements/Form/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import Section from "@/Components/Layout/Section.vue";
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
+import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import { useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import Section from '@/Components/Layout/Section.vue'
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
+const passwordInput = ref(null)
+const currentPasswordInput = ref(null)
 
 const form = useForm({
     current_password: '',
     password: '',
     password_confirmation: '',
-});
+})
 
 const updatePassword = () => {
     form.put(route('password.update'), {
@@ -22,16 +22,16 @@ const updatePassword = () => {
         onSuccess: () => form.reset(),
         onError: () => {
             if (form.errors.password) {
-                form.reset('password', 'password_confirmation');
-                passwordInput.value.focus();
+                form.reset('password', 'password_confirmation')
+                passwordInput.value.focus()
             }
             if (form.errors.current_password) {
-                form.reset('current_password');
-                currentPasswordInput.value.focus();
+                form.reset('current_password')
+                currentPasswordInput.value.focus()
             }
         },
-    });
-};
+    })
+}
 </script>
 
 <template>
@@ -39,7 +39,8 @@ const updatePassword = () => {
         <h2 class="text-lg font-medium">Mise à jour du mot de passe</h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Veillez à ce que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé.
+            Veillez à ce que votre compte utilise un mot de passe long et
+            aléatoire pour rester sécurisé.
         </p>
     </header>
 
@@ -75,7 +76,9 @@ const updatePassword = () => {
         <InputError :message="form.errors.password_confirmation" class="mt-2" />
 
         <div class="flex items-center gap-4">
-            <button class="btn btn-primary" :disabled="form.processing">Sauvegarder</button>
+            <button class="btn btn-primary" :disabled="form.processing">
+                Sauvegarder
+            </button>
 
             <Transition
                 enter-active-class="transition ease-in-out"
@@ -83,7 +86,12 @@ const updatePassword = () => {
                 leave-active-class="transition ease-in-out"
                 leave-to-class="opacity-0"
             >
-                <p v-if="form.recentlySuccessful" class="text-sm text-gray-600 dark:text-gray-400">Saved.</p>
+                <p
+                    v-if="form.recentlySuccessful"
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                >
+                    Saved.
+                </p>
             </Transition>
         </div>
     </form>

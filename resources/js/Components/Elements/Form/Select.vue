@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 
 defineProps({
     modelValue: {
@@ -8,24 +8,24 @@ defineProps({
     },
     label: {
         type: String,
-        required: false
+        required: false,
     },
     options: {
         type: Array,
-    }
-});
+    },
+})
 
-defineEmits(['update:modelValue']);
+defineEmits(['update:modelValue'])
 
-const input = ref(null);
+const input = ref(null)
 
 onMounted(() => {
     if (input.value.hasAttribute('autofocus')) {
-        input.value.focus();
+        input.value.focus()
     }
-});
+})
 
-defineExpose({ focus: () => input.value.focus() });
+defineExpose({ focus: () => input.value.focus() })
 </script>
 <template>
     <label class="form-control w-full mb-2">

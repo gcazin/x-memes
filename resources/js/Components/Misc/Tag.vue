@@ -2,16 +2,16 @@
 defineProps({
     size: {
         type: String,
-        default: 'md'
+        default: 'md',
     },
     type: {
         type: String,
-        default: 'primary'
+        default: 'primary',
     },
     outline: {
         type: Boolean,
         default: false,
-    }
+    },
 })
 </script>
 
@@ -19,25 +19,23 @@ defineProps({
     <div
         class="badge"
         :class="{
-          'badge-xs': size === 'xs',
-          'badge-sm': size === 'sm',
-          'badge-md': size === 'md',
-          'badge-lg': size === 'lg',
+            'badge-xs': size === 'xs',
+            'badge-sm': size === 'sm',
+            'badge-md': size === 'md',
+            'badge-lg': size === 'lg',
 
-          'badge-success': type === 'success',
-          'badge-warning': type === 'warning',
-          'badge-primary': type === 'primary',
-          'badge-secondary': type === 'secondary',
-          'badge-neutral': type === 'neutral',
-          'badge-accent': type === 'accent',
+            'badge-success': type === 'success',
+            'badge-warning': type === 'warning',
+            'badge-primary': type === 'primary',
+            'badge-secondary': type === 'secondary',
+            'badge-neutral': type === 'neutral',
+            'badge-accent': type === 'accent',
 
-          'btn-outline': outline,
+            'btn-outline': outline,
         }"
     >
         <slot></slot>
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

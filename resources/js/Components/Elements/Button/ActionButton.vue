@@ -1,27 +1,27 @@
 <script setup>
-import Icon from "@/Components/Misc/Icon.vue";
-import {computed} from "vue";
+import Icon from '@/Components/Misc/Icon.vue'
+import { computed } from 'vue'
 
 const props = defineProps({
     type: {
         type: String,
         required: true,
-    }
+    },
 })
 
 const iconName = computed(() => {
     return {
         // 'create': 'add',
-        'edit': 'create',
-        'show': 'eye',
-        'delete': 'trash',
+        edit: 'create',
+        show: 'eye',
+        delete: 'trash',
     }[props.type]
 })
 const iconColor = computed(() => {
     return {
-        'edit': 'info',
-        'show': 'primary',
-        'delete': 'error',
+        edit: 'info',
+        show: 'primary',
+        delete: 'error',
     }[props.type]
 })
 </script>

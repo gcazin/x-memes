@@ -1,15 +1,34 @@
-<script setup>
-</script>
+<script setup></script>
 <template>
-    <div class="absolute top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
+    <div
+        class="absolute top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none"
+    >
         <div class="w-[108rem] flex-none flex justify-end">
             <picture>
-                <source srcset="/images/background/blur.avif" type="image/avif">
-                <img src="/images/background/blur-2.png" alt="" class="w-[71.75rem] flex-none max-w-none dark:hidden" decoding="async" loading="lazy">
+                <source
+                    srcset="/images/background/blur.avif"
+                    type="image/avif"
+                />
+                <img
+                    src="/images/background/blur-2.png"
+                    alt=""
+                    class="w-[71.75rem] flex-none max-w-none dark:hidden"
+                    decoding="async"
+                    loading="lazy"
+                />
             </picture>
             <picture>
-                <source srcset="/images/background/blur-3.avif" type="image/avif">
-                <img src="/images/background/blur-4.png" alt="" class="w-[90rem] flex-none max-w-none hidden dark:block" decoding="async" loading="lazy">
+                <source
+                    srcset="/images/background/blur-3.avif"
+                    type="image/avif"
+                />
+                <img
+                    src="/images/background/blur-4.png"
+                    alt=""
+                    class="w-[90rem] flex-none max-w-none hidden dark:block"
+                    decoding="async"
+                    loading="lazy"
+                />
             </picture>
         </div>
     </div>

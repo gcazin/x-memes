@@ -1,6 +1,6 @@
 <script setup>
-import Modal from "@/Components/Elements/Modal/Modal.vue";
-import formService from "@/Services/form.service.js";
+import Modal from '@/Components/Elements/Modal/Modal.vue'
+import formService from '@/Services/form.service.js'
 
 const props = defineProps({
     type: {
@@ -13,7 +13,7 @@ const props = defineProps({
     },
     route: {
         type: String,
-        required: true
+        required: true,
     },
     item: {
         type: Object,
@@ -21,7 +21,7 @@ const props = defineProps({
     form: {
         type: Object,
         required: true,
-    }
+    },
 })
 
 const createItem = () => {
@@ -29,23 +29,23 @@ const createItem = () => {
         preserveScroll: true,
         onSuccess: () => formService.closeModal(props.name),
         onFinish: () => form.reset(),
-    });
-};
+    })
+}
 
 const updateItem = (item) => {
     props.form.put(route(`${props.route}.update`, item.id), {
         preserveScroll: true,
         onSuccess: () => formService.closeModal(props.name, item),
         onFinish: () => props.form.reset(),
-    });
-};
+    })
+}
 
 const deleteItem = (item) => {
     props.form.delete(route(`${props.route}.destroy`, item.id), {
         preserveScroll: true,
         onSuccess: () => formService.closeModal(props.name, item),
-    });
-};
+    })
+}
 </script>
 <template>
     <!-- Create modal -->

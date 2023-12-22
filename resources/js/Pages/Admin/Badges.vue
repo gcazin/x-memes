@@ -1,26 +1,26 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
-import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import TextInput from "@/Components/Elements/Form/TextInput.vue";
-import Modal from "@/Components/Elements/Modal/Modal.vue";
-import InputError from "@/Components/Elements/Form/InputError.vue";
-import Table from "@/Pages/Admin/Partials/Table.vue";
-import Card from "@/Components/Misc/Card.vue";
-import Textarea from "@/Components/Elements/Form/Textarea.vue";
-import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
-import formService from "@/Services/form.service.js";
-import Stack from "@/Components/Layout/Stack.vue";
-import InputLabel from "@/Components/Elements/Form/InputLabel.vue";
-import Badge from "@/Components/Misc/Badge.vue";
-import Select from "@/Components/Elements/Form/Select.vue";
+import { Head, useForm } from '@inertiajs/vue3'
+import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import Modal from '@/Components/Elements/Modal/Modal.vue'
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import Table from '@/Pages/Admin/Partials/Table.vue'
+import Card from '@/Components/Misc/Card.vue'
+import Textarea from '@/Components/Elements/Form/Textarea.vue'
+import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
+import formService from '@/Services/form.service.js'
+import Stack from '@/Components/Layout/Stack.vue'
+import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
+import Badge from '@/Components/Misc/Badge.vue'
+import Select from '@/Components/Elements/Form/Select.vue'
 
 defineProps({
     badges: {
-        type: Array
+        type: Array,
     },
     badgeTypes: {
         type: Array,
-    }
+    },
 })
 
 const form = useForm({
@@ -31,33 +31,49 @@ const form = useForm({
     type: null,
 })
 
-formService
-    .setForm(form)
-    .setRouteName('admin.badge')
+formService.setForm(form).setRouteName('admin.badge')
 </script>
 
 <template>
     <AdminDashboardLayout title="Badges">
         <Stack>
             <div class="flex justify-end">
-                <button class="btn btn-primary" @click="formService.openModal('createBadge')">Ajouter un badge</button>
+                <button
+                    class="btn btn-primary"
+                    @click="formService.openModal('createBadge')"
+                >
+                    Ajouter un badge
+                </button>
 
                 <!-- Modal -->
                 <Modal id="createBadgeModal" title="Ajouter un badge">
                     <form @submit.prevent="formService.handle('store')">
-                        <TextInput label="Nom" v-model="form.name"/>
+                        <TextInput label="Nom" v-model="form.name" />
                         <InputError :message="form.errors.name" />
 
-                        <Textarea label="Description" v-model="form.description"/>
+                        <Textarea
+                            label="Description"
+                            v-model="form.description"
+                        />
                         <InputError :message="form.errors.description" />
 
-                        <TextInput label="Condition" v-model="form.condition"></TextInput>
+                        <TextInput
+                            label="Condition"
+                            v-model="form.condition"
+                        ></TextInput>
                         <InputError :message="form.errors.condition" />
 
-                       <Select label="Type" :model-value="form.type" :options="badgeTypes" />
+                        <Select
+                            label="Type"
+                            :model-value="form.type"
+                            :options="badgeTypes"
+                        />
 
                         <div class="mt-4">
-                            <button class="btn btn-primary" :disabled="form.processing">
+                            <button
+                                class="btn btn-primary"
+                                :disabled="form.processing"
+                            >
                                 Ajouter le badge
                             </button>
                         </div>
@@ -70,21 +86,36 @@ formService
             </Card>
 
             <Table
-                :headers="['Nom', 'Description', 'Condition', 'Fichier', 'Décerné à']"
+                :headers="[
+                    'Nom',
+                    'Description',
+                    'Condition',
+                    'Fichier',
+                    'Décerné à',
+                ]"
                 :items="badges"
-                :properties="['name', 'description', 'condition', 'path', 'users']"
+                :properties="[
+                    'name',
+                    'description',
+                    'condition',
+                    'path',
+                    'users',
+                ]"
                 has-action
                 has-background
             >
                 <template #path="item">
                     <Badge :badge="item" />
-<!--                    <img class="w-10" :src="`/images/${item.path}`" alt="">-->
+                    <!--                    <img class="w-10" :src="`/images/${item.path}`" alt="">-->
                 </template>
                 <template #users="{ users }">
                     {{ users.length }} utilisateurs
                 </template>
                 <template #actions="item">
-                    <ActionButton type="edit" @click="formService.openModal('editBadge', item)"/>
+                    <ActionButton
+                        type="edit"
+                        @click="formService.openModal('editBadge', item)"
+                    />
 
                     <!-- Edit tag modal -->
                     <Modal
@@ -92,25 +123,43 @@ formService
                         :title="`Éditer le tag ${item.name}`"
                         @close="formService.closeModal()"
                     >
-                        <form @submit.prevent="formService.handle('update', item)">
+                        <form
+                            @submit.prevent="formService.handle('update', item)"
+                        >
                             <TextInput label="Nom" v-model="form.name" />
                             <InputError :message="form.errors.name" />
 
-                            <Textarea label="Description" v-model="form.description" />
+                            <Textarea
+                                label="Description"
+                                v-model="form.description"
+                            />
                             <InputError :message="form.errors.description" />
 
-                            <TextInput label="Condition" v-model="form.condition" />
+                            <TextInput
+                                label="Condition"
+                                v-model="form.condition"
+                            />
                             <InputError :message="form.errors.condition" />
 
-                            <Select label="Type" :model-value="form.type" :options="badgeTypes" />
+                            <Select
+                                label="Type"
+                                :model-value="form.type"
+                                :options="badgeTypes"
+                            />
 
-                            <button class="btn btn-primary mt-4" :disabled="form.processing">
+                            <button
+                                class="btn btn-primary mt-4"
+                                :disabled="form.processing"
+                            >
                                 Modifier le badge
                             </button>
                         </form>
                     </Modal>
 
-                    <ActionButton type="delete" @click="formService.handle('destroy', item)" />
+                    <ActionButton
+                        type="delete"
+                        @click="formService.handle('destroy', item)"
+                    />
                 </template>
             </Table>
         </Stack>

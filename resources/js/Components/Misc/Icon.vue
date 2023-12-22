@@ -1,5 +1,5 @@
 <script setup>
-import {computed} from "vue";
+import { computed } from 'vue'
 
 const props = defineProps({
     name: {
@@ -8,7 +8,7 @@ const props = defineProps({
     },
     outline: {
         type: Boolean,
-        default: true
+        default: true,
     },
     align: {
         type: Boolean,
@@ -17,7 +17,7 @@ const props = defineProps({
     size: {
         type: String,
         default: null,
-    }
+    },
 })
 const sizeClass = computed(() => {
     return {
@@ -25,10 +25,10 @@ const sizeClass = computed(() => {
         '4xl': 'text-3xl lg:text-4xl',
         '3xl': 'text-2xl lg:text-3xl',
         '2xl': 'text-xl lg:text-2xl',
-        'xl': 'text-lg lg:text-xl',
-        'lg': 'text-base lg:text-lg',
-        'md': 'text-sm lg:text-md',
-        'sm': 'text-xs lg:text-sm',
+        xl: 'text-lg lg:text-xl',
+        lg: 'text-base lg:text-lg',
+        md: 'text-sm lg:text-md',
+        sm: 'text-xs lg:text-sm',
     }[props.size]
 })
 </script>

@@ -1,17 +1,17 @@
 <script setup>
-import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import Icon from "@/Components/Misc/Icon.vue";
+import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import Icon from '@/Components/Misc/Icon.vue'
 
 defineProps({
     users: {
-        type: Array
+        type: Array,
     },
     medias: {
-        type: Object
+        type: Object,
     },
     tags: {
-        type: Object
-    }
+        type: Object,
+    },
 })
 </script>
 
@@ -26,17 +26,19 @@ defineProps({
                 <div class="stat-value">
                     {{ users.length }}
                 </div>
-<!--                <div class="stat-desc">Jan 1st - Feb 1st</div>-->
+                <!--                <div class="stat-desc">Jan 1st - Feb 1st</div>-->
             </div>
             <div class="stat">
                 <div class="stat-figure text-primary">
                     <Icon name="images" size="3xl" />
                 </div>
-                <div class="stat-title">Nombre de medias uploadés approuvés</div>
+                <div class="stat-title">
+                    Nombre de medias uploadés approuvés
+                </div>
                 <div class="stat-value">
                     {{ medias.filter((media) => media.approved).length }}
                 </div>
-<!--                <div class="stat-desc">↗︎ 400 (22%)</div>-->
+                <!--                <div class="stat-desc">↗︎ 400 (22%)</div>-->
             </div>
 
             <div class="stat">
@@ -47,7 +49,7 @@ defineProps({
                 <div class="stat-value">
                     {{ medias.filter((media) => !media.approved).length }}
                 </div>
-<!--                <div class="stat-desc">↘︎ 90 (14%)</div>-->
+                <!--                <div class="stat-desc">↘︎ 90 (14%)</div>-->
             </div>
         </div>
     </AdminDashboardLayout>

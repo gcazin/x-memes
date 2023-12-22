@@ -1,6 +1,14 @@
 <script setup>
-import {onBeforeUpdate, onMounted, onUnmounted, onUpdated, reactive, ref, watch} from "vue";
-import {usePage} from "@inertiajs/vue3";
+import {
+    onBeforeUpdate,
+    onMounted,
+    onUnmounted,
+    onUpdated,
+    reactive,
+    ref,
+    watch,
+} from 'vue'
+import { usePage } from '@inertiajs/vue3'
 
 let show = ref(false)
 

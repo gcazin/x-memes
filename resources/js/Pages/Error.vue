@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-import { Head } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3'
 
 const props = defineProps({ status: Number })
 
@@ -8,8 +8,8 @@ const description = computed(() => {
     return {
         503: 'Désolé, nous effectuons des travaux de maintenance. Veuillez revenir bientôt.',
         500: 'Oups, un problème est survenu sur nos serveurs.',
-        404: 'Désolé, la page que vous recherchez n\'a pu être trouvée.',
-        403: 'Désolé, l\'accès à cette page vous est interdit.',
+        404: "Désolé, la page que vous recherchez n'a pu être trouvée.",
+        403: "Désolé, l'accès à cette page vous est interdit.",
     }[props.status]
 })
 </script>
@@ -25,10 +25,7 @@ const description = computed(() => {
 
             <p class="mt-4">{{ description }}</p>
 
-            <a
-                :href="route('index')"
-                class="btn btn-primary mt-4"
-            >
+            <a :href="route('index')" class="btn btn-primary mt-4">
                 Retour à l'accueil
             </a>
         </div>

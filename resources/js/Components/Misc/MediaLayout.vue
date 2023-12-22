@@ -1,15 +1,15 @@
 <script setup>
-import MediaItem from "@/Components/Misc/MediaItem.vue";
+import MediaItem from '@/Components/Misc/MediaItem.vue'
 
 defineProps({
     numberOfCols: {
         type: Number,
-        default: 3
+        default: 3,
     },
     medias: {
         type: Array,
         required: true,
-    }
+    },
 })
 </script>
 
@@ -27,11 +27,7 @@ defineProps({
             <MediaItem :item="media" />
         </div>
     </div>
-    <div v-else>
-        Rien a afficher ici pour l'instant...
-    </div>
+    <div v-else>Rien a afficher ici pour l'instant...</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

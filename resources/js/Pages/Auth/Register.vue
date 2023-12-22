@@ -1,24 +1,24 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue';
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue';
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue';
-import TextInput from '@/Components/Elements/Form/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import PageLayout from "@/Layouts/PageLayout.vue";
-import Section from "@/Components/Layout/Section.vue";
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
+import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import { Head, Link, useForm } from '@inertiajs/vue3'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import Section from '@/Components/Layout/Section.vue'
 
 const form = useForm({
     username: '',
     email: '',
     password: '',
     password_confirmation: '',
-});
+})
 
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
+    })
+}
 </script>
 
 <template>
@@ -67,7 +67,10 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                <InputError
+                    class="mt-2"
+                    :message="form.errors.password_confirmation"
+                />
 
                 <div class="flex items-center justify-end mt-4">
                     <Link
@@ -77,7 +80,11 @@ const submit = () => {
                         Déjà inscrit?
                     </Link>
 
-                    <button class="ms-4 btn btn-primary" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <button
+                        class="ms-4 btn btn-primary"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                    >
                         S'inscrire
                     </button>
                 </div>

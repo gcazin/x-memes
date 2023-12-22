@@ -1,38 +1,38 @@
 <script setup>
-import { onMounted } from "vue";
-import theme from "tailwindcss/defaultTheme.js";
-import helperService from "@/Services/helper.service.js";
+import { onMounted } from 'vue'
+import theme from 'tailwindcss/defaultTheme.js'
+import helperService from '@/Services/helper.service.js'
 
 const availableThemes = [
     {
         label: 'Foncé',
         name: 'dark',
-        type: 'dark'
+        type: 'dark',
     },
     {
         label: 'Noir',
         name: 'black',
-        type: 'dark'
+        type: 'dark',
     },
     {
         label: 'Synthwave',
         name: 'synthwave',
-        type: 'dark'
+        type: 'dark',
     },
     {
         label: 'Clair',
         name: 'light',
-        type: 'light'
+        type: 'light',
     },
     {
         label: 'Froid',
         name: 'nord',
-        type: 'light'
+        type: 'light',
     },
     {
         label: 'Pastel',
         name: 'pastel',
-        type: 'light'
+        type: 'light',
     },
 ]
 
@@ -62,7 +62,9 @@ const toggleTheme = (selectedTheme) => {
         <div class="flex-1">
             <p class="mb-2 font-bold">Thème foncé</p>
             <div
-                v-for="(theme) in availableThemes.filter((t) => t.type === 'dark')"
+                v-for="theme in availableThemes.filter(
+                    (t) => t.type === 'dark'
+                )"
                 class="form-control"
             >
                 <label class="label cursor-pointer gap-4">
@@ -81,7 +83,9 @@ const toggleTheme = (selectedTheme) => {
         <div class="flex-1">
             <p class="mb-2 font-bold">Thème clair</p>
             <div
-                v-for="(theme) in availableThemes.filter((t) => t.type === 'light')"
+                v-for="theme in availableThemes.filter(
+                    (t) => t.type === 'light'
+                )"
                 class="form-control"
             >
                 <label class="label cursor-pointer gap-4">

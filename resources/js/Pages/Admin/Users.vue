@@ -1,16 +1,16 @@
 <script setup>
-import {Head, useForm} from '@inertiajs/vue3';
-import AdminDashboardLayout from "@/Pages/Admin/Layout/AdminDashboardLayout.vue";
-import Table from "@/Pages/Admin/Partials/Table.vue";
-import Card from "@/Components/Misc/Card.vue";
-import ActionButton from "@/Components/Elements/Button/ActionButton.vue";
-import formService from "@/Services/form.service.js";
-import DeleteModal from "@/Components/Elements/Modal/ActionModal.vue";
-import Stack from "@/Components/Layout/Stack.vue";
+import { Head, useForm } from '@inertiajs/vue3'
+import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import Table from '@/Pages/Admin/Partials/Table.vue'
+import Card from '@/Components/Misc/Card.vue'
+import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
+import formService from '@/Services/form.service.js'
+import DeleteModal from '@/Components/Elements/Modal/ActionModal.vue'
+import Stack from '@/Components/Layout/Stack.vue'
 
 defineProps({
     users: {
-        type: Array
+        type: Array,
     },
 })
 
@@ -22,19 +22,28 @@ const deleteUser = (id) => {
         // onSuccess: () => closeModal(),
         // onError: () => passwordInput.value.focus(),
         // onFinish: () => form.reset(),
-    });
-};
+    })
+}
 </script>
 
 <template>
     <AdminDashboardLayout title="Utilisateurs">
         <Stack>
-            <Card title="Nombres d'utilisateurs" :is-link="false" has-background>
+            <Card
+                title="Nombres d'utilisateurs"
+                :is-link="false"
+                has-background
+            >
                 {{ users.length }}
             </Card>
 
             <Table
-                :headers="[`Nom d'utilisateur`, 'Adresse e-mail', 'Rôles', `Date d'inscription`]"
+                :headers="[
+                    `Nom d'utilisateur`,
+                    'Adresse e-mail',
+                    'Rôles',
+                    `Date d'inscription`,
+                ]"
                 :items="users"
                 :properties="['username', 'email', 'role', 'created_at']"
                 has-action
@@ -44,10 +53,18 @@ const deleteUser = (id) => {
                     {{ roles.map((role) => role.name).join(', ') }}
                 </template>
                 <template #actions="item">
-                    <ActionButton type="delete" @click="formService.openModal('deleteUser', item)" />
+                    <ActionButton
+                        type="delete"
+                        @click="formService.openModal('deleteUser', item)"
+                    />
 
                     <!-- Delete tag modal -->
-                    <DeleteModal name="deleteUser" :item="item" @deleting="deleteUser(item)" :form="form" />
+                    <DeleteModal
+                        name="deleteUser"
+                        :item="item"
+                        @deleting="deleteUser(item)"
+                        :form="form"
+                    />
                     <!--                <Modal :id="`deleteUserModal${item.id}`" title="Supprimer le tag">
                                         <template #description>
                                             Êtes-vous sûr de supprimer l'utilisateur {{ item.name.en }} ?

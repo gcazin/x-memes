@@ -19,7 +19,7 @@ defineProps({
     hasMedia: {
         type: Boolean,
         default: false,
-    }
+    },
 })
 </script>
 <template>

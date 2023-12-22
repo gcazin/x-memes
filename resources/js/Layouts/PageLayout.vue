@@ -1,14 +1,14 @@
 <script setup>
-import Navbar from "@/Partials/Navbar.vue";
-import Toast from "@/Components/Misc/Toast.vue";
-import Footer from "@/Partials/Footer.vue";
-import { Head } from '@inertiajs/vue3';
-import BlobBackground from "@/Components/Misc/BlobBackground.vue";
+import Navbar from '@/Partials/Navbar.vue'
+import Toast from '@/Components/Misc/Toast.vue'
+import Footer from '@/Partials/Footer.vue'
+import { Head } from '@inertiajs/vue3'
+import BlobBackground from '@/Components/Misc/BlobBackground.vue'
 
 defineProps({
     title: {
         type: String,
-        required: false
+        required: false,
     },
     isFullSize: {
         type: Boolean,
@@ -21,7 +21,7 @@ defineProps({
     hasNavbar: {
         type: Boolean,
         default: true,
-    }
+    },
 })
 </script>
 
@@ -39,7 +39,9 @@ defineProps({
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
                             <div class="flex gap-2">
-                                <h1 class="font-semibold text-3xl leading-tight">
+                                <h1
+                                    class="font-semibold text-3xl leading-tight"
+                                >
                                     {{ title }}
                                 </h1>
                                 <slot name="title" />
@@ -65,7 +67,10 @@ defineProps({
         </header>
 
         <!-- Page Content -->
-        <main class="relative" :class="isFullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'">
+        <main
+            class="relative"
+            :class="isFullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'"
+        >
             <slot />
         </main>
     </div>

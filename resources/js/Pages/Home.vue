@@ -1,10 +1,10 @@
 <script setup>
-import {useForm} from '@inertiajs/vue3';
-import PageLayout from "@/Layouts/PageLayout.vue";
-import Icon from "@/Components/Misc/Icon.vue";
-import Stack from "@/Components/Layout/Stack.vue";
-import formService from "@/Services/form.service.js";
-import TextInput from "@/Components/Elements/Form/TextInput.vue";
+import { useForm } from '@inertiajs/vue3'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import Stack from '@/Components/Layout/Stack.vue'
+import formService from '@/Services/form.service.js'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
 
 defineProps({
     stage: {
@@ -12,11 +12,11 @@ defineProps({
     },
     waitlist: {
         type: Array,
-    }
-});
+    },
+})
 
 const form = useForm({
-    email: null
+    email: null,
 })
 const numberOfPlaces = 10
 
@@ -26,34 +26,75 @@ formService.setForm(form).setRouteName('waitlist')
 <template>
     <Head title="Accueil" />
     <PageLayout :has-header="false" :has-navbar="false" is-full-size>
-        <div class="hero relative flex flex-col justify-center dark:bg-bottom dark:border-b dark:border-slate-100/5">
+        <div
+            class="hero relative flex flex-col justify-center dark:bg-bottom dark:border-b dark:border-slate-100/5"
+        >
             <div class="hero-content pt-12 lg:pt-24 text-center">
                 <div class="flex flex-col">
-                    <img class="mask mask-squircle w-32 shadow mb-8 mx-auto" src="images/favicon-with-background.jpg" alt="">
+                    <img
+                        class="mask mask-squircle w-32 shadow mb-8 mx-auto"
+                        src="images/favicon-with-background.jpg"
+                        alt=""
+                    />
                     <h1 class="text-3xl lg:text-5xl font-bold">
-                        La plateforme qui te permet de retrouver tes mèmes préférés!
+                        La plateforme qui te permet de retrouver tes mèmes
+                        préférés!
                     </h1>
-                    <p class="lg:text-xl py-6">X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté.</p>
+                    <p class="lg:text-xl py-6">
+                        X-Memes est une plateforme où tu peux t'inscrire,
+                        publier et voir les mèmes que la communauté a posté.
+                    </p>
                     <div v-if="stage !== 'alpha'" class="space-x-2">
-                        <button class="btn btn-primary btn-lg">Découvrir</button>
-                        <button class="btn btn-primary btn-outline btn-lg">Se connecter</button>
+                        <button class="btn btn-primary btn-lg">
+                            Découvrir
+                        </button>
+                        <button class="btn btn-primary btn-outline btn-lg">
+                            Se connecter
+                        </button>
                     </div>
                     <template v-else>
                         <div class="flex-1 mb-8">
                             <Stack>
                                 <p class="text-lg lg:text-xl">
-                                    En t'inscrivant à la waitlist, tu bénéficieras de ces
-                                    <span class="font-bold">avantages suivants</span> :
+                                    En t'inscrivant à la waitlist, tu
+                                    bénéficieras de ces
+                                    <span class="font-bold"
+                                        >avantages suivants</span
+                                    >
+                                    :
                                 </p>
 
                                 <div class="text-lg lg:text-xl space-y-1">
-                                    <p><Icon class="text-success" name="checkbox" /> Un accès anticipé à la plateforme.</p>
-                                    <p><Icon class="text-success" name="checkbox" /> Un badge exclusif aux alpha/bêta testeurs.</p>
-                                    <p><Icon class="text-success" name="checkbox" /> Un accès anticipés aux futurs fonctionnalités.</p>
+                                    <p>
+                                        <Icon
+                                            class="text-success"
+                                            name="checkbox"
+                                        />
+                                        Un accès anticipé à la plateforme.
+                                    </p>
+                                    <p>
+                                        <Icon
+                                            class="text-success"
+                                            name="checkbox"
+                                        />
+                                        Un badge exclusif aux alpha/bêta
+                                        testeurs.
+                                    </p>
+                                    <p>
+                                        <Icon
+                                            class="text-success"
+                                            name="checkbox"
+                                        />
+                                        Un accès anticipés aux futurs
+                                        fonctionnalités.
+                                    </p>
                                 </div>
                             </Stack>
                         </div>
-                        <div v-if="waitlist.length < numberOfPlaces" class="w-full lg:w-7/12 lg:mx-auto">
+                        <div
+                            v-if="waitlist.length < numberOfPlaces"
+                            class="w-full lg:w-7/12 lg:mx-auto"
+                        >
                             <form
                                 v-if="!form.wasSuccessful"
                                 class="flex flex-col gap-2 w-full"
@@ -68,15 +109,26 @@ formService.setForm(form).setRouteName('waitlist')
                                     autofocus
                                 />
 
-                                <button class="btn btn-primary text-lg" :disabled="form.processing">
-                                    Je rejoins la waitlist !
-                                    ({{ numberOfPlaces - waitlist.length }} places restantes)
+                                <button
+                                    class="btn btn-primary text-lg"
+                                    :disabled="form.processing"
+                                >
+                                    Je rejoins la waitlist ! ({{
+                                        numberOfPlaces - waitlist.length
+                                    }}
+                                    places restantes)
                                 </button>
                             </form>
                         </div>
-                        <div v-if="form.wasSuccessful" class="w-full lg:w-7/12 lg:mx-auto">
-                            <div class="alert alert-success justify-center mt-8">
-                                Ton inscription a bien été prise en compte, tu recevras un mail sous peu !
+                        <div
+                            v-if="form.wasSuccessful"
+                            class="w-full lg:w-7/12 lg:mx-auto"
+                        >
+                            <div
+                                class="alert alert-success justify-center mt-8"
+                            >
+                                Ton inscription a bien été prise en compte, tu
+                                recevras un mail sous peu !
                             </div>
                         </div>
                         <div
@@ -85,26 +137,42 @@ formService.setForm(form).setRouteName('waitlist')
                         >
                             L'inscription est malheureusement terminée. :/
                             <p>
-                                Toutes les places d'alpha testeurs ont été distribué.
+                                Toutes les places d'alpha testeurs ont été
+                                distribué.
                             </p>
                             <p>
-                                Tu peux toujours me <a class="link-secondary" href="https://twitter.com/gcazinonx" target="_blank">suivre</a> sur X pour
-                                être au courant des prochaines sessions !
+                                Tu peux toujours me
+                                <a
+                                    class="link-secondary"
+                                    href="https://twitter.com/gcazinonx"
+                                    target="_blank"
+                                    >suivre</a
+                                >
+                                sur X pour être au courant des prochaines
+                                sessions !
                             </p>
                         </div>
                     </template>
                 </div>
             </div>
             <div class="w-full px-4">
-                <div class="wow fadeInUp relative z-10 mx-auto max-w-[850px]" data-wow-delay=".25s" style="visibility: visible; animation-delay: 0.25s;">
+                <div
+                    class="wow fadeInUp relative z-10 mx-auto max-w-[850px]"
+                    data-wow-delay=".25s"
+                    style="visibility: visible; animation-delay: 0.25s"
+                >
                     <div class="mt-16">
-                        <img src="/images/home.png" alt="hero" class="mx-auto max-w-full">
+                        <img
+                            src="/images/home.png"
+                            alt="hero"
+                            class="mx-auto max-w-full"
+                        />
                     </div>
                     <div class="absolute -left-9 bottom-0 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="">
+                        <img src="/images/misc/blob.svg" alt="" />
                     </div>
                     <div class="absolute -right-6 -top-6 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="">
+                        <img src="/images/misc/blob.svg" alt="" />
                     </div>
                 </div>
             </div>
@@ -115,37 +183,70 @@ formService.setForm(form).setRouteName('waitlist')
                 <p class="uppercase text-primary font-bold">Services</p>
                 <h2 class="text-4xl">Fonctionnalités</h2>
                 <p class="text-xl">
-                    X-Memes t'offre une variété de fonctionnalités te permettant de poster, télécharger et suivre les personnes que tu aimes.
+                    X-Memes t'offre une variété de fonctionnalités te permettant
+                    de poster, télécharger et suivre les personnes que tu aimes.
                 </p>
-                <div class="grid grid-cols-1 lg:grid-cols-5 lg:w-9/12 mx-auto py-16 gap-16">
+                <div
+                    class="grid grid-cols-1 lg:grid-cols-5 lg:w-9/12 mx-auto py-16 gap-16"
+                >
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="add" />
+                            <Icon
+                                class="bg-primary rounded-full p-4"
+                                size="5xl"
+                                name="add"
+                            />
                             <p class="text-xl">Poste tes mèmes préférés.</p>
                         </Stack>
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="image" />
-                            <p class="text-xl">Retrouve tes mèmes préférés à un seul et même endroit.</p>
+                            <Icon
+                                class="bg-primary rounded-full p-4"
+                                size="5xl"
+                                name="image"
+                            />
+                            <p class="text-xl">
+                                Retrouve tes mèmes préférés à un seul et même
+                                endroit.
+                            </p>
                         </Stack>
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="eye" />
-                            <p class="text-xl">Suis les personnes que tu as envie.</p>
+                            <Icon
+                                class="bg-primary rounded-full p-4"
+                                size="5xl"
+                                name="eye"
+                            />
+                            <p class="text-xl">
+                                Suis les personnes que tu as envie.
+                            </p>
                         </Stack>
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="diamond" />
-                            <p class="text-xl">Des badges décernés en fonction de ton activité sur le site.</p>
+                            <Icon
+                                class="bg-primary rounded-full p-4"
+                                size="5xl"
+                                name="diamond"
+                            />
+                            <p class="text-xl">
+                                Des badges décernés en fonction de ton activité
+                                sur le site.
+                            </p>
                         </Stack>
                     </div>
                     <div class="flex-1">
                         <Stack>
-                            <Icon class="bg-primary rounded-full p-4" size="5xl" name="people" />
-                            <p class="text-xl">Un classement des utilisateurs les plus actifs.</p>
+                            <Icon
+                                class="bg-primary rounded-full p-4"
+                                size="5xl"
+                                name="people"
+                            />
+                            <p class="text-xl">
+                                Un classement des utilisateurs les plus actifs.
+                            </p>
                         </Stack>
                     </div>
                 </div>
@@ -158,38 +259,58 @@ formService.setForm(form).setRouteName('waitlist')
                     <p class="uppercase text-primary font-bold">FAQ</p>
                     <h2 class="text-4xl">Une question ?</h2>
                     <p class="text-xl">
-                        Si tu trouves pas la réponse à ta question, ou si tu as une suggestion,
-                        tu peux me contacter sur X <a class="link-primary" href="https://twitter.com/gcazinonx">ici</a>.
+                        Si tu trouves pas la réponse à ta question, ou si tu as
+                        une suggestion, tu peux me contacter sur X
+                        <a
+                            class="link-primary"
+                            href="https://twitter.com/gcazinonx"
+                            >ici</a
+                        >.
                     </p>
                 </Stack>
                 <div class="flex flex-wrap lg:w-9/12 mx-auto">
                     <div class="w-full px-4">
                         <div class="mb-12 flex lg:mb-[70px]">
-                            <div class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
+                            <div
+                                class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
+                            >
                                 <Icon class="text-4xl" name="help-circle" />
                             </div>
                             <div class="w-full text-left">
-                                <h3 class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
+                                <h3
+                                    class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
+                                >
                                     J'ai rencontré un bug
                                 </h3>
                                 <p>
                                     Tu peux me contacter sur X
-                                    <a class="link-primary" href="https://twitter.com/gcazinonx" target="_blank">ici</a>
+                                    <a
+                                        class="link-primary"
+                                        href="https://twitter.com/gcazinonx"
+                                        target="_blank"
+                                        >ici</a
+                                    >
                                     si jamais tu as trouvé un bug.
                                 </p>
                             </div>
                         </div>
                         <div class="mb-12 flex lg:mb-[70px]">
-                            <div class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
+                            <div
+                                class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
+                            >
                                 <Icon class="text-4xl" name="help-circle" />
                             </div>
                             <div class="w-full text-left">
-                                <h3 class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
+                                <h3
+                                    class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
+                                >
                                     Le site est en alpha?
                                 </h3>
                                 <p>
-                                    Effectivement, le site est encore en alpha pour l'instant,
-                                    les fonctionnalités de base y sont présentes, mais encore de nombreuses nouveautés sont en préparation. 🤫
+                                    Effectivement, le site est encore en alpha
+                                    pour l'instant, les fonctionnalités de base
+                                    y sont présentes, mais encore de nombreuses
+                                    nouveautés sont en préparation. 🤫
                                 </p>
                             </div>
                         </div>
@@ -224,5 +345,4 @@ formService.setForm(form).setRouteName('waitlist')
     </PageLayout>
 </template>
 
-<style>
-</style>
+<style></style>

@@ -1,12 +1,12 @@
-import {useForm} from "@inertiajs/vue3";
+import { useForm } from '@inertiajs/vue3'
 import { _ } from 'lodash'
 // TODO
 class FormService {
     constructor() {
-        this.form = null;
-        this.routeName = null;
-        this.props = null;
-        this.modalName = null;
+        this.form = null
+        this.routeName = null
+        this.props = null
+        this.modalName = null
         return this
     }
 
@@ -78,7 +78,7 @@ class FormService {
             case 'store':
                 this.form.post(route(`${routeName}.store`), {
                     preserveScroll: true,
-                    onSuccess: () => this.closeModal()
+                    onSuccess: () => this.closeModal(),
                 })
                 break
             case 'update':
@@ -90,7 +90,8 @@ class FormService {
             case 'destroy':
                 this.form.delete(route(`${routeName}.destroy`, item?.id), {
                     preserveScroll: true,
-                    onBefore: () => confirm('Es-tu sûr de supprimer cet élément ?'),
+                    onBefore: () =>
+                        confirm('Es-tu sûr de supprimer cet élément ?'),
                 })
                 break
             case action:
@@ -103,4 +104,4 @@ class FormService {
     }
 }
 
-export default new FormService;
+export default new FormService()

@@ -37,28 +37,28 @@ Pour mettre en place une copie locale et la faire fonctionner, suivez les étape
 ### ⚙️ Installation
 
 1. Cloner le repo
-   ```sh
-   git clone https://github.com/gcazin/x-memes.git
-   ```
+    ```sh
+    git clone https://github.com/gcazin/x-memes.git
+    ```
 2. Installer les dépendances
     ```sh
-   composer install
-   ```
+    composer install
+    ```
 3. Installer les paquets NPM
-   ```sh
-   npm install
-   ```
+    ```sh
+    npm install
+    ```
 4. Démarrer le projet
     ```sh
-   php artisan serve
-   ```
-   ```sh
-   npm run dev
-   ```
+    php artisan serve
+    ```
+    ```sh
+    npm run dev
+    ```
 
 ## 🛣️ Roadmap
 
-- [ ] //
+-   [ ] //
 
 Voir les [issues](https://github.com/gcazin/x-memes/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 

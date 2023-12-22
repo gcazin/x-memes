@@ -1,13 +1,13 @@
 <script setup>
-import UserLayout from "@/Pages/User/UserLayout.vue";
-import Badge from "@/Components/Misc/Badge.vue";
+import UserLayout from '@/Pages/User/UserLayout.vue'
+import Badge from '@/Components/Misc/Badge.vue'
 
 defineProps({
     user: {
-        type: Array
+        type: Array,
     },
     medias: {
-        type: Array
+        type: Array,
     },
 })
 </script>
@@ -21,12 +21,9 @@ defineProps({
             >
                 <Badge :badge="badge" />
             </div>
-            <div v-else>
-                Aucun badges
-            </div>
+            <div v-else>Aucun badges</div>
         </div>
     </UserLayout>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

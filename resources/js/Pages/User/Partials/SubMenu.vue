@@ -1,12 +1,12 @@
 <script setup>
-import {usePage} from "@inertiajs/vue3";
-import FollowButton from "@/Components/Elements/Button/FollowButton.vue";
+import { usePage } from '@inertiajs/vue3'
+import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
 
 const props = defineProps({
     user: {
         type: Array,
         required: true,
-    }
+    },
 })
 
 const auth = usePage().props.auth?.user
@@ -19,7 +19,7 @@ const auth = usePage().props.auth?.user
                 :href="route('user.show', user.username)"
                 role="tab"
                 class="tab pb-4"
-                :class="{'tab-active': route().current('user.show')}"
+                :class="{ 'tab-active': route().current('user.show') }"
             >
                 Fil
             </a>
@@ -27,7 +27,7 @@ const auth = usePage().props.auth?.user
                 :href="route('user.badges', user.username)"
                 role="tab"
                 class="tab pb-4"
-                :class="{'tab-active': route().current('user.badges')}"
+                :class="{ 'tab-active': route().current('user.badges') }"
             >
                 Badges
             </a>
@@ -41,6 +41,4 @@ const auth = usePage().props.auth?.user
     </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,12 +1,12 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue';
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue';
-import TextInput from '@/Components/Elements/Form/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
-import {ref} from "vue";
-import Avatar from "@/Components/Misc/Avatar.vue";
-import Textarea from "@/Components/Elements/Form/Textarea.vue";
-import formService from "@/Services/form.service.js";
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import { Link, useForm, usePage } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import Avatar from '@/Components/Misc/Avatar.vue'
+import Textarea from '@/Components/Elements/Form/Textarea.vue'
+import formService from '@/Services/form.service.js'
 
 defineProps({
     mustVerifyEmail: {
@@ -15,9 +15,9 @@ defineProps({
     status: {
         type: String,
     },
-});
+})
 
-const user = usePage().props.auth.user;
+const user = usePage().props.auth.user
 // const avatar = ref(null)
 
 const form = useForm({
@@ -25,7 +25,7 @@ const form = useForm({
     email: user.email,
     // description: user.description,
     // avatar: null,
-});
+})
 
 formService.setForm(form).setRouteName('profile')
 </script>
@@ -35,13 +35,14 @@ formService.setForm(form).setRouteName('profile')
         <h2 class="text-lg font-medium">Informations du profil</h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Mettez à jour les informations de profil et l'adresse email de votre compte.
+            Mettez à jour les informations de profil et l'adresse email de votre
+            compte.
         </p>
     </header>
 
     <form @submit.prevent="formService.handle('update')" class="mt-6 space-y-6">
-<!--        <Avatar size="lg" />-->
-<!--        <InputLabel for="name" value="Avatar" />
+        <!--        <Avatar size="lg" />-->
+        <!--        <InputLabel for="name" value="Avatar" />
         <input
             type="file"
             class="file-input file-input-bordered w-full"
@@ -69,7 +70,7 @@ formService.setForm(form).setRouteName('profile')
         />
         <InputError class="mt-2" :message="form.errors.email" />
 
-<!--        <Textarea
+        <!--        <Textarea
             label="Description"
             v-model="form.description"
             autofocus
@@ -94,12 +95,15 @@ formService.setForm(form).setRouteName('profile')
                 v-show="status === 'verification-link-sent'"
                 class="mt-2 font-medium text-sm text-green-600 dark:text-green-400"
             >
-                Un nouveau lien de vérification a été envoyé à votre adresse email.
+                Un nouveau lien de vérification a été envoyé à votre adresse
+                email.
             </div>
         </div>
 
         <div class="flex items-center gap-4">
-            <button class="btn btn-primary" :disabled="form.processing">Sauvegarder</button>
+            <button class="btn btn-primary" :disabled="form.processing">
+                Sauvegarder
+            </button>
         </div>
     </form>
 </template>
