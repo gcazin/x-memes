@@ -67,7 +67,7 @@ it('should approve media and send notification', function () {
 it('should download media and increment download count', function () {
     User::factory()->create();
     $media = Media::factory()->create([
-        'download_count' => 0
+        'download_count' => 0,
     ]);
 
     actingAsGuest()->get(route('media.download', $media->id));
