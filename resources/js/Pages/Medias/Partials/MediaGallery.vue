@@ -183,7 +183,7 @@ const fetchData = (url, filters = null) => {
             } else {
                 allPosts.value = [...allPosts.value, ...props.medias.data]
             }
-            // window.history.replaceState({}, '', pagination.value.path)
+            window.history.replaceState({}, '', pagination.value.path)
             pagination.value = props.medias
             loading.value = false
         },
