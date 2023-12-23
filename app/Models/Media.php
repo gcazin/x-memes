@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\Tags\HasTags;
 
@@ -42,5 +43,12 @@ class Media extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->with('roles');
+    }
+
+    public function tags(): MorphToMany
+    {
+        return $this
+            ->morphToMany(self::getTagClassName(), 'taggable', 'taggables', null, 'tag_id')
+            ->orderBy('order_column');
     }
 }

@@ -26,7 +26,12 @@ const pagination = toRef(props.medias)
 const wrapper = ref(null)
 const loadMoreIntersect = ref(null)
 const loading = ref(false)
-const selectedTags = ref([])
+const selectedFilters = ref({
+    filters: {
+        tags: [],
+    },
+    sort: null,
+})
 const urlParams = new URLSearchParams(window.location.search)
 
 onMounted(() => {
@@ -59,22 +64,23 @@ const loadMorePosts = () => {
      If some tags are selected,
      we send tags to fetch data
      */
-    if (selectedTags.value.length) {
-        fetchData(pagination.value.next_page_url, getTagsToSend(), true)
-    } else {
-        fetchData(pagination.value.next_page_url)
-    }
+    fetchData(
+        pagination.value.next_page_url,
+        selectedFilters.value.filters.tags.length ? getFiltersToSend() : {}
+    )
 }
 
-/**
- * Format the tags used to fetch data
- *
- * @returns {{tags: string}}
- */
-const getTagsToSend = () => {
-    return {
-        tags: selectedTags.value.join(','),
+const checkIfTagIsSelected = (tag) => {
+    return selectedFilters.value.filters.tags.includes(tag)
+}
+
+const checkIfSortIsSelected = (sort) => {
+    const selector = selectedFilters.value.sort
+    console.log(selector, sort)
+    if (selector && selector === sort) {
+        return selector.charAt(0) === '-' ? 'down' : 'up'
     }
+    return 'down'
 }
 
 /**
@@ -91,18 +97,50 @@ const addQueryTagsToSelectedTags = () => {
 }
 
 /**
- * Returns
+ * Format the tags used to fetch data
+ *
+ * @returns {{filters: {}, sort: UnwrapRef<null>}}
+ */
+const getFiltersToSend = () => {
+    return {
+        filters: {
+            ...(selectedFilters.value.filters.tags.length && {
+                tags: selectedFilters.value.filters.tags.join(','),
+            }),
+        },
+        sort: selectedFilters.value.sort,
+    }
+}
+
+/**
+ * Returns selected tags
+ *
  * @param tag
- * @returns {{tags: string}}
  */
 const addSelectedTag = (tag) => {
-    if (selectedTags.value.includes(tag)) {
-        selectedTags.value.splice(selectedTags.value.indexOf(tag), 1)
+    const selected = selectedFilters.value.filters.tags
+    if (selected.includes(tag)) {
+        selected.splice(selected.indexOf(tag), 1)
     } else {
-        selectedTags.value.push(tag)
+        selected.push(tag)
     }
 
-    return getTagsToSend()
+    console.log(selected)
+
+    return getFiltersToSend()
+}
+
+const addSelectedSort = (index, sort) => {
+    const selected = selectedFilters.value.sort
+    let value = sort
+
+    if (selected && selected === sort) {
+        value = `-${sort}`
+    }
+
+    selectedFilters.value.sort = value
+
+    return getFiltersToSend()
 }
 
 /**
@@ -111,13 +149,21 @@ const addSelectedTag = (tag) => {
  * @param tag
  */
 const filterByTags = (tag) => {
-    fetchData(pagination.value.first_page_url, addSelectedTag(tag), true)
+    fetchData(pagination.value.first_page_url, addSelectedTag(tag))
 }
 
-const fetchData = (url, data = {}, filtered = false) => {
+/**
+ * Fetch data when user clicks on sort by selection
+ */
+const sortByProperty = (index, sorting) => {
+    fetchData(pagination.value.first_page_url, addSelectedSort(index, sorting))
+}
+
+const fetchData = (url, filters = null) => {
+    console.log(filters)
     loading.value = true
     router.visit(url, {
-        data: data,
+        data: filters ?? {},
         only: ['medias'],
         preserveScroll: true,
         preserveState: true,
@@ -127,7 +173,7 @@ const fetchData = (url, data = {}, filtered = false) => {
             } else {
                 allPosts.value = [...allPosts.value, ...props.medias.data]
             }
-            window.history.replaceState({}, '', pagination.value.path)
+            // window.history.replaceState({}, '', pagination.value.path)
             pagination.value = props.medias
             loading.value = false
         },
@@ -156,34 +202,37 @@ const sortBy = [
                 </span>
             </div>
             <div class="flex-1 text-right space-x-2" v-if="tags.length">
-                <div
+                <details
                     class="dropdown dropdown-end border-r border-gray-500 pe-2"
                 >
-                    <div tabindex="0" role="button" class="">
+                    <summary class="btn btn-ghost btn-sm">
                         Trier <Icon name="chevron-down" />
-                    </div>
+                    </summary>
                     <ul
-                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                        aria-labelledby="dropdownCheckboxButton"
+                        class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
                     >
-                        <li v-for="(sort, index) in sortBy" :key="index">
-                            <div class="flex items-center">
-                                <input
-                                    :id="`checkbox-item-${sort.value}`"
-                                    type="checkbox"
-                                    :value="sort.value"
-                                    class="checkbox checkbox-primary checkbox-sm"
-                                    @click="filterByTags(sort.value)"
+                        <li
+                            v-for="(sort, index) in sortBy"
+                            :key="index"
+                            @click="sortByProperty(index, sort.value)"
+                        >
+                            <div class="flex justify-between">
+                                {{ sort.name }}
+                                <Icon
+                                    :name="`arrow-${checkIfSortIsSelected(
+                                        sort.value
+                                    )}`"
                                 />
-                                <label for="checkbox-item-1" class="label">
-                                    {{ sort.name }}
-                                </label>
                             </div>
                         </li>
                     </ul>
-                </div>
+                </details>
                 <div class="dropdown dropdown-end">
-                    <div tabindex="0" role="button" class="">
+                    <div
+                        tabindex="0"
+                        role="button"
+                        class="btn btn-ghost btn-sm"
+                    >
                         Filter par tags <Icon name="chevron-down" />
                     </div>
                     <ul
@@ -197,7 +246,8 @@ const sortBy = [
                                     type="checkbox"
                                     :value="tag.name"
                                     class="checkbox checkbox-primary checkbox-sm"
-                                    @click="filterByTags(tag.name)"
+                                    :checked="checkIfTagIsSelected(tag.id)"
+                                    @click="filterByTags(tag.id)"
                                 />
                                 <label for="checkbox-item-1" class="label">
                                     {{ tag.name }}
@@ -236,16 +286,4 @@ const sortBy = [
         <div v-else>Rien a afficher ici pour l'instant...</div>
     </Stack>
 </template>
-<style>
-/*.gallery {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 1fr;
-    gap: 10px 10px;
-    grid-auto-flow: row dense;
-}
-
-.featured { grid-area: 1 / 1 / 3 / 2; }*/
-</style>
+<style scoped></style>

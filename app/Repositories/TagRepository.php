@@ -25,7 +25,10 @@ class TagRepository implements RepositoryInterface
     protected function mapToLocaleTranslation($model)
     {
         return $model->map(function ($tag) {
-            return ['name' => $tag->name];
+            return [
+                'id' => $tag->id,
+                'name' => $tag->name,
+            ];
         });
     }
 }

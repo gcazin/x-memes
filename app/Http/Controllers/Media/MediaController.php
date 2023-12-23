@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class MediaController extends Controller
 {
@@ -33,14 +35,24 @@ class MediaController extends Controller
      */
     public function index(Request $request)
     {
-        $medias = $this->mediaRepository->paginate();
+        $medias = QueryBuilder::for(Media::class)
+            ->where('approved', true);
 
-        if ($request->query('tags')) {
-            $medias = $this->mediaRepository->paginateWithSelectedTags($request->query('tags'));
+        if ($request->has('filters') || $request->has('sort')) {
+            $medias = $medias
+                ->allowedSorts('name', 'created_at');
+
+            if ($request->has('filters.tags')) {
+                $medias
+                    ->whereHas('tags', function ($query) use ($request) {
+                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
+                    })
+                    ->allowedFilters(AllowedFilter::exact('tags.id'));
+            }
         }
 
         return Inertia::render('Library', [
-            'medias' => $medias,
+            'medias' => $medias->paginate(),
             'tags' => $this->tagRepository->all(),
         ]);
     }
