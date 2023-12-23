@@ -192,7 +192,7 @@ const fetchData = (url, filters = null) => {
 </script>
 <template>
     <Stack>
-        <div class="flex">
+        <div class="flex items-center">
             <div class="flex-1">
                 <span class="text-sm">
                     {{ medias.total }} médias affiché{{
