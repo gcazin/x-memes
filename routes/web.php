@@ -26,14 +26,19 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         ->where('any', '.*')->name('waitlist.store');
     Route::redirect('{any}', '/');
 } else {
-    // Common pages
-    Route::get('/', [MediaController::class, 'index'])->name('index');
-    Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
-
-    Route::name('media.')->group(function () {
-        Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
-        Route::get('media/{id}/related', [MediaController::class, 'related'])->name('related');
-        Route::get('media/{id}/download', [MediaController::class, 'download'])->name('download');
+    // Guest
+    Route::middleware('guest')->group(function () {
+        // Common pages
+        Route::get('/', [MediaController::class, 'index'])->name('index');
+        Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
+        Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+        Route::get('random', [MediaController::class, 'random'])->name('random');
+        // Media
+        Route::name('media.')->group(function () {
+            Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
+            Route::get('media/{id}/related', [MediaController::class, 'related'])->name('related');
+            Route::get('media/{id}/download', [MediaController::class, 'download'])->name('download');
+        });
     });
     // Auth
     Route::middleware('auth')->group(function () {
@@ -49,8 +54,6 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
             Route::delete('profile', [ProfileController::class, 'destroy'])->name('destroy');
         });
 
-        Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
-        Route::get('random', [MediaController::class, 'random'])->name('random');
         Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
         Route::name('media.')->group(function () {
             Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');

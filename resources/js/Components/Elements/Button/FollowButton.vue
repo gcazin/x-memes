@@ -13,7 +13,7 @@ const page = usePage()
 const checkIfAuthIsFollowing = () => {
     return props.user.followers
         .map((follower) => follower.username)
-        .includes(page.props.auth.user.username)
+        .includes(page.props.auth.user?.username)
 }
 
 const form = useForm({})

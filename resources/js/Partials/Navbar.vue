@@ -11,14 +11,17 @@ const page = usePage()
 
 const menuItems = [
     {
+        icon: 'library',
         route: 'library',
         name: 'Bibliothèque',
     },
     {
+        icon: 'people',
         route: 'leaderboard',
         name: 'Classement',
     },
     {
+        icon: 'shuffle',
         route: 'random',
         name: 'Au hasard',
     },
@@ -61,8 +64,10 @@ const notifications = page.props.auth?.notifications
                             <a
                                 :href="route(item.route)"
                                 :active="route().current(item.route)"
-                                >{{ item.name }}</a
                             >
+                                <Icon :name="item.icon" size="sm" />
+                                {{ item.name }}
+                            </a>
                         </li>
                         <li
                             v-if="helperService.checkRoles('super-admin,admin')"
@@ -101,8 +106,10 @@ const notifications = page.props.auth?.notifications
                         <a
                             :href="route(item.route)"
                             :active="route().current(item.route)"
-                            >{{ item.name }}</a
                         >
+                            <Icon :name="item.icon" size="xl" />
+                            {{ item.name }}
+                        </a>
                     </li>
                     <li v-if="helperService.checkRoles('super-admin,admin')">
                         <a
