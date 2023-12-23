@@ -26,19 +26,17 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         ->where('any', '.*')->name('waitlist.store');
     Route::redirect('{any}', '/');
 } else {
-    // Guest
-    Route::middleware('guest')->group(function () {
-        // Common pages
-        Route::get('/', [MediaController::class, 'index'])->name('index');
-        Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
-        Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
-        Route::get('random', [MediaController::class, 'random'])->name('random');
-        // Media
-        Route::name('media.')->group(function () {
-            Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
-            Route::get('media/{id}/related', [MediaController::class, 'related'])->name('related');
-            Route::get('media/{id}/download', [MediaController::class, 'download'])->name('download');
-        });
+    // Common pages
+    Route::get('/', [MediaController::class, 'index'])->name('index');
+    Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
+    Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+    Route::get('random', [MediaController::class, 'random'])->name('random');
+
+    // Media
+    Route::name('media.')->group(function () {
+        Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
+        Route::get('media/{id}/related', [MediaController::class, 'related'])->name('related');
+        Route::get('media/{id}/download', [MediaController::class, 'download'])->name('download');
     });
     // Auth
     Route::middleware('auth')->group(function () {
