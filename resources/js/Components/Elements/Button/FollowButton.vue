@@ -11,7 +11,7 @@ const props = defineProps({
 const page = usePage()
 
 const checkIfAuthIsFollowing = () => {
-    return props.user.followers
+    return props.user?.followers
         .map((follower) => follower.username)
         .includes(page.props.auth.user?.username)
 }

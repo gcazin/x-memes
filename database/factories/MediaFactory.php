@@ -18,7 +18,7 @@ class MediaFactory extends Factory
      */
     public function definition(): array
     {
-        $filename = Storage::has('media') && count(Storage::allFiles())
+        $filename = Storage::has('media') && count(Storage::allFiles()) > 0
             ? Storage::allFiles('media')[array_rand(Storage::allFiles('media'))]
             : 'media/1.jpg';
 

@@ -1,27 +1,101 @@
 <script setup>
-defineProps({
+import Text from '@/Components/Text.vue'
+import Avatar from '@/Components/Misc/Avatar.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import formService from '@/Services/form.service.js'
+import { useForm, usePage } from '@inertiajs/vue3'
+
+const props = defineProps({
     media: {
         type: Object,
         required: true,
     },
 })
+
+const page = usePage()
+const form = useForm({
+    media_id: props.media.id,
+})
 </script>
 
 <template>
-    <a :href="route('media.show', media.id)">
-        <video
-            controls
-            v-if="media.extension === 'mp4'"
-            :src="`/storage/${media.name}`"
-        ></video>
-        <img
-            v-else
-            class="w-full h-full object-cover shadow"
-            :src="`/storage/${media.filename}`"
-            :alt="media.name"
-            loading="lazy"
-        />
-    </a>
+    <div class="group">
+        <div class="relative">
+            <a :href="route('media.show', media.id)">
+                <video
+                    controls
+                    class="h-96 w-full object-cover shadow rounded-lg"
+                    v-if="media.extension === 'mp4'"
+                    :src="`/storage/${media.name}`"
+                ></video>
+                <img
+                    v-else
+                    class="h-96 w-full object-cover shadow rounded-lg"
+                    :src="`/storage/${media.filename}`"
+                    :alt="media.name"
+                    loading="lazy"
+                />
+            </a>
+            <div
+                class="bg-gradient-to-t from-5% from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 duration-500 absolute inset-x-0 bottom-0 flex items-end py-8 px-4"
+            >
+                <div class="flex-1">
+                    <Text class="font-bold">{{ media.name }}</Text>
+                    <!--                    <Text type="xs">publié le {{ media.created_at }}</Text>-->
+                </div>
+                <div class="flex-1 text-right">
+                    <button
+                        class="btn btn-circle btn-sm w-10"
+                        @click="
+                            formService
+                                .setForm(form)
+                                .setRouteName('media')
+                                .handle('like', media, 'get')
+                        "
+                        :disabled="form.processing || !page.props.auth?.user"
+                        :class="
+                            page.props.auth?.user
+                                ? media.likers
+                                      ?.map((liker) => liker.id)
+                                      .includes($page.props.auth.user.id)
+                                    ? 'btn-error btn-outline'
+                                    : 'btn-ghost'
+                                : ''
+                        "
+                    >
+                        <Icon size="xl" name="heart" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center pt-2">
+            <div class="flex-1">
+                <Text
+                    type="link"
+                    to="user.show"
+                    :parameter="media.user.username"
+                >
+                    <Avatar size="sm" class="mr-1" :user="media.user" />
+                    {{ media.user.username }}
+                </Text>
+            </div>
+            <div class="flex-1">
+                <div class="flex justify-end gap-x-2">
+                    <div
+                        class="flex items-center justify-end"
+                        v-if="media.likers.length"
+                    >
+                        <Icon name="heart" size="xl" class="mr-0.5" />
+                        <Text type="xs">{{ media.likers.length }}</Text>
+                    </div>
+                    <div class="flex items-center justify-end">
+                        <Icon name="eye" size="xl" class="mr-0.5" />
+                        <Text type="xs">{{ media.download_count }}</Text>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped></style>

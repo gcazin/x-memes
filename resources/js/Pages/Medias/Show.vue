@@ -47,7 +47,7 @@ const downloadItem = (item) => {
 }
 
 const page = usePage()
-const auth = page.auth?.user
+const auth = page.props.auth?.user
 
 const getRelatedMedias = () => {
     router.visit(route('media.related', props.media.id), {

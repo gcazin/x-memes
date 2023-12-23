@@ -2,10 +2,10 @@
 import { useForm } from '@inertiajs/vue3'
 import { onBeforeMount, onMounted, ref, toRef } from 'vue'
 import { router } from '@inertiajs/vue3'
-import MediaItem from '@/Components/Misc/MediaItem.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import { all } from 'axios'
+import MediaItem from '@/Components/Misc/MediaItem.vue'
 
 const props = defineProps({
     medias: {
@@ -18,11 +18,9 @@ const props = defineProps({
     },
     tags: {
         type: Array,
-        required: true,
     },
     sortBy: {
         type: Array,
-        required: true,
     },
 })
 
@@ -192,7 +190,7 @@ const fetchData = (url, filters = null) => {
 </script>
 <template>
     <Stack>
-        <div class="flex items-center">
+        <div class="flex flex-col lg:flex-row lg:items-center">
             <div class="flex-1">
                 <span class="text-sm">
                     {{ medias.total }} médias affiché{{
@@ -200,9 +198,13 @@ const fetchData = (url, filters = null) => {
                     }}
                 </span>
             </div>
-            <div class="flex-1 text-right space-x-2" v-if="tags.length">
+            <div
+                class="flex-1 text-center lg:text-right space-x-2"
+                v-if="(tags && tags.length) || sortBy"
+            >
                 <div
-                    class="dropdown dropdown-end border-r border-gray-500 pe-2"
+                    v-if="sortBy"
+                    class="dropdown border-r border-gray-500 pe-2"
                 >
                     <div
                         tabindex="0"
@@ -229,7 +231,7 @@ const fetchData = (url, filters = null) => {
                         </li>
                     </ul>
                 </div>
-                <div class="dropdown dropdown-end">
+                <div v-if="tags.length" class="dropdown dropdown-end">
                     <div
                         tabindex="0"
                         role="button"
@@ -260,10 +262,11 @@ const fetchData = (url, filters = null) => {
                 </div>
             </div>
         </div>
+
         <div
             ref="wrapper"
             v-if="allPosts.length"
-            class="grid grid-cols-1 md:grid-cols-3 gap-4"
+            class="grid grid-cols-1 md:grid-cols-3 gap-6"
             :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
         >
             <div
