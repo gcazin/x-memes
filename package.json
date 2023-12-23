@@ -4,7 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "prettier": "prettier . --write && ./vendor/bin/pint --parallel"
+        "prettier": "prettier . --write && ./vendor/bin/pint && ./vendor/bin/pest --parralel"
     },
     "dependencies": {
         "@vueform/multiselect": "^2.6.6",
