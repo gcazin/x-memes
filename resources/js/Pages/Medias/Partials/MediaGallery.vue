@@ -10,6 +10,7 @@ import { all } from 'axios'
 const props = defineProps({
     medias: {
         type: Array,
+        required: true,
     },
     numberOfCols: {
         type: Number,
@@ -17,6 +18,11 @@ const props = defineProps({
     },
     tags: {
         type: Array,
+        required: true,
+    },
+    sortBy: {
+        type: Array,
+        required: true,
     },
 })
 
@@ -66,7 +72,9 @@ const loadMorePosts = () => {
      */
     fetchData(
         pagination.value.next_page_url,
-        selectedFilters.value.filters.tags.length ? getFiltersToSend() : {}
+        selectedFilters.value.filters.tags.length || selectedFilters.value.sort
+            ? getFiltersToSend()
+            : {}
     )
 }
 
@@ -108,7 +116,9 @@ const getFiltersToSend = () => {
                 tags: selectedFilters.value.filters.tags.join(','),
             }),
         },
-        sort: selectedFilters.value.sort,
+        ...(selectedFilters.value.sort && {
+            sort: selectedFilters.value.sort,
+        }),
     }
 }
 
@@ -179,17 +189,6 @@ const fetchData = (url, filters = null) => {
         },
     })
 }
-
-const sortBy = [
-    {
-        name: 'Par date',
-        value: 'created_at',
-    },
-    {
-        name: 'Par titre',
-        value: 'name',
-    },
-]
 </script>
 <template>
     <Stack>
@@ -202,31 +201,34 @@ const sortBy = [
                 </span>
             </div>
             <div class="flex-1 text-right space-x-2" v-if="tags.length">
-                <details
+                <div
                     class="dropdown dropdown-end border-r border-gray-500 pe-2"
                 >
-                    <summary class="btn btn-ghost btn-sm">
-                        Trier <Icon name="chevron-down" />
-                    </summary>
-                    <ul
-                        class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                    <div
+                        tabindex="0"
+                        role="button"
+                        class="btn btn-ghost btn-sm"
                     >
-                        <li
-                            v-for="(sort, index) in sortBy"
-                            :key="index"
-                            @click="sortByProperty(index, sort.value)"
-                        >
-                            <div class="flex justify-between">
+                        Trier <Icon name="chevron-down" />
+                    </div>
+                    <ul
+                        tabindex="0"
+                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        aria-labelledby="dropdownSortButton"
+                    >
+                        <li v-for="(sort, index) in sortBy" :key="index">
+                            <a @click="sortByProperty(index, sort.value)">
                                 {{ sort.name }}
                                 <Icon
+                                    class="inline ms-auto"
                                     :name="`arrow-${checkIfSortIsSelected(
                                         sort.value
                                     )}`"
                                 />
-                            </div>
+                            </a>
                         </li>
                     </ul>
-                </details>
+                </div>
                 <div class="dropdown dropdown-end">
                     <div
                         tabindex="0"
@@ -236,23 +238,23 @@ const sortBy = [
                         Filter par tags <Icon name="chevron-down" />
                     </div>
                     <ul
+                        tabindex="0"
                         class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                        aria-labelledby="dropdownCheckboxButton"
+                        aria-labelledby="dropdownTagsButton"
                     >
                         <li v-for="(tag, index) in tags" :key="index">
-                            <div class="flex items-center">
+                            <a @click="filterByTags(tag.id)">
                                 <input
                                     :id="`checkbox-item-${tag.name}`"
                                     type="checkbox"
                                     :value="tag.name"
                                     class="checkbox checkbox-primary checkbox-sm"
                                     :checked="checkIfTagIsSelected(tag.id)"
-                                    @click="filterByTags(tag.id)"
                                 />
                                 <label for="checkbox-item-1" class="label">
                                     {{ tag.name }}
                                 </label>
-                            </div>
+                            </a>
                         </li>
                     </ul>
                 </div>

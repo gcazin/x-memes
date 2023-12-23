@@ -29,6 +29,7 @@ class MediaFactory extends Factory
             'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
             'user_id' => User::all()->random()->id,
             'approved' => fake()->boolean,
+            'download_count' => fake()->numberBetween(1, 1000),
         ];
     }
 }

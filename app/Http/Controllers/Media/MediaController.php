@@ -38,9 +38,23 @@ class MediaController extends Controller
         $medias = QueryBuilder::for(Media::class)
             ->where('approved', true);
 
+        $sortBy = collect([
+            [
+                'name' => 'Par date',
+                'value' => 'created_at',
+            ],
+            [
+                'name' => 'Par titre',
+                'value' => 'name',
+            ],
+            [
+                'name' => 'Par téléchargement',
+                'value' => 'download_count',
+            ],
+        ]);
         if ($request->has('filters') || $request->has('sort')) {
             $medias = $medias
-                ->allowedSorts('name', 'created_at');
+                ->allowedSorts($sortBy->pluck('value')->toArray());
 
             if ($request->has('filters.tags')) {
                 $medias
@@ -54,6 +68,7 @@ class MediaController extends Controller
         return Inertia::render('Library', [
             'medias' => $medias->paginate(),
             'tags' => $this->tagRepository->all(),
+            'sortBy' => $sortBy->toArray(),
         ]);
     }
 

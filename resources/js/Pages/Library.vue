@@ -20,6 +20,9 @@ const props = defineProps({
     tags: {
         type: Array,
     },
+    sortBy: {
+        type: Array,
+    },
 })
 
 const page = usePage()
@@ -85,7 +88,7 @@ formService.setForm(form).setRouteName('media')
             </button>
         </template>
 
-        <MediaGallery :medias="medias" :tags="tags" />
+        <MediaGallery :medias="medias" :tags="tags" :sort-by="sortBy" />
 
         <Modal id="addMediaModal" title="Ajouter un média" max-width="2xl">
             <form
