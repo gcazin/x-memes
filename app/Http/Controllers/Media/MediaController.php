@@ -37,7 +37,7 @@ class MediaController extends Controller
     {
         $medias = QueryBuilder::for(Media::class)
             ->where('approved', true)
-            ->defaultSort('-download_count');
+            ->defaultSort('-created_at');
 
         $sortBy = collect([
             [
