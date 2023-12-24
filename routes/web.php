@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Media\MediaController;
+use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WaitlistController;
@@ -32,6 +33,12 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
     Route::get('random', [MediaController::class, 'random'])->name('random');
 
+    // User
+    Route::name('user.')->group(function () {
+        Route::get('membre/{username}', [UserController::class, 'show'])->name('show');
+        Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
+    });
+
     // Media
     Route::name('media.')->group(function () {
         Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
@@ -41,8 +48,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     // Auth
     Route::middleware('auth')->group(function () {
         Route::name('user.')->group(function () {
-            Route::get('membre/{username}', [UserController::class, 'show'])->name('show');
-            Route::get('membre/{username}/badges', [UserController::class, 'badges'])->name('badges');
+            Route::get('membre/{username}/badges', BadgeController::class)->name('badge.index');
             Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');
         });
 

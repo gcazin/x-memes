@@ -18,13 +18,9 @@ defineProps({
 })
 
 const user = usePage().props.auth.user
-// const avatar = ref(null)
 
 const form = useForm({
-    username: user.username,
     email: user.email,
-    // description: user.description,
-    // avatar: null,
 })
 
 formService.setForm(form).setRouteName('profile')
@@ -41,26 +37,6 @@ formService.setForm(form).setRouteName('profile')
     </header>
 
     <form @submit.prevent="formService.handle('update')" class="mt-6 space-y-6">
-        <!--        <Avatar size="lg" />-->
-        <!--        <InputLabel for="name" value="Avatar" />
-        <input
-            type="file"
-            class="file-input file-input-bordered w-full"
-            id="avatar"
-            @input="form.avatar = $event.target.files[0]"
-        />
-        <InputError class="mt-2" :message="form.errors.avatar" />-->
-
-        <TextInput
-            label="Nom d'utilisateur"
-            type="text"
-            v-model="form.username"
-            required
-            autofocus
-            autocomplete="username"
-        />
-        <InputError class="mt-2" :message="form.errors.username" />
-
         <TextInput
             label="Adresse e-mail"
             type="email"
@@ -69,14 +45,6 @@ formService.setForm(form).setRouteName('profile')
             autocomplete="username"
         />
         <InputError class="mt-2" :message="form.errors.email" />
-
-        <!--        <Textarea
-            label="Description"
-            v-model="form.description"
-            autofocus
-            autocomplete="description"
-        />
-        <InputError class="mt-2" :message="form.errors.description" />-->
 
         <div v-if="mustVerifyEmail && user.email_verified_at === null">
             <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

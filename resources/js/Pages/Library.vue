@@ -130,24 +130,22 @@ formService.setForm(form).setRouteName('media')
                             :options="tagsOptions"
                         />
                     </div>
-                </Stack>
-                <template v-if="state.foundedImage">
-                    <div role="alert" class="alert alert-info">
-                        <ion-icon
-                            class="text-xl"
-                            name="information-outline"
-                        ></ion-icon>
-                        <span>1 image similaire a été trouvé!</span>
-                    </div>
-                    <div class="my-2">
-                        <img
-                            class="w-40 rounded-xl"
-                            :src="`/storage/${state.foundedImage.filename}`"
-                            alt=""
-                        />
-                    </div>
-                </template>
-                <div class="mt-4">
+                    <template v-if="state.foundedImage">
+                        <div role="alert" class="alert alert-info">
+                            <ion-icon
+                                class="text-xl"
+                                name="information-outline"
+                            ></ion-icon>
+                            <span>1 image similaire a été trouvé!</span>
+                        </div>
+                        <div class="my-2">
+                            <img
+                                class="w-40 rounded-xl"
+                                :src="`/storage/${state.foundedImage.filename}`"
+                                alt=""
+                            />
+                        </div>
+                    </template>
                     <button
                         class="btn btn-primary"
                         :disabled="form.processing || state.foundedImage"
@@ -162,7 +160,7 @@ formService.setForm(form).setRouteName('media')
                                 : 'Ajouter'
                         }}
                     </button>
-                </div>
+                </Stack>
             </form>
         </Modal>
     </PageLayout>

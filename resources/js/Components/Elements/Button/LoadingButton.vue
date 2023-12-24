@@ -11,7 +11,11 @@ defineProps({
 </script>
 
 <template>
-    <button class="btn btn-primary" :class="{ 'btn-disabled': loading }">
+    <button
+        class="btn btn-primary"
+        type="submit"
+        :class="{ 'btn-disabled': loading }"
+    >
         <span v-if="loading" class="loading loading-spinner"></span>
         <slot />
     </button>

@@ -54,7 +54,7 @@ class MediaController extends Controller
             ],
         ]);
         if ($request->has('filters') || $request->has('sort')) {
-            $medias = $medias
+            $medias
                 ->allowedSorts($sortBy->pluck('value')->toArray());
 
             if ($request->has('filters.tags')) {

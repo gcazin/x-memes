@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -32,15 +31,6 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request)
     {
         $request->user()->fill($request->validated());
-
-        // In UserController update()
-        /*if ($request->hasFile('avatar')) {
-            if ($request->user()->getOriginal('avatar')) {
-                Storage::delete($request->user()->getOriginal('avatar'));
-            }
-            $avatar = Storage::put('avatar', $request->file('avatar'));
-            $request->user()->avatar = $avatar;
-        }*/
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

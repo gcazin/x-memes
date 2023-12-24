@@ -240,7 +240,7 @@ const notifications = page.props.auth?.notifications
                             role="button"
                             class="btn btn-ghost btn-circle"
                         >
-                            <Avatar class="w-10" />
+                            <Avatar size="sm" />
                         </div>
                         <ul
                             class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52"

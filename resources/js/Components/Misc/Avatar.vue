@@ -15,11 +15,15 @@ const props = defineProps({
         type: Array,
         required: false,
     },
+    rounded: {
+        type: Boolean,
+        default: true,
+    },
 })
 const avatarSizeClass = computed(() => {
     return {
         full: 'w-96',
-        xl: 'w-64',
+        xl: 'w-32',
         lg: 'w-24',
         md: 'w-16',
         sm: 'w-8',
@@ -28,9 +32,9 @@ const avatarSizeClass = computed(() => {
 
 const textSizeClass = computed(() => {
     return {
-        full: 'text-3xl',
-        xl: 'text-3xl',
-        lg: 'text-5xl',
+        full: 'text-5xl',
+        xl: 'text-4xl',
+        lg: 'text-3xl',
         md: 'text-xl',
         sm: 'text-sm',
     }[props.size]
@@ -42,17 +46,18 @@ const formatUsername = (username) => {
 </script>
 <template>
     <div v-if="user?.avatar || authUser?.avatar" class="avatar">
-        <div class="rounded-full" :class="[avatarSizeClass]">
+        <div :class="[avatarSizeClass]">
             <img
                 :src="`/storage/${user ? user.avatar : authUser.avatar}`"
                 alt="Tailwind-CSS-Avatar-component"
+                :class="rounded ? `rounded-full` : 'rounded'"
             />
         </div>
     </div>
     <div v-else class="avatar placeholder">
         <div
-            class="bg-primary text-neutral-content rounded-full"
-            :class="[avatarSizeClass]"
+            class="bg-primary text-neutral-content"
+            :class="[avatarSizeClass, rounded ? 'rounded-full' : 'rounded-lg']"
         >
             <span :class="[textSizeClass]">
                 {{

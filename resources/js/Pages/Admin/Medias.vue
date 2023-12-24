@@ -30,7 +30,7 @@ formService.setForm(form)
 
 <template>
     <AdminDashboardLayout title="Médias">
-        <div class="flex flex-col lg:flex-row gap-4">
+        <div class="flex flex-col gap-4">
             <div class="flex-1">
                 <div class="mb-4">
                     <Text type="subtitle" class="mb-2">
@@ -42,9 +42,15 @@ formService.setForm(form)
                         </Tag>
                     </Text>
                     <Table
-                        :headers="['Titre', 'Media', 'Rôles', 'Utilisateur']"
+                        :headers="[
+                            'Titre',
+                            'Media',
+                            'Rôles',
+                            'Utilisateur',
+                            'Tags',
+                        ]"
                         :items="medias.filter((m) => m.approved)"
-                        :properties="['name', 'media', 'role', 'user']"
+                        :properties="['name', 'media', 'role', 'user', 'tags']"
                         has-action
                         has-background
                     >

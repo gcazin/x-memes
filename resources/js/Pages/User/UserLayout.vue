@@ -2,10 +2,21 @@
 import Avatar from '@/Components/Misc/Avatar.vue'
 import Section from '@/Components/Layout/Section.vue'
 import Navbar from '@/Partials/Navbar.vue'
-import { usePage } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 import Footer from '@/Partials/Footer.vue'
 import SubMenu from '@/Pages/User/Partials/SubMenu.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Text from '@/Components/Text.vue'
+import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
+import Stack from '@/Components/Layout/Stack.vue'
+import formService from '@/Services/form.service.js'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import Modal from '@/Components/Elements/Modal/Modal.vue'
+import Multiselect from '@vueform/multiselect'
+import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
+import Textarea from '@/Components/Elements/Form/Textarea.vue'
 
 const props = defineProps({
     user: {
@@ -19,90 +30,137 @@ const props = defineProps({
 const page = usePage()
 const auth = page.props.auth?.user
 
+const form = useForm({
+    username: auth?.username,
+    description: auth?.description,
+    avatar: null,
+})
+
 const downloadMediaCount =
     props.user.medias && props.user.medias.length
         ? props.user.medias
               .map((media) => media.download_count)
               .reduce((accumulator, media) => accumulator + media)
         : 0
+
+formService.setForm(form).setRouteName('user')
 </script>
 
 <template>
+    <Head :title="`Profil de ${user.username}`"></Head>
     <PageLayout>
-        <section class="relative block h-96">
-            <!-- style="background: url(https://trustmyscience.com/wp-content/uploads/2018/09/definition-galaxie.jpeg)" -->
-            <div class="absolute top-0 w-full h-full bg-center cover">
-                <span class="w-full h-full absolute opacity-50 bg-black"></span>
-            </div>
-            <!--        <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
-                        <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-                            <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-                        </svg>
-                    </div>-->
-        </section>
-
-        <Section class="text-center mx-auto mt-32 !p-0">
-            <div class="container mx-auto">
-                <div
-                    class="relative flex flex-col bg-base-300 shadow border border-base-100 rounded-lg -mt-64"
-                >
-                    <div class="relative">
-                        <Avatar :user="user" size="lg" class="absolute -m-16" />
+        <Stack spacing="4">
+            <div class="flex items-center">
+                <div>
+                    <Avatar
+                        :user="user"
+                        size="lg"
+                        class="mr-4"
+                        :rounded="false"
+                    />
+                </div>
+                <Stack spacing="2">
+                    <Text type="title">{{ user.username }}</Text>
+                    <Text>
+                        {{ user.description }}
+                    </Text>
+                    <div class="flex gap-4">
+                        <Text type="sub">
+                            {{
+                                'total' in medias ? medias.total : medias.length
+                            }}
+                            publication
+                        </Text>
+                        <Text type="sub">
+                            {{ downloadMediaCount }} téléchargements
+                        </Text>
+                        <Text type="sub">
+                            {{ user.followers.length }} abonnés
+                        </Text>
                     </div>
-                    <div class="w-full flex lg:text-left lg:self-center">
-                        <div class="flex-1 p-4">
-                            <div class="flex gap-1"></div>
-                        </div>
-                    </div>
-                    <h3
-                        class="text-4xl mt-10 py-2 font-semibold leading-normal"
+                </Stack>
+                <div class="flex-1 text-right">
+                    <FollowButton
+                        v-if="auth && user.id !== auth.id"
+                        :user="user"
+                    />
+                    <button
+                        v-else
+                        class="btn btn-info btn-outline"
+                        @click="formService.openModal('editProfile')"
                     >
-                        {{ user.username }}
-                    </h3>
-                    <div class="flex gap-8 pt-4 pb-8 justify-center">
-                        <div class="text-center">
-                            <span
-                                class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600"
-                            >
-                                {{
-                                    'total' in medias
-                                        ? medias.total
-                                        : medias.length
-                                }}
-                            </span>
-                            <span class="text-sm text-blueGray-400"
-                                >Médias postés</span
-                            >
-                        </div>
-                        <div class="text-center">
-                            <span
-                                class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600"
-                            >
-                                {{ downloadMediaCount }}
-                            </span>
-                            <span class="text-sm text-blueGray-400"
-                                >Téléchargements</span
-                            >
-                        </div>
-                        <div class="text-center">
-                            <span
-                                class="text-2xl font-bold block uppercase tracking-wide text-blueGray-600"
-                            >
-                                {{ user.followers.length }}
-                            </span>
-                            <span class="text-sm text-blueGray-400"
-                                >Followers</span
-                            >
-                        </div>
-                    </div>
+                        Modifier le profil
+                    </button>
 
-                    <SubMenu :user="user" />
+                    <Modal
+                        id="editProfileModal"
+                        title="Modifier le profil"
+                        max-width="2xl"
+                    >
+                        <form @submit.prevent="formService.handle('update')">
+                            <Stack>
+                                <div>
+                                    <TextInput
+                                        label="Nom d'utilisateur"
+                                        v-model="form.username"
+                                    />
+                                    <InputError
+                                        :message="form.errors.username"
+                                    />
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <Avatar size="lg" />
+                                    <input
+                                        type="file"
+                                        class="file-input file-input-bordered w-full"
+                                        @input="
+                                            form.avatar = $event.target.files[0]
+                                        "
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.avatar"
+                                    />
+                                </div>
+                                <div>
+                                    <progress
+                                        v-if="form.progress"
+                                        class="progress progress-primary w-full"
+                                        :value="form.progress.percentage"
+                                        max="100"
+                                    >
+                                        {{ form.progress.percentage }}%
+                                    </progress>
+                                </div>
+                                <div>
+                                    <Textarea
+                                        label="Description"
+                                        v-model="form.description"
+                                        autofocus
+                                        autocomplete="description"
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.description"
+                                    />
+                                </div>
+                                <LoadingButton :loading="form.processing">
+                                    Modifier le profil
+                                </LoadingButton>
+                            </Stack>
+                        </form>
+                    </Modal>
                 </div>
             </div>
-        </Section>
-
-        <slot />
+            <div class="flex gap-2">
+                <button class="btn btn-sm">Publications</button>
+                <button class="btn btn-sm">Badges</button>
+            </div>
+            <slot />
+        </Stack>
     </PageLayout>
+
+    <SubMenu :user="user" />
 </template>
 
 <style scoped></style>

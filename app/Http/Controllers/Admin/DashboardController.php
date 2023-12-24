@@ -3,19 +3,25 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Media;
 use App\Models\User;
+use App\Repositories\MediaRepository;
+use App\Repositories\TagRepository;
 use Inertia\Inertia;
-use Spatie\Tags\Tag;
 
 class DashboardController extends Controller
 {
+    public function __construct(
+        public MediaRepository $mediaRepository,
+        public TagRepository $tagRepository
+    ) {
+    }
+
     public function index()
     {
         return Inertia::render('Admin/Index', [
             'users' => User::all(),
-            'medias' => Media::all(),
-            'tags' => Tag::all(),
+            'medias' => $this->mediaRepository->all(),
+            'tags' => $this->tagRepository->all(),
         ]);
     }
 
@@ -23,7 +29,7 @@ class DashboardController extends Controller
     {
         return Inertia::render('Admin/Medias', [
             'users' => User::all(),
-            'medias' => Media::all(),
+            'medias' => $this->mediaRepository->all(),
         ]);
     }
 

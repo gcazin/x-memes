@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 test('profile page is displayed', function () {
@@ -17,19 +16,14 @@ test('profile information can be updated', function () {
     $response = $this
         ->actingAs($user)
         ->put(route('profile.update'), [
-            'username' => 'Test User',
             'email' => 'test@example.com',
-            //            'avatar' => $image = UploadedFile::fake()->image('avatar.png'),
-            //            'description' => 'Test'
         ]);
 
-    //    Storage::disk('public')->assertExists('avatar/'.$image->hashName());
     $response->assertSessionHasNoErrors();
 
     $user->refresh();
 
-    expect('Test User')->toBe($user->username)
-        ->and('test@example.com')->toBe($user->email)
+    expect('test@example.com')->toBe($user->email)
         ->and($user->email_verified_at)->toBeNull();
 });
 

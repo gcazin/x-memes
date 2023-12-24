@@ -24,7 +24,7 @@ const auth = usePage().props.auth?.user
                 Fil
             </a>
             <a
-                :href="route('user.badges', user.username)"
+                :href="route('user.badge.index', user.username)"
                 role="tab"
                 class="tab pb-4"
                 :class="{ 'tab-active': route().current('user.badges') }"
@@ -34,8 +34,8 @@ const auth = usePage().props.auth?.user
             <a role="tab" class="tab pb-4">Éditer le profil</a>
         </div>
         <div class="flex-1 text-right p-1">
-            <template v-if="user.id !== auth.id">
-                <FollowButton />
+            <template v-if="auth && user.id !== auth.id">
+                <FollowButton :user="user" />
             </template>
         </div>
     </div>
