@@ -55,7 +55,7 @@ const submit = () => {
                 />
                 <InputError :message="form.errors.password" />
 
-                <div class="block mt-4">
+                <div class="mt-4 block">
                     <label class="flex items-center">
                         <Checkbox
                             name="remember"
@@ -68,17 +68,17 @@ const submit = () => {
                     </label>
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
+                <div class="mt-4 flex items-center justify-end">
                     <Link
                         v-if="canResetPassword"
                         :href="route('password.request')"
-                        class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                     >
                         Mot de passe oublié?
                     </Link>
 
                     <button
-                        class="ms-4 btn btn-primary"
+                        class="btn btn-primary ms-4"
                         :disabled="form.processing"
                     >
                         Connexion

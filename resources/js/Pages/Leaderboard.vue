@@ -21,15 +21,15 @@ defineProps({
 
 <template>
     <PageLayout title="Classement des meilleurs contributeurs">
-        <div class="flex flex-col lg:flex-row gap-2 lg:gap-4 mb-4">
+        <div class="mb-4 flex flex-col gap-2 lg:flex-row lg:gap-4">
             <Card
                 v-for="(member, index) in leaderboard.slice(0, 3)"
                 :key="index"
             >
-                <div class="flex flex-col gap-4 justify-center items-center">
+                <div class="flex flex-col items-center justify-center gap-4">
                     <Avatar size="lg" :user="member" />
                     <Text type="subtitle">{{ member.username }}</Text>
-                    <div class="badge bg-primary/10 text-primary badge-lg">
+                    <div class="badge badge-lg bg-primary/10 text-primary">
                         {{ member.medias_count }} médias postés
                     </div>
                     <FollowButton :user="member" />
@@ -45,7 +45,7 @@ defineProps({
         >
             <template #increment="{ index }">
                 <span
-                    class="font-bold text-blue-500 whitespace-nowrap dark:text-blue-600"
+                    class="whitespace-nowrap font-bold text-blue-500 dark:text-blue-600"
                 >
                     {{ index + 1 }}
                 </span>

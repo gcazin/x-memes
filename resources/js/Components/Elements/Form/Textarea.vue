@@ -34,7 +34,7 @@ defineExpose({ focus: () => input.value.focus() })
             <span class="label-text">{{ label }}</span>
         </div>
         <textarea
-            class="textarea textarea-bordered bg-base-300 h-24"
+            class="textarea textarea-bordered h-24 bg-base-300"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"

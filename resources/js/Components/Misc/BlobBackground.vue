@@ -1,9 +1,9 @@
 <script setup></script>
 <template>
     <div
-        class="absolute top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none"
+        class="pointer-events-none absolute inset-x-0 top-0 flex justify-center overflow-hidden"
     >
-        <div class="w-[108rem] flex-none flex justify-end">
+        <div class="flex w-[108rem] flex-none justify-end">
             <picture>
                 <source
                     srcset="/images/background/blur.avif"
@@ -12,7 +12,7 @@
                 <img
                     src="/images/background/blur-2.png"
                     alt=""
-                    class="w-[71.75rem] flex-none max-w-none dark:hidden"
+                    class="w-[71.75rem] max-w-none flex-none dark:hidden"
                     decoding="async"
                     loading="lazy"
                 />
@@ -25,7 +25,7 @@
                 <img
                     src="/images/background/blur-4.png"
                     alt=""
-                    class="w-[90rem] flex-none max-w-none hidden dark:block"
+                    class="hidden w-[90rem] max-w-none flex-none dark:block"
                     decoding="async"
                     loading="lazy"
                 />

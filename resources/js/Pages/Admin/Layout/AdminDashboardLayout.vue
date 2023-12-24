@@ -95,7 +95,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                     <div class="flex items-center">
                         <label
                             for="my-drawer"
-                            class="drawer-button lg:hidden text-2xl mr-2"
+                            class="drawer-button mr-2 text-2xl lg:hidden"
                         >
                             <Icon name="reorder-four" />
                         </label>
@@ -112,7 +112,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                                 "
                             >
                                 <div
-                                    class="flex float-right gap-2 items-center"
+                                    class="float-right flex items-center gap-2"
                                 >
                                     <Avatar size="sm" />
                                     {{ $page.props.auth.user.username }}
@@ -121,12 +121,12 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                         </div>
                     </div>
                 </div>
-                <div class="py-2 px-6" v-if="backButton">
+                <div class="px-6 py-2" v-if="backButton">
                     <a class="btn btn-ghost" :href="route('admin.index')">
                         <Icon name="arrow-back" size="lg" /> Retour en arrière
                     </a>
                 </div>
-                <div class="py-2 px-6">
+                <div class="px-6 py-2">
                     <slot />
                 </div>
             </div>
@@ -137,7 +137,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                 aria-label="close sidebar"
                 class="drawer-overlay"
             ></label>
-            <ul class="menu p-4 w-80 min-h-full bg-base-300 text-base">
+            <ul class="menu min-h-full w-80 bg-base-300 p-4 text-base">
                 <!-- Sidebar content here -->
                 <template v-for="(item, index) in menuItems" :key="index">
                     <li

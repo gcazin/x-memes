@@ -80,7 +80,7 @@ const getRelatedMedias = () => {
                         </div>
                     </div>
                 </div>
-                <div class="space-x-1 flex-1 text-right">
+                <div class="flex-1 space-x-1 text-right">
                     <button
                         class="btn btn-circle btn-outline"
                         @click="
@@ -123,7 +123,7 @@ const getRelatedMedias = () => {
             </div>
             <div class="max-w-full">
                 <img
-                    class="object-contain mx-auto"
+                    class="mx-auto object-contain"
                     :src="`/storage/${media.filename}`"
                     alt=""
                 />
@@ -132,7 +132,7 @@ const getRelatedMedias = () => {
             <div class="mt-8" v-if="related">
                 <Stack>
                     <Text type="subtitle">Images similaires</Text>
-                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
                         <MediaItem
                             v-for="(related, index) in related"
                             :key="index"

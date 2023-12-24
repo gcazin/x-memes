@@ -1,9 +1,9 @@
 <template>
     <footer
-        class="footer mt-6 p-4 bg-neutral text-neutral-content border-t border-t-primary/10"
+        class="footer mt-6 border-t border-t-primary/10 bg-neutral p-4 text-neutral-content"
     >
-        <div class="lg:w-9/12 mx-auto flex items-center justify-between">
-            <aside class="items-center grid-flow-col">
+        <div class="mx-auto flex items-center justify-between lg:w-9/12">
+            <aside class="grid-flow-col items-center">
                 <Stack spacing="2">
                     <img
                         src="/images/favicon.png"

@@ -30,9 +30,9 @@ const notifications = page.props.auth?.notifications
 </script>
 <template>
     <div
-        class="sticky top-0 z-50 bg-slate-900/40 backdrop-blur-xl border-b border-slate-100/5"
+        class="sticky top-0 z-50 border-b border-slate-100/5 bg-slate-900/40 backdrop-blur-xl"
     >
-        <div class="navbar w-full lg:w-9/12 mx-auto px-2 lg:px-0">
+        <div class="navbar mx-auto w-full px-2 lg:w-9/12 lg:px-0">
             <div class="navbar-start">
                 <div class="dropdown">
                     <div
@@ -57,7 +57,7 @@ const notifications = page.props.auth?.notifications
                     </div>
                     <ul
                         tabindex="0"
-                        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                        class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                     >
                         <li v-for="(item, index) in menuItems" :key="index">
                             <a
@@ -81,9 +81,9 @@ const notifications = page.props.auth?.notifications
                     </ul>
                 </div>
                 <a :href="route('index')" class="text-2xl">
-                    <div class="flex items-center gap-x-2 w-full">
+                    <div class="flex w-full items-center gap-x-2">
                         <img
-                            class="w-8 lg:w-12 inline"
+                            class="inline w-8 lg:w-12"
                             src="/storage/misc/favicon.png"
                             alt=""
                         />
@@ -92,7 +92,7 @@ const notifications = page.props.auth?.notifications
                             <Tag
                                 type="secondary"
                                 size="sm"
-                                class="hidden lg:block align-middle"
+                                class="hidden align-middle lg:block"
                                 >alpha</Tag
                             >
                         </span>
@@ -100,7 +100,7 @@ const notifications = page.props.auth?.notifications
                 </a>
             </div>
             <div class="navbar-center hidden lg:flex">
-                <ul class="menu text-lg menu-horizontal">
+                <ul class="menu menu-horizontal text-lg">
                     <li v-for="(item, index) in menuItems" :key="index">
                         <a
                             :href="route(item.route)"
@@ -122,7 +122,7 @@ const notifications = page.props.auth?.notifications
             </div>
             <div class="navbar-end gap-1">
                 <template v-if="!$page.props.auth?.user">
-                    <div class="hidden lg:block space-x-1">
+                    <div class="hidden space-x-1 lg:block">
                         <a class="btn btn-ghost" :href="route('login')"
                             >Connexion</a
                         >
@@ -134,7 +134,7 @@ const notifications = page.props.auth?.notifications
                         <div
                             tabindex="0"
                             role="button"
-                            class="btn btn-ghost btn-circle"
+                            class="btn btn-circle btn-ghost"
                         >
                             <Icon
                                 class="text-3xl"
@@ -144,10 +144,10 @@ const notifications = page.props.auth?.notifications
                         </div>
                         <div
                             tabindex="0"
-                            class="mt-3 z-[1] dropdown-content w-96 bg-base-100 shadow"
+                            class="dropdown-content z-[1] mt-3 w-96 bg-base-100 shadow"
                         >
                             <ul
-                                class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52"
+                                class="menu menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                             >
                                 <li>
                                     <DropdownLink :href="route('login')">
@@ -168,13 +168,13 @@ const notifications = page.props.auth?.notifications
                         <div
                             tabindex="0"
                             role="button"
-                            class="btn btn-ghost btn-circle"
+                            class="btn btn-circle btn-ghost"
                             aria-labelledby="Notifications"
                         >
                             <div class="indicator">
                                 <Icon size="xl" name="notifications" />
                                 <span
-                                    class="badge badge-sm badge-error indicator-item"
+                                    class="badge indicator-item badge-error badge-sm"
                                     v-if="notifications.length"
                                 >
                                     {{ notifications.length }}
@@ -183,7 +183,7 @@ const notifications = page.props.auth?.notifications
                         </div>
                         <div
                             tabindex="0"
-                            class="mt-3 z-[1] dropdown-content w-96 bg-base-100 shadow"
+                            class="dropdown-content z-[1] mt-3 w-96 bg-base-100 shadow"
                         >
                             <div
                                 v-if="notifications.length"
@@ -202,13 +202,13 @@ const notifications = page.props.auth?.notifications
                                 >
                                     <div class="flex-shrink-0">
                                         <img
-                                            class="rounded-full w-11 h-11"
+                                            class="h-11 w-11 rounded-full"
                                             :src="`/storage/${notification.data.media.filename}`"
                                             alt="Jese image"
                                         />
                                     </div>
                                     <div class="w-full ps-3">
-                                        <div class="text-sm font-bold mb-1">
+                                        <div class="mb-1 text-sm font-bold">
                                             {{ notification.data.title }}
                                         </div>
                                         <div class="text-xs text-primary">
@@ -224,7 +224,7 @@ const notifications = page.props.auth?.notifications
                             </div>
                             <a
                                 href="#"
-                                class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white"
+                                class="block rounded-b-lg bg-gray-50 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                             >
                                 <div class="inline-flex items-center">
                                     <Icon name="eye" class="mr-1" />
@@ -237,12 +237,12 @@ const notifications = page.props.auth?.notifications
                         <div
                             tabindex="0"
                             role="button"
-                            class="btn btn-ghost btn-circle"
+                            class="btn btn-circle btn-ghost"
                         >
                             <Avatar size="sm" />
                         </div>
                         <ul
-                            class="mt-3 z-[1] p-2 shadow menu menu dropdown-content bg-base-100 rounded-box w-52"
+                            class="menu menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                         >
                             <li>
                                 <DropdownLink

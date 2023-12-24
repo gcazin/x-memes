@@ -14,7 +14,7 @@ const auth = usePage().props.auth?.user
 
 <template>
     <div class="flex border-t border-base-100">
-        <div role="tablist" class="flex-1 tabs tabs-lg tabs-bordered">
+        <div role="tablist" class="tabs tabs-bordered tabs-lg flex-1">
             <a
                 :href="route('user.show', user.username)"
                 role="tab"
@@ -33,7 +33,7 @@ const auth = usePage().props.auth?.user
             </a>
             <a role="tab" class="tab pb-4">Éditer le profil</a>
         </div>
-        <div class="flex-1 text-right p-1">
+        <div class="flex-1 p-1 text-right">
             <template v-if="auth && user.id !== auth.id">
                 <FollowButton :user="user" />
             </template>

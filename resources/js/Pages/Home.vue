@@ -27,20 +27,20 @@ formService.setForm(form).setRouteName('waitlist')
     <Head title="Waitlist" />
     <PageLayout :has-header="false" :has-navbar="false" is-full-size>
         <div
-            class="hero relative flex flex-col justify-center dark:bg-bottom dark:border-b dark:border-slate-100/5"
+            class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
         >
-            <div class="hero-content pt-12 lg:pt-24 text-center">
+            <div class="hero-content pt-12 text-center lg:pt-24">
                 <div class="flex flex-col">
                     <img
-                        class="mask mask-squircle w-32 shadow mb-8 mx-auto"
+                        class="mask mask-squircle mx-auto mb-8 w-32 shadow"
                         src="images/favicon-with-background.jpg"
                         alt=""
                     />
-                    <h1 class="text-3xl lg:text-5xl font-bold">
+                    <h1 class="text-3xl font-bold lg:text-5xl">
                         La plateforme qui te permet de retrouver tes mèmes
                         préférés!
                     </h1>
-                    <p class="lg:text-xl py-6">
+                    <p class="py-6 lg:text-xl">
                         X-Memes est une plateforme où tu peux t'inscrire,
                         publier et voir les mèmes que la communauté a posté.
                     </p>
@@ -48,12 +48,12 @@ formService.setForm(form).setRouteName('waitlist')
                         <button class="btn btn-primary btn-lg">
                             Découvrir
                         </button>
-                        <button class="btn btn-primary btn-outline btn-lg">
+                        <button class="btn btn-outline btn-primary btn-lg">
                             Se connecter
                         </button>
                     </div>
                     <template v-else>
-                        <div class="flex-1 mb-8">
+                        <div class="mb-8 flex-1">
                             <Stack>
                                 <p class="text-lg lg:text-xl">
                                     En t'inscrivant à la waitlist, tu
@@ -64,7 +64,7 @@ formService.setForm(form).setRouteName('waitlist')
                                     :
                                 </p>
 
-                                <div class="text-lg lg:text-xl space-y-1">
+                                <div class="space-y-1 text-lg lg:text-xl">
                                     <p>
                                         <Icon
                                             class="text-success"
@@ -93,11 +93,11 @@ formService.setForm(form).setRouteName('waitlist')
                         </div>
                         <div
                             v-if="waitlist.length < numberOfPlaces"
-                            class="w-full lg:w-7/12 lg:mx-auto"
+                            class="w-full lg:mx-auto lg:w-7/12"
                         >
                             <form
                                 v-if="!form.wasSuccessful"
-                                class="flex flex-col gap-2 w-full"
+                                class="flex w-full flex-col gap-2"
                                 @submit.prevent="formService.handle('store')"
                             >
                                 <TextInput
@@ -122,10 +122,10 @@ formService.setForm(form).setRouteName('waitlist')
                         </div>
                         <div
                             v-if="form.wasSuccessful"
-                            class="w-full lg:w-7/12 lg:mx-auto"
+                            class="w-full lg:mx-auto lg:w-7/12"
                         >
                             <div
-                                class="alert alert-success justify-center mt-8"
+                                class="alert alert-success mt-8 justify-center"
                             >
                                 Ton inscription a bien été prise en compte, tu
                                 recevras un mail sous peu !
@@ -133,7 +133,7 @@ formService.setForm(form).setRouteName('waitlist')
                         </div>
                         <div
                             v-if="waitlist.length === numberOfPlaces"
-                            class="w-full lg:w-7/12 lg:mx-auto text-xl text-info mt-6"
+                            class="mt-6 w-full text-xl text-info lg:mx-auto lg:w-7/12"
                         >
                             L'inscription est malheureusement terminée. :/
                             <p>
@@ -178,21 +178,21 @@ formService.setForm(form).setRouteName('waitlist')
             </div>
         </div>
 
-        <div class="relative px-8 lg:px-0 pt-20 pb-16 text-center bg-base-300">
+        <div class="relative bg-base-300 px-8 pb-16 pt-20 text-center lg:px-0">
             <Stack>
-                <p class="uppercase text-primary font-bold">Services</p>
+                <p class="font-bold uppercase text-primary">Services</p>
                 <h2 class="text-4xl">Fonctionnalités</h2>
                 <p class="text-xl">
                     X-Memes t'offre une variété de fonctionnalités te permettant
                     de poster, télécharger et suivre les personnes que tu aimes.
                 </p>
                 <div
-                    class="grid grid-cols-1 lg:grid-cols-5 lg:w-9/12 mx-auto py-16 gap-16"
+                    class="mx-auto grid grid-cols-1 gap-16 py-16 lg:w-9/12 lg:grid-cols-5"
                 >
                     <div class="flex-1">
                         <Stack>
                             <Icon
-                                class="bg-primary rounded-full p-4"
+                                class="rounded-full bg-primary p-4"
                                 size="5xl"
                                 name="add"
                             />
@@ -202,7 +202,7 @@ formService.setForm(form).setRouteName('waitlist')
                     <div class="flex-1">
                         <Stack>
                             <Icon
-                                class="bg-primary rounded-full p-4"
+                                class="rounded-full bg-primary p-4"
                                 size="5xl"
                                 name="image"
                             />
@@ -215,7 +215,7 @@ formService.setForm(form).setRouteName('waitlist')
                     <div class="flex-1">
                         <Stack>
                             <Icon
-                                class="bg-primary rounded-full p-4"
+                                class="rounded-full bg-primary p-4"
                                 size="5xl"
                                 name="eye"
                             />
@@ -227,7 +227,7 @@ formService.setForm(form).setRouteName('waitlist')
                     <div class="flex-1">
                         <Stack>
                             <Icon
-                                class="bg-primary rounded-full p-4"
+                                class="rounded-full bg-primary p-4"
                                 size="5xl"
                                 name="diamond"
                             />
@@ -240,7 +240,7 @@ formService.setForm(form).setRouteName('waitlist')
                     <div class="flex-1">
                         <Stack>
                             <Icon
-                                class="bg-primary rounded-full p-4"
+                                class="rounded-full bg-primary p-4"
                                 size="5xl"
                                 name="people"
                             />
@@ -253,10 +253,10 @@ formService.setForm(form).setRouteName('waitlist')
             </Stack>
         </div>
 
-        <div class="relative px-8 lg:px-0 pt-20 pb-16 text-center">
+        <div class="relative px-8 pb-16 pt-20 text-center lg:px-0">
             <div class="relative">
                 <Stack class="mb-16">
-                    <p class="uppercase text-primary font-bold">FAQ</p>
+                    <p class="font-bold uppercase text-primary">FAQ</p>
                     <h2 class="text-4xl">Une question ?</h2>
                     <p class="text-xl">
                         Si tu trouves pas la réponse à ta question, ou si tu as
@@ -268,7 +268,7 @@ formService.setForm(form).setRouteName('waitlist')
                         >.
                     </p>
                 </Stack>
-                <div class="flex flex-wrap lg:w-9/12 mx-auto">
+                <div class="mx-auto flex flex-wrap lg:w-9/12">
                     <div class="w-full px-4">
                         <div class="mb-12 flex lg:mb-[70px]">
                             <div

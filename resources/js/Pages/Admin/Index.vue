@@ -17,7 +17,7 @@ defineProps({
 
 <template>
     <AdminDashboardLayout title="Dashboard">
-        <div class="stats shadow w-full bg-base-300">
+        <div class="stats w-full bg-base-300 shadow">
             <div class="stat">
                 <div class="stat-figure text-primary">
                     <Icon name="people" size="3xl" />

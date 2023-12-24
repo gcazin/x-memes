@@ -13,7 +13,7 @@ defineProps({
 </script>
 <template>
     <UserLayout :user="user" :medias="medias">
-        <div class="grid grid-cols-6 text-center gap-4 py-10">
+        <div class="grid grid-cols-6 gap-4 py-10 text-center">
             <div
                 v-if="user.badges.length"
                 v-for="(badge, index) in user.badges"

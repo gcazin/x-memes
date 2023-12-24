@@ -149,7 +149,7 @@ formService.setForm(form)
                     </template>
                     <template #actions="item">
                         <span
-                            class="cursor-pointer transition px-1 hover:text-primary"
+                            class="cursor-pointer px-1 transition hover:text-primary"
                             @click="
                                 formService
                                     .setRouteName('admin.media')

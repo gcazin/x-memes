@@ -34,20 +34,20 @@ defineProps({
         <BlobBackground />
         <!-- Page Heading -->
         <header v-if="hasHeader">
-            <div class="lg:w-9/12 mx-auto py-6 px-6 lg:px-0">
+            <div class="mx-auto px-6 py-6 lg:w-9/12 lg:px-0">
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
                             <div class="flex gap-2">
                                 <h1
-                                    class="font-semibold text-3xl leading-tight"
+                                    class="text-3xl font-semibold leading-tight"
                                 >
                                     {{ title }}
                                 </h1>
                                 <slot name="title" />
                             </div>
                         </template>
-                        <h1 v-else class="font-semibold text-2xl leading-tight">
+                        <h1 v-else class="text-2xl font-semibold leading-tight">
                             {{ title }}
                         </h1>
                         <template v-if="$slots.subtitle">
@@ -69,7 +69,7 @@ defineProps({
         <!-- Page Content -->
         <main
             class="relative"
-            :class="isFullSize ? 'w-full' : 'lg:w-9/12 px-6 lg:px-0 mx-auto'"
+            :class="isFullSize ? 'w-full' : 'mx-auto px-6 lg:w-9/12 lg:px-0'"
         >
             <slot />
         </main>

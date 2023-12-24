@@ -27,7 +27,7 @@ const iconColor = computed(() => {
 </script>
 <template>
     <span
-        class="cursor-pointer transition px-1"
+        class="cursor-pointer px-1 transition"
         :class="`hover:text-${iconColor}`"
     >
         <Icon size="2xl" :name="iconName" />

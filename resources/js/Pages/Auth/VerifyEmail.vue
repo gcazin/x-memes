@@ -30,7 +30,7 @@ const verificationLinkSent = computed(
         </div>
 
         <div
-            class="mb-4 font-medium text-sm text-green-600 dark:text-green-400"
+            class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
             v-if="verificationLinkSent"
         >
             A new verification link has been sent to the email address you
@@ -50,7 +50,7 @@ const verificationLinkSent = computed(
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                     >Log Out</Link
                 >
             </div>

@@ -10,7 +10,7 @@ defineProps({
         :class="
             spacing
                 ? `space-y-${spacing} gap-y-${spacing}`
-                : 'space-y-4 gap-y-4'
+                : 'gap-y-4 space-y-4'
         "
     >
         <slot />

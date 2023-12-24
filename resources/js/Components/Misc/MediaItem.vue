@@ -24,20 +24,20 @@ const form = useForm({
             <a :href="route('media.show', media.id)">
                 <video
                     controls
-                    class="h-96 w-full object-cover shadow rounded-lg"
+                    class="h-96 w-full rounded-lg object-cover shadow"
                     v-if="media.extension === 'mp4'"
                     :src="`/storage/${media.name}`"
                 ></video>
                 <img
                     v-else
-                    class="h-96 w-full object-cover shadow rounded-lg"
+                    class="h-96 w-full rounded-lg object-cover shadow"
                     :src="`/storage/${media.filename}`"
                     :alt="media.name"
                     loading="lazy"
                 />
             </a>
             <div
-                class="bg-gradient-to-t from-5% from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 duration-500 absolute inset-x-0 bottom-0 flex items-end py-8 px-4"
+                class="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% to-transparent px-4 py-8 opacity-0 duration-500 group-hover:opacity-100"
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
@@ -58,7 +58,7 @@ const form = useForm({
                                 ? media.likers
                                       ?.map((liker) => liker.id)
                                       .includes($page.props.auth.user.id)
-                                    ? 'btn-error btn-outline'
+                                    ? 'btn-outline btn-error'
                                     : 'btn-ghost'
                                 : ''
                         "

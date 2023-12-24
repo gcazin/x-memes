@@ -57,7 +57,7 @@ const toggleTheme = (selectedTheme) => {
         </p>
     </header>
 
-    <div class="flex flex-col lg:flex-row gap-10 mt-6">
+    <div class="mt-6 flex flex-col gap-10 lg:flex-row">
         <div class="flex-1">
             <p class="mb-2 font-bold">Thème foncé</p>
             <div
@@ -71,7 +71,7 @@ const toggleTheme = (selectedTheme) => {
                     <input
                         type="radio"
                         name="theme-radios"
-                        class="radio theme-controller"
+                        class="theme-controller radio"
                         :value="theme.name"
                         @click="toggleTheme(theme.name)"
                         :checked="currentTheme() === theme.name"
@@ -92,7 +92,7 @@ const toggleTheme = (selectedTheme) => {
                     <input
                         type="radio"
                         name="theme-radios"
-                        class="radio theme-controller"
+                        class="theme-controller radio"
                         :value="theme.name"
                         @click="toggleTheme(theme.name)"
                         :checked="currentTheme() === theme.name"

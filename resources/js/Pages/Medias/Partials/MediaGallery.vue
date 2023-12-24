@@ -195,7 +195,7 @@ const fetchData = (url, filters = null) => {
                 </span>
             </div>
             <div
-                class="flex-1 text-center lg:text-right space-x-2"
+                class="flex-1 space-x-2 text-center lg:text-right"
                 v-if="(tags && tags.length) || sortBy"
             >
                 <div
@@ -211,14 +211,14 @@ const fetchData = (url, filters = null) => {
                     </div>
                     <ul
                         tabindex="0"
-                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
                         aria-labelledby="dropdownSortButton"
                     >
                         <li v-for="(sort, index) in sortBy" :key="index">
                             <a @click="sortByProperty(index, sort.value)">
                                 {{ sort.name }}
                                 <Icon
-                                    class="inline ms-auto"
+                                    class="ms-auto inline"
                                     :name="`arrow-${checkIfSortIsSelected(
                                         sort.value
                                     )}`"
@@ -237,7 +237,7 @@ const fetchData = (url, filters = null) => {
                     </div>
                     <ul
                         tabindex="0"
-                        class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
                         aria-labelledby="dropdownTagsButton"
                     >
                         <li v-for="(tag, index) in tags" :key="index">
@@ -246,7 +246,7 @@ const fetchData = (url, filters = null) => {
                                     :id="`checkbox-item-${tag.name}`"
                                     type="checkbox"
                                     :value="tag.name"
-                                    class="checkbox checkbox-primary checkbox-sm"
+                                    class="checkbox-primary checkbox checkbox-sm"
                                     :checked="checkIfTagIsSelected(tag.id)"
                                 />
                                 <label for="checkbox-item-1" class="label">
@@ -262,7 +262,7 @@ const fetchData = (url, filters = null) => {
         <div
             ref="wrapper"
             v-if="allPosts.length"
-            class="grid grid-cols-1 md:grid-cols-3 gap-6"
+            class="grid grid-cols-1 gap-6 md:grid-cols-3"
             :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
         >
             <div
@@ -273,7 +273,7 @@ const fetchData = (url, filters = null) => {
                 <MediaItem :media="media" />
             </div>
             <div
-                class="flex items-center justify-center py-4 mt-28"
+                class="mt-28 flex items-center justify-center py-4"
                 ref="loadMoreIntersect"
             >
                 <template v-if="loading">
