@@ -30,7 +30,7 @@ const submit = () => {
 <template>
     <form @submit.prevent="submit">
         <button
-            class="btn btn-primary"
+            class="btn btn-outline btn-primary"
             :class="{ 'btn-outline': checkIfAuthIsFollowing() }"
         >
             {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}

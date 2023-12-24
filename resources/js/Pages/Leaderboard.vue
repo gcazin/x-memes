@@ -29,7 +29,7 @@ defineProps({
                 <div class="flex flex-col items-center justify-center gap-4">
                     <Avatar size="lg" :user="member" />
                     <Text type="subtitle">{{ member.username }}</Text>
-                    <div class="badge badge-lg bg-primary/10 text-primary">
+                    <div class="badge badge-lg bg-secondary/10 text-secondary">
                         {{ member.medias_count }} médias postés
                     </div>
                     <FollowButton :user="member" />
@@ -44,11 +44,9 @@ defineProps({
             has-background
         >
             <template #increment="{ index }">
-                <span
-                    class="whitespace-nowrap font-bold text-blue-500 dark:text-blue-600"
-                >
+                <Text class="font-bold !text-secondary">
                     {{ index + 1 }}
-                </span>
+                </Text>
             </template>
             <template #username="item">
                 <a :href="route('user.show', item.username)">

@@ -81,7 +81,7 @@ formService.setForm(form).setRouteName('user')
                     />
                     <button
                         v-else
-                        class="btn btn-outline btn-info"
+                        class="btn btn-outline btn-secondary btn-sm"
                         @click="formService.openModal('editProfile')"
                     >
                         Modifier le profil
