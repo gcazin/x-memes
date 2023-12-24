@@ -82,10 +82,11 @@ const checkIfTagIsSelected = (tag) => {
 
 const checkIfSortIsSelected = (sort) => {
     const selector = selectedFilters.value.sort
-    console.log(selector, sort)
+
     if (selector && selector === sort) {
         return selector.charAt(0) === '-' ? 'down' : 'up'
     }
+
     return 'down'
 }
 
@@ -133,8 +134,6 @@ const addSelectedTag = (tag) => {
         selected.push(tag)
     }
 
-    console.log(selected)
-
     return getFiltersToSend()
 }
 
@@ -168,7 +167,6 @@ const sortByProperty = (index, sorting) => {
 }
 
 const fetchData = (url, filters = null) => {
-    console.log(filters)
     loading.value = true
     router.visit(url, {
         data: filters ?? {},
@@ -181,7 +179,7 @@ const fetchData = (url, filters = null) => {
             } else {
                 allPosts.value = [...allPosts.value, ...props.medias.data]
             }
-            // window.history.replaceState({}, '', pagination.value.path)
+            window.history.replaceState({}, '', pagination.value.path)
             pagination.value = props.medias
             loading.value = false
         },

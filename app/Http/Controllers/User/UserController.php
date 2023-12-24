@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\User;
 use App\Repositories\MediaRepository;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -23,15 +21,6 @@ class UserController extends Controller
         $user = User::with('badges', 'medias', 'followers', 'followings')
             ->where('username', $username)
             ->first();
-
-        /*$filesystem = new Filesystem;
-        $path = 'storage/'.$user->avatar;
-        $name = $filesystem->name($path);
-        $extension = $filesystem->extension($path);
-        $originalName = $name . '.' . $extension;
-        $mimeType = $filesystem->mimeType($path);
-
-        $user->uploaded_avatar = new UploadedFile($path, $originalName, $mimeType);*/
 
         $medias = $this->mediaRepository->paginateByUser($user->id);
 

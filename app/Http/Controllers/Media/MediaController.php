@@ -11,7 +11,6 @@ use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -70,6 +69,7 @@ class MediaController extends Controller
             'medias' => $medias->paginate(),
             'tags' => $this->tagRepository->all(),
             'sortBy' => $sortBy->toArray(),
+            'duplicatedImage' => session('duplicatedImage'),
         ]);
     }
 
@@ -157,17 +157,17 @@ class MediaController extends Controller
     /**
      * Checks if file is duplicated.
      */
-    public function duplicate(Request $request): JsonResponse
+    public function duplicate(Request $request): RedirectResponse
     {
         $imageHash = Comparator::convertHashToBinaryString(Comparator::hashImage($request->file('media_id')));
 
-        $findSimilaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
+        $similaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
 
-        if ($findSimilaryMedia) {
-            return response()->json(['foundedImage' => $findSimilaryMedia]);
+        if ($similaryMedia) {
+            return back()->with('duplicatedImage', $similaryMedia->filename);
         }
 
-        return response()->json(['foundedImage' => null]);
+        return back()->with('duplicatedImage');
     }
 
     /**

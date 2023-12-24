@@ -82,7 +82,6 @@ class FormService {
                 })
                 break
             case 'update':
-                console.log(this.form)
                 this.form.post(route(`${routeName}.update`, item?.id), {
                     _method: 'put',
                     preserveScroll: true,

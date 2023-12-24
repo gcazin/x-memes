@@ -4,13 +4,14 @@ import { useForm, usePage } from '@inertiajs/vue3'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
 import axios from 'axios'
 import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
 import Multiselect from '@vueform/multiselect'
 import formService from '@/Services/form.service.js'
 import Stack from '@/Components/Layout/Stack.vue'
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 
 const props = defineProps({
     medias: {
@@ -21,6 +22,9 @@ const props = defineProps({
     },
     sortBy: {
         type: Array,
+    },
+    duplicatedImage: {
+        type: String,
     },
 })
 
@@ -41,36 +45,20 @@ const form = useForm({
     tags: [],
 })
 
-const state = reactive({
-    foundedImage: null,
-})
+const duplicated = ref(null)
 
-const handleMedia = (event) => {
+const checkIfMediaIsDuplicated = (event) => {
     form.media_id = event.target.files[0]
 
-    axios
-        .post(
-            route('media.duplicate'),
-            {
-                media_id: form.media_id,
-            },
-            {
-                headers: {
-                    'content-type': 'multipart/form-data',
-                },
-            }
-        )
-        .then((response) => {
-            if (response.data.foundedImage) {
-                state.foundedImage = response.data.foundedImage
-                return form.reset('media_id')
+    form.post(route('media.duplicate', form.media_id), {
+        onSuccess: (page) => {
+            if (page.props.duplicatedImage) {
+                duplicated.value = page.props.duplicatedImage
             } else {
-                state.foundedImage = null
+                duplicated.value = null
             }
-        })
-        .catch((e) => {
-            console.log(e)
-        })
+        },
+    })
 }
 
 formService.setForm(form).setRouteName('media')
@@ -110,7 +98,7 @@ formService.setForm(form).setRouteName('media')
                             type="file"
                             class="file-input file-input-primary file-input-bordered w-full"
                             id="media_id"
-                            @input="handleMedia"
+                            @input="checkIfMediaIsDuplicated"
                         />
                         <InputError :message="form.errors.media_id" />
                     </div>
@@ -127,36 +115,31 @@ formService.setForm(form).setRouteName('media')
                             :options="tagsOptions"
                         />
                     </div>
-                    <template v-if="state.foundedImage">
-                        <div role="alert" class="alert alert-info">
-                            <ion-icon
-                                class="text-xl"
-                                name="information-outline"
-                            ></ion-icon>
-                            <span>1 image similaire a été trouvé!</span>
-                        </div>
-                        <div class="my-2">
-                            <img
-                                class="w-40 rounded-xl"
-                                :src="`/storage/${state.foundedImage.filename}`"
-                                alt=""
-                            />
-                        </div>
+                    <template v-if="duplicated">
+                        <Stack>
+                            <div role="alert" class="alert alert-info">
+                                <ion-icon
+                                    class="text-xl"
+                                    name="information-outline"
+                                ></ion-icon>
+                                <span>1 image similaire a été trouvé!</span>
+                            </div>
+                            <div>
+                                <img
+                                    class="w-40 rounded-xl"
+                                    :src="`/storage/${duplicated}`"
+                                    alt=""
+                                />
+                            </div>
+                        </Stack>
                     </template>
-                    <button
+                    <LoadingButton
                         class="btn btn-primary"
-                        :disabled="form.processing || state.foundedImage"
+                        :loading="form.processing"
+                        :disabled="form.processing || duplicated"
                     >
-                        <span
-                            v-if="form.processing"
-                            class="loading loading-spinner"
-                        ></span>
-                        {{
-                            state.foundedImage
-                                ? `La poster quand même?`
-                                : 'Ajouter'
-                        }}
-                    </button>
+                        {{ duplicated ? `La poster quand même?` : 'Ajouter' }}
+                    </LoadingButton>
                 </Stack>
             </form>
         </Modal>
