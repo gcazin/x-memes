@@ -13,6 +13,7 @@ use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -84,7 +85,7 @@ class MediaController extends Controller
         $media = Media::create([
             'name' => $request->name,
             'filename' => $path,
-            'extension' => $file->getClientOriginalExtension(),
+            'extension' => $file->extension(),
             'hash' => Comparator::convertHashToBinaryString(
                 Comparator::hashImage($file)
             ),
@@ -96,7 +97,7 @@ class MediaController extends Controller
         }
 
         if ($request->user()->isSuperAdmin()) {
-            $this->approve($request, $media->id);
+            $this->approve($media->id);
         } else {
             flash(
                 'info',
@@ -175,7 +176,7 @@ class MediaController extends Controller
      *
      * @return void
      */
-    public function approve(Request $request, int $id)
+    public function approve(int $id)
     {
         $media = $this->mediaRepository->find($id);
 
@@ -185,17 +186,14 @@ class MediaController extends Controller
 
         $media->update();
 
-        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
-
         Mail::to($media->user)->send(new MediaApprovedMail($media));
-
         Notification::send($media->user, new ApprovedMediaNotification($media));
+
+        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
     }
 
     /**
      * Download media.
-     *
-     * @return RedirectResponse
      */
     public function download(int $id)
     {

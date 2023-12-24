@@ -30,6 +30,7 @@ const form = useForm({
     media_id: props.media.id,
 })
 
+// TODO: put this in the method download directly
 const downloadItem = (item) => {
     form.get(route('media.download', form.media_id), {
         onSuccess: (page) => {
