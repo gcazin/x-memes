@@ -42,7 +42,7 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-                <InputError class="mt-2" :message="form.errors.username" />
+                <InputError :message="form.errors.username" />
 
                 <TextInput
                     label="Mot de passe"
@@ -53,7 +53,7 @@ const submit = () => {
                     required
                     autocomplete="current-password"
                 />
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError :message="form.errors.password" />
 
                 <div class="block mt-4">
                     <label class="flex items-center">

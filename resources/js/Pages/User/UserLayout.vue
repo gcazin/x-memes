@@ -117,10 +117,7 @@ formService.setForm(form).setRouteName('user')
                                             form.avatar = $event.target.files[0]
                                         "
                                     />
-                                    <InputError
-                                        class="mt-2"
-                                        :message="form.errors.avatar"
-                                    />
+                                    <InputError :message="form.errors.avatar" />
                                 </div>
                                 <div>
                                     <progress
@@ -140,7 +137,6 @@ formService.setForm(form).setRouteName('user')
                                         autocomplete="description"
                                     />
                                     <InputError
-                                        class="mt-2"
                                         :message="form.errors.description"
                                     />
                                 </div>

@@ -44,7 +44,7 @@ formService.setForm(form).setRouteName('profile')
             required
             autocomplete="username"
         />
-        <InputError class="mt-2" :message="form.errors.email" />
+        <InputError :message="form.errors.email" />
 
         <div v-if="mustVerifyEmail && user.email_verified_at === null">
             <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">

@@ -112,10 +112,7 @@ formService.setForm(form).setRouteName('media')
                             id="media_id"
                             @input="handleMedia"
                         />
-                        <InputError
-                            class="mt-2"
-                            :message="form.errors.media_id"
-                        />
+                        <InputError :message="form.errors.media_id" />
                     </div>
 
                     <div>

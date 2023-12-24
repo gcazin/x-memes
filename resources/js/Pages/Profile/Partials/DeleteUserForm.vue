@@ -73,7 +73,7 @@ const closeModal = () => {
                 @keyup.enter="deleteUser"
             />
 
-            <InputError :message="form.errors.password" class="mt-2" />
+            <InputError :message="form.errors.password" />
 
             <div class="mt-6 flex justify-end">
                 <button

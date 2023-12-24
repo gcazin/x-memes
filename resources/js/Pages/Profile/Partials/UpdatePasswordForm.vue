@@ -52,7 +52,7 @@ const updatePassword = () => {
             type="password"
             autocomplete="current-password"
         />
-        <InputError :message="form.errors.current_password" class="mt-2" />
+        <InputError :message="form.errors.current_password" />
 
         <TextInput
             label="Nouveau mot de passe"
@@ -62,7 +62,7 @@ const updatePassword = () => {
             class="mt-1 block w-full"
             autocomplete="new-password"
         />
-        <InputError :message="form.errors.password" class="mt-2" />
+        <InputError :message="form.errors.password" />
 
         <TextInput
             label="Confirmation du mot de passe"
@@ -73,7 +73,7 @@ const updatePassword = () => {
             autocomplete="new-password"
         />
 
-        <InputError :message="form.errors.password_confirmation" class="mt-2" />
+        <InputError :message="form.errors.password_confirmation" />
 
         <div class="flex items-center gap-4">
             <button class="btn btn-primary" :disabled="form.processing">
