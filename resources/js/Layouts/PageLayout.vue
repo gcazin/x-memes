@@ -28,7 +28,7 @@ defineProps({
 <template>
     <Head :title="title"></Head>
 
-    <div class="relative min-h-screen bg-slate-900">
+    <div class="relative min-h-screen bg-base-100">
         <Navbar v-if="hasNavbar" />
 
         <BlobBackground />

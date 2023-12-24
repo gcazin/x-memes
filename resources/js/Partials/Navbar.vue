@@ -30,7 +30,7 @@ const notifications = page.props.auth?.notifications
 </script>
 <template>
     <div
-        class="sticky top-0 z-50 border-b border-slate-100/5 bg-slate-900/40 backdrop-blur-xl"
+        class="sticky top-0 z-50 border-b border-slate-100/5 bg-base-100/40 backdrop-blur-xl"
     >
         <div class="navbar mx-auto w-full px-2 lg:w-9/12 lg:px-0">
             <div class="navbar-start">

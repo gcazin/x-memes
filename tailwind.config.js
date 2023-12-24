@@ -43,11 +43,11 @@ export default {
             "pastel",
             {
                 dark: {
-                    "primary": "#2563eb",
-                    "secondary": "#4f46e5",
+                    "primary": "#1e40af",
+                    "secondary": "#af8d1e",
                     "accent": "#4c1d95",
                     "neutral": "#0c111e",
-                    "base-100": "#111827",
+                    "base-100": "#0f172a",
                     "info": "#0e7490",
                     "success": "#15803d",
                     "warning": "#c2410c",
