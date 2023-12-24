@@ -1,6 +1,6 @@
 <script setup>
-import UserLayout from '@/Pages/User/UserLayout.vue'
 import Badge from '@/Components/Misc/Badge.vue'
+import UserLayout from '@/Pages/User/UserLayout.vue'
 
 defineProps({
     user: {

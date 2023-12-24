@@ -1,10 +1,10 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3'
-import PageLayout from '@/Layouts/PageLayout.vue'
-import Icon from '@/Components/Misc/Icon.vue'
-import Stack from '@/Components/Layout/Stack.vue'
-import formService from '@/Services/form.service.js'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import Stack from '@/Components/Layout/Stack.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import formService from '@/Services/form.service.js'
+import { Head, useForm } from '@inertiajs/vue3'
 
 defineProps({
     stage: {

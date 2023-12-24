@@ -1,12 +1,8 @@
 <script setup>
 import InputError from '@/Components/Elements/Form/InputError.vue'
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import { Link, useForm, usePage } from '@inertiajs/vue3'
-import { ref } from 'vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
-import Textarea from '@/Components/Elements/Form/Textarea.vue'
 import formService from '@/Services/form.service.js'
+import { Link, useForm, usePage } from '@inertiajs/vue3'
 
 defineProps({
     mustVerifyEmail: {

@@ -1,17 +1,16 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue'
-import { useForm, usePage } from '@inertiajs/vue3'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
-import { computed, reactive, ref } from 'vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
-import axios from 'axios'
-import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
-import Multiselect from '@vueform/multiselect'
-import formService from '@/Services/form.service.js'
 import Stack from '@/Components/Layout/Stack.vue'
-import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
+import formService from '@/Services/form.service.js'
+import { useForm, usePage } from '@inertiajs/vue3'
+import Multiselect from '@vueform/multiselect'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     medias: {

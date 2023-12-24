@@ -1,11 +1,9 @@
 <script setup>
 import InputError from '@/Components/Elements/Form/InputError.vue'
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
-import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Components/Layout/Section.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import { Link, useForm } from '@inertiajs/vue3'
 
 const form = useForm({
     username: '',

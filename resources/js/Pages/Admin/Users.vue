@@ -1,12 +1,12 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3'
-import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
-import Table from '@/Pages/Admin/Partials/Table.vue'
-import Card from '@/Components/Misc/Card.vue'
 import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
-import formService from '@/Services/form.service.js'
 import DeleteModal from '@/Components/Elements/Modal/ActionModal.vue'
 import Stack from '@/Components/Layout/Stack.vue'
+import Card from '@/Components/Misc/Card.vue'
+import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import Table from '@/Pages/Admin/Partials/Table.vue'
+import formService from '@/Services/form.service.js'
+import { useForm } from '@inertiajs/vue3'
 
 defineProps({
     users: {

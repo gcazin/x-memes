@@ -1,16 +1,16 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
+import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
+import InputError from '@/Components/Elements/Form/InputError.vue'
+import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import Modal from '@/Components/Elements/Modal/Modal.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Text.vue'
 import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
 import Table from '@/Pages/Admin/Partials/Table.vue'
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import Modal from '@/Components/Elements/Modal/Modal.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import Tag from '@/Components/Misc/Tag.vue'
-import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
 import formService from '@/Services/form.service.js'
-import Icon from '@/Components/Misc/Icon.vue'
-import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
+import { useForm } from '@inertiajs/vue3'
 
 defineProps({
     users: {

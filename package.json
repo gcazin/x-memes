@@ -4,17 +4,19 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "prettier": "prettier . --write && ./vendor/bin/pint"
+        "prettier": "prettier . --write --log-level=silent && ./vendor/bin/pint"
     },
     "dependencies": {
         "@vueform/multiselect": "^2.6.6",
         "lodash": "^4.17.21",
+        "typescript": "^5.3.3",
         "vue3-tags-input": "^1.0.12"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-vue": "^4.0.0",
+        "@volar/vue-typescript": "^1.6.5",
         "autoprefixer": "^10.4.12",
         "axios": "^1.6.1",
         "daisyui": "^4.4.19",
@@ -24,6 +26,7 @@
         "mini-svg-data-uri": "^1.4.4",
         "postcss": "^8.4.18",
         "prettier": "3.1.1",
+        "prettier-plugin-organize-imports": "^3.2.4",
         "sass": "^1.69.5",
         "tailwindcss": "^3.2.1",
         "vite": "^4.0.0",

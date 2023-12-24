@@ -1,8 +1,8 @@
 <script setup>
-import { computed } from 'vue'
 import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import { Link, useForm } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 const props = defineProps({
     status: {

@@ -1,6 +1,6 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3'
 import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
+import { usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
     user: {

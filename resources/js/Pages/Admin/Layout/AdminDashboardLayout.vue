@@ -1,8 +1,8 @@
 <script setup>
-import helperService from '@/Services/helper.service.js'
-import Toast from '@/Components/Misc/Toast.vue'
-import Icon from '@/Components/Misc/Icon.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import Toast from '@/Components/Misc/Toast.vue'
+import helperService from '@/Services/helper.service.js'
 import { Head } from '@inertiajs/vue3'
 
 defineProps({

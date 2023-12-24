@@ -1,6 +1,6 @@
 <script setup>
-import { computed } from 'vue'
 import { Head } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 const props = defineProps({ status: Number })
 

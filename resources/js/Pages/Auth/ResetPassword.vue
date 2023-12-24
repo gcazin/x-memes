@@ -1,10 +1,10 @@
 <script setup>
+import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import { Head, useForm } from '@inertiajs/vue3'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import { useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
     email: {

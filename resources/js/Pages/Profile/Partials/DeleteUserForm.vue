@@ -1,13 +1,10 @@
 <script setup>
 import InputError from '@/Components/Elements/Form/InputError.vue'
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
-import Modal from '@/Components/Elements/Modal/Modal.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import { useForm } from '@inertiajs/vue3'
-import { nextTick, ref } from 'vue'
-import Section from '@/Components/Layout/Section.vue'
+import Modal from '@/Components/Elements/Modal/Modal.vue'
 import formService from '@/Services/form.service.js'
-import ActionModal from '@/Components/Elements/Modal/ActionModal.vue'
+import { useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 const passwordInput = ref(null)
 

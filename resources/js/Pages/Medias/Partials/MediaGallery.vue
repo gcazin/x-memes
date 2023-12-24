@@ -1,11 +1,9 @@
 <script setup>
-import { useForm } from '@inertiajs/vue3'
-import { onBeforeMount, onMounted, ref, toRef } from 'vue'
-import { router } from '@inertiajs/vue3'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import { all } from 'axios'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
+import { router, useForm } from '@inertiajs/vue3'
+import { onMounted, ref, toRef } from 'vue'
 
 const props = defineProps({
     medias: {

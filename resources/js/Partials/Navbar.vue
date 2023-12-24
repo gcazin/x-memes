@@ -1,11 +1,10 @@
 <script setup>
-import DropdownLink from '@/Components/Misc/DropdownLink.vue'
-import { onMounted, ref } from 'vue'
-import { usePage } from '@inertiajs/vue3'
-import helperService from '@/Services/helper.service.js'
 import Avatar from '@/Components/Misc/Avatar.vue'
+import DropdownLink from '@/Components/Misc/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
+import helperService from '@/Services/helper.service.js'
+import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
 

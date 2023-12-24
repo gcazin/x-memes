@@ -1,12 +1,10 @@
 <script setup>
-import { Head, useForm } from '@inertiajs/vue3'
-import Card from '@/Components/Misc/Card.vue'
-import Table from '@/Pages/Admin/Partials/Table.vue'
-import PageLayout from '@/Layouts/PageLayout.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
-import Text from '@/Components/Text.vue'
-import formService from '@/Services/form.service.js'
 import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
+import Avatar from '@/Components/Misc/Avatar.vue'
+import Card from '@/Components/Misc/Card.vue'
+import Text from '@/Components/Text.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import Table from '@/Pages/Admin/Partials/Table.vue'
 
 defineProps({
     leaderboard: {

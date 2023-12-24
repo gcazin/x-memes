@@ -1,17 +1,14 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue'
-import { Head, useForm, usePage, router } from '@inertiajs/vue3'
-import Text from '@/Components/Text.vue'
-import Tag from '@/Components/Misc/Tag.vue'
-import Card from '@/Components/Misc/Card.vue'
-import axios from 'axios'
 import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
 import Stack from '@/Components/Layout/Stack.vue'
+import Avatar from '@/Components/Misc/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import formService from '@/Services/form.service.js'
-import { onMounted } from 'vue'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
+import Text from '@/Components/Text.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import formService from '@/Services/form.service.js'
+import { router, useForm, usePage } from '@inertiajs/vue3'
+import { onMounted } from 'vue'
 
 const props = defineProps({
     media: {

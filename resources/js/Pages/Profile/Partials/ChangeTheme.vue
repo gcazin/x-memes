@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted } from 'vue'
-import theme from 'tailwindcss/defaultTheme.js'
 import helperService from '@/Services/helper.service.js'
+import { onMounted } from 'vue'
 
 const availableThemes = [
     {

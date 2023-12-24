@@ -1,7 +1,7 @@
 <script setup>
-import Text from '@/Components/Text.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Text.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
 

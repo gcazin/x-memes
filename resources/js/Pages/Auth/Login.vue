@@ -2,9 +2,9 @@
 import Checkbox from '@/Components/Elements/Form/Checkbox.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import { Head, Link, useForm } from '@inertiajs/vue3'
-import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Components/Layout/Section.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import { Link, useForm } from '@inertiajs/vue3'
 
 defineProps({
     canResetPassword: {
