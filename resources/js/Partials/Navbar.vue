@@ -84,7 +84,7 @@ const notifications = page.props.auth?.notifications
                     <div class="flex w-full items-center gap-x-2">
                         <img
                             class="inline w-8 lg:w-12"
-                            src="/storage/misc/favicon.png"
+                            src="/images/favicon.png"
                             alt=""
                         />
                         <span class="font-bold">
