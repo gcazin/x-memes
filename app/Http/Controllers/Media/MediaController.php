@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Media;
 
+use App\Events\MediaApproved;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Mail\MediaApprovedMail;
 use App\Models\Media;
-use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
@@ -187,7 +187,8 @@ class MediaController extends Controller
         $media->update();
 
         Mail::to($media->user)->send(new MediaApprovedMail($media));
-        Notification::send($media->user, new ApprovedMediaNotification($media));
+
+        MediaApproved::dispatch($media);
 
         flash('success', 'Le média a bien été approuvé et publié ! 🚀');
     }

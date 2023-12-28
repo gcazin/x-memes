@@ -2,9 +2,6 @@
 import { usePage } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
-const page = usePage()
-const authUser = page.props.auth?.user
-
 const props = defineProps({
     size: {
         type: String,
@@ -15,11 +12,15 @@ const props = defineProps({
         type: Array,
         required: false,
     },
-    rounded: {
+    /*rounded: {
         type: Boolean,
         default: true,
-    },
+    },*/
 })
+
+const page = usePage()
+const authUser = page.props.auth?.user
+
 const avatarSizeClass = computed(() => {
     return {
         full: 'w-96',
@@ -30,42 +31,26 @@ const avatarSizeClass = computed(() => {
     }[props.size]
 })
 
-const textSizeClass = computed(() => {
-    return {
-        full: 'text-5xl',
-        xl: 'text-4xl',
-        lg: 'text-3xl',
-        md: 'text-xl',
-        sm: 'text-sm',
-    }[props.size]
-})
+const avatar = () => {
+    if (
+        (props.user && !props.user.avatar.includes('avatar-placeholder')) ||
+        (authUser && !authUser.avatar.includes('avatar-placeholder'))
+    ) {
+        console.log(
+            `/storage/${props.user ? props.user.avatar : authUser.avatar}`
+        )
+        return `/storage/${props.user ? props.user.avatar : authUser.avatar}`
+    }
 
-const formatUsername = (username) => {
-    return username.slice(0, 2)
+    return `/images/${props.user?.avatar ?? authUser?.avatar}`
 }
 </script>
 <template>
-    <div v-if="user?.avatar || authUser?.avatar" class="avatar">
-        <div :class="[avatarSizeClass]">
-            <img
-                :src="`/storage/${user ? user.avatar : authUser.avatar}`"
-                alt="Tailwind-CSS-Avatar-component"
-                :class="rounded ? `rounded-full` : 'rounded'"
-            />
-        </div>
-    </div>
-    <div v-else class="avatar placeholder">
-        <div
-            class="bg-primary text-neutral-content"
-            :class="[avatarSizeClass, rounded ? 'rounded-full' : 'rounded-lg']"
-        >
-            <span :class="[textSizeClass]">
-                {{
-                    user
-                        ? formatUsername(user.username)
-                        : formatUsername(authUser.username)
-                }}
-            </span>
-        </div>
+    <div class="avatar" :class="[avatarSizeClass]">
+        <img
+            :src="avatar()"
+            :alt="`Avatar de ${user?.username ?? authUser?.username}`"
+            class="rounded-lg"
+        />
     </div>
 </template>

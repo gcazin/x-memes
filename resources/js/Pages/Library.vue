@@ -135,7 +135,7 @@ formService.setForm(form).setRouteName('media')
                     <LoadingButton
                         class="btn btn-primary"
                         :loading="form.processing"
-                        :disabled="form.processing || duplicated"
+                        :disabled="form.processing"
                     >
                         {{ duplicated ? `La poster quand même?` : 'Ajouter' }}
                     </LoadingButton>

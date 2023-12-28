@@ -4,6 +4,7 @@ namespace App\Notifications\Media;
 
 use App\Models\Media;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class ApprovedMediaNotification extends Notification
@@ -26,7 +27,7 @@ class ApprovedMediaNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -40,5 +41,13 @@ class ApprovedMediaNotification extends Notification
             'title' => 'Ton média a bien été approuvé !',
             'media' => $this->media,
         ];
+    }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage([
+            'title' => 'Ton média a bien été approuvé !',
+            'media' => $this->media,
+        ]);
     }
 }

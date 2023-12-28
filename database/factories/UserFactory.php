@@ -24,6 +24,7 @@ class UserFactory extends Factory
             'username' => str_replace('.', '', fake()->userName()),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'avatar' => 'avatar-placeholder/'.fake()->numberBetween(1, 4).'.jpg',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

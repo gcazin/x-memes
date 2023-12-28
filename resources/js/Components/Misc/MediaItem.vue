@@ -69,16 +69,10 @@ const form = useForm({
             </div>
         </div>
         <div class="flex items-center pt-2">
-            <div class="flex-1">
-                <Text
-                    type="link"
-                    to="user.show"
-                    :parameter="media.user.username"
-                >
-                    <Avatar size="sm" class="mr-1" :user="media.user" />
-                    {{ media.user.username }}
-                </Text>
-            </div>
+            <Text type="link" to="user.show" :parameter="media.user.username">
+                <Avatar size="sm" class="mr-1" :user="media.user" />
+                <span>{{ media.user.username }}</span>
+            </Text>
             <div class="flex-1">
                 <div class="flex justify-end gap-x-2">
                     <div

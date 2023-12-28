@@ -27,8 +27,15 @@ defineProps({
                 :key="index"
             >
                 <div class="flex flex-col items-center justify-center gap-4">
-                    <Avatar size="lg" :user="member" />
-                    <Text type="subtitle">{{ member.username }}</Text>
+                    <a
+                        :href="route('user.show', member.username)"
+                        class="text-center"
+                    >
+                        <Avatar size="lg" :user="member" />
+                        <Text type="subtitle">
+                            {{ member.username }}
+                        </Text>
+                    </a>
                     <div class="badge badge-lg bg-secondary/10 text-secondary">
                         {{ member.medias_count }} médias postés
                     </div>
