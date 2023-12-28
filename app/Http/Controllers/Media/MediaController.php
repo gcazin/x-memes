@@ -190,7 +190,7 @@ class MediaController extends Controller
 
         MediaApproved::dispatch($media);
 
-        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
+        //        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
     }
 
     /**

@@ -3,7 +3,7 @@ import BlobBackground from '@/Components/Misc/BlobBackground.vue'
 import Toast from '@/Components/Misc/Toast.vue'
 import Footer from '@/Partials/Footer.vue'
 import Navbar from '@/Partials/Navbar.vue'
-import { Head, usePage } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 
 defineProps({
     title: {
@@ -23,12 +23,6 @@ defineProps({
         default: true,
     },
 })
-
-Echo.private('App.Models.User.' + usePage().props.auth.user.id).notification(
-    (notification) => {
-        console.log(notification)
-    }
-)
 </script>
 
 <template>
