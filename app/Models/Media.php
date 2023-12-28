@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\Tags\HasTags;
 
 class Media extends Model
 {
-    use HasFactory, HasTags, Likeable;
+    use HasFactory, HasTags, Likeable, Searchable;
 
     protected $table = 'medias';
 

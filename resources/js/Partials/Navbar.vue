@@ -227,7 +227,9 @@ if (usePage().props.auth?.user) {
                         >
                             <div
                                 v-if="notifications.length"
-                                v-for="(notification, index) in notifications"
+                                v-for="(
+                                    notification, index
+                                ) in notifications.slice(0, 5)"
                                 :key="index"
                                 class="divide-y divide-gray-100 dark:divide-gray-700"
                             >
@@ -268,7 +270,9 @@ if (usePage().props.auth?.user) {
                             >
                                 <div class="inline-flex items-center">
                                     <Icon name="eye" class="mr-1" />
-                                    Voir tout
+                                    Voir toutes les notifications ({{
+                                        notifications.length
+                                    }})
                                 </div>
                             </a>
                         </div>
