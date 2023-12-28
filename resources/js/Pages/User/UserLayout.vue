@@ -144,8 +144,14 @@ formService.setForm(form).setRouteName('user')
                 </div>
             </div>
             <div class="flex gap-2">
-                <button class="btn btn-sm">Publications</button>
-                <button class="btn btn-sm">Badges</button>
+                <a :href="route('user.show', user.username)" class="btn btn-sm"
+                    >Publications</a
+                >
+                <a
+                    :href="route('user.badge.index', user.username)"
+                    class="btn btn-sm"
+                    >Badges</a
+                >
             </div>
             <slot />
         </Stack>

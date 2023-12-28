@@ -94,11 +94,17 @@ class FormService {
                 })
                 break
             case action:
-                console.log(item?.id)
-                this.form[method](route(`${routeName}.${action}`, item?.id), {
-                    preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
-                })
+                console.log('route', routeName)
+                this.form[method](
+                    route(
+                        routeName ? `${routeName}.${action}` : action,
+                        item?.id
+                    ),
+                    {
+                        preserveScroll: true,
+                        onSuccess: () => this.closeModal(),
+                    }
+                )
         }
     }
 }

@@ -1,13 +1,11 @@
 <script setup>
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import Modal from '@/Components/Elements/Modal/Modal.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
 import DropdownLink from '@/Components/Misc/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
-import { useForm, usePage } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 
 const page = usePage()
@@ -28,16 +26,17 @@ const menuItems = [
         route: 'random',
         name: 'Au hasard',
     },
+    {
+        icon: 'search',
+        route: 'search',
+        name: 'Rechercher',
+    },
 ]
 
 const showNotification = ref(false)
 const messageNotification = ref(null)
 const notifications = computed(() => {
     return page.props.auth?.notifications
-})
-
-const form = useForm({
-    search: null,
 })
 
 if (usePage().props.auth?.user) {
@@ -196,14 +195,6 @@ if (usePage().props.auth?.user) {
                             <Icon size="xl" name="search" />
                         </div>
                     </div>
-                    <Modal id="searchModal" title="Rechercher...">
-                        <TextInput
-                            label="Rechecher par titre, tags..."
-                            v-model="form.search"
-                            type="Rechecher par titre, tags..."
-                            placeholder="..."
-                        />
-                    </Modal>
                     <div class="dropdown dropdown-end">
                         <div
                             tabindex="0"

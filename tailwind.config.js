@@ -13,6 +13,12 @@ export default {
         './resources/js/**/*.vue',
     ],
 
+    safelist: [
+        {
+            pattern: /space-./
+        },
+    ],
+
     theme: {
         extend: {
             fontFamily: {

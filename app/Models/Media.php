@@ -43,11 +43,37 @@ class Media extends Model
 
     protected $perPage = 6;
 
-    protected function createdAt(): Attribute
+    public function createdAt(): Attribute
     {
         return Attribute::make(
             get: fn (string $value) => Carbon::make($value)->format('d/m/y')
         );
+    }
+
+    protected function isPublished(): bool
+    {
+        return $this->approved === true;
+    }
+
+    /**
+     * Determine if the media should be searchable.
+     */
+    public function shouldBeSearchable(): bool
+    {
+        return $this->isPublished();
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
     }
 
     public function user(): BelongsTo

@@ -1,18 +1,19 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
     spacing: {
-        type: String,
+        type: [String, Number],
+        default: 4,
     },
+})
+
+const size = computed(() => {
+    return `space-y-${props.spacing} gap-y-${props.spacing}`
 })
 </script>
 <template>
-    <section
-        :class="
-            spacing
-                ? `space-y-${spacing} gap-y-${spacing}`
-                : 'gap-y-4 space-y-4'
-        "
-    >
+    <section :class="size">
         <slot />
     </section>
 </template>

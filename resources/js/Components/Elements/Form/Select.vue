@@ -28,7 +28,7 @@ onMounted(() => {
 defineExpose({ focus: () => input.value.focus() })
 </script>
 <template>
-    <label class="form-control mb-2 w-full">
+    <label class="form-control w-full">
         <div v-if="label" class="label">
             <span class="label-text">{{ label }}</span>
         </div>

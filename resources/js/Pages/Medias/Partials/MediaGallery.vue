@@ -23,7 +23,7 @@ const props = defineProps({
 })
 
 const form = useForm({})
-const allPosts = ref([...props.medias.data])
+const allPosts = ref(props.medias?.data ? [...props.medias.data] : null)
 const pagination = toRef(props.medias)
 const wrapper = ref(null)
 const loadMoreIntersect = ref(null)
@@ -51,7 +51,9 @@ const infiniteScrolling = () => {
         })
     })
 
-    observer.observe(loadMoreIntersect.value)
+    if (loadMoreIntersect.value) {
+        observer.observe(loadMoreIntersect.value)
+    }
 }
 
 /**
@@ -187,7 +189,7 @@ const fetchData = (url, filters = null) => {
 <template>
     <Stack>
         <div class="flex flex-col lg:flex-row lg:items-center">
-            <div class="flex-1">
+            <div class="flex-1" v-if="allPosts && allPosts.length">
                 <span class="text-sm">
                     {{ medias.total }} médias affiché{{
                         medias.total > 1 ? 's' : ''
@@ -261,7 +263,7 @@ const fetchData = (url, filters = null) => {
 
         <div
             ref="wrapper"
-            v-if="allPosts.length"
+            v-if="allPosts && allPosts.length"
             class="grid grid-cols-1 gap-6 md:grid-cols-3"
             :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
         >

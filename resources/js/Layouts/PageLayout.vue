@@ -28,7 +28,10 @@ defineProps({
 <template>
     <Head :title="title"></Head>
 
-    <div class="relative min-h-screen bg-base-100">
+    <div
+        class="relative min-h-screen bg-base-100"
+        style="background: url(/images/background/noise.webp)"
+    >
         <Navbar v-if="hasNavbar" />
 
         <BlobBackground />
