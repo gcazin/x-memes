@@ -5,6 +5,7 @@ import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
 import Stack from '@/Components/Layout/Stack.vue'
+import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
 import formService from '@/Services/form.service.js'
@@ -86,12 +87,12 @@ formService.setForm(form).setRouteName('media')
                         <TextInput
                             label="Titre"
                             v-model="form.name"
-                            help-text="25 caractères maximum."
+                            help-text="50 caractères maximum."
                         />
                         <InputError :message="form.errors.name" />
                     </div>
 
-                    <div>
+                    <div class="form-control">
                         <InputLabel for="name" value="Image" />
                         <input
                             type="file"
@@ -99,6 +100,16 @@ formService.setForm(form).setRouteName('media')
                             id="media_id"
                             @input="checkIfMediaIsDuplicated"
                         />
+                        <div class="label ms-auto pb-0">
+                            <span class="label-text-alt">
+                                Types de fichier acceptés:
+                                <span class="font-bold"
+                                    >.mp4, .jpg, .jpeg, .png, .gif, .webp</span
+                                >
+                                - Taille maximale:
+                                <span class="font-bold">25mo</span>
+                            </span>
+                        </div>
                         <InputError :message="form.errors.media_id" />
                     </div>
 
@@ -139,6 +150,14 @@ formService.setForm(form).setRouteName('media')
                     >
                         {{ duplicated ? `La poster quand même?` : 'Ajouter' }}
                     </LoadingButton>
+                    <div>
+                        <Text type="xs" class="italic">
+                            * Le mème sera en attente d'approbation par un
+                            administrateur avant d'être publié sur le site. Les
+                            administrateurs du site se réserve le droit de
+                            refuser toute image qui ne serait pas conforme.
+                        </Text>
+                    </div>
                 </Stack>
             </form>
         </Modal>

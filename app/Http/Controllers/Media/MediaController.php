@@ -60,9 +60,9 @@ class MediaController extends Controller
             if ($request->has('filters.tags')) {
                 $medias
                     ->whereHas('tags', function ($query) use ($request) {
-                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
+                        $query->where('name', '%LIKE%', explode(',', $request->query('filters')['tags']));
                     })
-                    ->allowedFilters(AllowedFilter::exact('tags.id'));
+                    ->allowedFilters(AllowedFilter::exact('tags.name'));
             }
         }
 

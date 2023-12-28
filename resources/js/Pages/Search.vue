@@ -29,7 +29,9 @@ const form = useForm({
 
 const title = computed(() => {
     if (props.result?.total) {
-        return `${props.result.total} résultats pour la recherche '${props.query}'`
+        return `${props.result.total} résultat${
+            props.result.total > 1 ? 's' : ''
+        } pour la recherche '${props.query}'`
     }
 
     return 'Recherche un mème, un tag, ou un utilisateur'
@@ -74,8 +76,8 @@ formService.setForm(form).setRouteName(null)
     <PageLayout :title="title">
         <Stack spacing="8">
             <form @submit.prevent="search">
-                <div class="flex items-center gap-4">
-                    <label class="form-control w-1/4">
+                <div class="flex flex-col items-center gap-4 lg:flex-row">
+                    <label class="form-control w-full lg:w-1/4">
                         <select
                             v-model="form.type"
                             class="select select-bordered bg-base-300"
@@ -94,7 +96,10 @@ formService.setForm(form).setRouteName(null)
                         :type="form.type"
                         :placeholder="queryPlaceholder"
                     />
-                    <LoadingButton :loading="form.processing">
+                    <LoadingButton
+                        :loading="form.processing"
+                        class="ms-auto lg:m-auto"
+                    >
                         Rechercher
                     </LoadingButton>
                 </div>

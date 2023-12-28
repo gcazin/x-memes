@@ -2,6 +2,8 @@
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
+import Tag from '@/Components/Misc/Tag.vue'
+import Text from '@/Components/Text.vue'
 import { router, useForm } from '@inertiajs/vue3'
 import { onMounted, ref, toRef } from 'vue'
 
@@ -188,10 +190,27 @@ const fetchData = (url, filters = null) => {
 </script>
 <template>
     <Stack>
+        <div v-if="selectedFilters.filters.tags.length">
+            <Stack spacing="1">
+                <Text>Tags sélectionnés</Text>
+                <div class="space-x-1">
+                    <Tag
+                        v-for="(tag, index) in selectedFilters.filters.tags"
+                        :key="index"
+                        size="lg"
+                        color="secondary"
+                    >
+                        {{ tag }}
+                        {{ tag.name }}
+                    </Tag>
+                </div>
+            </Stack>
+        </div>
+
         <div class="flex flex-col lg:flex-row lg:items-center">
             <div class="flex-1" v-if="allPosts && allPosts.length">
                 <span class="text-sm">
-                    {{ medias.total }} médias affiché{{
+                    {{ medias.total }} mèmes affiché{{
                         medias.total > 1 ? 's' : ''
                     }}
                 </span>
@@ -243,13 +262,13 @@ const fetchData = (url, filters = null) => {
                         aria-labelledby="dropdownTagsButton"
                     >
                         <li v-for="(tag, index) in tags" :key="index">
-                            <a @click="filterByTags(tag.id)">
+                            <a @click="filterByTags(tag.name)">
                                 <input
                                     :id="`checkbox-item-${tag.name}`"
                                     type="checkbox"
                                     :value="tag.name"
                                     class="checkbox-primary checkbox checkbox-sm"
-                                    :checked="checkIfTagIsSelected(tag.id)"
+                                    :checked="checkIfTagIsSelected(tag.name)"
                                 />
                                 <label for="checkbox-item-1" class="label">
                                     {{ tag.name }}
@@ -274,19 +293,20 @@ const fetchData = (url, filters = null) => {
             >
                 <MediaItem :media="media" />
             </div>
-            <div
-                class="mt-28 flex items-center justify-center py-4"
-                ref="loadMoreIntersect"
-            >
-                <template v-if="loading">
-                    <span
-                        class="loading loading-infinity loading-lg text-5xl"
-                    ></span>
-                    <div class="font-bold">Chargement...</div>
-                </template>
-            </div>
         </div>
         <div v-else>Rien a afficher ici pour l'instant...</div>
+
+        <div ref="loadMoreIntersect">
+            <div
+                v-if="loading"
+                class="mt-8 flex items-center justify-center py-4"
+            >
+                <span
+                    class="loading loading-infinity loading-lg text-5xl"
+                ></span>
+                <div class="font-bold">Chargement...</div>
+            </div>
+        </div>
     </Stack>
 </template>
 <style scoped></style>

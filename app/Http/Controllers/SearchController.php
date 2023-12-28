@@ -24,7 +24,7 @@ class SearchController extends Controller
                     $result = User::search($query)->get();
                     break;
                 case 'medias':
-                    $result = Media::search($query)->get();
+                    $result = Media::search($query)->paginate(6);
                     break;
             }
         }

@@ -3,7 +3,6 @@ import Avatar from '@/Components/Misc/Avatar.vue'
 import DropdownLink from '@/Components/Misc/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
-import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
@@ -54,26 +53,14 @@ if (usePage().props.auth?.user) {
     >
         <div class="navbar mx-auto w-full px-2 lg:w-9/12 lg:px-0">
             <div class="navbar-start">
+                <!-- Hamburger menu only on mobile -->
                 <div class="dropdown">
                     <div
                         tabindex="0"
                         role="button"
                         class="btn btn-ghost lg:hidden"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h8m-8 6h16"
-                            />
-                        </svg>
+                        <Icon name="menu" size="4xl" />
                     </div>
                     <ul
                         tabindex="0"
@@ -95,19 +82,22 @@ if (usePage().props.auth?.user) {
                                 :href="route('admin.index')"
                                 :active="route().current('admin.dashboard')"
                             >
+                                <Icon name="construct" />
                                 Administration
                             </a>
                         </li>
                     </ul>
                 </div>
+
+                <!-- Logo and title -->
                 <a :href="route('index')" class="text-2xl">
                     <div class="flex w-full items-center gap-x-2">
                         <img
-                            class="inline w-8 lg:w-12"
+                            class="inline hidden w-12 lg:inline"
                             src="/images/favicon.png"
                             alt=""
                         />
-                        <span class="font-bold">
+                        <span class="text-xl font-bold lg:text-2xl">
                             X-Memes
                             <Tag
                                 type="secondary"
@@ -119,6 +109,8 @@ if (usePage().props.auth?.user) {
                     </div>
                 </a>
             </div>
+
+            <!-- Navbar displayed on desktop -->
             <div class="navbar-center hidden lg:flex">
                 <ul class="menu menu-horizontal text-lg">
                     <li v-for="(item, index) in menuItems" :key="index">
@@ -135,12 +127,15 @@ if (usePage().props.auth?.user) {
                             :href="route('admin.index')"
                             :active="route().current('admin.dashboard')"
                         >
+                            <Icon name="construct" />
                             Administration
                         </a>
                     </li>
                 </ul>
             </div>
+
             <div class="navbar-end gap-1">
+                <!-- When the user is not connected -->
                 <template v-if="!$page.props.auth?.user">
                     <div class="hidden space-x-1 lg:block">
                         <a class="btn btn-ghost" :href="route('login')"
@@ -159,7 +154,7 @@ if (usePage().props.auth?.user) {
                             <Icon
                                 class="text-3xl"
                                 name="person-circle"
-                                outline="false"
+                                :outline="false"
                             />
                         </div>
                         <div
@@ -183,18 +178,18 @@ if (usePage().props.auth?.user) {
                         </div>
                     </div>
                 </template>
+
+                <!-- When the user is not connect -->
                 <template v-else>
-                    <div
+                    <a
                         tabindex="0"
                         role="button"
-                        class="btn btn-circle btn-ghost"
+                        class="flex items-center lg:hidden"
                         aria-labelledby="Search"
-                        @click="formService.openModal('search')"
+                        :href="route('search')"
                     >
-                        <div class="indicator">
-                            <Icon size="xl" name="search" />
-                        </div>
-                    </div>
+                        <Icon size="xl" name="search" />
+                    </a>
                     <div class="dropdown dropdown-end">
                         <div
                             tabindex="0"
@@ -268,6 +263,8 @@ if (usePage().props.auth?.user) {
                             </a>
                         </div>
                     </div>
+
+                    <!-- Dropdown at the end of the navbar when user is connected -->
                     <div class="dropdown dropdown-end">
                         <div
                             tabindex="0"
