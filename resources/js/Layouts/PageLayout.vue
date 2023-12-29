@@ -1,6 +1,7 @@
 <script setup>
 import BlobBackground from '@/Components/Misc/BlobBackground.vue'
 import Toast from '@/Components/Misc/Toast.vue'
+import Text from '@/Components/Text.vue'
 import Footer from '@/Partials/Footer.vue'
 import Navbar from '@/Partials/Navbar.vue'
 import { Head } from '@inertiajs/vue3'
@@ -32,6 +33,22 @@ defineProps({
         class="relative min-h-screen bg-base-100"
         style="background: url(/images/background/noise.webp)"
     >
+        <div class="relative z-50 bg-base-300 py-2">
+            <div class="text-center">
+                <Text type="sub">
+                    Le site est actuellement au stade
+                    <span class="font-bold">d'alpha</span>. Si vous rencontrer
+                    des bugs, ou si vous avez une suggestion, contactez-moi sur
+                    <a
+                        class="link link-secondary font-bold"
+                        href="https://x.com/gcazinonx"
+                        target="_blank"
+                    >
+                        @gcazinonx </a
+                    >.
+                </Text>
+            </div>
+        </div>
         <Navbar v-if="hasNavbar" />
 
         <BlobBackground />

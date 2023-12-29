@@ -310,7 +310,24 @@ watch(
                 :key="index"
                 class="animate-[pulse_0.5s_ease-in-out]"
             >
-                <MediaItem :media="media" />
+                <MediaItem
+                    v-if="
+                        page.props.auth.isConnected ||
+                        (!page.props.auth.isConnected &&
+                            pagination.current_page !== 3)
+                    "
+                    :media="media"
+                />
+                <template v-else>
+                    <div class="space-y-6">
+                        <div class="skeleton h-96"></div>
+                        <div class="skeleton h-96"></div>
+                        <div class="skeleton h-96"></div>
+                        <div class="skeleton h-96"></div>
+                        <div class="skeleton h-96"></div>
+                        <div class="skeleton h-96"></div>
+                    </div>
+                </template>
             </div>
         </div>
         <div v-else>Rien a afficher ici pour l'instant...</div>
@@ -327,8 +344,8 @@ watch(
             </div>
         </div>
 
-        <Modal id="shouldRegisterModal" :is-closable="false">
-            <Stack class="text-center">
+        <Modal id="shouldRegisterModal" :is-closable="false" max-width="3xl">
+            <Stack spacing="8" class="text-center">
                 <Text type="title">Envie d'en voir plus ?</Text>
                 <Text>
                     Crée un compte ou connecte-toi pour voir d'autres résultats

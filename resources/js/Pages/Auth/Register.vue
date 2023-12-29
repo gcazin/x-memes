@@ -39,8 +39,8 @@ const submit = () => {
                         <Text class="space-x-2">
                             <Icon name="search" size="xl" />
                             <span
-                                >Enfin retrouver les mèmes que tu mets si
-                                longtemps à trouver sur X.</span
+                                >Enfin trouver les mèmes que tu mets si
+                                longtemps à retrouver.</span
                             >
                         </Text>
                         <Text class="space-x-2">
