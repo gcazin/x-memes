@@ -59,9 +59,19 @@ class Media extends Model
         );
     }
 
-    protected function isPublished(): bool
+    protected function isApproved(): bool
     {
         return $this->approved === true;
+    }
+
+    public function whereApproved()
+    {
+        return $this->where('approved', true);
+    }
+
+    public function whereIsNotApproved()
+    {
+        return $this->where('approved', false);
     }
 
     /**
@@ -69,7 +79,7 @@ class Media extends Model
      */
     public function shouldBeSearchable(): bool
     {
-        return $this->isPublished();
+        return $this->isApproved();
     }
 
     /**

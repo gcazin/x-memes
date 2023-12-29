@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
                 'notifications' => fn () => $request->user()
                     ? $request->user()->unreadNotifications
                     : null,
+                'isConnected' => $request->user() !== null,
             ],
             'flash' => [
                 'status' => fn () => $request->session()->get('status'),

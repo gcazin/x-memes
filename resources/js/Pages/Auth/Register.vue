@@ -2,6 +2,9 @@
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Section from '@/Components/Layout/Section.vue'
+import Stack from '@/Components/Layout/Stack.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import { Link, useForm } from '@inertiajs/vue3'
 
@@ -21,69 +24,110 @@ const submit = () => {
 
 <template>
     <PageLayout title="Inscription">
-        <Section>
-            <form @submit.prevent="submit">
-                <TextInput
-                    label="Nom d'utilisateur"
-                    id="username"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.username"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+        <div class="flex w-full gap-x-16">
+            <div class="w-1/3">
+                <Stack spacing="4">
+                    <Text type="subtitle">Principales fonctionnalités</Text>
+                    <Stack spacing="2">
+                        <Text class="space-x-2">
+                            <Icon name="apps" size="xl" />
+                            <span
+                                >Avoir accès à la totalité des mèmes présent sur
+                                le site.</span
+                            >
+                        </Text>
+                        <Text class="space-x-2">
+                            <Icon name="search" size="xl" />
+                            <span
+                                >Enfin retrouver les mèmes que tu mets si
+                                longtemps à trouver sur X.</span
+                            >
+                        </Text>
+                        <Text class="space-x-2">
+                            <Icon name="heart" size="xl" />
+                            <span
+                                >Pouvoir aimer tes mèmes préférés pour ne plus
+                                jamais les perdre.</span
+                            >
+                        </Text>
+                        <Text class="space-x-2">
+                            <Icon name="person-add" size="xl" />
+                            <span>Suivre les personnes que tu préfères.</span>
+                        </Text>
+                        <Text class="space-x-2">
+                            <Icon name="bar-chart" size="xl" />
+                            <span
+                                >Un classement des personnes les plus
+                                actives</span
+                            >
+                        </Text>
+                    </Stack>
+                </Stack>
+            </div>
+            <Section class="flex-1">
+                <form @submit.prevent="submit">
+                    <TextInput
+                        label="Nom d'utilisateur"
+                        id="username"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.username"
+                        required
+                        autofocus
+                        autocomplete="username"
+                    />
 
-                <InputError :message="form.errors.username" />
+                    <InputError :message="form.errors.username" />
 
-                <TextInput
-                    label="Adresse email"
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="email"
-                />
-                <InputError :message="form.errors.email" />
+                    <TextInput
+                        label="Adresse email"
+                        id="email"
+                        type="email"
+                        class="mt-1 block w-full"
+                        v-model="form.email"
+                        required
+                        autocomplete="email"
+                    />
+                    <InputError :message="form.errors.email" />
 
-                <TextInput
-                    label="Mot de passe"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError :message="form.errors.password" />
+                    <TextInput
+                        label="Mot de passe"
+                        type="password"
+                        class="mt-1 block w-full"
+                        v-model="form.password"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <InputError :message="form.errors.password" />
 
-                <TextInput
-                    label="Confirmation du mot de passe"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-                <InputError :message="form.errors.password_confirmation" />
+                    <TextInput
+                        label="Confirmation du mot de passe"
+                        type="password"
+                        class="mt-1 block w-full"
+                        v-model="form.password_confirmation"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <InputError :message="form.errors.password_confirmation" />
 
-                <div class="mt-4 flex items-center justify-end">
-                    <Link
-                        :href="route('login')"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >
-                        Déjà inscrit?
-                    </Link>
+                    <div class="mt-4 flex items-center justify-end">
+                        <Link
+                            :href="route('login')"
+                            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                        >
+                            Déjà inscrit?
+                        </Link>
 
-                    <button
-                        class="btn btn-primary ms-4"
-                        :class="{ 'opacity-25': form.processing }"
-                        :disabled="form.processing"
-                    >
-                        S'inscrire
-                    </button>
-                </div>
-            </form>
-        </Section>
+                        <button
+                            class="btn btn-primary ms-4"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                        >
+                            S'inscrire
+                        </button>
+                    </div>
+                </form>
+            </Section>
+        </div>
     </PageLayout>
 </template>

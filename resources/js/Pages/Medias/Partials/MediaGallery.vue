@@ -1,11 +1,13 @@
 <script setup>
+import Modal from '@/Components/Elements/Modal/Modal.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Text.vue'
-import { router, useForm } from '@inertiajs/vue3'
-import { onMounted, ref, toRef } from 'vue'
+import formService from '@/Services/form.service.js'
+import { router, usePage } from '@inertiajs/vue3'
+import { onMounted, ref, toRef, watch } from 'vue'
 
 const props = defineProps({
     medias: {
@@ -24,7 +26,7 @@ const props = defineProps({
     },
 })
 
-const form = useForm({})
+const page = usePage()
 const allPosts = ref(props.medias?.data ? [...props.medias.data] : null)
 const pagination = toRef(props.medias)
 const wrapper = ref(null)
@@ -187,6 +189,23 @@ const fetchData = (url, filters = null) => {
         },
     })
 }
+
+/**
+ * Display modal when user is not registered/connected
+ */
+watch(
+    () => pagination.value,
+    (newQuery) => {
+        if (
+            !page.props.auth.isConnected &&
+            newQuery &&
+            newQuery.current_page === 3
+        ) {
+            formService.openModal('shouldRegister')
+        }
+    },
+    { immediate: true }
+)
 </script>
 <template>
     <Stack>
@@ -307,6 +326,27 @@ const fetchData = (url, filters = null) => {
                 <div class="font-bold">Chargement...</div>
             </div>
         </div>
+
+        <Modal id="shouldRegisterModal" :is-closable="false">
+            <Stack class="text-center">
+                <Text type="title">Envie d'en voir plus ?</Text>
+                <Text>
+                    Crée un compte ou connecte-toi pour voir d'autres résultats
+                    de recherche, ajouter des mèmes à tes favoris et bien plus
+                    encore !
+                </Text>
+                <div class="space-x-2">
+                    <a :href="route('register')" class="btn btn-primary"
+                        >Inscription</a
+                    >
+                    <a
+                        :href="route('login')"
+                        class="btn btn-outline btn-primary"
+                        >Connexion</a
+                    >
+                </div>
+            </Stack>
+        </Modal>
     </Stack>
 </template>
 <style scoped></style>

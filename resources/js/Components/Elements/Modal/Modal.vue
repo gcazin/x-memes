@@ -21,6 +21,10 @@ const props = defineProps({
     title: {
         type: String,
     },
+    isClosable: {
+        type: Boolean,
+        default: true,
+    },
 })
 
 const emit = defineEmits(['close'])
@@ -81,7 +85,12 @@ const maxWidthClass = computed(() => {
                     </template>
                     <slot />
                 </div>
-                <form method="dialog" class="modal-backdrop" @click="close">
+                <form
+                    v-if="isClosable"
+                    method="dialog"
+                    class="modal-backdrop"
+                    @click="close"
+                >
                     <button>close</button>
                 </form>
             </dialog>

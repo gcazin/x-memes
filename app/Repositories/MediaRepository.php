@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 class MediaRepository implements RepositoryInterface
 {
     public function __construct(
+        /** @var Media $media */
         protected Media $media
     ) {
     }
@@ -26,7 +27,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allApprovedMedias($force = true): mixed
     {
-        $model = $this->media->where('approved', true);
+        $model = $this->media->whereApproved();
 
         return $force
             ? $model->get()
@@ -38,7 +39,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allPendingMedias(): mixed
     {
-        return $this->media->where('approved', false)->get();
+        return $this->media->whereIsNotApproved()->get();
     }
 
     /**
@@ -56,7 +57,7 @@ class MediaRepository implements RepositoryInterface
     public function paginateWithSelectedTags(string $tags)
     {
         return Media::withAnyTags(explode(',', $tags))
-            ->where('approved', true)
+            ->whereIsApproved()
             ->orderByDesc('approved_at')
             ->paginate();
     }
