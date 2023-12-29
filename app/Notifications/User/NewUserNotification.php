@@ -46,8 +46,7 @@ class NewUserNotification extends Notification
     {
         return [
             'title' => 'Un nouveau utilisateur a été crée',
-            'username' => $this->user->username,
-            'email' => $this->user->email,
+            'content' => $this->user,
         ];
     }
 }

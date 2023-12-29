@@ -6,6 +6,7 @@ use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
+use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\WaitlistController;
 use App\Models\Media;
@@ -40,7 +41,6 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::name('user.')->group(function () {
         Route::get('membre/{username}', [UserController::class, 'show'])->name('show');
         Route::get('membre/{username}/badges', BadgeController::class)->name('badge.index');
-        Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
     });
 
     // Media
@@ -53,6 +53,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::middleware('auth')->group(function () {
         Route::name('user.')->group(function () {
             Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');
+            Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
         });
 
         Route::name('profile.')->group(function () {
@@ -65,6 +66,11 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         Route::name('media.')->group(function () {
             Route::post('media/duplicate', [MediaController::class, 'duplicate'])->name('duplicate');
             Route::get('media/{id}/like', [MediaController::class, 'like'])->name('like');
+        });
+
+        Route::name('notification.')->prefix('notifications')->group(function () {
+            Route::get('voir-tout', [NotificationController::class, 'index'])->name('index');
+            //            Route::get('media/{id}/like', [MediaController::class, 'like'])->name('like');
         });
     });
 

@@ -86,9 +86,9 @@ class MediaController extends Controller
             'name' => $request->name,
             'filename' => $path,
             'extension' => $file->extension(),
-            'hash' => Comparator::convertHashToBinaryString(
+            'hash' => $file->extension() !== 'mp4' ? Comparator::convertHashToBinaryString(
                 Comparator::hashImage($file)
-            ),
+            ) : null,
             'user_id' => $request->user()->id,
         ]);
 

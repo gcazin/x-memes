@@ -74,6 +74,7 @@ class FormService {
 
         switch (action) {
             case 'store':
+                console.log(this.form)
                 this.form.post(route(`${routeName}.store`), {
                     preserveScroll: true,
                     onSuccess: () => this.closeModal(),

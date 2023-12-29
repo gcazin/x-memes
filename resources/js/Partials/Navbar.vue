@@ -223,7 +223,7 @@ if (usePage().props.auth?.user) {
                                     :href="
                                         route(
                                             'media.show',
-                                            notification.data.media.id
+                                            notification.data.data.id
                                         )
                                     "
                                     class="flex px-4 py-3 hover:bg-base-300"
@@ -231,7 +231,7 @@ if (usePage().props.auth?.user) {
                                     <div class="flex-shrink-0">
                                         <img
                                             class="h-11 w-11 rounded-full"
-                                            :src="`/storage/${notification.data.media.filename}`"
+                                            :src="`/storage/${notification.data.data.filename}`"
                                             alt="Jese image"
                                         />
                                     </div>
@@ -251,7 +251,7 @@ if (usePage().props.auth?.user) {
                                 </p>
                             </div>
                             <a
-                                href="#"
+                                :href="route('notification.index')"
                                 class="block rounded-b-lg bg-gray-50 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                             >
                                 <div class="inline-flex items-center">

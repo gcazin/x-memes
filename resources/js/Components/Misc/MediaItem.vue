@@ -23,10 +23,9 @@ const form = useForm({
         <div class="relative">
             <a :href="route('media.show', media.id)">
                 <video
-                    controls
                     class="h-96 w-full rounded-lg object-cover shadow"
                     v-if="media.extension === 'mp4'"
-                    :src="`/storage/${media.name}`"
+                    :src="`/storage/${media.filename}`"
                 ></video>
                 <img
                     v-else

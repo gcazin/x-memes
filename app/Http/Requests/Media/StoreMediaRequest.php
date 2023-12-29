@@ -27,7 +27,7 @@ class StoreMediaRequest extends FormRequest
             'name' => 'required|string|max:50',
             'media_id' => [
                 'required',
-                File::types(['mp4,jpg,jpeg,png,gif,webp'])
+                File::types(['video/mp4,image/jpeg,image/png,image/gif,image/webp'])
                     ->max('25mb'),
             ],
             'tags' => ['sometimes'],

@@ -123,14 +123,22 @@ const getRelatedMedias = () => {
                 </div>
             </div>
             <div class="max-w-full">
-                <img
-                    class="mx-auto object-contain"
+                <video
+                    controls
+                    class="mx-auto w-96 rounded-lg shadow"
+                    v-if="media.extension === 'mp4'"
                     :src="`/storage/${media.filename}`"
-                    alt=""
+                ></video>
+                <img
+                    v-else
+                    class="mx-auto rounded-lg object-contain"
+                    :src="`/storage/${media.filename}`"
+                    :alt="media.name"
+                    loading="lazy"
                 />
             </div>
 
-            <div class="mt-8" v-if="related">
+            <div class="mt-8" v-if="related && related.length">
                 <Stack>
                     <Text type="subtitle">Images similaires</Text>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">

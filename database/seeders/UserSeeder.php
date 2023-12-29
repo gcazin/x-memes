@@ -28,6 +28,6 @@ class UserSeeder extends Seeder
                 ->attach(Badge::all()->firstWhere('condition', $user)->id);
         }
 
-        User::factory(50)->create();
+        User::factory(50)->create()->chunk(10);
     }
 }

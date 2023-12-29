@@ -46,7 +46,7 @@ class DeletedMediaNotification extends Notification
     {
         return [
             'title' => "Ton média {$this->media->title} a été supprimé !",
-            'media' => $this->media,
+            'content' => $this->media,
         ];
     }
 }

@@ -50,15 +50,19 @@ const duplicated = ref(null)
 const checkIfMediaIsDuplicated = (event) => {
     form.media_id = event.target.files[0]
 
-    form.post(route('media.duplicate', form.media_id), {
-        onSuccess: (page) => {
-            if (page.props.duplicatedImage) {
-                duplicated.value = page.props.duplicatedImage
-            } else {
-                duplicated.value = null
-            }
-        },
-    })
+    if (form.media_id.type !== 'video/mp4') {
+        form.post(route('media.duplicate', form.media_id), {
+            onSuccess: (page) => {
+                if (page.props.duplicatedImage) {
+                    duplicated.value = page.props.duplicatedImage
+                } else {
+                    duplicated.value = null
+                }
+            },
+        })
+    } else {
+        duplicated.value = null
+    }
 }
 
 formService.setForm(form).setRouteName('media')
@@ -71,13 +75,13 @@ formService.setForm(form).setRouteName('media')
                 class="btn btn-primary"
                 @click="formService.openModal('addMedia')"
             >
-                Ajouter un média
+                Ajouter un mème
             </button>
         </template>
 
         <MediaGallery :medias="medias" :tags="tags" :sort-by="sortBy" />
 
-        <Modal id="addMediaModal" title="Ajouter un média" max-width="2xl">
+        <Modal id="addMediaModal" title="Ajouter un mème" max-width="2xl">
             <form
                 enctype="multipart/form-data"
                 @submit.prevent="formService.handle('store')"

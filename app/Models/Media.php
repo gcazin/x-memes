@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,14 @@ use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\Tags\HasTags;
 
+/**
+ * @property bool $approved
+ * @property int $approved_by
+ * @property DateTime $approved_at
+ * @property int $download_count
+ * @property string $filename
+ * @property string $name
+ */
 class Media extends Model
 {
     use HasFactory, HasTags, Likeable, Searchable;

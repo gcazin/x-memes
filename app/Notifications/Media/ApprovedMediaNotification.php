@@ -39,7 +39,7 @@ class ApprovedMediaNotification extends Notification
     {
         return [
             'title' => 'Ton média a bien été approuvé !',
-            'media' => $this->media,
+            'data' => $this->media,
         ];
     }
 
@@ -47,7 +47,7 @@ class ApprovedMediaNotification extends Notification
     {
         return new BroadcastMessage([
             'title' => 'Ton média a bien été approuvé !',
-            'media' => $this->media,
+            'content' => $this->media,
         ]);
     }
 }

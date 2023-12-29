@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('filename');
             $table->string('extension');
-            $table->text('hash');
+            $table->text('hash')->nullable();
             $table->boolean('approved')->default(0);
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->timestamp('approved_at')->nullable();
