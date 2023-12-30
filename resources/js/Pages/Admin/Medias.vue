@@ -65,7 +65,7 @@ formService.setForm(form)
                         <template #user="{ user }">
                             {{ user.username }} ({{ user.email }})
                         </template>
-                        <template #media="{ extension, filename, name }">
+                        <template #media="{ extension, path, name }">
                             <video
                                 controls
                                 class="h-full w-full"
@@ -75,7 +75,7 @@ formService.setForm(form)
                             <img
                                 v-else
                                 class="w-32 rounded-xl"
-                                :src="`/storage/${filename}`"
+                                :src="`/storage/${path}`"
                                 alt=""
                             />
                         </template>
@@ -133,7 +133,7 @@ formService.setForm(form)
                     <template #user="{ user }">
                         {{ user.username }} ({{ user.email }})
                     </template>
-                    <template #media="{ extension, filename, name }">
+                    <template #media="{ extension, path, name }">
                         <video
                             controls
                             class="h-full w-full"
@@ -143,7 +143,7 @@ formService.setForm(form)
                         <img
                             v-else
                             class="w-40 rounded-xl"
-                            :src="`/storage/${filename}`"
+                            :src="`/storage/${path}`"
                             alt=""
                         />
                     </template>

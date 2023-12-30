@@ -85,7 +85,7 @@ class MediaController extends Controller
         // Create thumbnail if the media is a video
         $thumbnailName = null;
         if ($file->extension() === 'mp4') {
-            $thumbnailName = 'medias/thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
+            $thumbnailName = 'thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
             FFMpeg::fromDisk('public')
                 ->open($path)
                 ->getFrameFromSeconds(10)
@@ -96,8 +96,8 @@ class MediaController extends Controller
 
         $media = Media::create([
             'name' => $request->name,
-            'filename' => $path,
-            'thumbnail' => $thumbnailName,
+            'path' => $path,
+            'thumbnail_path' => $thumbnailName,
             'extension' => $file->extension(),
             'hash' => $file->extension() !== 'mp4' ? Comparator::convertHashToBinaryString(
                 Comparator::hashImage($file)
@@ -179,7 +179,7 @@ class MediaController extends Controller
         $similaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
 
         if ($similaryMedia) {
-            return back()->with('duplicatedImage', $similaryMedia->filename);
+            return back()->with('duplicatedImage', $similaryMedia->path);
         }
 
         return back()->with('duplicatedImage');
@@ -218,7 +218,7 @@ class MediaController extends Controller
 
         $media->update();
 
-        return redirect()->back()->with('downloaded_file', base64_encode(Storage::get($media->filename)));
+        return redirect()->back()->with('downloaded_file', base64_encode(Storage::get($media->path)));
     }
 
     /**
@@ -258,7 +258,7 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
-        Storage::delete($media->filename);
+        Storage::delete($media->path);
 
         $media->delete();
 

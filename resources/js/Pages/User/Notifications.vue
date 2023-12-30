@@ -17,7 +17,7 @@ const notifications = page.props.auth?.notifications
             <div class="flex items-center">
                 <div class="w-1/6">
                     <img
-                        :src="`/storage/${notification.data.data.filename}`"
+                        :src="`/storage/${notification.data.data.path}`"
                         alt=""
                         class="mx-auto w-20 rounded"
                     />

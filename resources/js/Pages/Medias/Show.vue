@@ -123,17 +123,16 @@ const getRelatedMedias = () => {
                 </div>
             </div>
             <div class="max-w-full">
-                {{ media.filename }}
                 <video
                     controls
                     class="mx-auto w-96 rounded-lg shadow"
                     v-if="media.extension === 'mp4'"
-                    :src="`/storage/${media.filename}`"
+                    :src="`/storage/${media.path}`"
                 ></video>
                 <img
                     v-else
                     class="mx-auto rounded-lg object-contain"
-                    :src="`/storage/${media.filename}`"
+                    :src="`/storage/${media.path}`"
                     :alt="media.name"
                     loading="lazy"
                 />

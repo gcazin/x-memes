@@ -231,7 +231,7 @@ if (usePage().props.auth?.user) {
                                     <div class="flex-shrink-0">
                                         <img
                                             class="h-11 w-11 rounded-full"
-                                            :src="`/storage/${notification.data.data.filename}`"
+                                            :src="`/storage/${notification.data.data.path}`"
                                             alt="Jese image"
                                         />
                                     </div>

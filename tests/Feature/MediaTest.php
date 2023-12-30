@@ -40,7 +40,7 @@ it('should store media and attach tags', function () {
     ]);
 
     $media = Media::first();
-    Storage::disk('public')->assertExists('media/'.$image->hashName());
+    Storage::disk('public')->assertExists('medias/'.$image->hashName());
     $media->attachTags(['tag1', 'tag2']);
 
     expect($response->status())->toBe(200)

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('filename');
-            $table->string('thumbnail')->nullable();
+            $table->string('path');
+            $table->string('thumbnail_path')->nullable();
             $table->string('extension');
             $table->text('hash')->nullable();
             $table->boolean('approved')->default(0);
