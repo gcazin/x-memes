@@ -18,15 +18,19 @@ class MediaFactory extends Factory
      */
     public function definition(): array
     {
-        $filename = Storage::has('media') && count(Storage::allFiles()) > 0
-            ? Storage::allFiles('media')[array_rand(Storage::allFiles('media'))]
-            : 'media/1.jpg';
+        $files = Storage::disk('medias')->files();
+        $filename = Storage::has('medias') && count($files) > 0
+            ? $files[array_rand($files)]
+            : 'medias/1.jpg';
+
+        $extension = explode('.', $filename)[1];
 
         return [
             'name' => fake()->name,
-            'filename' => $filename,
-            'extension' => 'jpg',
-            'hash' => '0000000000000000010001000100001011110111111111110011110000111100',
+            'filename' => 'medias/'.$filename,
+            'thumbnail' => $extension === 'mp4' ? 'medias/thumbnails/'.explode('.', $filename)[0].'.jpg' : null,
+            'extension' => $extension,
+            'hash' => $extension === 'mp4' ? null : 0000000000000000010001000100001011110111111111110011110000111100,
             'user_id' => User::all()->random()->id,
             'approved' => fake()->boolean,
             'download_count' => fake()->numberBetween(1, 1000),

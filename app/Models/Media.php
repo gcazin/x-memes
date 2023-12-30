@@ -36,6 +36,7 @@ class Media extends Model
     protected $fillable = [
         'name',
         'filename',
+        'thumbnail',
         'extension',
         'hash',
         'approved',

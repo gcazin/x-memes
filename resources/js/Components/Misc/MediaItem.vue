@@ -22,15 +22,13 @@ const form = useForm({
     <div class="group">
         <div class="relative">
             <a :href="route('media.show', media.id)">
-                <video
-                    class="h-96 w-full rounded-lg object-cover shadow"
-                    v-if="media.extension === 'mp4'"
-                    :src="`/storage/${media.filename}`"
-                ></video>
                 <img
-                    v-else
                     class="h-96 w-full rounded-lg object-cover shadow"
-                    :src="`/storage/${media.filename}`"
+                    :src="`/storage/${
+                        media.extension === 'mp4'
+                            ? media.thumbnail
+                            : media.filename
+                    }`"
                     :alt="media.name"
                     loading="lazy"
                 />

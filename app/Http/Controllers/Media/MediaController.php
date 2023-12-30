@@ -13,11 +13,11 @@ use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -80,11 +80,24 @@ class MediaController extends Controller
     public function store(StoreMediaRequest $request)
     {
         $file = $request->file('media_id');
-        $path = Storage::disk('public')->put('media', $file);
+        $path = Storage::disk('public')->put('medias', $file);
+
+        // Create thumbnail if the media is a video
+        $thumbnailName = null;
+        if ($file->extension() === 'mp4') {
+            $thumbnailName = 'medias/thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
+            FFMpeg::fromDisk('public')
+                ->open($path)
+                ->getFrameFromSeconds(10)
+                ->export()
+                ->toDisk('medias')
+                ->save($thumbnailName);
+        }
 
         $media = Media::create([
             'name' => $request->name,
             'filename' => $path,
+            'thumbnail' => $thumbnailName,
             'extension' => $file->extension(),
             'hash' => $file->extension() !== 'mp4' ? Comparator::convertHashToBinaryString(
                 Comparator::hashImage($file)
@@ -92,6 +105,7 @@ class MediaController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
+        // Add tags if present
         if ($request->tags) {
             $media->attachTags($request->tags);
         }

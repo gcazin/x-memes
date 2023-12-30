@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('filename');
+            $table->string('thumbnail')->nullable();
             $table->string('extension');
             $table->text('hash')->nullable();
             $table->boolean('approved')->default(0);

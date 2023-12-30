@@ -123,6 +123,7 @@ const getRelatedMedias = () => {
                 </div>
             </div>
             <div class="max-w-full">
+                {{ media.filename }}
                 <video
                     controls
                     class="mx-auto w-96 rounded-lg shadow"

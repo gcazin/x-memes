@@ -18,6 +18,7 @@
         "opcodesio/log-viewer": "^3.1",
         "overtrue/laravel-follow": "^5.1",
         "overtrue/laravel-like": "^5.2",
+        "pbmedia/laravel-ffmpeg": "^8.3",
         "pusher/pusher-php-server": "^7.2",
         "sapientpro/image-comparator-laravel": "^1.0",
         "spatie/laravel-permission": "^6.1",
