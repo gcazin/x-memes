@@ -46,6 +46,12 @@ class Media extends Model
         'user_id',
     ];
 
+    protected $hidden = [
+        'hash',
+        'approved_by',
+        'approved_at',
+    ];
+
     protected $casts = [
         'approved' => 'boolean',
         'download_count' => 'integer',

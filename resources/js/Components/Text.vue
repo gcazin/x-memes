@@ -30,14 +30,11 @@ const tagType = computed(() => {
         :is="tagType"
         :href="type === 'link' ? route(to, parameter) : null"
         :class="{
-            'font-bold uppercase text-blue-500': type === 'heading',
-            'text-3xl font-bold lg:text-4xl dark:text-white': type === 'title',
-            'text-xl text-gray-700 lg:text-2xl dark:text-gray-300':
-                type === 'subtitle',
-            'text-base text-gray-800 lg:text-lg dark:text-gray-200':
-                type === 'text',
-            'text-sm text-gray-800 lg:text-base dark:text-gray-200':
-                type === 'sub',
+            'font-bold uppercase text-primary': type === 'heading',
+            'text-3xl lg:text-4xl': type === 'title',
+            'text-xl lg:text-2xl': type === 'subtitle',
+            'text-base lg:text-lg': type === 'text',
+            'text-sm lg:text-base': type === 'sub',
             'text-xs lg:text-sm': type === 'xs',
             'link-hover link': type === 'link',
         }"
