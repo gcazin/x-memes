@@ -219,8 +219,7 @@ watch(
                         size="lg"
                         color="secondary"
                     >
-                        {{ tag }}
-                        {{ tag.name }}
+                        {{ tags.find((t) => t.id === tag).name }}
                     </Tag>
                 </div>
             </Stack>
@@ -281,13 +280,13 @@ watch(
                         aria-labelledby="dropdownTagsButton"
                     >
                         <li v-for="(tag, index) in tags" :key="index">
-                            <a @click="filterByTags(tag.name)">
+                            <a @click="filterByTags(tag.id)">
                                 <input
                                     :id="`checkbox-item-${tag.name}`"
                                     type="checkbox"
-                                    :value="tag.name"
+                                    :value="tag.id"
                                     class="checkbox-primary checkbox checkbox-sm"
-                                    :checked="checkIfTagIsSelected(tag.name)"
+                                    :checked="checkIfTagIsSelected(tag.id)"
                                 />
                                 <label for="checkbox-item-1" class="label">
                                     {{ tag.name }}
