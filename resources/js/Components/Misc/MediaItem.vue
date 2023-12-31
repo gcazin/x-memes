@@ -85,7 +85,7 @@ const form = useForm({
                         <Text type="xs">{{ media.likers.length }}</Text>
                     </div>
                     <div class="flex items-center justify-end">
-                        <Icon name="eye" size="xl" class="mr-0.5" />
+                        <Icon name="download" size="xl" class="mr-0.5" />
                         <Text type="xs">{{ media.download_count }}</Text>
                     </div>
                 </div>

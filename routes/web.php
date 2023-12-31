@@ -31,6 +31,7 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::redirect('{any}', '/');
 } else {
     // Common pages
+    // TODO: when the site is ready, HomeController
     Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
     Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
