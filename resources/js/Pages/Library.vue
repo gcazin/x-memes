@@ -23,6 +23,9 @@ const props = defineProps({
     sortBy: {
         type: Array,
     },
+    defaultSort: {
+        type: String,
+    },
     duplicatedImage: {
         type: String,
     },
@@ -79,7 +82,12 @@ formService.setForm(form).setRouteName('media')
             </button>
         </template>
 
-        <MediaGallery :medias="medias" :tags="tags" :sort-by="sortBy" />
+        <MediaGallery
+            :medias="medias"
+            :tags="tags"
+            :sort-by="sortBy"
+            :default-sort="defaultSort"
+        />
 
         <Modal id="addMediaModal" title="Ajouter un mème" max-width="2xl">
             <form

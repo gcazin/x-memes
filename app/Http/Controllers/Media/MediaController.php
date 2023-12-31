@@ -35,9 +35,10 @@ class MediaController extends Controller
      */
     public function index(Request $request)
     {
+        $defaultSort = '-created_at';
         $medias = QueryBuilder::for(Media::class)
             ->where('approved', true)
-            ->defaultSort('-created_at');
+            ->defaultSort($defaultSort);
 
         $sortBy = collect([
             [
@@ -70,6 +71,7 @@ class MediaController extends Controller
             'medias' => $medias->paginate(),
             'tags' => $this->tagRepository->all(),
             'sortBy' => $sortBy->toArray(),
+            'defaultSort' => $defaultSort,
             'duplicatedImage' => session('duplicatedImage'),
         ]);
     }

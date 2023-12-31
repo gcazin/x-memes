@@ -24,6 +24,9 @@ const props = defineProps({
     sortBy: {
         type: Array,
     },
+    defaultSort: {
+        type: String,
+    },
 })
 
 const page = usePage()
@@ -36,13 +39,14 @@ const selectedFilters = ref({
     filters: {
         tags: [],
     },
-    sort: null,
+    sort: props.defaultSort,
 })
 const urlParams = new URLSearchParams(window.location.search)
 
 onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
+    getSortTitle()
 })
 
 /**
@@ -78,6 +82,39 @@ const loadMorePosts = () => {
             ? getFiltersToSend()
             : {}
     )
+}
+
+const getSortTitle = () => {
+    const selector = selectedFilters.value.sort
+
+    let title = ''
+    if (selector) {
+        if (selector.charAt(0) === '-') {
+            switch (selector.slice(1)) {
+                case 'name':
+                    title += 'Par ordre alphabétique (Z-A)'
+                    break
+                case 'download_count':
+                    title += 'Les plus populaires 🔥'
+                    break
+                case 'created_at':
+                    title += 'Les plus récents'
+            }
+        } else {
+            switch (selector) {
+                case 'name':
+                    title += 'Par ordre alphabétique (A-Z)'
+                    break
+                case 'download_count':
+                    title += 'Les moins populaires'
+                    break
+                case 'created_at':
+                    title += 'Les plus anciens'
+            }
+        }
+    }
+
+    return title
 }
 
 const checkIfTagIsSelected = (tag) => {
@@ -226,12 +263,13 @@ watch(
         </div>
 
         <div class="flex flex-col lg:flex-row lg:items-center">
-            <div class="flex-1" v-if="allPosts && allPosts.length">
-                <span class="text-sm">
-                    {{ medias.total }} mèmes affiché{{
-                        medias.total > 1 ? 's' : ''
-                    }}
-                </span>
+            <div
+                class="flex-1"
+                v-if="allPosts && allPosts.length && selectedFilters.sort"
+            >
+                <Text>
+                    {{ getSortTitle() }}
+                </Text>
             </div>
             <div
                 class="flex-1 space-x-2 text-center lg:text-right"

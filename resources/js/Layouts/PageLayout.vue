@@ -30,7 +30,7 @@ defineProps({
     <Head :title="title"></Head>
 
     <div
-        class="relative min-h-screen bg-base-100"
+        class="relative min-h-screen bg-base-100 pb-6"
         style="background: url(/images/background/noise.webp)"
     >
         <div class="relative z-50 bg-base-300 py-2">
