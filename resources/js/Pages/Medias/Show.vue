@@ -55,7 +55,7 @@ const getRelatedMedias = () => {
 }
 
 const getTags = () => {
-    return _.map(props.media.tags, _.partialRight(_.pick, 'name'))
+    return _.map(props.media.tags, _.partialRight(_.pick, ['id', 'name']))
 }
 </script>
 
