@@ -4,10 +4,12 @@ import Stack from '@/Components/Layout/Stack.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import MediaItem from '@/Components/Misc/MediaItem.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import formService from '@/Services/form.service.js'
-import { router, useForm, usePage } from '@inertiajs/vue3'
+import { Head, router, useForm, usePage } from '@inertiajs/vue3'
+import _ from 'lodash'
 import { onMounted } from 'vue'
 
 const props = defineProps({
@@ -56,9 +58,22 @@ const getRelatedMedias = () => {
 </script>
 
 <template>
+    <Head :title="`${media.name} - ${media.tags.join(', ')}`" />
+
     <PageLayout>
-        <Stack>
+        <Stack spacing="2">
             <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
+            <Text>
+                <Tag
+                    :key="index"
+                    v-for="(tag, index) in _.map(
+                        media.tags,
+                        _.partialRight(_.pick, 'name')
+                    )"
+                >
+                    {{ tag.name }}
+                </Tag>
+            </Text>
             <div class="flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center gap-x-4">
@@ -81,45 +96,51 @@ const getRelatedMedias = () => {
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 space-x-1 text-right">
-                    <button
-                        class="btn btn-circle btn-outline"
-                        @click="
-                            formService
-                                .setForm(form)
-                                .setRouteName('media')
-                                .handle('like', media, 'get')
-                        "
-                        :disabled="form.processing || !auth"
-                        :class="
-                            auth
-                                ? media.likers
-                                      ?.map((liker) => liker.id)
-                                      .includes($page.props.auth.user.id)
-                                    ? 'btn-error'
-                                    : ''
-                                : ''
-                        "
-                    >
-                        <Icon size="xl" name="heart" />
-                    </button>
-                    <LoadingButton
-                        @click="downloadItem(media)"
-                        :disabled="form.processing"
-                        class="btn btn-circle btn-primary"
-                    >
-                        <Icon size="xl" name="arrow-down" />
-                    </LoadingButton>
-                    <Text>
-                        {{ media.download_count }} téléchargement{{
-                            media.download_count > 1 ? 's' : ''
-                        }}
-                    </Text>
-                    <Text>
-                        {{ media.likers.length }} j'aime{{
-                            media.likers.length > 1 ? 's' : ''
-                        }}
-                    </Text>
+                <div class="flex-1 text-right">
+                    <Stack spacing="1">
+                        <div class="space-x-1">
+                            <button
+                                class="btn btn-circle btn-outline"
+                                @click="
+                                    formService
+                                        .setForm(form)
+                                        .setRouteName('media')
+                                        .handle('like', media, 'get')
+                                "
+                                :disabled="form.processing || !auth"
+                                :class="
+                                    auth
+                                        ? media.likers
+                                              ?.map((liker) => liker.id)
+                                              .includes(
+                                                  $page.props.auth.user.id
+                                              )
+                                            ? 'btn-error'
+                                            : ''
+                                        : ''
+                                "
+                            >
+                                <Icon size="xl" name="heart" />
+                            </button>
+                            <LoadingButton
+                                @click="downloadItem(media)"
+                                :disabled="form.processing"
+                                class="btn btn-circle btn-primary"
+                            >
+                                <Icon size="xl" name="arrow-down" />
+                            </LoadingButton>
+                        </div>
+                        <Text>
+                            {{ media.download_count }} téléchargement{{
+                                media.download_count > 1 ? 's' : ''
+                            }}
+                        </Text>
+                        <Text>
+                            {{ media.likers.length }} j'aime{{
+                                media.likers.length > 1 ? 's' : ''
+                            }}
+                        </Text>
+                    </Stack>
                 </div>
             </div>
             <div class="max-w-full">

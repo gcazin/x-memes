@@ -3,7 +3,8 @@
 namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
-use Spatie\Tags\Tag;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Collection;
 
 class TagRepository implements RepositoryInterface
 {
@@ -12,23 +13,13 @@ class TagRepository implements RepositoryInterface
     ) {
     }
 
-    public function all()
+    public function all(): Collection
     {
-        return $this->mapToLocaleTranslation($this->tag->all());
+        return $this->tag->all();
     }
 
     public function find($id)
     {
         return $this->tag->find($id);
-    }
-
-    protected function mapToLocaleTranslation($model)
-    {
-        return $model->map(function ($tag) {
-            return [
-                'id' => $tag->id,
-                'name' => $tag->name,
-            ];
-        });
     }
 }
