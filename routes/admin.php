@@ -2,22 +2,24 @@
 
 use App\Http\Controllers\Admin\BadgeController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Media\MediaApproveController;
+use App\Http\Controllers\Admin\Media\MediaController;
 use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Media\MediaController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['role:super-admin|admin'])->prefix('admin')->name('admin.')
     ->group(function () {
         // Admin dashboard
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('index');
+        Route::get('dashboard', DashboardController::class)->name('index');
 
         // Users
-        Route::get('utilisateurs', [DashboardController::class, 'users'])->name('user.index');
+        Route::get('utilisateurs', [UserController::class, 'index'])->name('user.index');
 
         // Medias
         Route::name('media.')->group(function () {
-            Route::get('medias', [DashboardController::class, 'medias'])->name('index');
-            Route::put('media/{id}', [MediaController::class, 'approve'])->name('approve');
+            Route::get('medias', [MediaController::class, 'index'])->name('index');
+            Route::put('media/{id}', MediaApproveController::class)->name('approve');
         });
 
         // Tags

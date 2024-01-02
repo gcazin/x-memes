@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class DashboardController extends Controller
 {
@@ -16,27 +17,12 @@ class DashboardController extends Controller
     ) {
     }
 
-    public function index()
+    public function __invoke(): Response
     {
         return Inertia::render('Admin/Index', [
             'users' => User::all(),
             'medias' => $this->mediaRepository->all(),
             'tags' => $this->tagRepository->all(),
-        ]);
-    }
-
-    public function medias()
-    {
-        return Inertia::render('Admin/Medias', [
-            'users' => User::all(),
-            'medias' => $this->mediaRepository->all(),
-        ]);
-    }
-
-    public function users()
-    {
-        return Inertia::render('Admin/Users', [
-            'users' => User::all(),
         ]);
     }
 }

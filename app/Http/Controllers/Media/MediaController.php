@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Media;
 
-use App\Events\MediaApproved;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
@@ -12,7 +11,6 @@ use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use App\Services\FileService;
 use App\Services\MediaService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +32,7 @@ class MediaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $defaultSort = '-created_at';
         $medias = QueryBuilder::for(Media::class)
@@ -80,7 +78,7 @@ class MediaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMediaRequest $request)
+    public function store(StoreMediaRequest $request): void
     {
         $file = $request->file('media_id');
         $path = Storage::disk('public')->put('medias', $file);
@@ -122,6 +120,8 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
+        $this->mediaService->related($id);
+
         return Inertia::render('Medias/Show', [
             'media' => $media,
             'downloaded_file' => session('downloaded_file'),
@@ -149,84 +149,6 @@ class MediaController extends Controller
         $media->save();
 
         flash('success', 'Le média a bien été modifié.');
-    }
-
-    /**
-     * Returns random resource.
-     */
-    public function random()
-    {
-        if ($this->mediaRepository->allApprovedMedias()->count() !== 0) {
-            return redirect(route('media.show', $this->mediaRepository->random()));
-        }
-
-        abort(404);
-    }
-
-    /**
-     * Checks if file is duplicated.
-     */
-    public function duplicate(Request $request): RedirectResponse
-    {
-        $imageHash = FileService::hashImage($request->file('media_id'));
-
-        $similaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
-
-        if ($similaryMedia) {
-            return back()->with('duplicatedImage', $similaryMedia->path);
-        }
-
-        return back()->with('duplicatedImage');
-    }
-
-    /**
-     * Approves media.
-     */
-    public function approve(int $id): void
-    {
-        $media = $this->mediaService->approve($id);
-
-        MediaApproved::dispatch($media);
-    }
-
-    /**
-     * Download media.
-     */
-    public function download(int $id): RedirectResponse
-    {
-        $media = $this->mediaRepository->find($id);
-
-        $media->download_count += 1;
-
-        $media->update();
-
-        return redirect()->back()->with('downloaded_file', base64_encode(Storage::get($media->path)));
-    }
-
-    /**
-     * Like media.
-     */
-    public function like(int $id): void
-    {
-        $media = $this->mediaRepository->find($id);
-
-        auth()->user()->toggleLike($media);
-    }
-
-    /**
-     * Get related medias to another.
-     */
-    public function related(int $id): RedirectResponse
-    {
-        $media = Media::find($id);
-        $tags = $media->tags->pluck('name')->toArray();
-
-        $related = Media::withAnyTags($tags)
-            ->get()
-            ->where('id', '!=', $media->id)
-            ->take(4);
-
-        return back()->with('related', $related);
     }
 
     /**
