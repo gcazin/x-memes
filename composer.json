@@ -15,6 +15,7 @@
         "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
         "mailersend/laravel-driver": "^2.3",
+        "masterminds/html5": "^2.8",
         "opcodesio/log-viewer": "^3.1",
         "overtrue/laravel-follow": "^5.1",
         "overtrue/laravel-like": "^5.2",
@@ -23,6 +24,7 @@
         "sapientpro/image-comparator-laravel": "^1.0",
         "spatie/laravel-permission": "^6.1",
         "spatie/laravel-query-builder": "^5.6",
+        "spatie/laravel-sitemap": "^7.0",
         "spatie/laravel-tags": "^4.5",
         "tightenco/ziggy": "^1.0"
     },
