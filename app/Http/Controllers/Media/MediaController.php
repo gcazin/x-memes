@@ -6,18 +6,18 @@ use App\Events\MediaApproved;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
-use App\Mail\MediaApprovedMail;
 use App\Models\Media;
 use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
+use App\Services\FileService;
+use App\Services\MediaService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+use Inertia\Response;
 use SapientPro\ImageComparatorLaravel\Facades\Comparator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -26,7 +26,8 @@ class MediaController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository,
-        public TagRepository $tagRepository
+        public TagRepository $tagRepository,
+        public MediaService $mediaService
     ) {
     }
 
@@ -85,21 +86,12 @@ class MediaController extends Controller
         $path = Storage::disk('public')->put('medias', $file);
 
         // Create thumbnail if the media is a video
-        $thumbnailName = null;
-        if ($file->extension() === 'mp4') {
-            $thumbnailName = 'thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
-            FFMpeg::fromDisk('public')
-                ->open($path)
-                ->getFrameFromSeconds(10)
-                ->export()
-                ->toDisk('medias')
-                ->save($thumbnailName);
-        }
+        $thumbnail = FileService::createThumbnail($file, $path);
 
         $media = Media::create([
             'name' => $request->name,
             'path' => $path,
-            'thumbnail_path' => $thumbnailName,
+            'thumbnail_path' => 'medias/'.$thumbnail,
             'extension' => $file->extension(),
             'hash' => $file->extension() !== 'mp4' ? Comparator::convertHashToBinaryString(
                 Comparator::hashImage($file)
@@ -126,7 +118,7 @@ class MediaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Media $media, int $id)
+    public function show(int $id): Response
     {
         $media = $this->mediaRepository->find($id);
 
@@ -148,7 +140,7 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaRequest $request, int $id)
+    public function update(UpdateMediaRequest $request, int $id): void
     {
         $media = $this->mediaRepository->find($id);
 
@@ -176,7 +168,7 @@ class MediaController extends Controller
      */
     public function duplicate(Request $request): RedirectResponse
     {
-        $imageHash = Comparator::convertHashToBinaryString(Comparator::hashImage($request->file('media_id')));
+        $imageHash = FileService::hashImage($request->file('media_id'));
 
         $similaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
 
@@ -189,30 +181,18 @@ class MediaController extends Controller
 
     /**
      * Approves media.
-     *
-     * @return void
      */
-    public function approve(int $id)
+    public function approve(int $id): void
     {
-        $media = $this->mediaRepository->find($id);
-
-        $media->approved = true;
-        $media->approved_by = auth()->user()->id;
-        $media->approved_at = now()->toDateTime();
-
-        $media->update();
-
-        Mail::to($media->user)->send(new MediaApprovedMail($media));
+        $media = $this->mediaService->approve($id);
 
         MediaApproved::dispatch($media);
-
-        //        flash('success', 'Le média a bien été approuvé et publié ! 🚀');
     }
 
     /**
      * Download media.
      */
-    public function download(int $id)
+    public function download(int $id): RedirectResponse
     {
         $media = $this->mediaRepository->find($id);
 
@@ -225,10 +205,8 @@ class MediaController extends Controller
 
     /**
      * Like media.
-     *
-     * @return void
      */
-    public function like(int $id)
+    public function like(int $id): void
     {
         $media = $this->mediaRepository->find($id);
 
@@ -237,10 +215,8 @@ class MediaController extends Controller
 
     /**
      * Get related medias to another.
-     *
-     * @return RedirectResponse
      */
-    public function related(int $id)
+    public function related(int $id): RedirectResponse
     {
         $media = Media::find($id);
         $tags = $media->tags->pluck('name')->toArray();
@@ -256,7 +232,7 @@ class MediaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         $media = $this->mediaRepository->find($id);
 

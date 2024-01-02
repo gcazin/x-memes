@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Media;
 
 use App\Events\MediaApproved;
 use App\Notifications\Media\ApprovedMediaNotification;
@@ -21,7 +21,5 @@ class SendMediaApprovedNotification
     public function handle(MediaApproved $event): void
     {
         $event->media->user->notify(new ApprovedMediaNotification($event->media));
-
-        flash('success', 'Notification en real time');
     }
 }

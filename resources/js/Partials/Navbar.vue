@@ -3,6 +3,7 @@ import Avatar from '@/Components/Misc/Avatar.vue'
 import DropdownLink from '@/Components/Misc/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
+import Toast from '@/Components/Misc/Toast.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
@@ -310,11 +311,9 @@ if (usePage().props.auth?.user) {
         </div>
     </div>
 
-    <div class="toast toast-center z-50" v-if="showNotification">
-        <div :class="`alert alert-success`">
-            <span>
-                {{ messageNotification }}
-            </span>
-        </div>
-    </div>
+    <Toast
+        v-if="showNotification"
+        type="success"
+        :message="messageNotification"
+    ></Toast>
 </template>

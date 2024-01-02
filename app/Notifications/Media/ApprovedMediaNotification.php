@@ -37,6 +37,7 @@ class ApprovedMediaNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        // Clé "data" à changer pour "content" dans la vue et ici
         return [
             'title' => 'Ton média a bien été approuvé !',
             'data' => $this->media,
@@ -46,8 +47,13 @@ class ApprovedMediaNotification extends Notification
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage([
-            'title' => 'Ton média a bien été approuvé !',
+            'title' => "Ton mème {$this->media->name} vient d'être approuvé!",
             'content' => $this->media,
         ]);
+    }
+
+    public function getNotificationContent()
+    {
+
     }
 }

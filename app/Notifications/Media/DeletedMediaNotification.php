@@ -4,6 +4,7 @@ namespace App\Notifications\Media;
 
 use App\Models\Media;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class DeletedMediaNotification extends Notification
@@ -26,7 +27,7 @@ class DeletedMediaNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -48,5 +49,16 @@ class DeletedMediaNotification extends Notification
             'title' => "Ton média {$this->media->title} a été supprimé !",
             'content' => $this->media,
         ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     */
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage([
+            'title' => "Ton média {$this->media->title} a été supprimé !",
+            'content' => $this->media,
+        ]);
     }
 }

@@ -9,7 +9,7 @@ import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
 import formService from '@/Services/form.service.js'
-import { useForm, usePage } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import { computed, ref } from 'vue'
 
@@ -31,8 +31,6 @@ const props = defineProps({
     },
 })
 
-const page = usePage()
-
 const tagsOptions = computed(() => {
     return props.tags.map((tag) => {
         return {
@@ -47,13 +45,15 @@ const form = useForm({
     media_id: null,
     tags: [],
 })
-
+const defaultProgressLabel = `Upload en cours... ${form.progress?.percentage}`
+const progressLabel = ref(defaultProgressLabel)
 const duplicated = ref(null)
 
 const checkIfMediaIsDuplicated = (event) => {
     form.media_id = event.target.files[0]
 
     if (form.media_id.type !== 'video/mp4') {
+        progressLabel.value = 'Vérification des doublons...'
         form.post(route('media.duplicate', form.media_id), {
             onSuccess: (page) => {
                 if (page.props.duplicatedImage) {
@@ -64,6 +64,7 @@ const checkIfMediaIsDuplicated = (event) => {
             },
         })
     } else {
+        progressLabel.value = defaultProgressLabel
         duplicated.value = null
     }
 }
@@ -81,13 +82,6 @@ formService.setForm(form).setRouteName('media')
                 Ajouter un mème
             </button>
         </template>
-
-        <MediaGallery
-            :medias="medias"
-            :tags="tags"
-            :sort-by="sortBy"
-            :default-sort="defaultSort"
-        />
 
         <Modal id="addMediaModal" title="Ajouter un mème" max-width="2xl">
             <form
@@ -155,6 +149,16 @@ formService.setForm(form).setRouteName('media')
                             </div>
                         </Stack>
                     </template>
+                    <div class="flex flex-col text-center" v-if="form.progress">
+                        <Stack>
+                            <progress
+                                class="progress progress-primary"
+                                :value="form.progress.percentage"
+                                max="100"
+                            ></progress>
+                            <Text type="sub">{{ progressLabel }}</Text>
+                        </Stack>
+                    </div>
                     <LoadingButton
                         class="btn btn-primary"
                         :loading="form.processing"
@@ -173,6 +177,13 @@ formService.setForm(form).setRouteName('media')
                 </Stack>
             </form>
         </Modal>
+
+        <MediaGallery
+            :medias="medias"
+            :tags="tags"
+            :sort-by="sortBy"
+            :default-sort="defaultSort"
+        />
     </PageLayout>
 </template>
 <style>
