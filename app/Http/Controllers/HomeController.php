@@ -19,7 +19,7 @@ class HomeController extends Controller
         $waitlist = Waitlist::all()->take(10);
 
         return Inertia::render('Home', [
-            'stage' => env('APP_STAGE'),
+            'stage' => config('app.stage'),
             'waitlist' => $waitlist,
         ]);
     }

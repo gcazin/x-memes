@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\MediaApproved;
 use App\Models\Media;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,7 @@ class MediaService
     /**
      * Approve the specified media.
      */
-    public function approve(int $id)
+    public function approve(int $id): Media
     {
         $this->media = $this->mediaRepository->find($id);
 
@@ -26,6 +27,8 @@ class MediaService
         $this->media->approved_at = now()->toDateTime();
 
         $this->media->update();
+
+        MediaApproved::dispatch($this->media);
 
         return $this->media;
     }

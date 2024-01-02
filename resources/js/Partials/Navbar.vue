@@ -4,6 +4,7 @@ import DropdownLink from '@/Components/Misc/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Toast from '@/Components/Misc/Toast.vue'
+import Text from '@/Components/Text.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
@@ -180,8 +181,9 @@ if (usePage().props.auth?.user) {
                     </div>
                 </template>
 
-                <!-- When the user is not connect -->
+                <!-- When the user is connected -->
                 <template v-else>
+                    <!-- Search icon -->
                     <a
                         tabindex="0"
                         role="button"
@@ -191,6 +193,7 @@ if (usePage().props.auth?.user) {
                     >
                         <Icon size="xl" name="search" />
                     </a>
+                    <!-- Notification icon -->
                     <div class="dropdown dropdown-end">
                         <div
                             tabindex="0"
@@ -210,7 +213,7 @@ if (usePage().props.auth?.user) {
                         </div>
                         <div
                             tabindex="0"
-                            class="dropdown-content z-[1] mt-3 w-96 bg-base-100 shadow"
+                            class="dropdown-content z-[1] mt-3 w-96 rounded-b bg-base-100 shadow"
                         >
                             <div
                                 v-if="notifications.length"
@@ -218,7 +221,7 @@ if (usePage().props.auth?.user) {
                                     notification, index
                                 ) in notifications.slice(0, 5)"
                                 :key="index"
-                                class="divide-y divide-gray-100 dark:divide-gray-700"
+                                class="divide-y divide-base-100"
                             >
                                 <a
                                     :href="
@@ -227,7 +230,7 @@ if (usePage().props.auth?.user) {
                                             notification.data.content.id
                                         )
                                     "
-                                    class="flex px-4 py-3 hover:bg-base-300"
+                                    class="flex px-4 py-3 hover:bg-base-200"
                                 >
                                     <div class="flex-shrink-0">
                                         <img
@@ -241,7 +244,9 @@ if (usePage().props.auth?.user) {
                                             {{ notification.data.title }}
                                         </div>
                                         <div class="text-xs text-primary">
-                                            {{ notification.created_at }}
+                                            {{
+                                                notification.formatted_created_at
+                                            }}
                                         </div>
                                     </div>
                                 </a>
@@ -253,14 +258,14 @@ if (usePage().props.auth?.user) {
                             </div>
                             <a
                                 :href="route('notification.index')"
-                                class="block rounded-b-lg bg-gray-50 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                                class="flex items-center justify-center rounded-b bg-base-300 py-2 text-center hover:bg-base-200"
                             >
-                                <div class="inline-flex items-center">
-                                    <Icon name="eye" class="mr-1" />
+                                <Icon name="eye" class="mr-1" />
+                                <Text type="xs">
                                     Voir toutes les notifications ({{
                                         notifications.length
                                     }})
-                                </div>
+                                </Text>
                             </a>
                         </div>
                     </div>

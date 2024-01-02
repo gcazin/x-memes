@@ -38,7 +38,9 @@ class HandleInertiaRequests extends Middleware
                     return $request->user() ? $request->user()->roles()->pluck('name') : null;
                 },
                 'notifications' => fn () => $request->user()
-                    ? $request->user()->unreadNotifications
+                    ? $request->user()->unreadNotifications->each(function ($notification) {
+                        $notification->formatted_created_at = $notification->created_at->diffForHumans();
+                    })
                     : null,
                 'isConnected' => $request->user() !== null,
             ],

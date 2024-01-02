@@ -60,7 +60,7 @@ defineProps({
                         <template v-if="$slots.title">
                             <div class="flex gap-2">
                                 <h1
-                                    class="text-3xl font-semibold leading-tight"
+                                    class="text-2xl font-semibold leading-tight"
                                 >
                                     {{ title }}
                                 </h1>

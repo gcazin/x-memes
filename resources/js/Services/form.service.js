@@ -80,7 +80,7 @@ class FormService {
                 })
                 break
             case 'update':
-                this.form.post(route(`${routeName}.update`, item?.id), {
+                this.form.put(route(`${routeName}.update`, item?.id), {
                     _method: 'put',
                     preserveScroll: true,
                     onSuccess: () => this.closeModal(),

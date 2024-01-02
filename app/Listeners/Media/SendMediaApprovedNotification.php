@@ -4,8 +4,9 @@ namespace App\Listeners\Media;
 
 use App\Events\MediaApproved;
 use App\Notifications\Media\ApprovedMediaNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendMediaApprovedNotification
+class SendMediaApprovedNotification implements ShouldQueue
 {
     /**
      * Create the event listener.

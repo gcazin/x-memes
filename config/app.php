@@ -33,6 +33,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Stage
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "stage" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes.
+    |
+    */
+
+    'stage' => env('APP_STAGE', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

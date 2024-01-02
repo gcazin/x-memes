@@ -103,7 +103,7 @@ class MediaController extends Controller
         }
 
         if ($request->user()->isSuperAdmin()) {
-            $this->approve($media->id);
+            $this->mediaService->approve($media->id);
         } else {
             flash(
                 'info',

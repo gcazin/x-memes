@@ -4,9 +4,10 @@ namespace App\Listeners\Media;
 
 use App\Events\MediaApproved;
 use App\Mail\MediaApprovedMail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMediaApprovedMail
+class SendMediaApprovedMail implements ShouldQueue
 {
     /**
      * Create the event listener.

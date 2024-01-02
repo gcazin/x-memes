@@ -44,16 +44,16 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
     Route::get('search/{query?}', SearchController::class)->name('search');
 
     // User
-    Route::name('user.')->group(function () {
-        Route::get('membre/{username}', [UserController::class, 'show'])->name('show');
-        Route::get('membre/{username}/badges', BadgeController::class)->name('badge.index');
+    Route::name('user.')->prefix('membre')->group(function () {
+        Route::get('{username}', [UserController::class, 'show'])->name('show');
+        Route::get('{username}/badges', BadgeController::class)->name('badge.index');
     });
 
     // Media
-    Route::name('media.')->group(function () {
-        Route::get('media/{id}', [MediaController::class, 'show'])->name('show');
-        Route::get('media/{id}/related', MediaRelatedController::class)->name('related');
-        Route::get('media/{id}/download', MediaDownloadController::class)->name('download');
+    Route::name('media.')->prefix('media')->group(function () {
+        Route::get('{id}', [MediaController::class, 'show'])->name('show');
+        Route::get('{id}/related', MediaRelatedController::class)->name('related');
+        Route::get('{id}/download', MediaDownloadController::class)->name('download');
     });
     // Auth
     Route::middleware('auth')->group(function () {
@@ -69,13 +69,14 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         });
 
         Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
-        Route::name('media.')->group(function () {
-            Route::post('media/dupliquer', MediaDuplicateController::class)->name('duplicate');
-            Route::get('media/{id}/like', MediaLikeController::class)->name('like');
+        Route::name('media.')->prefix('media')->group(function () {
+            Route::post('dupliquer', MediaDuplicateController::class)->name('duplicate');
+            Route::get('{id}/like', MediaLikeController::class)->name('like');
         });
 
-        Route::name('notification.')->prefix('notifications')->group(function () {
-            Route::get('voir-tout', [NotificationController::class, 'index'])->name('index');
+        Route::resource('notification', NotificationController::class)->withTrashed(['show']);
+        Route::name('notification.')->prefix('notification')->group(function () {
+            Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
         });
     });
 

@@ -8,8 +8,8 @@ defineProps({
 </script>
 <template>
     <section
-        class="mb-4 rounded-lg shadow-sm sm:p-8"
-        :class="hasBackground ? 'bg-base-200' : ''"
+        class="z-10 mb-4 rounded-lg sm:p-8"
+        :class="hasBackground ? 'bg-base-200 shadow-lg' : ''"
     >
         <slot />
     </section>

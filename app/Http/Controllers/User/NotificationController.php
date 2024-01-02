@@ -14,7 +14,13 @@ class NotificationController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render('User/Notifications');
+        $notifications = auth()->user()->notifications->each(function ($notification) {
+            $notification->formatted_created_at = $notification->created_at->diffForHumans();
+        });
+
+        return Inertia::render('User/Notifications', [
+            'notifications' => $notifications,
+        ]);
     }
 
     /**
@@ -28,9 +34,19 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string|array $id)
     {
-        //
+        if ($request->has('notifications')) {
+            foreach ($request->user()->unreadNotifications as $notification) {
+                $notification->markAsRead();
+            }
+        } else {
+            $notification = auth()->user()->notifications->where('id', $id)->first();
+
+            if ($notification) {
+                $notification->markAsRead();
+            }
+        }
     }
 
     /**
