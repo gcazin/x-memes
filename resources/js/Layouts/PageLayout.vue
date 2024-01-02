@@ -44,7 +44,7 @@ defineProps({
                         href="https://x.com/gcazinonx"
                         target="_blank"
                     >
-                        @gcazinonx </a
+                        @gcazinonx</a
                     >.
                 </Text>
             </div>
