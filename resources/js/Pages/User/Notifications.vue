@@ -2,6 +2,7 @@
 import Section from '@/Components/Layout/Section.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import Pagination from '@/Components/Misc/Pagination.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import formService from '@/Services/form.service.js'
@@ -9,7 +10,7 @@ import { router, useForm, usePage } from '@inertiajs/vue3'
 import _ from 'lodash'
 import { watch } from 'vue'
 
-defineProps({
+const props = defineProps({
     notifications: {
         type: Array,
         required: true,
@@ -40,6 +41,8 @@ watch(
     },
     { immediate: true }
 )
+
+console.log(props.notifications)
 </script>
 
 <template>
@@ -100,13 +103,13 @@ watch(
                 <Text type="subtitle">Ancien</Text>
                 <template
                     v-if="
-                        notifications.filter(
+                        notifications.data.filter(
                             (notification) => notification.read_at !== null
                         ).length
                     "
                 >
                     <div
-                        v-for="(notification, index) in notifications"
+                        v-for="(notification, index) in notifications.data"
                         :key="index"
                         class="rounded-lg bg-base-300 p-4"
                     >
@@ -131,6 +134,8 @@ watch(
                             </div>
                         </div>
                     </div>
+
+                    <Pagination :item="notifications" />
                 </template>
                 <Section class="!bg-base-300" v-else>
                     <Text>Aucune notification a afficher.</Text>
