@@ -4,6 +4,7 @@ import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
+import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Text.vue'
@@ -30,141 +31,176 @@ formService.setForm(form)
 
 <template>
     <AdminDashboardLayout title="Médias">
-        <div class="flex flex-col gap-4">
-            <div class="flex-1">
-                <div class="mb-4">
-                    <Text type="subtitle" class="mb-2">
-                        Médias approuvés
-                        <Tag size="lg" type="primary">
-                            {{
-                                medias.filter((media) => media.approved).length
-                            }}
-                        </Tag>
-                    </Text>
-                    <Table
-                        :headers="[
-                            'Titre',
-                            'Media',
-                            'Rôles',
-                            'Utilisateur',
-                            'Tags',
-                        ]"
-                        :items="medias.filter((m) => m.approved)"
-                        :properties="['name', 'media', 'role', 'user', 'tags']"
-                        has-action
-                        has-background
-                    >
-                        <template #name="media">
-                            <a :href="route('media.show', media.id)">{{
-                                media.name
-                            }}</a>
-                        </template>
-                        <template #role="{ user }">
-                            {{ user.roles.map((role) => role.name).join(', ') }}
-                        </template>
-                        <template #user="{ user }">
-                            {{ user.username }} ({{ user.email }})
-                        </template>
-                        <template #media="{ extension, path, name }">
-                            <video
-                                controls
-                                class="h-full w-full"
-                                v-if="extension === 'mp4'"
-                                :src="`storage/${name}`"
-                            ></video>
-                            <img
-                                v-else
-                                class="w-32 rounded-xl"
-                                :src="`/storage/${path}`"
-                                alt=""
-                            />
-                        </template>
-                        <template #actions="item">
-                            <ActionButton
-                                type="edit"
-                                @click="
-                                    formService.openModal('editMedia', item)
-                                "
-                            />
-                            <ActionButton
-                                type="delete"
-                                @click="formService.handle('destroy', item)"
-                            />
+        <Stack>
+            <div class="flex flex-row">
+                <div class="flex-1">
+                    <Stack>
+                        <Text type="subtitle">
+                            Médias approuvés
+                            <Tag size="lg" type="primary">
+                                {{
+                                    medias.filter((media) => media.approved)
+                                        .length
+                                }}
+                            </Tag>
+                        </Text>
+                        <Table
+                            class="h-96 overflow-auto"
+                            :headers="[
+                                'Titre',
+                                'Media',
+                                'Rôles',
+                                'Utilisateur',
+                                'Tags',
+                            ]"
+                            :items="medias.filter((m) => m.approved)"
+                            :properties="[
+                                'name',
+                                'media',
+                                'role',
+                                'user',
+                                'tags',
+                            ]"
+                            has-action
+                            has-background
+                        >
+                            <template #name="media">
+                                <a :href="route('media.show', media.id)">{{
+                                    media.name
+                                }}</a>
+                            </template>
+                            <template #role="{ user }">
+                                {{
+                                    user.roles
+                                        .map((role) => role.name)
+                                        .join(', ')
+                                }}
+                            </template>
+                            <template #user="{ user }">
+                                {{ user.username }} ({{ user.email }})
+                            </template>
+                            <template #media="{ path, thumbnail_path }">
+                                <img
+                                    class="w-24 rounded-xl"
+                                    :src="`/storage/${thumbnail_path ?? path}`"
+                                    alt=""
+                                />
+                            </template>
+                            <template #tags="{ tags }">
+                                <Tag v-for="(tag, index) in tags" :key="index">
+                                    {{ tag.name }}
+                                </Tag>
+                            </template>
+                            <template #actions="item">
+                                <ActionButton
+                                    type="edit"
+                                    @click="
+                                        formService.openModal('editMedia', item)
+                                    "
+                                />
+                                <ActionButton
+                                    type="delete"
+                                    @click="formService.handle('destroy', item)"
+                                />
 
-                            <Modal
-                                :id="`editMediaModal${item.id}`"
-                                title="Modifier le média"
+                                <Modal
+                                    :id="`editMediaModal${item.id}`"
+                                    title="Modifier le média"
+                                >
+                                    <TextInput
+                                        label="Titre"
+                                        v-model="form.name"
+                                    />
+                                    <InputError :message="form.errors.name" />
+
+                                    <LoadingButton
+                                        @click="
+                                            formService
+                                                .setRouteName('media')
+                                                .handle('update', item)
+                                        "
+                                        :loading="form.processing"
+                                    >
+                                        Modifier le média
+                                    </LoadingButton>
+                                </Modal>
+                            </template>
+                        </Table>
+                    </Stack>
+                </div>
+                <div class="flex-1">
+                    <Stack>
+                        <Text type="subtitle">
+                            Médias en attente
+                            <Tag size="lg" type="warning">
+                                {{
+                                    medias.filter((media) => !media.approved)
+                                        .length
+                                }}
+                            </Tag>
+                        </Text>
+                        <Table
+                            class="h-96 overflow-y-auto"
+                            :headers="[
+                                'Titre',
+                                'Media',
+                                'Rôles',
+                                'Utilisateur',
+                            ]"
+                            :items="medias.filter((m) => !m.approved)"
+                            :properties="['name', 'media', 'role', 'user']"
+                            has-action
+                            has-background
+                        >
+                            <template #role="{ user }">
+                                {{
+                                    user.roles
+                                        .map((role) => role.name)
+                                        .join(', ')
+                                }}
+                            </template>
+                            <template #user="{ user }">
+                                {{ user.username }} ({{ user.email }})
+                            </template>
+                            <template
+                                #media="{
+                                    extension,
+                                    path,
+                                    thumbnail_path,
+                                    name,
+                                }"
                             >
-                                <TextInput label="Titre" v-model="form.name" />
-                                <InputError :message="form.errors.name" />
-
-                                <LoadingButton
+                                <img
+                                    class="w-24 rounded-xl"
+                                    :src="`/storage/${thumbnail_path ?? path}`"
+                                    alt=""
+                                />
+                            </template>
+                            <template #tags="{ tags }">
+                                <Tag v-for="(tag, index) in tags" :key="index">
+                                    {{ tag.name }}
+                                </Tag>
+                            </template>
+                            <template #actions="item">
+                                <span
+                                    class="cursor-pointer px-1 transition hover:text-primary"
                                     @click="
                                         formService
-                                            .setRouteName('media')
-                                            .handle('update', item)
+                                            .setRouteName('admin.media')
+                                            .handle('approve', item)
                                     "
-                                    :loading="form.processing"
                                 >
-                                    Modifier le média
-                                </LoadingButton>
-                            </Modal>
-                        </template>
-                    </Table>
+                                    <Icon size="2xl" name="checkmark-done" />
+                                </span>
+                                <ActionButton
+                                    type="delete"
+                                    @click="formService.handle('destroy', item)"
+                                />
+                            </template>
+                        </Table>
+                    </Stack>
                 </div>
             </div>
-            <div class="flex-1">
-                <Text type="subtitle" class="mb-2">
-                    Médias en attente
-                    <Tag size="lg" type="warning">
-                        {{ medias.filter((media) => !media.approved).length }}
-                    </Tag>
-                </Text>
-                <Table
-                    :headers="['Titre', 'Media', 'Rôles', 'Utilisateur']"
-                    :items="medias.filter((m) => !m.approved)"
-                    :properties="['name', 'media', 'role', 'user']"
-                    has-action
-                    has-background
-                >
-                    <template #role="{ user }">
-                        {{ user.roles.map((role) => role.name).join(', ') }}
-                    </template>
-                    <template #user="{ user }">
-                        {{ user.username }} ({{ user.email }})
-                    </template>
-                    <template #media="{ extension, path, name }">
-                        <video
-                            controls
-                            class="h-full w-full"
-                            v-if="extension === 'mp4'"
-                            :src="`storage/${name}`"
-                        ></video>
-                        <img
-                            v-else
-                            class="w-40 rounded-xl"
-                            :src="`/storage/${path}`"
-                            alt=""
-                        />
-                    </template>
-                    <template #actions="item">
-                        <span
-                            class="cursor-pointer px-1 transition hover:text-primary"
-                            @click="
-                                formService
-                                    .setRouteName('admin.media')
-                                    .handle('approve', item)
-                            "
-                        >
-                            <Icon size="2xl" name="checkmark-done" />
-                        </span>
-                        <ActionButton
-                            type="delete"
-                            @click="formService.handle('destroy', item)"
-                        />
-                    </template>
-                </Table>
-            </div>
-        </div>
+        </Stack>
     </AdminDashboardLayout>
 </template>

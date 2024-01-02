@@ -63,9 +63,9 @@ if (env('APP_STAGE') === 'alpha' && env('APP_ENV') === 'production') {
         });
 
         Route::name('profile.')->group(function () {
-            Route::get('profile', [ProfileController::class, 'edit'])->name('edit');
-            Route::put('profile', [ProfileController::class, 'update'])->name('update');
-            Route::delete('profile', [ProfileController::class, 'destroy'])->name('destroy');
+            Route::get('profil', [ProfileController::class, 'edit'])->name('edit');
+            Route::put('profil', [ProfileController::class, 'update'])->name('update');
+            Route::delete('profil', [ProfileController::class, 'destroy'])->name('destroy');
         });
 
         Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
