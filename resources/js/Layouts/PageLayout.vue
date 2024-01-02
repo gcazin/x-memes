@@ -37,7 +37,7 @@ defineProps({
             <div class="text-center">
                 <Text type="sub">
                     Le site est actuellement au stade
-                    <span class="font-bold">d'alpha</span>. Si vous rencontrer
+                    <span class="font-bold">d'alpha</span>. Si vous rencontrez
                     des bugs, ou si vous avez une suggestion, contactez-moi sur
                     <a
                         class="link link-secondary font-bold"
