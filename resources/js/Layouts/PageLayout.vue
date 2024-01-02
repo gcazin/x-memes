@@ -54,7 +54,7 @@ defineProps({
         <BlobBackground />
         <!-- Page Heading -->
         <header v-if="hasHeader">
-            <div class="mx-auto py-6 lg:w-9/12 lg:px-0">
+            <div class="mx-auto px-4 py-6 lg:w-9/12 lg:px-0">
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
