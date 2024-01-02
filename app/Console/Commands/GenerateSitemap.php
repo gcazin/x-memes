@@ -30,7 +30,7 @@ class GenerateSitemap extends Command
     {
         $this->info('Sitemap generation in progress...');
 
-        SitemapGenerator::create('https://x-memes.com')
+        SitemapGenerator::create(config('app.url'))
             ->configureCrawler(function ($crawler) {
                 $crawler->ignoreRobots();
             })
