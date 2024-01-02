@@ -18,7 +18,7 @@ class MediaService
     }
 
     /**
-     * Approve the specified media.
+     * Approves the specified media.
      */
     public function approve(int $id): Media
     {
@@ -36,7 +36,7 @@ class MediaService
     }
 
     /**
-     * Get the related medias.
+     * Retrieves related media based on tags associated with the specified media.
      */
     public function related($id): RedirectResponse
     {

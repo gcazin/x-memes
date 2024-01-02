@@ -47,6 +47,26 @@ it('should store media and attach tags', function () {
         ->and($media->tags()->pluck('name')->toArray())->toBe(['tag1', 'tag2']);
 });
 
+/*it('should store  video media and create thumbnail', function () {
+    User::factory()->create();
+    Storage::fake();
+
+    $response = actingAsGuest()->post(route('media.store'), [
+        'name' => 'Test Media',
+        'media_id' => $image = UploadedFile::fake()->image('test.mp4'),
+    ]);
+
+    $media = Media::first();
+    Storage::disk('public')
+        ->assertExists('medias/'.$image->hashName());
+
+    $thumbnailName = 'thumbnails/'.explode('.', $image->hashName())[0].'.jpg';
+    Storage::disk('medias')
+        ->assertExists('medias/'.$thumbnailName);
+
+    expect($response->status())->toBe(200);
+});*/
+
 it('should approve media and send notification', function () {
     Notification::fake();
     User::factory()->create();

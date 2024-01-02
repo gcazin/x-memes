@@ -11,9 +11,9 @@ use SapientPro\ImageComparatorLaravel\Facades\Comparator;
 class FileService
 {
     /**
-     * Create thumbnails from path
+     * Creates a thumbnail for the given UploadedFile and saves it to the specified path.
      */
-    public static function createThumbnail(UploadedFile $file, string $path): ?string
+    public function createThumbnail(UploadedFile $file, string $path): ?string
     {
         $thumbnailName = null;
         if ($file->extension() === 'mp4') {
@@ -30,9 +30,9 @@ class FileService
     }
 
     /**
-     * Hash file
+     * Hashes an image using the provided UploadedFile.
      */
-    public static function hashImage(UploadedFile $image)
+    public function hashImage(UploadedFile $image)
     {
         return Comparator::convertHashToBinaryString(Comparator::hashImage($image));
     }

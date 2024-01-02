@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 class MediaDuplicateController extends Controller
 {
     public function __construct(
-        public MediaRepository $mediaRepository
+        public MediaRepository $mediaRepository,
+        public FileService $fileService
     ) {
     }
 
@@ -22,7 +23,7 @@ class MediaDuplicateController extends Controller
      */
     public function __invoke(Request $request): RedirectResponse
     {
-        $imageHash = FileService::hashImage($request->file('media_id'));
+        $imageHash = $this->fileService->hashImage($request->file('media_id'));
 
         $similaryMedia = $this->mediaRepository->firstWhere('hash', $imageHash);
 

@@ -17,7 +17,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * All medias
+     * Retrieves all media items.
      */
     public function all(): Collection
     {
@@ -25,7 +25,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * All media approved and published
+     * Retrieves all approved and published media items.
      */
     public function allApprovedMedias($force = true): mixed
     {
@@ -37,7 +37,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * All media pending
+     * Retrieves all pending media items.
      */
     public function allPendingMedias(): mixed
     {
@@ -45,7 +45,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * Paginate medias
+     * Paginates all approved media items.
      *
      * @return mixed
      */
@@ -56,6 +56,9 @@ class MediaRepository implements RepositoryInterface
             ->paginate();
     }
 
+    /**
+     * Paginates all approved media items with selected tags.
+     */
     public function paginateWithSelectedTags(string $tags)
     {
         return Media::withAnyTags(explode(',', $tags))
@@ -65,9 +68,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * Paginate medias by user
-     *
-     * @return mixed
+     * Paginates all approved media items by user id.
      */
     public function paginateByUser($id)
     {
@@ -78,7 +79,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * Find media by id
+     * Finds a media item by its id.
      */
     public function find($id): Media
     {
@@ -86,7 +87,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * Find the first element returned by where
+     * Finds the first media item returned by the given key-value pair.
      *
      * @return mixed
      */
@@ -96,7 +97,7 @@ class MediaRepository implements RepositoryInterface
     }
 
     /**
-     * Returns random media
+     * Retrieves a random approved media item.
      */
     public function random(): Media
     {

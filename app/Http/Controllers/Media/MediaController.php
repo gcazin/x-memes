@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
-use SapientPro\ImageComparatorLaravel\Facades\Comparator;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -27,7 +26,8 @@ class MediaController extends Controller
     public function __construct(
         public MediaRepository $mediaRepository,
         public TagRepository $tagRepository,
-        public MediaService $mediaService
+        public MediaService $mediaService,
+        public FileService $fileService
     ) {
     }
 
@@ -86,16 +86,14 @@ class MediaController extends Controller
         $path = Storage::disk('public')->put('medias', $file);
 
         // Create thumbnail if the media is a video
-        $thumbnail = FileService::createThumbnail($file, $path);
+        $thumbnail = $this->fileService->createThumbnail($file, $path);
 
         $media = Media::create([
             'name' => $request->name,
             'path' => $path,
             'thumbnail_path' => 'medias/'.$thumbnail,
             'extension' => $file->extension(),
-            'hash' => $file->extension() !== 'mp4' ? Comparator::convertHashToBinaryString(
-                Comparator::hashImage($file)
-            ) : null,
+            'hash' => $file->extension() !== 'mp4' ? $this->fileService->hashImage($file) : null,
             'user_id' => $request->user()->id,
         ]);
 

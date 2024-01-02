@@ -15,11 +15,17 @@ class TagRepository implements RepositoryInterface
     ) {
     }
 
+    /**
+     * Retrieves all tag items.
+     */
     public function all(): Collection
     {
         return $this->tag->all();
     }
 
+    /**
+     * Finds a tag item by its ID.
+     */
     public function find($id)
     {
         return $this->tag->find($id);
