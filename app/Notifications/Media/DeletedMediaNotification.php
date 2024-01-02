@@ -45,10 +45,7 @@ class DeletedMediaNotification extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        return [
-            'title' => "Ton média {$this->media->title} a été supprimé !",
-            'content' => $this->media,
-        ];
+        return $this->getNotificationContent();
     }
 
     /**
@@ -56,9 +53,17 @@ class DeletedMediaNotification extends Notification
      */
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
-        return new BroadcastMessage([
+        return new BroadcastMessage($this->getNotificationContent());
+    }
+
+    /**
+     * Get the notification's content.
+     */
+    public function getNotificationContent(): array
+    {
+        return [
             'title' => "Ton média {$this->media->title} a été supprimé !",
             'content' => $this->media,
-        ]);
+        ];
     }
 }

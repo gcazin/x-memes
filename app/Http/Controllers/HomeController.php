@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Waitlist;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         // When is launched
         /*if (auth()->user()) {
@@ -23,7 +24,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function leaderboard()
+    public function leaderboard(): Response
     {
         $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->get();
 

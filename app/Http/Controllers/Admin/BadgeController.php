@@ -9,13 +9,14 @@ use App\Models\Badge;
 use App\Models\BadgeType;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class BadgeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         return Inertia::render('Admin/Badges', [
             'badges' => Badge::all(),
@@ -26,7 +27,7 @@ class BadgeController extends Controller
     /**
      * Store a newly created badge in storage.
      */
-    public function store(StoreBadgeRequest $request)
+    public function store(StoreBadgeRequest $request): void
     {
         $badge = new Badge();
 
@@ -49,7 +50,7 @@ class BadgeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBadgeRequest $request, string $id)
+    public function update(UpdateBadgeRequest $request, string $id): void
     {
         $badge = Badge::find($id);
 
@@ -59,7 +60,7 @@ class BadgeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): void
     {
         $badge = Badge::find($id);
 

@@ -224,7 +224,7 @@ if (usePage().props.auth?.user) {
                                     :href="
                                         route(
                                             'media.show',
-                                            notification.data.data.id
+                                            notification.data.content.id
                                         )
                                     "
                                     class="flex px-4 py-3 hover:bg-base-300"
@@ -232,7 +232,7 @@ if (usePage().props.auth?.user) {
                                     <div class="flex-shrink-0">
                                         <img
                                             class="h-11 w-11 rounded-full"
-                                            :src="`/storage/${notification.data.data.path}`"
+                                            :src="`/storage/${notification.data.content.path}`"
                                             alt="Jese image"
                                         />
                                     </div>

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\MediaRepository;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     ) {
     }
 
-    public function show(string $username)
+    public function show(string $username): Response
     {
         $user = User::with('badges', 'medias', 'followers', 'followings')
             ->where('username', $username)
@@ -30,7 +31,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request): void
     {
         $request->user()->fill($request->except('avatar'));
 
