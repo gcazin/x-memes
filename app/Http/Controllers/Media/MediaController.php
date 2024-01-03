@@ -16,6 +16,7 @@ use App\Services\MediaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -93,6 +94,7 @@ class MediaController extends Controller
             'path' => $path,
             'thumbnail_path' => 'medias/'.$thumbnail,
             'extension' => $file->extension(),
+            'slug' => Str::slug($request->name),
             'hash' => $file->extension() !== 'mp4' ? $this->fileService->hashImage($file) : null,
             'user_id' => $request->user()->id,
         ]);
@@ -116,11 +118,11 @@ class MediaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id): Response
+    public function show(string $slug): Response
     {
-        $media = $this->mediaRepository->find($id);
+        $media = $this->mediaRepository->firstWhere('slug', $slug);
 
-        $this->mediaService->related($id);
+        $this->mediaService->related($media->id);
 
         return Inertia::render('Medias/Show', [
             'media' => $media,

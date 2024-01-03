@@ -1,8 +1,9 @@
 <script setup>
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
-import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import Section from '@/Components/Layout/Section.vue'
+import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import { useForm } from '@inertiajs/vue3'
 
@@ -23,24 +24,23 @@ const submit = () => {
 
 <template>
     <PageLayout title="Mot de passe oublié">
-        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
-        </div>
+        <Section>
+            <Text>
+                Tu as oublié ton mot de passe ? Pas de problème. Indique-nous
+                ton adresse mail et on t'enverra un email qui te permettra d'en
+                choisir un nouveau.
+            </Text>
 
-        <div
-            v-if="status"
-            class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
-        >
-            {{ status }}
-        </div>
+            <div
+                v-if="status"
+                class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
+            >
+                {{ status }}
+            </div>
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
+            <form @submit.prevent="submit">
                 <TextInput
+                    label="Adresse mail"
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -51,16 +51,16 @@ const submit = () => {
                 />
 
                 <InputError :message="form.errors.email" />
-            </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Email Password Reset Link
-                </PrimaryButton>
-            </div>
-        </form>
+                <div class="mt-4 flex items-center justify-end">
+                    <LoadingButton
+                        :loading="form.processing"
+                        :disabled="form.processing"
+                    >
+                        Recevoir le mail
+                    </LoadingButton>
+                </div>
+            </form>
+        </Section>
     </PageLayout>
 </template>

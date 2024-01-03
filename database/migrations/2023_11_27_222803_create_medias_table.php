@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('approved_by')->nullable();
             $table->timestamp('approved_at')->nullable();
             $table->integer('download_count')->default(0);
+            $table->string('slug');
 
             $table->foreignId('user_id')->constrained();
             $table->foreign('approved_by')->references('id')->on('users');

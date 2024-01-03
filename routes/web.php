@@ -40,8 +40,6 @@ if (config('app.stage') === 'alpha' && config('app.env') === 'production') {
     Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
     Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
-    Route::get('random', MediaRandomController::class)->name('random');
-    Route::get('search/{query?}', SearchController::class)->name('search');
 
     // User
     Route::name('user.')->prefix('membre')->group(function () {
@@ -51,12 +49,15 @@ if (config('app.stage') === 'alpha' && config('app.env') === 'production') {
 
     // Media
     Route::name('media.')->prefix('media')->group(function () {
-        Route::get('{id}', [MediaController::class, 'show'])->name('show');
+        Route::get('{slug}', [MediaController::class, 'show'])->name('show');
         Route::get('{id}/related', MediaRelatedController::class)->name('related');
         Route::get('{id}/download', MediaDownloadController::class)->name('download');
     });
     // Auth
     Route::middleware('auth')->group(function () {
+        Route::get('rechercher/{query?}', SearchController::class)->name('search');
+        Route::get('random', MediaRandomController::class)->name('random');
+
         Route::name('user.')->group(function () {
             Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');
             Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');

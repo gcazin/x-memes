@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Media>
@@ -25,13 +26,16 @@ class MediaFactory extends Factory
 
         $extension = explode('.', $filename)[1];
 
+        $title = fake()->name;
+
         return [
-            'name' => fake()->name,
+            'name' => $title,
             'path' => 'medias/'.$filename,
             'thumbnail_path' => $extension === 'mp4' ? 'medias/thumbnails/'.explode('.', $filename)[0].'.jpg' : null,
             'extension' => $extension,
             'hash' => $extension === 'mp4' ? null : 0000000000000000010001000100001011110111111111110011110000111100,
             'user_id' => User::all()->random()->id,
+            'slug' => Str::slug($title),
             'approved' => fake()->boolean,
             'download_count' => fake()->numberBetween(1, 1000),
         ];

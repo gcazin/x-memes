@@ -3,7 +3,7 @@
 
 Félicitations, votre média a été approuvé par un administrateur !
 
-<x-mail::button :url="route('media.show', $media->id)">
+<x-mail::button :url="route('media.show', $media->slug)">
     Voir l'image
 </x-mail::button>
 

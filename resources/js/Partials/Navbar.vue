@@ -227,7 +227,7 @@ if (usePage().props.auth?.user) {
                                     :href="
                                         route(
                                             'media.show',
-                                            notification.data.content.id
+                                            notification.data.content.slug
                                         )
                                     "
                                     class="flex px-4 py-3 hover:bg-base-200"

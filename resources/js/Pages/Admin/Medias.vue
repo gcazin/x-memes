@@ -65,7 +65,7 @@ formService.setForm(form)
                             has-background
                         >
                             <template #name="media">
-                                <a :href="route('media.show', media.id)">{{
+                                <a :href="route('media.slug', media.id)">{{
                                     media.name
                                 }}</a>
                             </template>

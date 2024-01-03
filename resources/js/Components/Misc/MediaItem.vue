@@ -21,7 +21,7 @@ const form = useForm({
 <template>
     <div class="group">
         <div class="relative">
-            <a :href="route('media.show', media.id)">
+            <a :href="route('media.show', media.slug)">
                 <img
                     class="h-96 w-full rounded-lg object-cover shadow"
                     :src="`/storage/${

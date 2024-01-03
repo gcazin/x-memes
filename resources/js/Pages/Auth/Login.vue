@@ -1,4 +1,5 @@
 <script setup>
+import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 import Checkbox from '@/Components/Elements/Form/Checkbox.vue'
 import InputError from '@/Components/Elements/Form/InputError.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
@@ -77,12 +78,13 @@ const submit = () => {
                         Mot de passe oublié?
                     </Link>
 
-                    <button
-                        class="btn btn-primary ms-4"
+                    <LoadingButton
+                        class="ms-4"
                         :disabled="form.processing"
+                        :loading="form.processing"
                     >
                         Connexion
-                    </button>
+                    </LoadingButton>
                 </div>
             </form>
         </Section>
