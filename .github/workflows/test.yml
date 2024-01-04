@@ -44,7 +44,7 @@ jobs:
 
       - name: Install composer dependencies
         run: |
-          composer install --no-scripts
+          composer install --no-interaction --prefer-dist --optimize-autoloader --no-scripts
 
       - name: Prepare Laravel Application
         run: |
@@ -62,4 +62,4 @@ jobs:
         run: yarn run build
 
       - name: Run tests
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --parallel
