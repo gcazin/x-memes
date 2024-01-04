@@ -209,22 +209,26 @@ const sortByProperty = (index, sorting) => {
 
 const fetchData = (url, filters = null) => {
     loading.value = true
-    router.visit(url, {
-        data: filters ?? {},
-        only: ['medias'],
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess: () => {
-            if (url === pagination.value.first_page_url) {
-                allPosts.value = [...props.medias.data]
-            } else {
-                allPosts.value = [...allPosts.value, ...props.medias.data]
-            }
-            window.history.replaceState({}, '', pagination.value.path)
-            pagination.value = props.medias
-            loading.value = false
-        },
-    })
+    if (url) {
+        router.visit(url, {
+            data: filters ?? {},
+            only: ['medias'],
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: () => {
+                if (url === pagination.value.first_page_url) {
+                    allPosts.value = [...props.medias.data]
+                } else {
+                    allPosts.value = [...allPosts.value, ...props.medias.data]
+                }
+                window.history.replaceState({}, '', pagination.value.path)
+                pagination.value = props.medias
+                loading.value = false
+            },
+        })
+    } else {
+        loading.value = false
+    }
 }
 
 /**

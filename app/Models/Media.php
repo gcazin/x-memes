@@ -104,8 +104,9 @@ class Media extends Model implements Sitemapable
     public function toSearchableArray(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'id' => '',
+            'name' => '',
+            't.name' => '',
         ];
     }
 

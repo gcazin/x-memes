@@ -19,15 +19,23 @@ class SearchController extends Controller
     {
         $query = $request->query('query');
         $type = $request->query('type');
+        $perPage = 6;
 
         $result = null;
         if ($query && $type) {
             switch ($type) {
                 case 'users':
-                    $result = User::search($query)->paginate(6);
+                    $result = User::search(trim($query))->paginate($perPage);
                     break;
                 case 'medias':
-                    $result = Media::search($query)->paginate(6);
+                    $result = Media::search(trim($query))
+                        ->query(function ($query) {
+                            $query
+                                ->join('taggables as ta', 'medias.id', 'ta.taggable_id')
+                                ->join('tags as t', 't.id', 'ta.tag_id')
+                                ->select(['medias.*'])
+                                ->orderBy('medias.id', 'DESC');
+                        })->paginate($perPage);
                     break;
             }
         }
