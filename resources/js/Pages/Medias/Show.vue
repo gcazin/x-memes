@@ -122,7 +122,7 @@ const getTags = () => {
                             </button>
                             <LoadingButton
                                 @click="downloadItem(media)"
-                                :disabled="form.processing"
+                                :disabled="form.processing || !auth"
                                 class="btn btn-circle btn-primary"
                             >
                                 <Icon size="xl" name="arrow-down" />

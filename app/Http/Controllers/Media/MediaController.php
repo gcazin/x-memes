@@ -122,7 +122,9 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->firstWhere('slug', $slug);
 
-        $this->mediaService->related($media->id);
+        if ($media) {
+            $this->mediaService->related($media->id);
+        }
 
         return Inertia::render('Medias/Show', [
             'media' => $media,
