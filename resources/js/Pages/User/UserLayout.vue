@@ -41,7 +41,6 @@ const updateUser = () => {
     form.post(route('user.update'), {
         onSuccess: () => {
             formService.closeModal()
-            console.log('ici?')
         },
     })
 }
@@ -51,17 +50,19 @@ const updateUser = () => {
     <Head :title="`Profil de ${user.username}`"></Head>
     <PageLayout>
         <Stack spacing="4">
-            <div class="flex items-center">
+            <div class="flex flex-col items-center lg:flex-row">
                 <div>
                     <Avatar
                         :user="user"
                         size="lg"
-                        class="mr-4"
+                        class="lg:mr-4"
                         :rounded="false"
                     />
                 </div>
-                <Stack spacing="2">
-                    <Text type="title">{{ user.username }}</Text>
+                <Stack spacing="2" class="mb-4 lg:mb-0">
+                    <Text type="title" class="text-center lg:text-left">{{
+                        user.username
+                    }}</Text>
                     <Text>
                         {{ user.description }}
                     </Text>

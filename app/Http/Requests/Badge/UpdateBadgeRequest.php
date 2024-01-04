@@ -29,7 +29,7 @@ class UpdateBadgeRequest extends FormRequest
         return [
             'name' => ['string', 'required', 'max:100'],
             'description' => ['string', 'sometimes'],
-            'condition' => ['integer', Rule::unique(Badge::class, 'name')],
+            'condition' => [Rule::unique(Badge::class, 'name')],
             'badge_type_id' => ['integer', Rule::exists(BadgeType::class), 'sometimes'],
         ];
     }

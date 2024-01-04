@@ -34,7 +34,7 @@ defineExpose({ focus: () => input.value.focus() })
         </div>
         <select
             @input="$emit('update:modelValue', $event.target.value)"
-            class="select select-bordered bg-base-300"
+            class="select select-bordered select-primary bg-base-300"
             :model-value="modelValue"
         >
             <option
