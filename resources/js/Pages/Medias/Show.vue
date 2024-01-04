@@ -8,6 +8,7 @@ import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import formService from '@/Services/form.service.js'
+import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm, usePage } from '@inertiajs/vue3'
 import { saveAs } from 'file-saver'
 import _ from 'lodash'
@@ -122,6 +123,18 @@ const getTags = () => {
                                 class="btn btn-circle btn-primary"
                             >
                                 <Icon size="xl" name="arrow-down" />
+                            </LoadingButton>
+                            <LoadingButton
+                                v-if="helperService.checkRoles('super-admin')"
+                                @click="
+                                    formService
+                                        .setForm(form)
+                                        .setRouteName('media')
+                                        .handle('destroy', media)
+                                "
+                                class="btn btn-circle btn-error"
+                            >
+                                <Icon size="xl" name="trash" />
                             </LoadingButton>
                         </div>
                         <Text>
