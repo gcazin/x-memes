@@ -49,9 +49,11 @@ const form = useForm({
 const defaultProgressLabel = `Upload en cours...`
 let progressLabel = defaultProgressLabel
 const duplicated = ref(null)
+const media_preview_url = ref(null)
 
 const checkIfMediaIsDuplicated = async (event) => {
     form.media_id = event.target.files[0]
+    media_preview_url.value = URL.createObjectURL(form.media_id)
     duplicated.value = null
 
     if (form.media_id.type !== 'video/mp4') {
@@ -114,13 +116,20 @@ const uploadMedia = () => {
                     </div>
 
                     <div class="form-control">
-                        <InputLabel for="name" value="Image" required />
-                        <input
-                            type="file"
-                            class="file-input file-input-bordered file-input-primary w-full"
-                            id="media_id"
-                            @input="checkIfMediaIsDuplicated"
-                        />
+                        <Stack>
+                            <InputLabel for="name" value="Image" required />
+                            <img
+                                class="mx-auto h-60 rounded"
+                                v-if="media_preview_url"
+                                :src="media_preview_url"
+                            />
+                            <input
+                                type="file"
+                                class="file-input file-input-bordered file-input-primary w-full"
+                                id="media_id"
+                                @input="checkIfMediaIsDuplicated"
+                            />
+                        </Stack>
                         <div class="label ms-auto pb-0">
                             <span class="label-text-alt">
                                 Types de fichier acceptés:
