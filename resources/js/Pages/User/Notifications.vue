@@ -41,8 +41,6 @@ watch(
     },
     { immediate: true }
 )
-
-console.log(props.notifications)
 </script>
 
 <template>

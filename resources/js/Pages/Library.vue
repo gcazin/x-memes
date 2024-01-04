@@ -53,7 +53,9 @@ const media_preview_url = ref(null)
 
 const checkIfMediaIsDuplicated = async (event) => {
     form.media_id = event.target.files[0]
-    media_preview_url.value = URL.createObjectURL(form.media_id)
+    if (form.media_id.type !== 'video/mp4') {
+        media_preview_url.value = URL.createObjectURL(form.media_id)
+    }
     duplicated.value = null
 
     if (form.media_id.type !== 'video/mp4') {
@@ -75,7 +77,6 @@ const checkIfMediaIsDuplicated = async (event) => {
 }
 
 const uploadMedia = () => {
-    console.log(form.media_id)
     form.post(route('media.store'), {
         onSuccess: () => {
             formService.closeModal()

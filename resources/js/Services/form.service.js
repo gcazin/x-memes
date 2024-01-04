@@ -79,7 +79,6 @@ class FormService {
                     preserveScroll: true,
                     onSuccess: () => {
                         this.closeModal()
-                        console.log(this.form)
                     },
                 })
                 break
@@ -97,7 +96,6 @@ class FormService {
                 })
                 break
             case action:
-                console.log('route', routeName)
                 this.form[method](
                     route(
                         routeName ? `${routeName}.${action}` : action,

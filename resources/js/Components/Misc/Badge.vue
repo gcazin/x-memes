@@ -8,7 +8,6 @@ const props = defineProps({
     },
 })
 
-console.log(props.badge)
 const iconType = computed(() => {
     return {
         // 'create': 'add',
