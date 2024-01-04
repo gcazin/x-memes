@@ -116,7 +116,7 @@ if (usePage().props.auth?.user) {
                                 type="secondary"
                                 size="sm"
                                 class="hidden align-middle lg:block"
-                                >v0.2.0-alpha</Tag
+                                >{{ page.props.stage }}</Tag
                             >
                         </span>
                     </div>

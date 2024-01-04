@@ -46,6 +46,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value determines the "version" your application is currently
+    | running in. This may determine how you prefer to configure various
+    | services the application utilizes.
+    |
+    */
+
+    'version' => env('APP_VERSION', 'version'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
