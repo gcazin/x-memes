@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
-use Illuminate\Support\Number;
 use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\Sitemap\Contracts\Sitemapable;
@@ -66,13 +65,6 @@ class Media extends Model implements Sitemapable
     {
         return Attribute::make(
             get: fn (string $value) => Carbon::make($value)->diffForHumans()
-        );
-    }
-
-    public function downloadCount(): Attribute
-    {
-        return Attribute::make(
-            get: fn (int $value) => Number::forHumans($value)
         );
     }
 
