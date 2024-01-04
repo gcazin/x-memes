@@ -30,9 +30,7 @@ formService.setForm(form).setRouteName('media')
             <div class="flex items-center">
                 <div class="flex-1">
                     <Text type="sub">
-                        {{
-                            medias.filter((media) => !media.approved).length
-                        }}
+                        {{ medias.filter((media) => !media.approved).length }}
                         médias en attente d'approbation
                     </Text>
                 </div>

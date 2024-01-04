@@ -18,7 +18,7 @@ test('users can authenticate using the login screen with his username', function
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
 test('users can authenticate using the login screen with his email', function () {
@@ -30,7 +30,7 @@ test('users can authenticate using the login screen with his email', function ()
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
 test('users can not authenticate with invalid password', function () {

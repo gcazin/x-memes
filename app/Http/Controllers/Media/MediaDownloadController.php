@@ -20,7 +20,7 @@ class MediaDownloadController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, $id): RedirectResponse
+    public function __invoke(Request $request, int $id): RedirectResponse
     {
         $media = $this->mediaRepository->find($id);
 
