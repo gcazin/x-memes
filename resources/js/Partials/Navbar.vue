@@ -288,7 +288,7 @@ if (usePage().props.auth?.user) {
                             role="button"
                             class="btn btn-circle btn-ghost"
                         >
-                            <Avatar size="sm" />
+                            <Avatar :user="$page.props.auth.user" size="sm" />
                         </div>
                         <ul
                             class="menu menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"

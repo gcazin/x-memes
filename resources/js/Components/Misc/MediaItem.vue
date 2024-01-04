@@ -72,7 +72,7 @@ const form = useForm({
                 :parameter="media.user.username"
                 class="flex items-center gap-x-2"
             >
-                <Avatar v-once size="sm" :user="media.user" />
+                <Avatar size="sm" :user="media.user" />
                 <span>{{ media.user.username }}</span>
             </Text>
             <div class="flex-1">

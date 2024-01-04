@@ -115,7 +115,10 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                                 <div
                                     class="float-right flex items-center gap-2"
                                 >
-                                    <Avatar size="sm" />
+                                    <Avatar
+                                        :user="$page.props.auth.user"
+                                        size="sm"
+                                    />
                                     {{ $page.props.auth.user.username }}
                                 </div>
                             </a>

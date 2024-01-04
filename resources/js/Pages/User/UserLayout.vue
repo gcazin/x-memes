@@ -54,7 +54,6 @@ const updateUser = () => {
             <div class="flex items-center">
                 <div>
                     <Avatar
-                        v-once
                         :user="user"
                         size="lg"
                         class="mr-4"
@@ -111,7 +110,10 @@ const updateUser = () => {
                                     />
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <Avatar v-once size="lg" />
+                                    <Avatar
+                                        :user="$page.props.auth.user"
+                                        size="lg"
+                                    />
                                     <input
                                         type="file"
                                         class="file-input file-input-bordered w-full"
