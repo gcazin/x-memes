@@ -44,12 +44,18 @@ formService.setForm(form).setRouteName('waitlist')
                         publier et voir les mèmes que la communauté a posté.
                     </p>
                     <div class="space-x-2">
-                        <button class="btn btn-primary btn-lg">
+                        <a
+                            :href="route('library')"
+                            class="btn btn-primary btn-lg"
+                        >
                             Découvrir
-                        </button>
-                        <button class="btn btn-outline btn-primary btn-lg">
+                        </a>
+                        <a
+                            :href="route('login')"
+                            class="btn btn-outline btn-primary btn-lg"
+                        >
                             Se connecter
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

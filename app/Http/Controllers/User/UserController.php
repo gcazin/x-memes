@@ -40,9 +40,6 @@ class UserController extends Controller
         $request->user()->fill($request->except('avatar'));
 
         if ($request->hasFile('avatar')) {
-            if ($request->user()->getOriginal('avatar')) {
-                Storage::delete($request->user()->getOriginal('avatar'));
-            }
             $avatar = Storage::put('avatar', $request->file('avatar'));
             $request->user()->avatar = $avatar;
         }

@@ -26,9 +26,13 @@ class NotificationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
+        $notification = auth()->user()->notifications->firstWhere('id', $id);
+
+        $notification->markAsRead();
+
+        return to_route('media.show', $notification->data['content']['slug']);
     }
 
     /**

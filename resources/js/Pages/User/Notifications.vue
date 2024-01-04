@@ -76,24 +76,36 @@ console.log(props.notifications)
                             <img
                                 :src="`/storage/${notification.data.content.path}`"
                                 alt=""
-                                class="mx-auto w-20 rounded-full"
+                                class="mx-auto w-20 rounded"
                             />
                         </div>
                         <div class="flex-1">
-                            <Text>{{ notification.data.title }}</Text>
-                            <Text type="xs">{{
-                                notification.formatted_created_at
-                            }}</Text>
+                            <Text>
+                                <a
+                                    class="link"
+                                    :href="
+                                        route(
+                                            'notification.show',
+                                            notification.id
+                                        )
+                                    "
+                                >
+                                    {{ notification.data.title }}
+                                </a>
+                            </Text>
+                            <Text type="xs">
+                                {{ notification.formatted_created_at }}
+                            </Text>
                         </div>
-                        <div>
-                            <Icon
+                        <div class="relative z-50">
+                            <button
                                 @click="
                                     formService.handle('update', notification)
                                 "
-                                name="checkmark"
-                                size="2xl"
-                                class="link link-secondary"
-                            />
+                                class="btn btn-ghost btn-sm"
+                            >
+                                Marquer comme lu
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -118,19 +130,28 @@ console.log(props.notifications)
                                 <img
                                     :src="`/storage/${notification.data.content.path}`"
                                     alt=""
-                                    class="mx-auto w-20 rounded-full"
+                                    class="mx-auto w-20 rounded"
                                 />
                             </div>
                             <div class="flex-1">
                                 <Text>
-                                    {{ notification.data.title }}
+                                    <a
+                                        class="link"
+                                        :href="
+                                            route(
+                                                'media.show',
+                                                notification.data.content.slug
+                                            )
+                                        "
+                                    >
+                                        {{ notification.data.title }}
+                                    </a>
                                 </Text>
-                                <Text> Oui </Text>
                             </div>
                             <div>
-                                <Text>{{
-                                    notification.formatted_created_at
-                                }}</Text>
+                                <Text>
+                                    {{ notification.formatted_created_at }}
+                                </Text>
                             </div>
                         </div>
                     </div>

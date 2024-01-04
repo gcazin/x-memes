@@ -24,7 +24,7 @@ class SearchController extends Controller
         if ($query && $type) {
             switch ($type) {
                 case 'users':
-                    $result = User::search($query)->get();
+                    $result = User::search($query)->paginate(6);
                     break;
                 case 'medias':
                     $result = Media::search($query)->paginate(6);

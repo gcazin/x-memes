@@ -272,7 +272,7 @@ watch(
                 </Text>
             </div>
             <div
-                class="flex-1 space-x-2 text-center lg:text-right"
+                class="mt-4 flex-1 space-x-2 text-right lg:mt-0"
                 v-if="(tags && tags.length) || sortBy"
             >
                 <div

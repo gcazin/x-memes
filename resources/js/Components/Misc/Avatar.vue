@@ -1,6 +1,6 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3'
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
     size: {
@@ -12,14 +12,21 @@ const props = defineProps({
         type: Array,
         required: false,
     },
-    /*rounded: {
-        type: Boolean,
-        default: true,
-    },*/
+})
+
+onMounted(() => {
+    if (props.user) {
+        getAvatar()
+    }
 })
 
 const page = usePage()
 const authUser = page.props.auth?.user
+let avatar = ref(
+    authUser.avatar.includes('avatar-placeholder')
+        ? `/images/${authUser.avatar}`
+        : `/storage/${authUser.avatar}`
+)
 
 const avatarSizeClass = computed(() => {
     return {
@@ -31,24 +38,18 @@ const avatarSizeClass = computed(() => {
     }[props.size]
 })
 
-const avatar = () => {
-    if (
-        (props.user && !props.user.avatar.includes('avatar-placeholder')) ||
-        (authUser && !authUser.avatar.includes('avatar-placeholder'))
-    ) {
-        console.log(
-            `/storage/${props.user ? props.user.avatar : authUser.avatar}`
-        )
-        return `/storage/${props.user ? props.user.avatar : authUser.avatar}`
+const getAvatar = () => {
+    if (!props.user.avatar.includes('avatar-placeholder')) {
+        avatar.value = `/storage/${props.user.avatar}`
     }
 
-    return `/images/${props.user?.avatar ?? authUser?.avatar}`
+    avatar.value = `/images/${props.user?.avatar}`
 }
 </script>
 <template>
     <div class="avatar" :class="[avatarSizeClass]">
         <img
-            :src="avatar()"
+            :src="avatar"
             :alt="`Avatar de ${user?.username ?? authUser?.username}`"
             class="rounded-lg"
         />

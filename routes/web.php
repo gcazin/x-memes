@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 // Common pages
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
-Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+Route::get('/classement', [HomeController::class, 'leaderboard'])->name('leaderboard');
 
 // User
 Route::name('user.')->prefix('membre')->group(function () {

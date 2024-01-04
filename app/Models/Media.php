@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Number;
 use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
+use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Tags\HasTags;
 
 /**
@@ -24,7 +25,7 @@ use Spatie\Tags\HasTags;
  * @property string $filename
  * @property string $name
  */
-class Media extends Model
+class Media extends Model implements Sitemapable
 {
     use HasFactory, HasTags, Likeable, Searchable;
 
@@ -52,8 +53,6 @@ class Media extends Model
 
     protected $hidden = [
         'hash',
-        'approved_by',
-        'approved_at',
     ];
 
     protected $casts = [
@@ -98,6 +97,12 @@ class Media extends Model
     public function shouldBeSearchable(): bool
     {
         return $this->isApproved();
+    }
+
+    public function toSitemapTag(): string
+    {
+        // Simple return:
+        return route('media.show', $this->slug);
     }
 
     /**

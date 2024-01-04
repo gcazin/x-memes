@@ -63,7 +63,6 @@ if (usePage().props.auth?.user) {
                         class="drawer-toggle"
                     />
                     <div class="drawer-content">
-                        <!-- Page content here -->
                         <label for="my-drawer" class="btn btn-ghost lg:hidden">
                             <Icon name="menu" size="4xl" />
                         </label>
@@ -74,16 +73,14 @@ if (usePage().props.auth?.user) {
                             aria-label="close sidebar"
                             class="drawer-overlay"
                         ></label>
-                        <ul
-                            class="menu min-h-full w-60 bg-base-200 p-4 text-base-content"
-                        >
+                        <ul class="menu min-h-full w-60 bg-base-200 p-4">
                             <li v-for="(item, index) in menuItems" :key="index">
                                 <a
                                     :href="route(item.route)"
                                     :active="route().current(item.route)"
                                 >
                                     <Icon :name="item.icon" size="sm" />
-                                    {{ item.name }}
+                                    <Text>{{ item.name }}</Text>
                                 </a>
                             </li>
                             <li
@@ -98,7 +95,7 @@ if (usePage().props.auth?.user) {
                                     :active="route().current('admin.dashboard')"
                                 >
                                     <Icon name="construct" />
-                                    Administration
+                                    <Text>Administration</Text>
                                 </a>
                             </li>
                         </ul>
@@ -109,7 +106,7 @@ if (usePage().props.auth?.user) {
                 <a :href="route('index')" class="text-2xl">
                     <div class="flex w-full items-center gap-x-2">
                         <img
-                            class="inline hidden w-12 lg:inline"
+                            class="inline w-8 lg:w-12"
                             src="/images/favicon.png"
                             alt="Logo"
                         />
@@ -227,7 +224,7 @@ if (usePage().props.auth?.user) {
                         </div>
                         <div
                             tabindex="0"
-                            class="dropdown-content z-[1] mt-3 w-96 rounded-b bg-base-100 shadow"
+                            class="dropdown-content z-[1] mt-3 w-80 rounded-b bg-base-100 shadow lg:w-96"
                         >
                             <div
                                 v-if="notifications.length"
@@ -240,8 +237,8 @@ if (usePage().props.auth?.user) {
                                 <a
                                     :href="
                                         route(
-                                            'media.show',
-                                            notification.data.content.slug
+                                            'notification.show',
+                                            notification.id
                                         )
                                     "
                                     class="flex px-4 py-3 hover:bg-base-200"

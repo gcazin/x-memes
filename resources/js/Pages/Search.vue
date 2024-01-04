@@ -113,7 +113,7 @@ formService.setForm(form).setRouteName(null)
                 class="flex gap-4"
             >
                 <UserCard
-                    v-for="(user, index) in result"
+                    v-for="(user, index) in result.data"
                     :key="index"
                     :user="user"
                 />
@@ -138,7 +138,11 @@ formService.setForm(form).setRouteName(null)
                     <div class="skeleton h-4 w-full"></div>
                 </div>
             </template>
-            <template v-if="result && result.length === 0 && !form.processing">
+            <template
+                v-if="
+                    result.data && result.data.length === 0 && !form.processing
+                "
+            >
                 <div class="alert alert-info">
                     Aucun résultat a afficher. Essayer avec un autre terme.
                 </div>

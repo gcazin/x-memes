@@ -19,7 +19,9 @@ defineProps({
             <Avatar size="xl" :user="user" />
         </figure>
         <div class="card-body items-center text-center">
-            <h2 class="card-title">{{ user.username }}</h2>
+            <a :href="route('user.show', user.username)" class="card-title">{{
+                user.username
+            }}</a>
             <p v-if="user.description">{{ user.description }}</p>
             <div class="card-actions">
                 <FollowButton :user="user" />

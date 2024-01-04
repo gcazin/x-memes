@@ -37,7 +37,14 @@ const downloadMediaCount =
               .reduce((accumulator, media) => accumulator + media)
         : 0
 
-formService.setForm(form).setRouteName('user')
+const updateUser = () => {
+    form.post(route('user.update'), {
+        onSuccess: () => {
+            formService.closeModal()
+            console.log('ici?')
+        },
+    })
+}
 </script>
 
 <template>
@@ -47,6 +54,7 @@ formService.setForm(form).setRouteName('user')
             <div class="flex items-center">
                 <div>
                     <Avatar
+                        v-once
                         :user="user"
                         size="lg"
                         class="mr-4"
@@ -91,7 +99,7 @@ formService.setForm(form).setRouteName('user')
                         title="Modifier le profil"
                         max-width="2xl"
                     >
-                        <form @submit.prevent="formService.handle('update')">
+                        <form @submit.prevent="updateUser()">
                             <Stack>
                                 <div>
                                     <TextInput
@@ -103,7 +111,7 @@ formService.setForm(form).setRouteName('user')
                                     />
                                 </div>
                                 <div class="flex items-center gap-4">
-                                    <Avatar size="lg" />
+                                    <Avatar v-once size="lg" />
                                     <input
                                         type="file"
                                         class="file-input file-input-bordered w-full"

@@ -33,7 +33,7 @@ defineProps({
         class="relative min-h-screen bg-base-100 pb-6"
         style="background: url(/images/background/noise.webp)"
     >
-        <div class="relative z-50 bg-base-300 py-2">
+        <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
                     Le site est actuellement au stade

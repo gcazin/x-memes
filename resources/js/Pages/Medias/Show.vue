@@ -55,25 +55,23 @@ const getRelatedMedias = () => {
         preserveState: true,
     })
 }
+
+const getTags = () => {
+    return _.map(props.media.tags, _.partialRight(_.pick, 'name'))
+}
 </script>
 
 <template>
-    <Head :title="`${media.name} - ${media.tags.join(', ')}`" />
+    <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
 
     <PageLayout>
         <Stack spacing="2">
             <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
-            <Text>
-                <Tag
-                    :key="index"
-                    v-for="(tag, index) in _.map(
-                        media.tags,
-                        _.partialRight(_.pick, 'name')
-                    )"
-                >
+            <div class="space-x-1">
+                <Tag :key="index" v-for="(tag, index) in getTags()">
                     {{ tag.name }}
                 </Tag>
-            </Text>
+            </div>
             <div class="flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center gap-x-4">
