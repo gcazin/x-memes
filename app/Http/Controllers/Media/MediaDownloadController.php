@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Media;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\MediaRepository;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class MediaDownloadController extends Controller
 {
@@ -20,7 +20,7 @@ class MediaDownloadController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, int $id): RedirectResponse
+    public function __invoke(Request $request, int $id): StreamedResponse
     {
         $media = $this->mediaRepository->find($id);
 
@@ -28,6 +28,6 @@ class MediaDownloadController extends Controller
 
         $media->update();
 
-        return redirect()->back()->with('downloaded_file', base64_encode(Storage::get($media->path)));
+        return Storage::download($media->path);
     }
 }

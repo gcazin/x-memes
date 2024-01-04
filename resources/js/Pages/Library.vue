@@ -52,6 +52,7 @@ const duplicated = ref(null)
 
 const checkIfMediaIsDuplicated = async (event) => {
     form.media_id = event.target.files[0]
+    duplicated.value = null
 
     if (form.media_id.type !== 'video/mp4') {
         progressLabel = 'Vérification des doublons...'
@@ -62,7 +63,6 @@ const checkIfMediaIsDuplicated = async (event) => {
                 } else {
                     duplicated.value = null
                 }
-                console.log(defaultProgressLabel)
                 progressLabel = defaultProgressLabel
             },
         })
@@ -72,7 +72,20 @@ const checkIfMediaIsDuplicated = async (event) => {
     }
 }
 
-formService.setForm(form).setRouteName('media')
+const uploadMedia = () => {
+    console.log(form.media_id)
+    form.post(route('media.store'), {
+        onSuccess: () => {
+            formService.closeModal()
+
+            // Can't use form.reset(), why? idk
+            form.name = null
+            form.media_id = null
+            form.tags = []
+            duplicated.value = null
+        },
+    })
+}
 </script>
 
 <template>
@@ -87,16 +100,14 @@ formService.setForm(form).setRouteName('media')
         </template>
 
         <Modal id="addMediaModal" title="Ajouter un mème" max-width="4xl">
-            <form
-                enctype="multipart/form-data"
-                @submit.prevent="formService.handle('store')"
-            >
+            <form enctype="multipart/form-data" @submit.prevent="uploadMedia()">
                 <Stack>
                     <div>
                         <TextInput
                             label="Titre"
                             v-model="form.name"
                             help-text="50 caractères maximum."
+                            max-length="50"
                             required
                         />
                         <InputError :message="form.errors.name" />

@@ -23,6 +23,9 @@ defineProps({
     required: {
         type: Boolean,
     },
+    maxLength: {
+        type: Number,
+    },
 })
 
 defineEmits(['update:modelValue'])
@@ -53,6 +56,7 @@ defineExpose({ focus: () => input.value.focus() })
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
             :placeholder="placeholder"
+            :maxlength="maxLength"
         />
         <div v-if="helpText" class="label ms-auto pb-0">
             <span class="label-text-alt">{{ helpText }}</span>

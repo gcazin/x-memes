@@ -57,7 +57,9 @@ class FormService {
             modal.close()
         }
 
-        this.form.reset().clearErrors()
+        if (this.form) {
+            this.form.reset().clearErrors()
+        }
     }
 
     handleSelector(name, item = null) {

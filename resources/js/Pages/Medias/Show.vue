@@ -9,6 +9,7 @@ import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import formService from '@/Services/form.service.js'
 import { Head, router, useForm, usePage } from '@inertiajs/vue3'
+import { saveAs } from 'file-saver'
 import _ from 'lodash'
 import { onMounted } from 'vue'
 
@@ -33,17 +34,12 @@ const form = useForm({
 })
 
 // TODO: put this in the method download directly
-const downloadItem = (item) => {
-    form.get(route('media.download', form.media_id), {
-        onSuccess: (page) => {
-            const blob = new Blob([page.props.downloaded_file])
-            const link = document.createElement('a')
-            link.href = URL.createObjectURL(blob)
-            link.download = `${item.name}.${item.extension}`
-            link.click()
-            URL.revokeObjectURL(link.href)
-        },
+const downloadItem = async (item) => {
+    const response = await axios.get(route('media.download', item.id), {
+        responseType: 'blob',
     })
+
+    saveAs(response.data, item.path)
 }
 
 const page = usePage()

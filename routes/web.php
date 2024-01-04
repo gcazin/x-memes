@@ -41,14 +41,14 @@ Route::name('user.')->prefix('membre')->group(function () {
 // Media
 Route::name('media.')->prefix('media')->group(function () {
     Route::get('{slug}', [MediaController::class, 'show'])->name('show');
-    Route::get('{id}/related', MediaRelatedController::class)->name('related');
-    Route::get('{id}/download', MediaDownloadController::class)->name('download');
+    Route::get('{id}/similaires', MediaRelatedController::class)->name('related');
+    Route::get('{id}/telecharger', MediaDownloadController::class)->name('download');
 });
 // Auth
 Route::middleware('auth')->group(function () {
     //    Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('rechercher/{query?}', SearchController::class)->name('search');
-    Route::get('random', MediaRandomController::class)->name('random');
+    Route::get('au-hasard', MediaRandomController::class)->name('random');
 
     Route::name('user.')->group(function () {
         Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');
