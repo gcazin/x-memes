@@ -93,7 +93,7 @@ it('should download media and increment download count', function () {
     actingAsGuest()->get(route('media.download', $media->id));
 
     // TODO: check if session has data
-    expect($media->refresh()->download_count)->toBe('1');
+    expect($media->refresh()->download_count)->toBe(1);
 });
 
 it('should destroy media and send notification', function () {
