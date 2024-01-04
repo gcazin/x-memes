@@ -2,6 +2,7 @@
 import Avatar from '@/Components/Misc/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Toast from '@/Components/Misc/Toast.vue'
+import Text from '@/Components/Text.vue'
 import helperService from '@/Services/helper.service.js'
 import { Head } from '@inertiajs/vue3'
 
@@ -137,22 +138,35 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                 aria-label="close sidebar"
                 class="drawer-overlay"
             ></label>
-            <ul class="menu min-h-full w-80 bg-base-300 p-4 text-base">
+            <ul class="menu min-h-full w-72 bg-base-300 p-4 text-base">
                 <!-- Sidebar content here -->
+                <Text class="pb-4 text-center">
+                    <img
+                        class="rounded-circle mr-1 inline w-10 lg:inline"
+                        src="/images/favicon.png"
+                        alt="Logo"
+                    />
+                    Administration
+                </Text>
                 <template v-for="(item, index) in menuItems" :key="index">
                     <li
                         v-if="
                             'onlyFor' in item &&
                             helperService.checkRoles(item.onlyFor)
                         "
-                        class="mb-1"
-                        :class="
-                            handleRouteLink(item.route, item.isAbsolute, true)
-                                ? 'bg-blue-900/50 text-blue-400'
-                                : 'text-gray-400'
-                        "
                     >
-                        <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                        <a
+                            :class="
+                                handleRouteLink(
+                                    item.route,
+                                    item.isAbsolute,
+                                    true
+                                )
+                                    ? 'active !bg-primary/40'
+                                    : null
+                            "
+                            :href="handleRouteLink(item.route, item.isAbsolute)"
+                        >
                             <Icon
                                 size="xl"
                                 :name="item.icon"
@@ -168,16 +182,19 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                             {{ item.name }}
                         </a>
                     </li>
-                    <li
-                        v-if="!('onlyFor' in item)"
-                        class="mb-1"
-                        :class="
-                            handleRouteLink(item.route, item.isAbsolute, true)
-                                ? 'bg-blue-900/50 text-blue-400'
-                                : 'text-gray-400'
-                        "
-                    >
-                        <a :href="handleRouteLink(item.route, item.isAbsolute)">
+                    <li v-if="!('onlyFor' in item)" class="mb-1">
+                        <a
+                            :class="
+                                handleRouteLink(
+                                    item.route,
+                                    item.isAbsolute,
+                                    true
+                                )
+                                    ? 'active !bg-primary/40'
+                                    : null
+                            "
+                            :href="handleRouteLink(item.route, item.isAbsolute)"
+                        >
                             <Icon
                                 size="xl"
                                 :name="item.icon"
@@ -197,5 +214,6 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
             </ul>
         </div>
     </div>
+
     <Toast />
 </template>

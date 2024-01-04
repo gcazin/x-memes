@@ -1,4 +1,6 @@
 <script setup>
+import Text from '@/Components/Text.vue'
+
 defineProps({
     title: {
         type: String,
@@ -38,10 +40,15 @@ defineProps({
             :href="routeTo ? route(routeTo) : null"
             class="card-body"
         >
-            <h5 v-if="title" class="card-title">{{ title }}</h5>
-            <p class="text-2xl font-bold text-gray-700 dark:text-white">
+            <Text type="subtitle" v-if="title">{{ title }}</Text>
+            <Text class="font-bold">
                 <slot />
-            </p>
+            </Text>
+            <template v-if="$slots.action">
+                <div class="card-actions justify-end">
+                    <slot name="action" />
+                </div>
+            </template>
         </component>
     </div>
 </template>

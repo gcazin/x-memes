@@ -37,7 +37,7 @@ class MediaFactory extends Factory
             'user_id' => User::all()->random()->id,
             'slug' => Str::slug($title),
             'approved' => fake()->boolean,
-            'download_count' => fake()->numberBetween(1, 1000),
+            'download_count' => fake()->numberBetween(1, 1000000000),
         ];
     }
 }

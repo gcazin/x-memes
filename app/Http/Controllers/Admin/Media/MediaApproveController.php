@@ -20,6 +20,8 @@ class MediaApproveController extends Controller
      */
     public function __invoke(Request $request, int $id): void
     {
+        flash('success', 'Le média a bien été approuvé.');
+
         $this->mediaService->approve($id);
     }
 }

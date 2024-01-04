@@ -76,7 +76,10 @@ class FormService {
                 console.log(this.form)
                 this.form.post(route(`${routeName}.store`), {
                     preserveScroll: true,
-                    onSuccess: () => this.closeModal(),
+                    onSuccess: () => {
+                        this.closeModal()
+                        console.log(this.form)
+                    },
                 })
                 break
             case 'update':

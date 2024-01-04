@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Number;
 use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
 use Spatie\Tags\HasTags;
@@ -45,6 +46,7 @@ class Media extends Model
         'approved_by',
         'approved_at',
         'download_count',
+        'slug',
         'user_id',
     ];
 
@@ -64,7 +66,14 @@ class Media extends Model
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::make($value)->format('d/m/y')
+            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+        );
+    }
+
+    public function downloadCount(): Attribute
+    {
+        return Attribute::make(
+            get: fn (int $value) => Number::format($value)
         );
     }
 

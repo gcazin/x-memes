@@ -3,6 +3,9 @@ defineProps({
     value: {
         type: String,
     },
+    required: {
+        type: Boolean,
+    },
 })
 </script>
 
@@ -10,7 +13,10 @@ defineProps({
     <label
         class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"
     >
-        <span v-if="value">{{ value }}</span>
+        <span v-if="value">
+            {{ value }}
+            <span class="text-red-500">{{ required ? '*' : null }}</span>
+        </span>
         <span v-else><slot /></span>
     </label>
 </template>

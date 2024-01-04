@@ -4,6 +4,7 @@ import InputError from '@/Components/Elements/Form/InputError.vue'
 import InputLabel from '@/Components/Elements/Form/InputLabel.vue'
 import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
+import Section from '@/Components/Layout/Section.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
@@ -34,8 +35,8 @@ const props = defineProps({
 const tagsOptions = computed(() => {
     return props.tags.map((tag) => {
         return {
-            value: tag.name.fr,
-            label: tag.name.fr,
+            value: tag.name,
+            label: tag.name,
         }
     })
 })
@@ -45,15 +46,15 @@ const form = useForm({
     media_id: null,
     tags: [],
 })
-const defaultProgressLabel = `Upload en cours... ${form.progress?.percentage}`
-const progressLabel = ref(defaultProgressLabel)
+const defaultProgressLabel = `Upload en cours...`
+let progressLabel = defaultProgressLabel
 const duplicated = ref(null)
 
-const checkIfMediaIsDuplicated = (event) => {
+const checkIfMediaIsDuplicated = async (event) => {
     form.media_id = event.target.files[0]
 
     if (form.media_id.type !== 'video/mp4') {
-        progressLabel.value = 'Vérification des doublons...'
+        progressLabel = 'Vérification des doublons...'
         form.post(route('media.duplicate', form.media_id), {
             onSuccess: (page) => {
                 if (page.props.duplicatedImage) {
@@ -61,10 +62,12 @@ const checkIfMediaIsDuplicated = (event) => {
                 } else {
                     duplicated.value = null
                 }
+                console.log(defaultProgressLabel)
+                progressLabel = defaultProgressLabel
             },
         })
     } else {
-        progressLabel.value = defaultProgressLabel
+        progressLabel = defaultProgressLabel
         duplicated.value = null
     }
 }
@@ -83,7 +86,7 @@ formService.setForm(form).setRouteName('media')
             </button>
         </template>
 
-        <Modal id="addMediaModal" title="Ajouter un mème" max-width="2xl">
+        <Modal id="addMediaModal" title="Ajouter un mème" max-width="4xl">
             <form
                 enctype="multipart/form-data"
                 @submit.prevent="formService.handle('store')"
@@ -94,12 +97,13 @@ formService.setForm(form).setRouteName('media')
                             label="Titre"
                             v-model="form.name"
                             help-text="50 caractères maximum."
+                            required
                         />
                         <InputError :message="form.errors.name" />
                     </div>
 
                     <div class="form-control">
-                        <InputLabel for="name" value="Image" />
+                        <InputLabel for="name" value="Image" required />
                         <input
                             type="file"
                             class="file-input file-input-bordered file-input-primary w-full"
@@ -129,25 +133,36 @@ formService.setForm(form).setRouteName('media')
                             :searchable="true"
                             :create-option="true"
                             :options="tagsOptions"
-                        />
+                        >
+                            <template #noresults>
+                                <div class="p-2">
+                                    <Text type="sub">
+                                        Plus aucun élémént a afficher.
+                                    </Text>
+                                </div>
+                            </template>
+                        </Multiselect>
                     </div>
                     <template v-if="duplicated">
-                        <Stack>
-                            <div role="alert" class="alert alert-info">
-                                <ion-icon
-                                    class="text-xl"
-                                    name="information-outline"
-                                ></ion-icon>
-                                <span>1 image similaire a été trouvé!</span>
-                            </div>
+                        <div class="flex gap-4">
                             <div>
                                 <img
-                                    class="w-40 rounded-xl"
+                                    class="mx-auto w-40 rounded-xl"
                                     :src="`/storage/${duplicated}`"
                                     alt=""
                                 />
                             </div>
-                        </Stack>
+                            <Section class="h-full w-full lg:flex lg:flex-col">
+                                <Text class="font-bold text-info"
+                                    >1 image similaire a été trouvé!</Text
+                                >
+                                <Text type="sub"
+                                    >S'il s'agit d'une erreur, tu peux quand
+                                    même la poster, elle sera vérifié dans tout
+                                    les cas</Text
+                                >
+                            </Section>
+                        </div>
                     </template>
                     <div class="flex flex-col text-center" v-if="form.progress">
                         <Stack>
@@ -160,7 +175,8 @@ formService.setForm(form).setRouteName('media')
                         </Stack>
                     </div>
                     <LoadingButton
-                        class="btn btn-primary"
+                        class="btn"
+                        :class="duplicated ? 'btn-warning' : 'btn-primary'"
                         :loading="form.processing"
                         :disabled="form.processing"
                     >
@@ -192,12 +208,25 @@ formService.setForm(form).setRouteName('media')
 .multiselect,
 .multiselect-tags-search,
 .multiselect-dropdown,
-.multiselect-no-options {
+.multiselect-no-options,
+.multiselect-no-results {
     background: oklch(var(--b3));
 }
+.multiselect-dropdown {
+    border-color: oklch(var(--b2));
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-option.is-pointed {
+    background: oklch(var(--p));
+    color: oklch(var(--white));
+}
+.multiselect-no-results {
+    color: oklch(var(--white));
+}
 .multiselect {
+    height: 3rem;
     --tw-border-opacity: 1;
-    border-color: oklch(var(--bc) / 0.2);
+    border-color: var(--fallback-p, oklch(var(--p) / var(--tw-border-opacity)));
     border-radius: var(--rounded-btn, 0.5rem);
 }
 .multiselect-tag {

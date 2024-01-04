@@ -56,39 +56,53 @@ if (usePage().props.auth?.user) {
         <div class="navbar mx-auto w-full px-2 lg:w-9/12 lg:px-0">
             <div class="navbar-start">
                 <!-- Hamburger menu only on mobile -->
-                <div class="dropdown">
-                    <div
-                        tabindex="0"
-                        role="button"
-                        class="btn btn-ghost lg:hidden"
-                    >
-                        <Icon name="menu" size="4xl" />
+                <div class="drawer w-auto">
+                    <input
+                        id="my-drawer"
+                        type="checkbox"
+                        class="drawer-toggle"
+                    />
+                    <div class="drawer-content">
+                        <!-- Page content here -->
+                        <label for="my-drawer" class="btn btn-ghost lg:hidden">
+                            <Icon name="menu" size="4xl" />
+                        </label>
                     </div>
-                    <ul
-                        tabindex="0"
-                        class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-                    >
-                        <li v-for="(item, index) in menuItems" :key="index">
-                            <a
-                                :href="route(item.route)"
-                                :active="route().current(item.route)"
-                            >
-                                <Icon :name="item.icon" size="sm" />
-                                {{ item.name }}
-                            </a>
-                        </li>
-                        <li
-                            v-if="helperService.checkRoles('super-admin,admin')"
+                    <div class="drawer-side z-50">
+                        <label
+                            for="my-drawer"
+                            aria-label="close sidebar"
+                            class="drawer-overlay"
+                        ></label>
+                        <ul
+                            class="menu min-h-full w-60 bg-base-200 p-4 text-base-content"
                         >
-                            <a
-                                :href="route('admin.index')"
-                                :active="route().current('admin.dashboard')"
+                            <li v-for="(item, index) in menuItems" :key="index">
+                                <a
+                                    :href="route(item.route)"
+                                    :active="route().current(item.route)"
+                                >
+                                    <Icon :name="item.icon" size="sm" />
+                                    {{ item.name }}
+                                </a>
+                            </li>
+                            <li
+                                v-if="
+                                    helperService.checkRoles(
+                                        'super-admin,admin'
+                                    )
+                                "
                             >
-                                <Icon name="construct" />
-                                Administration
-                            </a>
-                        </li>
-                    </ul>
+                                <a
+                                    :href="route('admin.index')"
+                                    :active="route().current('admin.dashboard')"
+                                >
+                                    <Icon name="construct" />
+                                    Administration
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Logo and title -->
@@ -97,7 +111,7 @@ if (usePage().props.auth?.user) {
                         <img
                             class="inline hidden w-12 lg:inline"
                             src="/images/favicon.png"
-                            alt=""
+                            alt="Logo"
                         />
                         <span class="text-xl font-bold lg:text-2xl">
                             X-Memes

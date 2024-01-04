@@ -20,6 +20,9 @@ defineProps({
     helpText: {
         type: String,
     },
+    required: {
+        type: Boolean,
+    },
 })
 
 defineEmits(['update:modelValue'])
@@ -37,7 +40,10 @@ defineExpose({ focus: () => input.value.focus() })
 <template>
     <label class="form-control w-full">
         <div v-if="label" class="label">
-            <span class="label-text">{{ label }}</span>
+            <span class="label-text">
+                {{ label }}
+                <span class="text-red-500">{{ required ? '*' : null }}</span>
+            </span>
         </div>
         <input
             :type="type"

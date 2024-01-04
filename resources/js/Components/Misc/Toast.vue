@@ -23,6 +23,7 @@ const closeAlert = () => (show.value = false)
 
 watch(() => {
     if (page.props.flash.status || props.message) {
+        console.log('ici?')
         show.value = true
         setTimeout(() => {
             show.value = false
