@@ -93,7 +93,6 @@ class Media extends Model implements Sitemapable
 
     public function toSitemapTag(): string
     {
-        // Simple return:
         return route('media.show', $this->slug);
     }
 

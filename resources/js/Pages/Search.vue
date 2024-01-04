@@ -140,7 +140,10 @@ formService.setForm(form).setRouteName(null)
             </template>
             <template
                 v-if="
-                    result.data && result.data.length === 0 && !form.processing
+                    result &&
+                    result.data &&
+                    result.data.length === 0 &&
+                    !form.processing
                 "
             >
                 <div class="alert alert-info">
