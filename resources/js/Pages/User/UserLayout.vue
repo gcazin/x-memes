@@ -9,7 +9,6 @@ import Stack from '@/Components/Layout/Stack.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
-import SubMenu from '@/Pages/User/Partials/SubMenu.vue'
 import formService from '@/Services/form.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
 
@@ -156,8 +155,6 @@ formService.setForm(form).setRouteName('user')
             <slot />
         </Stack>
     </PageLayout>
-
-    <SubMenu :user="user" />
 </template>
 
 <style scoped></style>

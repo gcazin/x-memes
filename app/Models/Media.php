@@ -73,7 +73,7 @@ class Media extends Model
     public function downloadCount(): Attribute
     {
         return Attribute::make(
-            get: fn (int $value) => Number::format($value)
+            get: fn (int $value) => Number::forHumans($value)
         );
     }
 

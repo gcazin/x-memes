@@ -22,10 +22,12 @@ class UserController extends Controller
     public function show(string $username): Response
     {
         $user = User::with('badges', 'medias', 'followers', 'followings')
-            ->where('username', $username)
-            ->first();
+            ->firstWhere('username', $username);
 
-        $medias = $this->mediaRepository->paginateByUser($user->id);
+        $medias = null;
+        if ($user) {
+            $medias = $this->mediaRepository->paginateByUser($user->id);
+        }
 
         return Inertia::render('User/Show', [
             'user' => $user,
@@ -33,7 +35,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UpdateProfileRequest $request): void
+    public function update(UpdateProfileRequest $request)
     {
         $request->user()->fill($request->except('avatar'));
 
@@ -46,5 +48,7 @@ class UserController extends Controller
         }
 
         $request->user()->save();
+
+        return redirect()->to(route('user.show', $request->user()->username));
     }
 }
