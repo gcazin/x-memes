@@ -1,5 +1,4 @@
 <script setup>
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
@@ -24,8 +23,8 @@ formService.setForm(form).setRouteName('waitlist')
 </script>
 
 <template>
-    <Head title="Waitlist" />
-    <PageLayout :has-header="false" :has-navbar="false" is-full-size>
+    <Head title="Accueil" />
+    <PageLayout is-full-size>
         <div
             class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
         >
@@ -44,7 +43,7 @@ formService.setForm(form).setRouteName('waitlist')
                         X-Memes est une plateforme où tu peux t'inscrire,
                         publier et voir les mèmes que la communauté a posté.
                     </p>
-                    <div v-if="stage !== 'alpha'" class="space-x-2">
+                    <div class="space-x-2">
                         <button class="btn btn-primary btn-lg">
                             Découvrir
                         </button>
@@ -52,107 +51,6 @@ formService.setForm(form).setRouteName('waitlist')
                             Se connecter
                         </button>
                     </div>
-                    <template v-else>
-                        <div class="mb-8 flex-1">
-                            <Stack>
-                                <p class="text-lg lg:text-xl">
-                                    En t'inscrivant à la waitlist, tu
-                                    bénéficieras de ces
-                                    <span class="font-bold"
-                                        >avantages suivants</span
-                                    >
-                                    :
-                                </p>
-
-                                <div class="space-y-1 text-lg lg:text-xl">
-                                    <p>
-                                        <Icon
-                                            class="text-success"
-                                            name="checkbox"
-                                        />
-                                        Un accès anticipé à la plateforme.
-                                    </p>
-                                    <p>
-                                        <Icon
-                                            class="text-success"
-                                            name="checkbox"
-                                        />
-                                        Un badge exclusif aux alpha/bêta
-                                        testeurs.
-                                    </p>
-                                    <p>
-                                        <Icon
-                                            class="text-success"
-                                            name="checkbox"
-                                        />
-                                        Un accès anticipés aux futurs
-                                        fonctionnalités.
-                                    </p>
-                                </div>
-                            </Stack>
-                        </div>
-                        <div
-                            v-if="waitlist.length < numberOfPlaces"
-                            class="w-full lg:mx-auto lg:w-7/12"
-                        >
-                            <form
-                                v-if="!form.wasSuccessful"
-                                class="flex w-full flex-col gap-2"
-                                @submit.prevent="formService.handle('store')"
-                            >
-                                <TextInput
-                                    type="email"
-                                    v-model="form.email"
-                                    required
-                                    placeholder="xmemes@example.com"
-                                    autocomplete="email"
-                                    autofocus
-                                />
-
-                                <button
-                                    class="btn btn-primary text-lg"
-                                    :disabled="form.processing"
-                                >
-                                    Je rejoins la waitlist ! ({{
-                                        numberOfPlaces - waitlist.length
-                                    }}
-                                    places restantes)
-                                </button>
-                            </form>
-                        </div>
-                        <div
-                            v-if="form.wasSuccessful"
-                            class="w-full lg:mx-auto lg:w-7/12"
-                        >
-                            <div
-                                class="alert alert-success mt-8 justify-center"
-                            >
-                                Ton inscription a bien été prise en compte, tu
-                                recevras un mail sous peu !
-                            </div>
-                        </div>
-                        <div
-                            v-if="waitlist.length === numberOfPlaces"
-                            class="mt-6 w-full text-xl text-info lg:mx-auto lg:w-7/12"
-                        >
-                            L'inscription est malheureusement terminée. :/
-                            <p>
-                                Toutes les places d'alpha testeurs ont été
-                                distribué.
-                            </p>
-                            <p>
-                                Tu peux toujours me
-                                <a
-                                    class="link-secondary"
-                                    href="https://twitter.com/gcazinonx"
-                                    target="_blank"
-                                    >suivre</a
-                                >
-                                sur X pour être au courant des prochaines
-                                sessions !
-                            </p>
-                        </div>
-                    </template>
                 </div>
             </div>
             <div class="w-full px-4">

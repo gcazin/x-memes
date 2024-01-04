@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
                 ->attach(Badge::all()->firstWhere('condition', $user)->id);
         }
 
-        User::factory(50)->create()->chunk(10);
+        if (config('app.env') !== 'production') {
+            User::factory(50)->create()->chunk(10);
+        }
     }
 }

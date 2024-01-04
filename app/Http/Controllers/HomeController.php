@@ -5,25 +5,19 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Waitlist;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function index(): Response
+    public function index(): Response|RedirectResponse
     {
-        // When is launched
-        /*if (auth()->user()) {
+        if (auth()->user()) {
             return redirect()->to(route('library'));
-        }*/
+        }
 
-        $waitlist = Waitlist::all()->take(10);
-
-        return Inertia::render('Home', [
-            'stage' => config('app.stage'),
-            'waitlist' => $waitlist,
-        ]);
+        return Inertia::render('Home');
     }
 
     public function leaderboard(): Response

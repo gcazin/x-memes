@@ -13,7 +13,6 @@ use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\WaitlistController;
 use App\Models\Media;
 use Illuminate\Support\Facades\Route;
 
@@ -28,60 +27,52 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-if (config('app.stage') === 'alpha' && config('app.env') === 'production') {
-    Route::get('/', [HomeController::class, 'index'])
-        ->where('any', '.*')->name('index');
-    Route::post('/', [WaitlistController::class, 'store'])
-        ->where('any', '.*')->name('waitlist.store');
-    Route::redirect('{any}', '/');
-} else {
-    // Common pages
-    // TODO: when the site is ready, HomeController
-    Route::get('/', [MediaController::class, 'index'])->name('index');
-    Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
-    Route::get('leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
+// Common pages
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
+Route::get('/leaderboard', [HomeController::class, 'leaderboard'])->name('leaderboard');
 
-    // User
-    Route::name('user.')->prefix('membre')->group(function () {
-        Route::get('{username}', [UserController::class, 'show'])->name('show');
-        Route::get('{username}/badges', BadgeController::class)->name('badge.index');
+// User
+Route::name('user.')->prefix('membre')->group(function () {
+    Route::get('{username}', [UserController::class, 'show'])->name('show');
+    Route::get('{username}/badges', BadgeController::class)->name('badge.index');
+});
+
+// Media
+Route::name('media.')->prefix('media')->group(function () {
+    Route::get('{slug}', [MediaController::class, 'show'])->name('show');
+    Route::get('{id}/related', MediaRelatedController::class)->name('related');
+    Route::get('{id}/download', MediaDownloadController::class)->name('download');
+});
+// Auth
+Route::middleware('auth')->group(function () {
+    //    Route::get('/', [MediaController::class, 'index'])->name('index');
+    Route::get('rechercher/{query?}', SearchController::class)->name('search');
+    Route::get('random', MediaRandomController::class)->name('random');
+
+    Route::name('user.')->group(function () {
+        Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');
+        Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
     });
 
-    // Media
+    Route::name('profile.')->group(function () {
+        Route::get('profil', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('profil', [ProfileController::class, 'update'])->name('update');
+        Route::delete('profil', [ProfileController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
     Route::name('media.')->prefix('media')->group(function () {
-        Route::get('{slug}', [MediaController::class, 'show'])->name('show');
-        Route::get('{id}/related', MediaRelatedController::class)->name('related');
-        Route::get('{id}/download', MediaDownloadController::class)->name('download');
-    });
-    // Auth
-    Route::middleware('auth')->group(function () {
-        Route::get('rechercher/{query?}', SearchController::class)->name('search');
-        Route::get('random', MediaRandomController::class)->name('random');
-
-        Route::name('user.')->group(function () {
-            Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');
-            Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
-        });
-
-        Route::name('profile.')->group(function () {
-            Route::get('profil', [ProfileController::class, 'edit'])->name('edit');
-            Route::put('profil', [ProfileController::class, 'update'])->name('update');
-            Route::delete('profil', [ProfileController::class, 'destroy'])->name('destroy');
-        });
-
-        Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
-        Route::name('media.')->prefix('media')->group(function () {
-            Route::post('dupliquer', MediaDuplicateController::class)->name('duplicate');
-            Route::get('{id}/like', MediaLikeController::class)->name('like');
-        });
-
-        Route::resource('notification', NotificationController::class)->withTrashed(['show']);
-        Route::name('notification.')->prefix('notification')->group(function () {
-            Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
-        });
+        Route::post('dupliquer', MediaDuplicateController::class)->name('duplicate');
+        Route::get('{id}/like', MediaLikeController::class)->name('like');
     });
 
-    require __DIR__.'/auth.php';
+    Route::resource('notification', NotificationController::class)->withTrashed(['show']);
+    Route::name('notification.')->prefix('notification')->group(function () {
+        Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
+    });
+});
 
-    require __DIR__.'/admin.php';
-}
+require __DIR__.'/auth.php';
+
+require __DIR__.'/admin.php';
