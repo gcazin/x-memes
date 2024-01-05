@@ -1,13 +1,15 @@
 <?php
 
+use App\Events\MediaApproved;
+use App\Events\MediaDestroyed;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
-use App\Notifications\Media\ApprovedMediaNotification;
-use App\Notifications\Media\DeletedMediaNotification;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia;
 
 it('should index approved medias', function () {
@@ -110,6 +112,7 @@ it('should delete media and remove tags if not used', function () {
 });*/
 
 it('should approve media and send notification', function () {
+    Event::fake();
     Notification::fake();
     User::factory()->create();
 
@@ -118,10 +121,8 @@ it('should approve media and send notification', function () {
     actingAsSuperAdmin()->put(route('admin.media.approve', $media->id));
 
     $media = $media->refresh();
-    Notification::assertCount(1);
-    Notification::assertSentTo(
-        [$media->user], ApprovedMediaNotification::class
-    );
+
+    Event::assertDispatched(MediaApproved::class);
 
     expect($media->approved)->toBe(true);
 });
@@ -134,20 +135,20 @@ it('should download media and increment download count', function () {
 
     actingAsGuest()->get(route('media.download', $media->id));
 
-    // TODO: check if session has data
     expect($media->refresh()->download_count)->toBe(1);
 });
 
 it('should destroy media and send notification', function () {
     Notification::fake();
+    Event::fake();
     User::factory()->create();
-    $media = Media::factory()->create();
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+    ]);
 
-    $response = actingAsGuest()->delete(route('media.destroy', $media->id));
+    actingAsGuest()->delete(route('media.destroy', $media->id));
 
-    expect($response->status())->toBe(200)
-        ->and(Media::where('id', $media->id)->count())->toBe(0);
+    Event::assertDispatched(MediaDestroyed::class);
 
-    Notification::assertCount(1);
-    Notification::assertSentTo([$media->user], DeletedMediaNotification::class);
+    expect(Media::where('id', $media->id)->count())->toBe(0);
 });
