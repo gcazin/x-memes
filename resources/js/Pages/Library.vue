@@ -15,6 +15,9 @@ import Multiselect from '@vueform/multiselect'
 import { computed, ref } from 'vue'
 
 const props = defineProps({
+    title: {
+        type: String,
+    },
     medias: {
         type: Array,
     },
@@ -92,7 +95,7 @@ const uploadMedia = () => {
 </script>
 
 <template>
-    <PageLayout title="Bibliothèque d'images">
+    <PageLayout :title="title">
         <template #action>
             <button
                 class="btn btn-primary"

@@ -11,12 +11,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            RoleSeeder::class,
-            BadgeTypeSeeder::class,
-            BadgeSeeder::class,
-            UserSeeder::class,
-            MediaSeeder::class,
-        ]);
+        if (config('app.env') === 'production') {
+            $this->call([
+                RoleSeeder::class,
+                BadgeTypeSeeder::class,
+                BadgeSeeder::class,
+                UserSeeder::class,
+            ]);
+        } else {
+            $this->call([
+                RoleSeeder::class,
+                BadgeTypeSeeder::class,
+                BadgeSeeder::class,
+                UserSeeder::class,
+                MediaSeeder::class,
+            ]);
+        }
     }
 }

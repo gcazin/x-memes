@@ -13,17 +13,22 @@ const page = usePage()
 
 const menuItems = [
     {
-        icon: 'library',
-        route: 'library',
-        name: 'Bibliothèque',
+        icon: 'images',
+        route: 'library.image',
+        name: 'Images',
     },
     {
-        icon: 'people',
+        icon: 'videocam',
+        route: 'library.video',
+        name: 'Vidéos',
+    },
+    {
+        icon: 'trending-up',
         route: 'leaderboard',
         name: 'Classement',
     },
     {
-        icon: 'shuffle',
+        icon: 'dice',
         route: 'random',
         name: 'Au hasard',
     },

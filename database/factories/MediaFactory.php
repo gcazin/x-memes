@@ -33,6 +33,7 @@ class MediaFactory extends Factory
             'path' => 'medias/'.$filename,
             'thumbnail_path' => $extension === 'mp4' ? 'medias/thumbnails/'.explode('.', $filename)[0].'.jpg' : null,
             'extension' => $extension,
+            'type' => $extension === 'mp4' ? 'video' : 'image',
             'hash' => $extension === 'mp4' ? null : 0000000000000000010001000100001011110111111111110011110000111100,
             'user_id' => User::all()->random()->id,
             'slug' => Str::slug($title),

@@ -7,14 +7,64 @@ namespace App\Services;
 use App\Events\MediaApproved;
 use App\Models\Media;
 use App\Repositories\MediaRepository;
+use App\Repositories\TagRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class MediaService
 {
     public function __construct(
-        public MediaRepository $mediaRepository,
-        public Media $media
+        protected MediaRepository $mediaRepository,
+        protected TagRepository $tagRepository,
+        protected Media $media
     ) {
+    }
+
+    public function getMediasByType(Request $request, string $type, ?string $title = null): array
+    {
+        $defaultSort = '-created_at';
+        $medias = QueryBuilder::for(Media::class)
+            ->where('type', $type)
+            ->where('approved', true)
+            ->defaultSort($defaultSort);
+
+        $sortBy = collect([
+            [
+                'name' => 'Par date',
+                'value' => 'created_at',
+            ],
+            [
+                'name' => 'Par titre',
+                'value' => 'name',
+            ],
+            [
+                'name' => 'Par téléchargement',
+                'value' => 'download_count',
+            ],
+        ]);
+        if ($request->has('filters') || $request->has('sort')) {
+            $medias
+                ->allowedSorts($sortBy->pluck('value')->toArray());
+
+            if ($request->has('filters.tags')) {
+                $medias
+                    ->whereHas('tags', function ($query) use ($request) {
+                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
+                    })
+                    ->allowedFilters(AllowedFilter::exact('tags.id'));
+            }
+        }
+
+        return [
+            'title' => $title ?: "Bibliothèque d'images",
+            'medias' => $medias->paginate(),
+            'tags' => $this->tagRepository->all(),
+            'sortBy' => $sortBy->toArray(),
+            'defaultSort' => $defaultSort,
+            'duplicatedImage' => session('duplicatedImage'),
+        ];
     }
 
     /**

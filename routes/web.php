@@ -5,9 +5,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\Media\MediaDownloadController;
 use App\Http\Controllers\Media\MediaDuplicateController;
+use App\Http\Controllers\Media\MediaImageController;
 use App\Http\Controllers\Media\MediaLikeController;
 use App\Http\Controllers\Media\MediaRandomController;
 use App\Http\Controllers\Media\MediaRelatedController;
+use App\Http\Controllers\Media\MediaVideoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
@@ -30,7 +32,8 @@ use Illuminate\Support\Facades\Route;
 
 // Common pages
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/bibliotheque', [MediaController::class, 'index'])->name('library');
+Route::get('/bibliotheque/images', MediaImageController::class)->name('library.image');
+Route::get('/bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('/classement', [HomeController::class, 'leaderboard'])->name('leaderboard');
 
 // User

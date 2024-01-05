@@ -5,6 +5,7 @@ use App\Events\MediaDestroyed;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
@@ -26,7 +27,7 @@ it('should index approved medias', function () {
     ]);
 
     actingAsGuest()
-        ->get(route('library'))
+        ->get(RouteServiceProvider::LIBRARY)
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Library', fn (AssertableInertia $page) => $page
                 ->component('MediaGallery')

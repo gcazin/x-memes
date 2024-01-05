@@ -13,13 +13,10 @@ use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use App\Services\FileService;
 use App\Services\MediaService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class MediaController extends Controller
 {
@@ -29,52 +26,6 @@ class MediaController extends Controller
         public MediaService $mediaService,
         public FileService $fileService
     ) {
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): Response
-    {
-        $defaultSort = '-created_at';
-        $medias = QueryBuilder::for(Media::class)
-            ->where('approved', true)
-            ->defaultSort($defaultSort);
-
-        $sortBy = collect([
-            [
-                'name' => 'Par date',
-                'value' => 'created_at',
-            ],
-            [
-                'name' => 'Par titre',
-                'value' => 'name',
-            ],
-            [
-                'name' => 'Par téléchargement',
-                'value' => 'download_count',
-            ],
-        ]);
-        if ($request->has('filters') || $request->has('sort')) {
-            $medias
-                ->allowedSorts($sortBy->pluck('value')->toArray());
-
-            if ($request->has('filters.tags')) {
-                $medias
-                    ->whereHas('tags', function ($query) use ($request) {
-                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
-                    })
-                    ->allowedFilters(AllowedFilter::exact('tags.id'));
-            }
-        }
-
-        return Inertia::render('Library', [
-            'medias' => $medias->paginate(),
-            'tags' => $this->tagRepository->all(),
-            'sortBy' => $sortBy->toArray(),
-            'defaultSort' => $defaultSort,
-            'duplicatedImage' => session('duplicatedImage'),
-        ]);
     }
 
     /**
@@ -93,6 +44,7 @@ class MediaController extends Controller
             'path' => $path,
             'thumbnail_path' => 'medias/'.$thumbnail,
             'extension' => $file->extension(),
+            'type' => $file->extension() === 'mp4' ? 'video' : 'image',
             'slug' => Str::slug($request->name),
             'hash' => $file->extension() !== 'mp4' ? $this->fileService->hashImage($file) : null,
             'user_id' => $request->user()->id,

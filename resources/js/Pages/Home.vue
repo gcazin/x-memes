@@ -45,7 +45,7 @@ formService.setForm(form).setRouteName('waitlist')
                     </p>
                     <div class="space-x-2">
                         <a
-                            :href="route('library')"
+                            :href="route('library.image')"
                             class="btn btn-primary btn-lg"
                         >
                             Découvrir

@@ -42,6 +42,7 @@ class Media extends Model implements Sitemapable
         'path',
         'thumbnail_path',
         'extension',
+        'type',
         'hash',
         'approved',
         'approved_by',
