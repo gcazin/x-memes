@@ -6,6 +6,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    inline: {
+        type: Boolean,
+        required: false,
+    },
 })
 
 const page = usePage()
@@ -28,10 +32,15 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" v-if="page.props.auth.user.id !== user.id">
         <button
-            class="btn btn-secondary"
-            :class="{ 'btn-outline': checkIfAuthIsFollowing() }"
+            :class="
+                !inline
+                    ? `btn btn-secondary ${
+                          checkIfAuthIsFollowing() ? 'btn-outline' : ''
+                      }`
+                    : 'font-bold text-secondary'
+            "
         >
             {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
         </button>

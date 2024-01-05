@@ -7,10 +7,12 @@ import Textarea from '@/Components/Elements/Form/Textarea.vue'
 import Modal from '@/Components/Elements/Modal/Modal.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
+import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import formService from '@/Services/form.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
+import helperService from '../../Services/helper.service.js'
 
 const props = defineProps({
     user: {
@@ -69,15 +71,29 @@ const updateUser = () => {
                     <div class="flex gap-4">
                         <Text type="sub">
                             {{
-                                'total' in medias ? medias.total : medias.length
+                                helperService.plural(
+                                    'total' in medias
+                                        ? medias.total
+                                        : medias.length,
+                                    'publication'
+                                )
                             }}
-                            publication
                         </Text>
                         <Text type="sub">
-                            {{ downloadMediaCount }} téléchargements
+                            {{
+                                helperService.plural(
+                                    downloadMediaCount,
+                                    'téléchargement'
+                                )
+                            }}
                         </Text>
                         <Text type="sub">
-                            {{ user.followers.length }} abonnés
+                            {{
+                                helperService.plural(
+                                    user.followers.length,
+                                    'abonné'
+                                )
+                            }}
                         </Text>
                     </div>
                 </Stack>
@@ -154,14 +170,18 @@ const updateUser = () => {
                 </div>
             </div>
             <div class="flex gap-2">
-                <a :href="route('user.show', user.username)" class="btn btn-sm"
-                    >Publications</a
-                >
-                <a
-                    :href="route('user.badge.index', user.username)"
-                    class="btn btn-sm"
-                    >Badges</a
-                >
+                <a :href="route('user.show', user.username)" class="btn">
+                    <Icon name="document" size="lg" />
+                    Publications
+                </a>
+                <a :href="route('user.media.liked', user.username)" class="btn">
+                    <Icon name="heart" size="lg" />
+                    Publications aimées
+                </a>
+                <a :href="route('user.badge.index', user.username)" class="btn">
+                    <Icon name="apps" size="lg" />
+                    Badges
+                </a>
             </div>
             <slot />
         </Stack>

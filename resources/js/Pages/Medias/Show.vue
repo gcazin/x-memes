@@ -1,4 +1,5 @@
 <script setup>
+import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
 import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
 import Stack from '@/Components/Layout/Stack.vue'
 import Avatar from '@/Components/Misc/Avatar.vue'
@@ -82,11 +83,8 @@ const getTags = () => {
                                 :href="route('user.show', media.user.username)"
                                 >{{ media.user.username }}</a
                             >
-                            <a
-                                v-if="auth"
-                                class="link-primary font-bold"
-                                href=""
-                                >Suivre</a
+                            <FollowButton inline :user="media.user"
+                                >Suivre</FollowButton
                             >
                         </div>
                     </div>
@@ -138,13 +136,19 @@ const getTags = () => {
                             </LoadingButton>
                         </div>
                         <Text>
-                            {{ media.download_count }} téléchargement{{
-                                media.download_count > 1 ? 's' : ''
+                            {{
+                                helperService.plural(
+                                    media.download_count,
+                                    'téléchargement'
+                                )
                             }}
                         </Text>
                         <Text>
-                            {{ media.likers.length }} j'aime{{
-                                media.likers.length > 1 ? 's' : ''
+                            {{
+                                helperService.plural(
+                                    media.likers.length,
+                                    "j'aime"
+                                )
                             }}
                         </Text>
                     </Stack>

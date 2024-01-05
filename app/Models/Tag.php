@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\Tags\Tag as SpatieTag;
 
 /**
@@ -13,6 +14,10 @@ use Spatie\Tags\Tag as SpatieTag;
 class Tag extends SpatieTag
 {
     use HasFactory;
+
+    protected $withCount = [
+        'medias',
+    ];
 
     public static function getLocale()
     {
@@ -31,5 +36,10 @@ class Tag extends SpatieTag
         }
 
         return $attributes;
+    }
+
+    public function medias(): MorphToMany
+    {
+        return $this->morphedByMany(Media::class, 'taggable');
     }
 }

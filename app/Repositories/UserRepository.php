@@ -5,42 +5,42 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
-use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class TagRepository implements RepositoryInterface
+class UserRepository implements RepositoryInterface
 {
     public function __construct(
-        protected Tag $tag
+        protected User $user
     ) {
     }
 
     /**
-     * Retrieves all tag items.
+     * Retrieves all user items.
      */
     public function all(): Collection
     {
-        return $this->tag->all();
+        return $this->user->all();
     }
 
     /**
-     * Finds a tag item by its ID.
+     * Finds a user item by its ID.
      */
     public function find($id)
     {
-        return $this->tag->find($id);
+        return $this->user->find($id);
     }
 
     /**
-     * Finds the first tag item returned by the given key-value pair.
+     * Finds the first user item returned by the given key-value pair.
      */
     public function firstWhere($key, $value)
     {
-        return $this->tag->firstWhere($key, $value);
+        return $this->user->firstWhere($key, $value);
     }
 
     /**
-     * Retrieves a random approved tag item.
+     * Retrieves a random approved user item.
      */
     public function random()
     {

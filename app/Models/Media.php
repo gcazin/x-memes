@@ -17,6 +17,7 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Tags\HasTags;
 
 /**
+ * @property mixed $id
  * @property bool $approved
  * @property int $approved_by
  * @property DateTime $approved_at

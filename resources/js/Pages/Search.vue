@@ -7,6 +7,7 @@ import UserCard from '@/Components/Misc/UserCard.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
 import formService from '@/Services/form.service.js'
+import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
@@ -29,9 +30,10 @@ const form = useForm({
 
 const title = computed(() => {
     if (props.result?.total) {
-        return `${props.result.total} résultat${
-            props.result.total > 1 ? 's' : ''
-        } pour la recherche '${props.query}'`
+        return `${helperService.plural(
+            props.result.total,
+            'résultat'
+        )} pour la recherche '${props.query}'`
     }
 
     return 'Recherche un mème, un tag, ou un utilisateur'
@@ -68,6 +70,7 @@ const queryPlaceholder = computed(() => {
     return null
 })
 
+console.log(props.result)
 formService.setForm(form).setRouteName(null)
 </script>
 

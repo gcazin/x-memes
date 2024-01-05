@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Events\MediaApproved;
+use App\Events\MediaDestroyed;
 use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
+use App\Listeners\Media\SendMediaDeletedNotification;
 use App\Listeners\User\SendNewUserNotification;
 use App\Models\Media;
 use App\Observers\MediaObserver;
@@ -30,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
             SendMediaApprovedNotification::class,
             SendMediaApprovedMail::class,
         ],
+        MediaDestroyed::class => [
+            SendMediaDeletedNotification::class,
+        ],
     ];
 
     protected $subscribe = [
@@ -41,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // To assign badges
         Media::observe(MediaObserver::class);
     }
 

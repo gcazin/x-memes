@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Media;
 
+use App\Events\MediaDestroyed;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Models\Media;
-use App\Notifications\Media\DeletedMediaNotification;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use App\Services\FileService;
 use App\Services\MediaService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -182,8 +181,6 @@ class MediaController extends Controller
 
         $media->delete();
 
-        Notification::send($media->user, new DeletedMediaNotification($media));
-
-        //        MediaDestroyed::dispatch($media);
+        MediaDestroyed::dispatch($media);
     }
 }

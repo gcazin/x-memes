@@ -88,8 +88,6 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * Finds the first media item returned by the given key-value pair.
-     *
-     * @return mixed
      */
     public function firstWhere($key, $value)
     {
@@ -99,7 +97,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Retrieves a random approved media item.
      */
-    public function random(): Media
+    public function random()
     {
         return $this->allApprovedMedias()->random();
     }

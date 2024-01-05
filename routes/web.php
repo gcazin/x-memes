@@ -11,6 +11,7 @@ use App\Http\Controllers\Media\MediaRelatedController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
+use App\Http\Controllers\User\MediaLikedController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
 use App\Models\Media;
@@ -36,6 +37,7 @@ Route::get('/classement', [HomeController::class, 'leaderboard'])->name('leaderb
 Route::name('user.')->prefix('membre')->group(function () {
     Route::get('{username}', [UserController::class, 'show'])->name('show');
     Route::get('{username}/badges', BadgeController::class)->name('badge.index');
+    Route::get('{username}/publications-likees', MediaLikedController::class)->name('media.liked');
 });
 
 // Media
