@@ -31,6 +31,5 @@ class Tag extends SpatieTag
         }
 
         return $attributes;
-
     }
 }

@@ -162,6 +162,20 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
+        if ($media->tags()->count() > 0) {
+            $media->tags()->each(function () use ($media) {
+                $this->tagRepository->all()->filter(function ($tag) use ($media) {
+                    $medias = Media::withAnyTags([$tag])->get()->filter(function ($m) use ($media) {
+                        return $media->id !== $m->id;
+                    });
+
+                    if ($medias->count() === 0) {
+                        $media->detachTag($tag);
+                        $tag->delete();
+                    }
+                });
+            });
+        }
         Storage::delete($media->path);
 
         $media->delete();

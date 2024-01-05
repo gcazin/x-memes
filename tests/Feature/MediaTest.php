@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Media;
+use App\Models\Tag;
 use App\Models\User;
 use App\Notifications\Media\ApprovedMediaNotification;
 use App\Notifications\Media\DeletedMediaNotification;
@@ -45,6 +46,47 @@ it('should store media and attach tags', function () {
 
     expect($response->status())->toBe(200)
         ->and($media->tags()->pluck('name')->toArray())->toBe(['tag1', 'tag2']);
+});
+
+it('should delete media and not remove tags if used', function () {
+    User::factory()->create();
+
+    $firstMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
+    $secondMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
+
+    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+
+    expect($secondMedia->tags()->count())->toBe(2)
+        ->and(Media::all()->count())->toBe(1);
+});
+
+it('should delete media and remove only tags not used', function () {
+    User::factory()->create();
+
+    // 3 tags : foo, bar, baz
+    // only baz should be deleted
+    $firstMedia = Media::factory()->create(['name' => 'deleted'])->attachTags(['foo', 'baz']);
+    $secondMedia = Media::factory()->create(['name' => 'keep-tags'])->attachTags(['foo', 'bar']);
+
+    expect(Tag::all()->count())->toBe(3);
+
+    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+
+    expect($secondMedia->tags()->count())->toBe(2)
+        ->and(Tag::all()->pluck('name')->all())->toBe(['foo', 'bar'])
+        ->and(Media::all()->count())->toBe(1)
+        ->and(Tag::all()->count())->toBe(2);
+});
+
+it('should delete media and remove tags if not used', function () {
+    User::factory()->create();
+
+    $firstMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
+
+    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+
+    expect(Tag::all()->count())->toBe(0)
+        ->and(Media::all()->count())->toBe(0);
 });
 
 /*it('should store  video media and create thumbnail', function () {
