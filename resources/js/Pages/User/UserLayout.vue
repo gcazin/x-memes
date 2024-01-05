@@ -52,137 +52,163 @@ const updateUser = () => {
     <Head :title="`Profil de ${user.username}`"></Head>
     <PageLayout>
         <Stack spacing="4">
-            <div class="flex flex-col items-center lg:flex-row">
-                <div>
-                    <Avatar
-                        :user="user"
-                        size="lg"
-                        class="lg:mr-4"
-                        :rounded="false"
-                    />
-                </div>
-                <Stack spacing="2" class="mb-4 lg:mb-0">
-                    <Text type="title" class="text-center lg:text-left">{{
-                        user.username
-                    }}</Text>
-                    <Text>
-                        {{ user.description }}
-                    </Text>
-                    <div class="flex gap-4">
-                        <Text type="sub">
-                            {{
-                                helperService.plural(
-                                    'total' in medias
-                                        ? medias.total
-                                        : medias.length,
-                                    'publication'
-                                )
-                            }}
-                        </Text>
-                        <Text type="sub">
-                            {{
-                                helperService.plural(
-                                    downloadMediaCount,
-                                    'téléchargement'
-                                )
-                            }}
-                        </Text>
-                        <Text type="sub">
-                            {{
-                                helperService.plural(
-                                    user.followers.length,
-                                    'abonné'
-                                )
-                            }}
-                        </Text>
+            <Stack spacing="8">
+                <div class="flex flex-col items-center lg:flex-row">
+                    <div>
+                        <Avatar
+                            :user="user"
+                            size="lg"
+                            class="lg:mr-4"
+                            :rounded="false"
+                        />
                     </div>
-                </Stack>
-                <div class="flex-1 text-right">
-                    <FollowButton
-                        v-if="auth && user.id !== auth.id"
-                        :user="user"
-                    />
-                    <button
-                        v-else
-                        class="btn btn-outline btn-secondary btn-sm"
-                        @click="formService.openModal('editProfile')"
-                    >
-                        Modifier le profil
-                    </button>
+                    <Stack spacing="2" class="mb-4 lg:mb-0">
+                        <Text type="title" class="text-center lg:text-left">{{
+                            user.username
+                        }}</Text>
+                        <Text>
+                            {{ user.description }}
+                        </Text>
+                        <div class="flex gap-4">
+                            <Text type="sub">
+                                {{
+                                    helperService.plural(
+                                        'total' in medias
+                                            ? medias.total
+                                            : medias.length,
+                                        'publication'
+                                    )
+                                }}
+                            </Text>
+                            <Text type="sub">
+                                {{
+                                    helperService.plural(
+                                        downloadMediaCount,
+                                        'téléchargement'
+                                    )
+                                }}
+                            </Text>
+                            <Text type="sub">
+                                {{
+                                    helperService.plural(
+                                        user.followers.length,
+                                        'abonné'
+                                    )
+                                }}
+                            </Text>
+                        </div>
+                    </Stack>
+                    <div class="flex-1 text-right">
+                        <FollowButton
+                            v-if="auth && user.id !== auth.id"
+                            :user="user"
+                        />
+                        <button
+                            v-else
+                            class="btn btn-outline btn-secondary btn-sm"
+                            @click="formService.openModal('editProfile')"
+                        >
+                            Modifier le profil
+                        </button>
 
-                    <Modal
-                        id="editProfileModal"
-                        title="Modifier le profil"
-                        max-width="2xl"
-                    >
-                        <form @submit.prevent="updateUser()">
-                            <Stack>
-                                <div>
-                                    <TextInput
-                                        label="Nom d'utilisateur"
-                                        v-model="form.username"
-                                    />
-                                    <InputError
-                                        :message="form.errors.username"
-                                    />
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <Avatar
-                                        :user="$page.props.auth.user"
-                                        size="lg"
-                                    />
-                                    <input
-                                        type="file"
-                                        class="file-input file-input-bordered w-full"
-                                        @input="
-                                            form.avatar = $event.target.files[0]
-                                        "
-                                    />
-                                    <InputError :message="form.errors.avatar" />
-                                </div>
-                                <div>
-                                    <progress
-                                        v-if="form.progress"
-                                        class="progress progress-primary w-full"
-                                        :value="form.progress.percentage"
-                                        max="100"
-                                    >
-                                        {{ form.progress.percentage }}%
-                                    </progress>
-                                </div>
-                                <div>
-                                    <Textarea
-                                        label="Description"
-                                        v-model="form.description"
-                                        autofocus
-                                        autocomplete="description"
-                                    />
-                                    <InputError
-                                        :message="form.errors.description"
-                                    />
-                                </div>
-                                <LoadingButton :loading="form.processing">
-                                    Modifier le profil
-                                </LoadingButton>
-                            </Stack>
-                        </form>
-                    </Modal>
+                        <Modal
+                            id="editProfileModal"
+                            title="Modifier le profil"
+                            max-width="2xl"
+                        >
+                            <form @submit.prevent="updateUser()">
+                                <Stack>
+                                    <div>
+                                        <TextInput
+                                            label="Nom d'utilisateur"
+                                            v-model="form.username"
+                                        />
+                                        <InputError
+                                            :message="form.errors.username"
+                                        />
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <Avatar
+                                            :user="$page.props.auth.user"
+                                            size="lg"
+                                        />
+                                        <input
+                                            type="file"
+                                            class="file-input file-input-bordered w-full"
+                                            @input="
+                                                form.avatar =
+                                                    $event.target.files[0]
+                                            "
+                                        />
+                                        <InputError
+                                            :message="form.errors.avatar"
+                                        />
+                                    </div>
+                                    <div>
+                                        <progress
+                                            v-if="form.progress"
+                                            class="progress progress-primary w-full"
+                                            :value="form.progress.percentage"
+                                            max="100"
+                                        >
+                                            {{ form.progress.percentage }}%
+                                        </progress>
+                                    </div>
+                                    <div>
+                                        <Textarea
+                                            label="Description"
+                                            v-model="form.description"
+                                            autofocus
+                                            autocomplete="description"
+                                        />
+                                        <InputError
+                                            :message="form.errors.description"
+                                        />
+                                    </div>
+                                    <LoadingButton :loading="form.processing">
+                                        Modifier le profil
+                                    </LoadingButton>
+                                </Stack>
+                            </form>
+                        </Modal>
+                    </div>
                 </div>
-            </div>
-            <div class="flex gap-2">
-                <a :href="route('user.show', user.username)" class="btn">
-                    <Icon name="document" size="lg" />
-                    Publications
-                </a>
-                <a :href="route('user.media.liked', user.username)" class="btn">
-                    <Icon name="heart" size="lg" />
-                    Publications aimées
-                </a>
-                <a :href="route('user.badge.index', user.username)" class="btn">
-                    <Icon name="apps" size="lg" />
-                    Badges
-                </a>
-            </div>
+                <div role="tablist" class="tabs tabs-lifted tabs-lg">
+                    <a
+                        :href="route('user.show', user.username)"
+                        role="tab"
+                        class="tab"
+                        :class="{
+                            'bg-primary/30 font-bold':
+                                route().current('user.show'),
+                        }"
+                    >
+                        <Icon name="document" size="lg" class="mr-1" />
+                    </a>
+                    <a
+                        :href="route('user.media.liked', user.username)"
+                        role="tab"
+                        class="tab"
+                        :class="{
+                            'bg-primary/30 font-bold':
+                                route().current('user.media.liked'),
+                        }"
+                    >
+                        <Icon name="heart" size="lg" class="mr-1" />
+                    </a>
+                    <a
+                        :href="route('user.badge.index', user.username)"
+                        role="tab"
+                        class="tab"
+                        :class="{
+                            'bg-primary/30 font-bold':
+                                route().current('user.badge.index'),
+                        }"
+                    >
+                        <Icon name="apps" size="lg" class="mr-1" />
+                    </a>
+                </div>
+            </Stack>
             <slot />
         </Stack>
     </PageLayout>
