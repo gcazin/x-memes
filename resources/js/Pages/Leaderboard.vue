@@ -1,10 +1,10 @@
 <script setup>
-import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
+import FollowButton from '@/Components/Button/FollowButton.vue'
 import Card from '@/Components/Misc/Card.vue'
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
+import Table from '@/Components/Table/Table.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
-import Table from '@/Pages/Admin/Partials/Table.vue'
 
 defineProps({
     leaderboard: {

@@ -1,9 +1,9 @@
 <script setup>
-import BlobBackground from '@/Components/Misc/BlobBackground.vue'
+import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
-import Text from '@/Components/Text.vue'
-import Footer from '@/Partials/Footer.vue'
-import Navbar from '@/Partials/Navbar.vue'
+import BlobBackground from '@/Layouts/Partials/BlobBackground.vue'
+import Footer from '@/Layouts/Partials/Footer.vue'
+import Navbar from '@/Layouts/Partials/Navbar.vue'
 import { Head } from '@inertiajs/vue3'
 
 defineProps({

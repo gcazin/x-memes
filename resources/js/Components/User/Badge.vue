@@ -42,7 +42,7 @@ const iconType = computed(() => {
 .badge-modal_sprite1,
 .badge-modal_sprite2,
 .badge-modal_sprite3 {
-    background-image: url(/public/images/badges/badges.png);
+    background-image: url(/images/badges/badges.png);
     width: 160px;
     height: 160px;
 }
@@ -58,7 +58,7 @@ const iconType = computed(() => {
     width: 160px;
     height: 160px;
     position: relative;
-    background-image: url(/public/images/badges/badges.png);
+    background-image: url(/images/badges/badges.png);
 }
 
 .badge-icon::after,

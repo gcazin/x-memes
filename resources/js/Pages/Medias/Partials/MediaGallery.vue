@@ -1,10 +1,10 @@
 <script setup>
-import Modal from '@/Components/Elements/Modal/Modal.vue'
-import Stack from '@/Components/Layout/Stack.vue'
+import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import MediaItem from '@/Components/Misc/MediaItem.vue'
 import Tag from '@/Components/Misc/Tag.vue'
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
+import Modal from '@/Components/Modal/Modal.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { router, usePage } from '@inertiajs/vue3'
 import { onMounted, ref, toRef, watch } from 'vue'
@@ -258,7 +258,7 @@ watch(
                         v-for="(tag, index) in selectedFilters.filters.tags"
                         :key="index"
                         size="lg"
-                        color="secondary"
+                        type="secondary"
                     >
                         {{ tags.find((t) => t.id === tag).name }}
                     </Tag>

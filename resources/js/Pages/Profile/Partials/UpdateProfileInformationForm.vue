@@ -1,6 +1,6 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import InputError from '@/Components/Form/InputError.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
 import formService from '@/Services/form.service.js'
 import { Link, useForm, usePage } from '@inertiajs/vue3'
 

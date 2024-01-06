@@ -1,6 +1,6 @@
 <script setup>
-import Section from '@/Components/Layout/Section.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Section from '@/Layouts/Partials/Section.vue'
 import ChangeTheme from '@/Pages/Profile/Partials/ChangeTheme.vue'
 import DeleteUserForm from './Partials/DeleteUserForm.vue'
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue'

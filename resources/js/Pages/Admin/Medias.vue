@@ -1,9 +1,9 @@
 <script setup>
-import Stack from '@/Components/Layout/Stack.vue'
 import Card from '@/Components/Misc/Card.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import Text from '@/Components/Text.vue'
-import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import Text from '@/Components/Misc/Text.vue'
+import AdminDashboardLayout from '@/Layouts/AdminDashboardLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import _ from 'lodash'

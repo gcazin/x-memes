@@ -1,4 +1,6 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
+
 defineProps({
     type: {
         type: String,
@@ -11,12 +13,8 @@ defineProps({
 </script>
 
 <template>
-    <button
-        class="btn btn-primary"
-        type="submit"
-        :class="{ 'btn-disabled': loading }"
-    >
+    <Button submit :disabled="loading">
         <span v-if="loading" class="loading loading-spinner"></span>
         <slot />
-    </button>
+    </Button>
 </template>

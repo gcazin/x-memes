@@ -1,10 +1,10 @@
 <script setup>
-import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import Section from '@/Components/Layout/Section.vue'
-import Text from '@/Components/Text.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import InputError from '@/Components/Form/InputError.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
+import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Section from '@/Layouts/Partials/Section.vue'
 import { useForm } from '@inertiajs/vue3'
 
 defineProps({

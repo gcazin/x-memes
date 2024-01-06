@@ -1,10 +1,10 @@
 <script setup>
-import Avatar from '@/Components/Misc/Avatar.vue'
-import DropdownLink from '@/Components/Misc/DropdownLink.vue'
+import DropdownLink from '@/Components/Dropdown/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
+import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
-import Text from '@/Components/Text.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'

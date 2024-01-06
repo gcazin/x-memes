@@ -1,6 +1,6 @@
 <script setup>
-import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
+import FollowButton from '@/Components/Button/FollowButton.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 
 defineProps({
     user: {

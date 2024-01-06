@@ -1,15 +1,16 @@
 <script setup>
-import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
-import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import Textarea from '@/Components/Elements/Form/Textarea.vue'
-import Modal from '@/Components/Elements/Modal/Modal.vue'
-import Stack from '@/Components/Layout/Stack.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
+import Button from '@/Components/Button/Button.vue'
+import FollowButton from '@/Components/Button/FollowButton.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import InputError from '@/Components/Form/InputError.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
+import Textarea from '@/Components/Form/Textarea.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
+import Modal from '@/Components/Modal/Modal.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
 import helperService from '../../Services/helper.service.js'
@@ -103,13 +104,15 @@ const updateUser = () => {
                             v-if="auth && user.id !== auth.id"
                             :user="user"
                         />
-                        <button
+                        <Button
                             v-else
-                            class="btn btn-outline btn-secondary btn-sm"
+                            type="secondary"
+                            outline
+                            size="sm"
                             @click="formService.openModal('editProfile')"
                         >
                             Modifier le profil
-                        </button>
+                        </Button>
 
                         <Modal
                             id="editProfileModal"

@@ -1,8 +1,8 @@
 <script setup>
-import Avatar from '@/Components/Misc/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
-import Text from '@/Components/Text.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import helperService from '@/Services/helper.service.js'
 import { Head } from '@inertiajs/vue3'
 

@@ -1,4 +1,5 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -33,17 +34,12 @@ const submit = () => {
 
 <template>
     <form @submit.prevent="submit" v-if="page.props.auth.user.id !== user.id">
-        <button
-            :class="
-                !inline
-                    ? `btn btn-secondary ${
-                          checkIfAuthIsFollowing() ? 'btn-outline' : ''
-                      }`
-                    : 'font-bold text-secondary'
-            "
+        <Button
+            :type="!inline ? 'secondary' : 'primary'"
+            :outline="checkIfAuthIsFollowing()"
         >
             {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
-        </button>
+        </Button>
     </form>
 </template>
 

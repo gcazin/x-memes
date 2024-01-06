@@ -1,6 +1,6 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
+import InputError from '@/Components/Form/InputError.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import { useForm } from '@inertiajs/vue3'
 

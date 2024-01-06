@@ -50,5 +50,5 @@
     </footer>
 </template>
 <script setup>
-import Stack from '@/Components/Layout/Stack.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 </script>

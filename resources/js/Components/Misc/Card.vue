@@ -1,5 +1,5 @@
 <script setup>
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
 
 defineProps({
     title: {

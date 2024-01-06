@@ -1,13 +1,13 @@
 <script setup>
-import FollowButton from '@/Components/Elements/Button/FollowButton.vue'
-import LoadingButton from '@/Components/Elements/Button/LoadingButton.vue'
-import Stack from '@/Components/Layout/Stack.vue'
-import Avatar from '@/Components/Misc/Avatar.vue'
+import FollowButton from '@/Components/Button/FollowButton.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import MediaItem from '@/Components/Misc/MediaItem.vue'
 import Tag from '@/Components/Misc/Tag.vue'
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm, usePage } from '@inertiajs/vue3'
@@ -182,33 +182,6 @@ const getTags = () => {
                     </div>
                 </Stack>
             </div>
-
-            <!--            <div class="flex flex-col lg:flex-row gap-4 pb-6">
-                            <div class="lg:w-2/4">
-                            </div>
-
-                            <Card class="!mb-0">
-                                <Text type="subtitle">{{ media.name }}</Text>
-                                <Text>
-                                    Posté par
-                                    <a class="link-primary font-bold" :href="route('user.show', media.user.username)">{{ media.user.username }}</a>
-                                    le {{ new Date(media.created_at).toLocaleDateString() }}
-                                    à {{ new Date(media.created_at).toLocaleTimeString() }}
-                                </Text>
-
-                                <div
-                                    class="flex gap-1"
-                                >
-                                    <Tag
-                                        size="sm"
-                                        v-for="(tag, index) in media.tags.map((tag) => tag.name.fr)"
-                                        :key="index"
-                                    >
-                                        {{ tag }}
-                                    </Tag>
-                                </div>
-                            </Card>
-                        </div>-->
         </Stack>
     </PageLayout>
 </template>

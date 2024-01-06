@@ -1,10 +1,10 @@
 <script setup>
-import ActionButton from '@/Components/Elements/Button/ActionButton.vue'
-import DeleteModal from '@/Components/Elements/Modal/ActionModal.vue'
-import Stack from '@/Components/Layout/Stack.vue'
+import ActionButton from '@/Components/Button/ActionButton.vue'
 import Card from '@/Components/Misc/Card.vue'
-import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
-import Table from '@/Pages/Admin/Partials/Table.vue'
+import DeleteModal from '@/Components/Modal/ActionModal.vue'
+import Table from '@/Components/Table/Table.vue'
+import AdminDashboardLayout from '@/Layouts/AdminDashboardLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 

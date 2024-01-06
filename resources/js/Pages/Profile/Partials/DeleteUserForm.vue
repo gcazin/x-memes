@@ -1,7 +1,7 @@
 <script setup>
-import InputError from '@/Components/Elements/Form/InputError.vue'
-import TextInput from '@/Components/Elements/Form/TextInput.vue'
-import Modal from '@/Components/Elements/Modal/Modal.vue'
+import InputError from '@/Components/Form/InputError.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
+import Modal from '@/Components/Modal/Modal.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'

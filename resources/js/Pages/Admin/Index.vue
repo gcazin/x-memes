@@ -1,6 +1,6 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
-import AdminDashboardLayout from '@/Pages/Admin/Layout/AdminDashboardLayout.vue'
+import AdminDashboardLayout from '@/Layouts/AdminDashboardLayout.vue'
 
 defineProps({
     users: {

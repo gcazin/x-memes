@@ -1,5 +1,5 @@
 <script setup>
-import Modal from '@/Components/Elements/Modal/Modal.vue'
+import Modal from '@/Components/Modal/Modal.vue'
 import formService from '@/Services/form.service.js'
 
 const props = defineProps({

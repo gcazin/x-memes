@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 import Icon from '@/Components/Misc/Icon.vue'
-import Text from '@/Components/Text.vue'
+import Text from '@/Components/Misc/Text.vue'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref, watch } from 'vue'
 

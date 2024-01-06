@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryButton from '@/Components/Elements/Button/PrimaryButton.vue'
+import PrimaryButton from '@/Components/Button/PrimaryButton.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import { Link, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'

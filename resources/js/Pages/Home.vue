@@ -1,7 +1,7 @@
 <script setup>
-import Stack from '@/Components/Layout/Stack.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { Head, useForm } from '@inertiajs/vue3'
 
