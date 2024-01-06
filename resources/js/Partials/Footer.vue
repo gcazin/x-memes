@@ -34,7 +34,7 @@
                         alt="X de Guillaume"
                     />
                 </a>
-                <a
+                <!--                <a
                     href="https://github.com/gcazin/x-memes"
                     target="_blank"
                     aria-label="GitHub de Guillaume"
@@ -44,7 +44,7 @@
                         src="/images/misc/github.svg"
                         alt="GitHub de X-Memes"
                     />
-                </a>
+                </a>-->
             </nav>
         </div>
     </footer>
