@@ -13,13 +13,21 @@ const props = defineProps({
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Text.vue'
 import { usePage } from '@inertiajs/vue3'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const page = usePage()
 const flash = page.props.flash
 const show = ref(false)
 
 const closeAlert = () => (show.value = false)
+
+const iconColor = computed(() => {
+    return {
+        success: 'text-success',
+        info: 'text-info',
+        error: 'text-error',
+    }[props.type ? props.type : flash.status.class]
+})
 
 watch(() => {
     if (page.props.flash.status || props.message) {
@@ -46,11 +54,7 @@ watch(() => {
             role="alert"
         >
             <div class="mr-2">
-                <Icon
-                    name="checkmark-circle"
-                    size="2xl"
-                    :class="`text-${type ? type : flash.status.class}`"
-                />
+                <Icon name="checkmark-circle" size="2xl" :class="[iconColor]" />
             </div>
             <div class="mr-2">
                 <Text type="sub">{{
