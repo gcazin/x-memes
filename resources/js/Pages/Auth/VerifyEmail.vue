@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryButton from '@/Components/Button/PrimaryButton.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import { Link, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
@@ -24,34 +24,32 @@ const verificationLinkSent = computed(
 <template>
     <PageLayout title="Vérification email">
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Thanks for signing up! Before getting started, could you verify your
-            email address by clicking on the link we just emailed to you? If you
-            didn't receive the email, we will gladly send you another.
+            Merci de vous être inscrit ! Avant de commencer, pourriez-vous
+            vérifier votre adresse électronique en cliquant sur le lien que nous
+            venons de vous envoyer par courrier électronique ? Si vous n'avez
+            pas reçu l'e-mail, nous vous en enverrons un autre avec plaisir.
         </div>
 
         <div
             class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
             v-if="verificationLinkSent"
         >
-            A new verification link has been sent to the email address you
-            provided during registration.
+            Un nouveau lien de vérification a été envoyé à l'adresse
+            électronique que vous avez fournie lors de votre inscription.
         </div>
 
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Resend Verification Email
-                </PrimaryButton>
+                <LoadingButton :loading="form.processing">
+                    Renvoyer l'e-mail de vérification
+                </LoadingButton>
 
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >Log Out</Link
+                    >Déconnexion</Link
                 >
             </div>
         </form>

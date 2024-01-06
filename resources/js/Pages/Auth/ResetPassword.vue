@@ -1,5 +1,5 @@
 <script setup>
-import PrimaryButton from '@/Components/Button/PrimaryButton.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import InputLabel from '@/Components/Form/InputLabel.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
@@ -84,12 +84,9 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Reset Password
-                </PrimaryButton>
+                <LoadingButton :loading="form.processing">
+                    Réinitialiser le mot de passe
+                </LoadingButton>
             </div>
         </form>
     </PageLayout>
