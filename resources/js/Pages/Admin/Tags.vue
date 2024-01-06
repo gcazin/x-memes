@@ -60,15 +60,12 @@ formService.setForm(form).setRouteName('admin.tag')
             <Table
                 :headers="['Nom', 'Nombre de médias associés']"
                 :items="tags"
-                :properties="['name', 'medias']"
+                :properties="['name', 'medias_count']"
                 has-action
                 has-background
             >
                 <template #name="{ name }">
                     {{ name }}
-                </template>
-                <template #medias="item">
-                    {{ item.medias_count }}
                 </template>
                 <template #actions="item">
                     <ActionButton
