@@ -16,7 +16,7 @@ class NotificationController extends Controller
      */
     public function index(): Response
     {
-        $notifications = auth()->user()->notifications()->paginate(5);
+        $notifications = auth()->user()->notifications()->paginate(10);
 
         return Inertia::render('User/Notifications', [
             'notifications' => $notifications,
@@ -45,7 +45,7 @@ class NotificationController extends Controller
                 $notification->markAsRead();
             }
         } else {
-            $notification = auth()->user()->notifications->where('id', $id)->first();
+            $notification = auth()->user()->notifications->firstWhere('id', $id);
 
             if ($notification) {
                 $notification->markAsRead();

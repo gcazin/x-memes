@@ -7,10 +7,11 @@ namespace App\Events;
 use App\Models\Media;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MediaDestroyed
+class MediaDestroyed implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -25,7 +26,7 @@ class MediaDestroyed
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): PrivateChannel|array
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('App.Models.User.'.$this->media->user_id);
     }

@@ -119,7 +119,11 @@ watch(
                     "
                 >
                     <div
-                        v-for="(notification, index) in notifications.data"
+                        v-for="(
+                            notification, index
+                        ) in notifications.data.filter(
+                            (n) => n.read_at !== null
+                        )"
                         :key="index"
                         class="rounded-lg bg-base-300 p-4"
                     >

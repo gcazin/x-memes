@@ -25,7 +25,7 @@ class MediaImageController extends Controller
     {
         return Inertia::render(
             'Library',
-            $this->mediaService->getMediasByType($request, 'image')
+            $this->mediaService->byType($request, 'image')
         );
     }
 }

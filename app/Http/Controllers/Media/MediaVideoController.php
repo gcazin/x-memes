@@ -24,7 +24,7 @@ class MediaVideoController extends Controller
     {
         return Inertia::render(
             'Library',
-            $this->mediaService->getMediasByType($request, 'video', 'Bibliothèque de vidéos')
+            $this->mediaService->byType($request, 'video', 'Bibliothèque de vidéos')
         );
     }
 }

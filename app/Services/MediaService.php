@@ -22,7 +22,7 @@ class MediaService
     ) {
     }
 
-    public function getMediasByType(Request $request, string $type, ?string $title = null): array
+    public function byType(Request $request, string $type, ?string $title = null): array
     {
         $defaultSort = '-created_at';
         $medias = QueryBuilder::for(Media::class)
