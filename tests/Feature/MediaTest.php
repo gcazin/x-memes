@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Testing\AssertableInertia;
 
+use function Pest\Laravel\actingAs;
+
 it('should index approved medias', function () {
     $user = User::factory()->create();
 
@@ -52,28 +54,39 @@ it('should store media and attach tags', function () {
 });
 
 it('should delete media and not remove tags if used', function () {
-    User::factory()->create();
+    $user = User::factory()->create();
 
-    $firstMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
-    $secondMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
+    $firstMedia = Media::factory()->create([
+        'user_id' => 1,
+    ])->attachTags(['foo', 'bar']);
+    $secondMedia = Media::factory()->create([
+        'user_id' => 1,
+    ])->attachTags(['foo', 'bar']);
 
-    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+    actingAs($user)->delete(route('media.destroy', $firstMedia->id));
 
     expect($secondMedia->tags()->count())->toBe(2)
         ->and(Media::all()->count())->toBe(1);
 });
 
 it('should delete media and remove only tags not used', function () {
-    User::factory()->create();
+    $user = User::factory()->create();
 
     // 3 tags : foo, bar, baz
     // only baz should be deleted
-    $firstMedia = Media::factory()->create(['name' => 'deleted'])->attachTags(['foo', 'baz']);
-    $secondMedia = Media::factory()->create(['name' => 'keep-tags'])->attachTags(['foo', 'bar']);
+    $firstMedia = Media::factory()->create([
+        'name' => 'deleted',
+        'user_id' => 1,
+    ])->attachTags(['foo', 'baz']);
+
+    $secondMedia = Media::factory()->create([
+        'name' => 'keep-tags',
+        'user_id' => 1,
+    ])->attachTags(['foo', 'bar']);
 
     expect(Tag::all()->count())->toBe(3);
 
-    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+    actingAs($user)->delete(route('media.destroy', $firstMedia->id));
 
     expect($secondMedia->tags()->count())->toBe(2)
         ->and(Tag::all()->pluck('name')->all())->toBe(['foo', 'bar'])
@@ -82,11 +95,11 @@ it('should delete media and remove only tags not used', function () {
 });
 
 it('should delete media and remove tags if not used', function () {
-    User::factory()->create();
+    $user = User::factory()->create();
 
-    $firstMedia = Media::factory()->create()->attachTags(['foo', 'bar']);
+    $firstMedia = Media::factory()->create(['user_id' => 1])->attachTags(['foo', 'bar']);
 
-    actingAsGuest()->delete(route('media.destroy', $firstMedia->id));
+    actingAs($user)->delete(route('media.destroy', $firstMedia->id));
 
     expect(Tag::all()->count())->toBe(0)
         ->and(Media::all()->count())->toBe(0);
@@ -117,7 +130,10 @@ it('should approve media and send notification', function () {
     Notification::fake();
     User::factory()->create();
 
-    $media = Media::factory()->create(['approved' => 0]);
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'approved' => 0,
+    ]);
 
     actingAsSuperAdmin()->put(route('admin.media.approve', $media->id));
 
@@ -131,6 +147,7 @@ it('should approve media and send notification', function () {
 it('should download media and increment download count', function () {
     User::factory()->create();
     $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
         'download_count' => 0,
     ]);
 
@@ -139,17 +156,59 @@ it('should download media and increment download count', function () {
     expect($media->refresh()->download_count)->toBe(1);
 });
 
-it('should destroy media and send notification', function () {
+test('a user can delete media that belong to him', function () {
     Notification::fake();
     Event::fake();
-    User::factory()->create();
-    $media = Media::factory()->create([
+
+    $user = User::factory()->create();
+
+    Media::factory()->create([
         'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
     ]);
 
-    actingAsGuest()->delete(route('media.destroy', $media->id));
+    $response = actingAs($user)->delete(route('media.destroy', 1));
 
     Event::assertDispatched(MediaDestroyed::class);
 
-    expect(Media::where('id', $media->id)->count())->toBe(0);
+    expect(Media::all()->count())->toBe(0)
+        ->and($response->status())->toBe(200);
+});
+
+test('a user cannot delete media that does not belong to him', function () {
+    Notification::fake();
+    Event::fake();
+
+    $user = User::factory()->create();
+    $impostor = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    $response = actingAs($impostor)->delete(route('media.destroy', $media->id));
+
+    Event::assertNotDispatched(MediaDestroyed::class);
+
+    expect($response->status())->toBe(403)
+        ->and($response->statusText())->toBe('Forbidden');
+});
+
+test('a super-administrator or administrator can delete media that does not belong to them', function () {
+    Notification::fake();
+    Event::fake();
+    $user = User::factory()->create();
+
+    Media::factory(2)->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    $asSuperAdmin = actingAsSuperAdmin()->delete(route('media.destroy', 1));
+    $asAdmin = actingAsAdmin()->delete(route('media.destroy', 2));
+
+    expect(Media::all()->count())->toBe(0)
+        ->and($asSuperAdmin->status())->toBe(200)
+        ->and($asAdmin->status())->toBe(200);
 });

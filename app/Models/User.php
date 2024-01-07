@@ -56,26 +56,41 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * The relationships to always eager-load.
+     */
     protected $with = [
         'roles',
         'followers',
     ];
 
-    public function isSuperAdmin()
+    /**
+     * Checks if the user has the 'super-admin' role.
+     */
+    public function isSuperAdmin(): bool
     {
         return $this->hasRole('super-admin');
     }
 
-    public function isAdmin()
+    /**
+     * Checks if the user has the 'admin' role.
+     */
+    public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->isSuperAdmin() || $this->hasRole('admin');
     }
 
-    public function isModerator()
+    /**
+     * Checks if the user has the 'moderator' role.
+     */
+    public function isModerator(): bool
     {
-        return $this->hasRole('moderator');
+        return $this->isAdmin() || $this->hasRole('moderator');
     }
 
+    /**
+     * Defines a custom cast for the 'created_at' attribute to format its display.
+     */
     public function createdAt(): Attribute
     {
         return Attribute::make(
@@ -95,11 +110,19 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Defines a one-to-many relationship with the Media model,
+     * representing the user's uploaded media.
+     */
     public function medias(): HasMany
     {
         return $this->hasMany(Media::class, 'user_id');
     }
 
+    /**
+     * Defines a many-to-many relationship with the Badge model,
+     * representing the user's earned badges.
+     */
     public function badges(): BelongsToMany
     {
         return $this->belongsToMany(Badge::class);

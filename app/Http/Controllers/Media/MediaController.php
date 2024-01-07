@@ -113,6 +113,8 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
+        $this->authorize('update', $media);
+
         // If media has tags
         if ($media->tags()->count() > 0) {
             $media->tags()->each(function ($tag) use ($media) {

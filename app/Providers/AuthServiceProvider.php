@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Media;
 use App\Models\User;
+use App\Policies\MediaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Media::class => MediaPolicy::class,
     ];
 
     /**
@@ -27,16 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function (User $user) {
-            return $user->isSuperAdmin();
-        });
-
         // Access to Laravel Pulse restricted to super-admin
         Gate::define('viewPulse', function (User $user) {
             return $user->isSuperAdmin();
         });
-
-        // Access to Log-Viewer restricted to super-admin
-
     }
 }
