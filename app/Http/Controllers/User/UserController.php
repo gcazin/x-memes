@@ -46,6 +46,6 @@ class UserController extends Controller
 
         $request->user()->save();
 
-        return redirect()->to(route('user.show', $request->user()->username));
+        return to_route('user.show', $request->user()->username);
     }
 }

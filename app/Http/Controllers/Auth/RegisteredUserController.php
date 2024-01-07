@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'username' => [
                 'required',
                 'string',
-                'max:255',
+                'max:25',
                 'alpha_dash',
                 Rule::unique(User::class, 'username'),
             ],

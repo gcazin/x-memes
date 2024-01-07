@@ -99,6 +99,8 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
+        $this->authorize('update', $media);
+
         $media->name = $request->name;
 
         $media->save();
@@ -113,7 +115,7 @@ class MediaController extends Controller
     {
         $media = $this->mediaRepository->find($id);
 
-        $this->authorize('update', $media);
+        $this->authorize('delete', $media);
 
         // If media has tags
         if ($media->tags()->count() > 0) {

@@ -58,9 +58,11 @@ it('should delete media and not remove tags if used', function () {
 
     $firstMedia = Media::factory()->create([
         'user_id' => 1,
+        'path' => 'medias/'.Str::random().'.jpg',
     ])->attachTags(['foo', 'bar']);
     $secondMedia = Media::factory()->create([
         'user_id' => 1,
+        'path' => 'medias/'.Str::random().'.jpg',
     ])->attachTags(['foo', 'bar']);
 
     actingAs($user)->delete(route('media.destroy', $firstMedia->id));
@@ -76,11 +78,13 @@ it('should delete media and remove only tags not used', function () {
     // only baz should be deleted
     $firstMedia = Media::factory()->create([
         'name' => 'deleted',
+        'path' => 'medias/'.Str::random().'.jpg',
         'user_id' => 1,
     ])->attachTags(['foo', 'baz']);
 
     $secondMedia = Media::factory()->create([
         'name' => 'keep-tags',
+        'path' => 'medias/'.Str::random().'.jpg',
         'user_id' => 1,
     ])->attachTags(['foo', 'bar']);
 
