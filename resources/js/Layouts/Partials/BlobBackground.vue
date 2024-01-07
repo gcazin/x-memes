@@ -32,11 +32,5 @@
             </picture>
         </div>
     </div>
-    <!--    <div class="absolute inset-0 bottom-10 bg-no-repeat h-full dark:bg-base-300 background"></div>-->
 </template>
-<style scoped>
-.background {
-    background-image: url(/images/blur-background.jpg);
-    background-size: cover;
-}
-</style>
+<style scoped></style>

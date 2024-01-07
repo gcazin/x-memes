@@ -21,7 +21,7 @@ const iconType = computed(() => {
 <template>
     <div class="text-center">
         <div class="badge-hover">
-            <div :class="`badge-icon badge-${iconType}`">
+            <div class="badge-icon" :class="`badge-${iconType}`">
                 <img
                     :src="`/images/${badge.path}`"
                     class="mx-auto"
