@@ -249,8 +249,18 @@ if (usePage().props.auth?.user) {
                                     class="flex px-4 py-3 hover:bg-base-200"
                                 >
                                     <div class="flex-shrink-0">
+                                        <Avatar
+                                            v-if="
+                                                notification.type.includes(
+                                                    'NewUserNotification'
+                                                )
+                                            "
+                                            :user="notification.data.content"
+                                            class="!w-10"
+                                        />
                                         <img
-                                            class="h-11 w-11 rounded-full"
+                                            v-else
+                                            class="w-10 rounded"
                                             :src="`/storage/${notification.data.content.path}`"
                                             alt="Jese image"
                                         />

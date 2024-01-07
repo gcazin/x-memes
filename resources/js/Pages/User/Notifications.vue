@@ -2,6 +2,7 @@
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Pagination from '@/Components/Table/Pagination.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
@@ -71,10 +72,19 @@ watch(
                             />
                         </div>
                         <div class="ml-2 mr-6">
+                            <Avatar
+                                v-if="
+                                    notification.type.includes(
+                                        'NewUserNotification'
+                                    )
+                                "
+                                :user="notification.data.content"
+                            />
                             <img
+                                v-else
                                 :src="`/storage/${notification.data.content.path}`"
                                 alt=""
-                                class="mx-auto w-20 rounded"
+                                class="mx-auto w-16 rounded"
                             />
                         </div>
                         <div class="flex-1">
@@ -95,7 +105,7 @@ watch(
                                 {{ notification.formatted_created_at }}
                             </Text>
                         </div>
-                        <div class="relative z-50">
+                        <div class="relative z-50 hidden lg:block">
                             <button
                                 @click="
                                     formService.handle('update', notification)
