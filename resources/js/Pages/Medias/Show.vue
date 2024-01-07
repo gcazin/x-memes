@@ -78,12 +78,12 @@ const getTags = () => {
                                 ><Avatar :user="media.user"
                             /></a>
                         </div>
-                        <div class="flex flex-col">
+                        <div class="flex flex-col gap-2">
                             <a
                                 :href="route('user.show', media.user.username)"
                                 >{{ media.user.username }}</a
                             >
-                            <FollowButton inline :user="media.user"
+                            <FollowButton size="sm" :user="media.user"
                                 >Suivre</FollowButton
                             >
                         </div>

@@ -11,6 +11,10 @@ const props = defineProps({
         type: Boolean,
         required: false,
     },
+    size: {
+        type: String,
+        required: false,
+    },
 })
 
 const page = usePage()
@@ -35,6 +39,7 @@ const submit = () => {
 <template>
     <form @submit.prevent="submit" v-if="page.props.auth.user.id !== user.id">
         <Button
+            :size="size"
             :type="!inline ? 'secondary' : 'primary'"
             :outline="checkIfAuthIsFollowing()"
         >
