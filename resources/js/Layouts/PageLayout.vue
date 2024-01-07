@@ -89,7 +89,7 @@ defineProps({
         <!-- Page Content -->
         <main
             class="relative"
-            :class="isFullSize ? 'w-full' : 'mx-auto px-6 lg:w-9/12 lg:px-0'"
+            :class="isFullSize ? 'w-full' : 'mx-auto px-4 lg:w-9/12 lg:px-0'"
         >
             <slot />
         </main>

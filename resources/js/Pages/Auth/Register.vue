@@ -24,8 +24,8 @@ const submit = () => {
 
 <template>
     <PageLayout title="Inscription">
-        <div class="flex w-full gap-x-16">
-            <div class="w-1/3">
+        <div class="flex w-full flex-col gap-4 lg:flex-row lg:gap-x-16">
+            <div class="order-1 w-full lg:w-1/3">
                 <Stack spacing="4">
                     <Text type="subtitle">Principales fonctionnalités</Text>
                     <Stack spacing="2">
@@ -64,7 +64,7 @@ const submit = () => {
                     </Stack>
                 </Stack>
             </div>
-            <Section class="flex-1">
+            <Section class="w-full lg:order-1 lg:flex-1">
                 <form @submit.prevent="submit">
                     <TextInput
                         label="Nom d'utilisateur"
