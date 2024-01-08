@@ -25,15 +25,25 @@ class DashboardController extends Controller
 
     public function __invoke(): Response
     {
-        $mediasByMonth = $this->mediaRepository->all()->countBy(function ($media) {
-            return (int) Carbon::parse($media->getRawOriginal('created_at'))->format('m');
-        })->sortKeys();
-        $usersByMonth = $this->userRepository->all()->countBy(function ($user) {
-            return Carbon::parse($user->getRawOriginal('created_at'))->format('M');
-        })->all();
-        $tagsByUtilisation = Tag::withCount('medias')->orderBy('medias_count')->get()->mapWithKeys(function (Tag $tag) {
-            return [$tag->name => $tag->medias_count];
-        })->all();
+        // à mettre dans un service
+        $mediasByMonth = $this->mediaRepository
+            ->all()
+            ->countBy(function ($media) {
+                return (int) Carbon::parse($media->getRawOriginal('created_at'))->format('m');
+            })
+            ->sortKeys();
+        $usersByMonth = $this->userRepository
+            ->all()
+            ->countBy(function ($user) {
+                return Carbon::parse($user->getRawOriginal('created_at'))->format('M');
+            })
+            ->all();
+        $tagsByUtilisation = Tag::withCount('medias')
+            ->orderBy('medias_count')
+            ->get()
+            ->mapWithKeys(function (Tag $tag) {
+                return [$tag->name => $tag->medias_count];
+            })->all();
 
         return Inertia::render('Admin/Index', [
             'users' => User::all(),
