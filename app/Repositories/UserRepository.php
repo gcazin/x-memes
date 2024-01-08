@@ -23,6 +23,11 @@ class UserRepository implements RepositoryInterface
         return $this->user->all();
     }
 
+    public function paginate()
+    {
+        return $this->user->paginate();
+    }
+
     /**
      * Finds a user item by its ID.
      */

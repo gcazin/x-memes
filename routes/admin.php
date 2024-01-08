@@ -14,7 +14,7 @@ Route::middleware(['role:super-admin|admin'])->prefix('admin')->name('admin.')
         Route::get('dashboard', DashboardController::class)->name('index');
 
         // Users
-        Route::get('utilisateurs', [UserController::class, 'index'])->name('user.index');
+        Route::resource('user', UserController::class);
 
         // Medias
         Route::name('media.')->group(function () {

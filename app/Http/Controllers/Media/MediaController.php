@@ -75,13 +75,15 @@ class MediaController extends Controller
 
         if ($media) {
             $this->mediaService->related($media->id);
+
+            return Inertia::render('Medias/Show', [
+                'media' => $media,
+                'downloaded_file' => session('downloaded_file'),
+                'related' => session('related'),
+            ]);
         }
 
-        return Inertia::render('Medias/Show', [
-            'media' => $media,
-            'downloaded_file' => session('downloaded_file'),
-            'related' => session('related'),
-        ]);
+        abort(404);
     }
 
     /**

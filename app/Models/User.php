@@ -60,9 +60,11 @@ class User extends Authenticatable
      * The relationships to always eager-load.
      */
     protected $with = [
-        'roles',
+        'roles:id,name',
         'followers',
     ];
+
+    protected $perPage = 10;
 
     /**
      * Checks if the user has the 'super-admin' role.
@@ -94,7 +96,7 @@ class User extends Authenticatable
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::parse($value)->format('d/m/Y h:i:s')
+            get: fn (string $value) => Carbon::parse($value)->format('d/m/Y h:i')
         );
     }
 

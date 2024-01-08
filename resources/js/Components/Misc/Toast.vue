@@ -32,6 +32,7 @@ const iconColor = computed(() => {
 watch(() => {
     if (page.props.flash.status || props.message) {
         show.value = true
+        console.log('ici')
         setTimeout(() => {
             show.value = false
         }, 5000)

@@ -39,6 +39,7 @@ class MediaFactory extends Factory
             'slug' => Str::slug($title),
             'approved' => fake()->boolean,
             'download_count' => fake()->numberBetween(1, 1000),
+            'created_at' => fake()->dateTime(),
         ];
     }
 }
