@@ -65,11 +65,8 @@ const updateUser = () => {
                         />
                     </div>
                     <Stack spacing="2" class="mb-4 lg:mb-0">
-                        <div>
-                            <Text
-                                type="title"
-                                class="inline text-center lg:text-left"
-                            >
+                        <div class="text-center lg:text-left">
+                            <Text type="title">
                                 {{ user.username }}
                                 <RoleBadge :user="user" />
                             </Text>
