@@ -10,6 +10,7 @@ use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
 use App\Listeners\Media\SendMediaDeletedNotification;
 use App\Listeners\User\SendNewUserNotification;
+use App\Listeners\User\SendWelcomeToNewUserMail;
 use App\Models\Media;
 use App\Observers\MediaObserver;
 use Illuminate\Auth\Events\Registered;
@@ -27,6 +28,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
             SendNewUserNotification::class,
+            SendWelcomeToNewUserMail::class,
         ],
         MediaApproved::class => [
             SendMediaApprovedNotification::class,

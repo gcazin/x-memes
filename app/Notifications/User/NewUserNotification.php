@@ -47,7 +47,7 @@ class NewUserNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Un nouveau utilisateur a été crée',
+            'title' => "{$this->user->username} vient de s'inscrire !",
             'content' => $this->user,
         ];
     }

@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
-use App\Models\Media;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MediaApprovedMail extends Mailable implements ShouldQueue
+class WelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,7 +19,7 @@ class MediaApprovedMail extends Mailable implements ShouldQueue
      * Create a new message instance.
      */
     public function __construct(
-        protected Media $media
+        protected User $user
     ) {
         $this->afterCommit();
     }
@@ -31,7 +30,7 @@ class MediaApprovedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Ton mème "'.$this->media->name.'" a été approuvé sur X-Memes !',
+            subject: 'Bienvenue sur X-Memes ! 🚀',
         );
     }
 
@@ -41,9 +40,9 @@ class MediaApprovedMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.media.approved',
+            markdown: 'emails.user.welcome',
             with: [
-                'media' => $this->media,
+                'user' => $this->user,
             ]
         );
     }

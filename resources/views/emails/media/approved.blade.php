@@ -1,11 +1,13 @@
 <x-mail::message>
-# Votre média {{ $media->name }} a été approuvé.
+# Ton média {{ $media->name }} a été approuvé.
 
-Félicitations, votre média a été approuvé par un administrateur !
+Félicitations, ton mème a été approuvé par {{ $media->user->username }}.
 
 <x-mail::button :url="route('media.show', $media->slug)">
-    Voir l'image
+    Voir la publication
 </x-mail::button>
 
-{{ config('app.name') }}
+À bientôt sur {{ config('app.name') }} ! 🚀
+
+Guillaume - {{ config('app.name') }}
 </x-mail::message>

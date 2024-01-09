@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
@@ -10,6 +11,8 @@ test('registration screen can be rendered', function () {
 });
 
 test('new users can register', function () {
+    \Illuminate\Support\Facades\Mail::fake();
+
     $response = $this->post(route('register'), [
         'username' => 'test-user',
         'email' => 'test@example.com',
@@ -18,9 +21,14 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
+
+    Mail::assertSent(WelcomeMail::class);
+    Mail::assertSentCount(1);
+
     $user = User::find(1);
     expect($user)->not->toBe(null)
         ->and($user->username)->toBe('test-user');
+
     $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
