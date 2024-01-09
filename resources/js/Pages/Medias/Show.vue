@@ -11,10 +11,9 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
-import { Head, router, useForm, usePage } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 import { saveAs } from 'file-saver'
 import _ from 'lodash'
-import { onMounted } from 'vue'
 
 const props = defineProps({
     media: {
@@ -26,10 +25,6 @@ const props = defineProps({
     related: {
         type: Array,
     },
-})
-
-onMounted(() => {
-    getRelatedMedias()
 })
 
 const form = useForm({
@@ -47,13 +42,6 @@ const downloadItem = async (item) => {
 
 const page = usePage()
 const auth = page.props.auth?.user
-
-const getRelatedMedias = () => {
-    router.visit(route('media.related', props.media.id), {
-        only: ['related'],
-        preserveState: true,
-    })
-}
 
 const getTags = () => {
     return _.map(props.media.tags, _.partialRight(_.pick, ['id', 'name']))

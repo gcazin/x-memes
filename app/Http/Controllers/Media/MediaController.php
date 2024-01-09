@@ -74,12 +74,12 @@ class MediaController extends Controller
         $media = $this->mediaRepository->firstWhere('slug', $slug);
 
         if ($media) {
-            $this->mediaService->related($media->id);
+            $related = $this->mediaService->related($media->id);
 
             return Inertia::render('Medias/Show', [
                 'media' => $media,
                 'downloaded_file' => session('downloaded_file'),
-                'related' => session('related'),
+                'related' => $related,
             ]);
         }
 

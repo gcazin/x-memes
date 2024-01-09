@@ -8,7 +8,6 @@ use App\Events\MediaApproved;
 use App\Models\Media;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -88,16 +87,14 @@ class MediaService
     /**
      * Retrieves related media based on tags associated with the specified media.
      */
-    public function related($id): RedirectResponse
+    public function related($id)
     {
         $media = $this->mediaRepository->find($id);
         $tags = $media->tags->pluck('name')->toArray();
 
-        $related = Media::withAnyTags($tags)
-            ->get()
+        return Media::withAnyTags($tags)
             ->where('id', '!=', $media->id)
-            ->take(4);
-
-        return back()->with('related', $related);
+            ->take(4)
+            ->get();
     }
 }
