@@ -42,7 +42,7 @@ formService.setForm(form).setRouteName('media')
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-5 gap-6">
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-4">
                 <Card
                     v-for="(media, index) in medias"
                     :key="index"

@@ -6,6 +6,7 @@ import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
+import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
@@ -74,18 +75,21 @@ const getTags = () => {
                 <div class="flex-1">
                     <div class="flex items-center gap-x-4">
                         <div class="">
-                            <a :href="route('user.show', media.user.username)"
-                                ><Avatar :user="media.user"
-                            /></a>
+                            <a :href="route('user.show', media.user.username)">
+                                <Avatar :user="media.user" />
+                            </a>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <a
-                                :href="route('user.show', media.user.username)"
-                                >{{ media.user.username }}</a
-                            >
-                            <FollowButton size="sm" :user="media.user"
-                                >Suivre</FollowButton
-                            >
+                            <a :href="route('user.show', media.user.username)">
+                                {{ media.user.username }}
+                                <RoleBadge
+                                    class="!align-text-top"
+                                    :user="media.user"
+                                />
+                            </a>
+                            <FollowButton size="sm" :user="media.user">
+                                Suivre
+                            </FollowButton>
                         </div>
                     </div>
                 </div>

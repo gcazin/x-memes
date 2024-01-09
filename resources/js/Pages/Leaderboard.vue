@@ -4,6 +4,7 @@ import Card from '@/Components/Misc/Card.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Table from '@/Components/Table/Table.vue'
 import Avatar from '@/Components/User/Avatar.vue'
+import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 
 defineProps({
@@ -61,6 +62,7 @@ defineProps({
                         <Avatar :user="item" />
                         <span>
                             {{ item.username }}
+                            <RoleBadge class="!align-text-top" :user="item" />
                         </span>
                     </div>
                 </a>

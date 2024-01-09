@@ -2,6 +2,7 @@
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
+import RoleBadge from '@/Components/User/RoleBadge.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
 
@@ -73,7 +74,10 @@ const form = useForm({
                 class="flex items-center gap-x-2"
             >
                 <Avatar size="sm" :user="media.user" />
-                <span>{{ media.user.username }}</span>
+                <span>
+                    {{ media.user.username }}
+                </span>
+                <RoleBadge :user="media.user" />
             </Text>
             <div class="flex-1">
                 <div class="flex justify-end gap-x-2">

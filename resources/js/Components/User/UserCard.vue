@@ -1,6 +1,7 @@
 <script setup>
 import FollowButton from '@/Components/Button/FollowButton.vue'
 import Avatar from '@/Components/User/Avatar.vue'
+import RoleBadge from '@/Components/User/RoleBadge.vue'
 
 defineProps({
     user: {
@@ -19,9 +20,10 @@ defineProps({
             <Avatar size="xl" :user="user" />
         </figure>
         <div class="card-body items-center text-center">
-            <a :href="route('user.show', user.username)" class="card-title">{{
-                user.username
-            }}</a>
+            <a :href="route('user.show', user.username)" class="card-title">
+                {{ user.username }}
+                <RoleBadge :user="user" />
+            </a>
             <p v-if="user.description">{{ user.description }}</p>
             <div class="card-actions">
                 <FollowButton :user="user" />

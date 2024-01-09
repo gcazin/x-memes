@@ -140,7 +140,9 @@ class MediaController extends Controller
         Storage::delete($media->path);
 
         // Remove approved notifications
-        $notification = $media->user->notifications->firstWhere('data.content.id', $media->id);
+        $notification = $media->user->notifications
+            ->where('type', 'App\Notifications\Media\ApprovedMediaNotification')
+            ->firstWhere('data.content.id', $media->id);
         if ($notification) {
             $notification->delete();
         }

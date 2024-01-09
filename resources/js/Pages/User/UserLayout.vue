@@ -9,6 +9,7 @@ import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Modal from '@/Components/Modal/Modal.vue'
 import Avatar from '@/Components/User/Avatar.vue'
+import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
@@ -64,9 +65,15 @@ const updateUser = () => {
                         />
                     </div>
                     <Stack spacing="2" class="mb-4 lg:mb-0">
-                        <Text type="title" class="text-center lg:text-left">{{
-                            user.username
-                        }}</Text>
+                        <div>
+                            <Text
+                                type="title"
+                                class="inline text-center lg:text-left"
+                            >
+                                {{ user.username }}
+                                <RoleBadge :user="user" />
+                            </Text>
+                        </div>
                         <Text>
                             {{ user.description }}
                         </Text>
