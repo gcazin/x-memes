@@ -305,37 +305,40 @@ if (usePage().props.auth?.user) {
                         >
                             <Avatar :user="$page.props.auth.user" size="sm" />
                         </div>
-                        <ul
-                            class="menu menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+                        <div
+                            tabindex="0"
+                            class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                         >
-                            <li>
-                                <DropdownLink
-                                    :href="
-                                        route(
-                                            'user.show',
-                                            $page.props.auth.user.username
-                                        )
-                                    "
-                                >
-                                    <Icon name="person" size="lg" /> Voir mon
-                                    profil
-                                </DropdownLink>
-                            </li>
-                            <li>
-                                <DropdownLink :href="route('profile.edit')">
-                                    <Icon name="cog" size="lg" /> Paramètres
-                                </DropdownLink>
-                            </li>
-                            <li>
-                                <DropdownLink
-                                    :href="route('logout')"
-                                    method="post"
-                                >
-                                    <Icon name="log-out" size="lg" />
-                                    Déconnexion
-                                </DropdownLink>
-                            </li>
-                        </ul>
+                            <ul>
+                                <li>
+                                    <DropdownLink
+                                        :href="
+                                            route(
+                                                'user.show',
+                                                $page.props.auth.user.username
+                                            )
+                                        "
+                                    >
+                                        <Icon name="person" size="lg" /> Voir
+                                        mon profil
+                                    </DropdownLink>
+                                </li>
+                                <li>
+                                    <DropdownLink :href="route('profile.edit')">
+                                        <Icon name="cog" size="lg" /> Paramètres
+                                    </DropdownLink>
+                                </li>
+                                <li>
+                                    <DropdownLink
+                                        :href="route('logout')"
+                                        method="post"
+                                    >
+                                        <Icon name="log-out" size="lg" />
+                                        Déconnexion
+                                    </DropdownLink>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </template>
             </div>
