@@ -21,7 +21,7 @@ class MediaRandomController extends Controller
     public function __invoke(Request $request)
     {
         if ($this->mediaRepository->allApprovedMedias()->count() !== 0) {
-            return redirect(route('media.show', $this->mediaRepository->random()->slug));
+            return to_route('media.show', $this->mediaRepository->random()->slug);
         }
 
         abort(404);

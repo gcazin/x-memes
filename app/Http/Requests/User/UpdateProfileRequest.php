@@ -39,20 +39,9 @@ class UpdateProfileRequest extends FormRequest
                 'image',
                 'sometimes',
                 'nullable',
-                'dimensions:ratio=1/1',
                 File::types(['jpg,jpeg,png,webp'])
                     ->max('5mb'),
             ],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     */
-    public function messages(): array
-    {
-        return [
-            'avatar.dimensions' => "L'avatar doit être carré. (ex: 500x500)",
         ];
     }
 }

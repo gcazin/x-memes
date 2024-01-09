@@ -148,16 +148,6 @@ const updateUser = () => {
                                         />
                                     </div>
                                     <div>
-                                        <progress
-                                            v-if="form.progress"
-                                            class="progress progress-primary w-full"
-                                            :value="form.progress.percentage"
-                                            max="100"
-                                        >
-                                            {{ form.progress.percentage }}%
-                                        </progress>
-                                    </div>
-                                    <div>
                                         <Textarea
                                             label="Description"
                                             v-model="form.description"
@@ -167,6 +157,16 @@ const updateUser = () => {
                                         <InputError
                                             :message="form.errors.description"
                                         />
+                                    </div>
+                                    <div>
+                                        <progress
+                                            v-if="form.progress"
+                                            class="progress progress-primary w-full"
+                                            :value="form.progress.percentage"
+                                            max="100"
+                                        >
+                                            {{ form.progress.percentage }}%
+                                        </progress>
                                     </div>
                                     <LoadingButton :loading="form.processing">
                                         Modifier le profil

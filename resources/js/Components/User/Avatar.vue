@@ -30,11 +30,13 @@ const avatarSizeClass = computed(() => {
 })
 </script>
 <template>
-    <div class="avatar" :class="[avatarSizeClass]">
-        <img
-            :src="avatar"
-            :alt="`Avatar de ${user?.username}`"
-            class="rounded-lg"
-        />
+    <div class="avatar">
+        <div :class="[avatarSizeClass]">
+            <img
+                :src="avatar"
+                :alt="`Avatar de ${user?.username}`"
+                class="rounded-lg object-cover"
+            />
+        </div>
     </div>
 </template>

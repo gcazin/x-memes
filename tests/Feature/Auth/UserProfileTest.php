@@ -53,35 +53,3 @@ it('can update avatar profile', function () {
 
     $response->assertSessionDoesntHaveErrors();
 });
-
-it("can't update avatar profile with non-square image", function () {
-    $user = User::factory()->create([
-        'username' => 'old-username',
-    ]);
-
-    expect(Str::contains($user->avatar, 'avatar-placeholder'))->toBeTrue();
-
-    $response = actingAs($user)->post(route('user.update'), [
-        'username' => $user->username,
-        'avatar' => UploadedFile::fake()->image('avatar.jpg', '100', '500'),
-    ]);
-
-    $response->assertSessionHasErrors(['avatar']);
-});
-
-it('can update avatar profile with square image', function () {
-    $user = User::factory()->create([
-        'username' => 'old-username',
-    ]);
-
-    expect(Str::contains($user->avatar, 'avatar-placeholder'))->toBeTrue();
-
-    $response = actingAs($user)->post(route('user.update'), [
-        'username' => $user->username,
-        'avatar' => $image = UploadedFile::fake()->image('avatar.jpg', '500', '500'),
-    ]);
-
-    expect($user->refresh()->avatar)->toBe('avatar/'.$image->hashName());
-
-    $response->assertSessionDoesntHaveErrors();
-});
