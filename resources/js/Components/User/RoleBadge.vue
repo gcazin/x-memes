@@ -15,23 +15,52 @@ const role = props.user.roles
 const badgeColor = computed(() => {
     if (role.length) {
         return {
-            admin: 'text-primary',
             'super-admin': 'text-secondary',
+            admin: 'text-primary',
+            moderator: 'text-accent',
+        }[role[0].name]
+    }
+})
+
+const tooltipText = computed(() => {
+    if (role.length) {
+        return {
+            'super-admin':
+                'Ce compte est certifié car il appartient à un super-administrateur.',
+            admin: 'Ce compte est certifié car il appartient à un administrateur.',
+            moderator:
+                'Ce compte est certifié car il appartient à un modérateur.',
         }[role[0].name]
     }
 
     return null
 })
+
+const tooltipColor = computed(() => {
+    if (role.length) {
+        return {
+            'super-admin': 'lg:tooltip-secondary',
+            admin: 'lg:tooltip-primary',
+            moderator: 'lg:tooltip-accent',
+        }[role[0].name]
+    }
+})
 </script>
 
 <template>
-    <Icon
-        v-if="role.length"
-        class="align-top"
-        :class="[badgeColor]"
-        name="checkmark-circle"
-        :outline="false"
-    />
+    <div
+        class="inline lg:tooltip"
+        :class="[tooltipColor]"
+        :data-tip="tooltipText"
+    >
+        <Icon
+            v-if="role.length"
+            class="align-top"
+            :class="[badgeColor]"
+            name="checkmark-circle"
+            :outline="false"
+        />
+    </div>
 </template>
 
 <style scoped></style>
