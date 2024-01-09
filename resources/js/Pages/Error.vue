@@ -1,4 +1,5 @@
 <script setup>
+import PageLayout from '@/Layouts/PageLayout.vue'
 import { Head } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
@@ -17,8 +18,8 @@ const description = computed(() => {
 <template>
     <Head :title="status" />
 
-    <div class="grid h-screen place-content-center bg-base-300 px-4">
-        <div class="text-center">
+    <PageLayout>
+        <div class="mt-16 text-center lg:mt-32">
             <h1 class="text-9xl font-black">{{ status }}</h1>
 
             <p class="text-2xl font-bold tracking-tight sm:text-4xl">Oops!</p>
@@ -29,5 +30,5 @@ const description = computed(() => {
                 Retour à l'accueil
             </a>
         </div>
-    </div>
+    </PageLayout>
 </template>

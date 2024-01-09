@@ -113,11 +113,13 @@ class MediaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id): void
+    public function destroy(int $id)
     {
         $media = $this->mediaRepository->find($id);
 
         $this->authorize('delete', $media);
+
+        MediaDestroyed::dispatch($media);
 
         // If media has tags
         if ($media->tags()->count() > 0) {
@@ -137,8 +139,12 @@ class MediaController extends Controller
 
         Storage::delete($media->path);
 
-        $media->delete();
+        // Remove approved notifications
+        $notification = $media->user->notifications->firstWhere('data.content.id', $media->id);
+        if ($notification) {
+            $notification->delete();
+        }
 
-        MediaDestroyed::dispatch($media);
+        $media->delete();
     }
 }

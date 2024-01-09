@@ -2,7 +2,9 @@
     <footer
         class="footer mt-6 border-t border-t-primary/10 bg-base-200 p-4 text-neutral-content"
     >
-        <div class="mx-auto flex items-center justify-between lg:w-9/12">
+        <div
+            class="mx-auto flex w-full items-center justify-between px-2 lg:w-9/12 lg:px-0"
+        >
             <aside class="grid-flow-col items-center">
                 <Stack spacing="2">
                     <img

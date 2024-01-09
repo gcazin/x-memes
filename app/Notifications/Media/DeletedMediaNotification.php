@@ -64,7 +64,7 @@ class DeletedMediaNotification extends Notification
     public function getNotificationContent(): array
     {
         return [
-            'title' => "Ton média {$this->media->name} vient d'être supprimé!",
+            'title' => "Ton mème {$this->media->name} vient d'être supprimé!",
             'content' => $this->media,
         ];
     }
