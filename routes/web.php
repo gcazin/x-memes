@@ -8,7 +8,6 @@ use App\Http\Controllers\Media\MediaDuplicateController;
 use App\Http\Controllers\Media\MediaImageController;
 use App\Http\Controllers\Media\MediaLikeController;
 use App\Http\Controllers\Media\MediaRandomController;
-use App\Http\Controllers\Media\MediaRelatedController;
 use App\Http\Controllers\Media\MediaVideoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
@@ -46,7 +45,6 @@ Route::name('user.')->prefix('membre')->group(function () {
 // Media
 Route::name('media.')->prefix('media')->group(function () {
     Route::get('{slug}', [MediaController::class, 'show'])->name('show');
-    Route::get('{id}/similaires', MediaRelatedController::class)->name('related');
     Route::get('{id}/telecharger', MediaDownloadController::class)->name('download');
 });
 // Auth
