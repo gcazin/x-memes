@@ -295,12 +295,11 @@ if (page.props.auth?.user) {
 
                     <!-- Dropdown at the end of the navbar when user is connected -->
                     <div class="dropdown dropdown-end">
-                        <div
-                            tabindex="0"
-                            role="button"
-                            class="btn btn-circle btn-ghost"
-                        >
+                        <div tabindex="0" role="button" class="btn btn-ghost">
                             <Avatar :user="$page.props.auth.user" size="sm" />
+                            <Text class="hidden lg:inline" type="sub">{{
+                                $page.props.auth.user.username
+                            }}</Text>
                         </div>
                         <div
                             tabindex="0"

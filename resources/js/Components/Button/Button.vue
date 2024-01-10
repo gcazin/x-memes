@@ -10,6 +10,11 @@ const props = defineProps({
         default: false,
         required: false,
     },
+    circle: {
+        type: Boolean,
+        default: false,
+        required: false,
+    },
     size: {
         type: String,
         default: 'md',
@@ -50,7 +55,11 @@ const buttonSize = () => {
         class="btn"
         :class="[
             buttonColor(),
-            { 'btn-outline': outline, 'btn-disabled': disabled },
+            {
+                'btn-outline': outline,
+                'btn-disabled': disabled,
+                'btn-circle': circle,
+            },
             buttonSize(),
         ]"
     >

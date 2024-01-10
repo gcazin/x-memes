@@ -48,7 +48,7 @@ watch(() => {
         leave-to-class="transform opacity-0"
     >
         <div
-            v-if="(flash.status || message) && show"
+            v-if="show"
             id="toast-success"
             class="fixed bottom-5 right-5 z-50 mb-4 flex max-w-md items-center justify-center rounded-lg bg-base-300 p-4 shadow"
             role="alert"
@@ -57,9 +57,7 @@ watch(() => {
                 <Icon name="checkmark-circle" size="2xl" :class="[iconColor]" />
             </div>
             <div class="mr-2">
-                <Text type="sub">{{
-                    message ? message : flash.status.message
-                }}</Text>
+                <Text>{{ message ? message : flash.status.message }}</Text>
             </div>
             <button
                 type="button"

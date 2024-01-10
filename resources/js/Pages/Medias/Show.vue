@@ -1,10 +1,14 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
 import FollowButton from '@/Components/Button/FollowButton.vue'
 import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import InputLabel from '@/Components/Form/InputLabel.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
+import Modal from '@/Components/Modal/Modal.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
@@ -12,14 +16,19 @@ import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
+import Multiselect from '@vueform/multiselect'
 import { saveAs } from 'file-saver'
 import _ from 'lodash'
+import { computed } from 'vue'
 
 const props = defineProps({
     media: {
         type: Object,
     },
-    downloaded_file: {
+    tags: {
+        type: Array,
+    },
+    downloadedFile: {
         type: Array,
     },
     related: {
@@ -27,11 +36,15 @@ const props = defineProps({
     },
 })
 
+const page = usePage()
+const auth = page.props.auth?.user
+
 const form = useForm({
+    name: null,
+    tags: [],
     media_id: props.media.id,
 })
 
-// TODO: put this in the method download directly
 const downloadItem = async (item) => {
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
@@ -40,12 +53,24 @@ const downloadItem = async (item) => {
     saveAs(response.data, item.path)
 }
 
-const page = usePage()
-const auth = page.props.auth?.user
+const canPerformAction =
+    helperService.checkRoles('super-admin', 'admin') ||
+    (auth && auth.id === props.media.user_id)
+
+const tagsOptions = computed(() => {
+    return props.tags.map((tag) => {
+        return {
+            value: tag.name,
+            label: tag.name,
+        }
+    })
+})
 
 const getTags = () => {
     return _.map(props.media.tags, _.partialRight(_.pick, ['id', 'name']))
 }
+
+formService.setForm(form).setRouteName('media')
 </script>
 
 <template>
@@ -84,29 +109,28 @@ const getTags = () => {
                 <div class="flex-1 text-right">
                     <Stack spacing="1">
                         <div class="space-x-1">
-                            <button
-                                class="btn btn-circle btn-outline"
+                            <Button
+                                outline
+                                circle
                                 @click="
-                                    formService
-                                        .setForm(form)
-                                        .setRouteName('media')
-                                        .handle('like', media, 'get')
+                                    formService.handle('like', media, 'get')
                                 "
                                 :disabled="form.processing || !auth"
-                                :class="
+                                :type="
                                     auth
                                         ? media.likers
                                               ?.map((liker) => liker.id)
                                               .includes(
                                                   $page.props.auth.user.id
                                               )
-                                            ? 'btn-error'
+                                            ? 'error'
                                             : ''
                                         : ''
                                 "
                             >
                                 <Icon size="xl" name="heart" />
-                            </button>
+                            </Button>
+
                             <LoadingButton
                                 @click="downloadItem(media)"
                                 :disabled="form.processing || !auth"
@@ -114,14 +138,74 @@ const getTags = () => {
                             >
                                 <Icon size="xl" name="arrow-down" />
                             </LoadingButton>
-                            <LoadingButton
-                                v-if="
-                                    helperService.checkRoles(
-                                        'super-admin',
-                                        'admin'
-                                    ) ||
-                                    (auth && auth.id === media.user_id)
+
+                            <Button
+                                circle
+                                type="info"
+                                v-if="canPerformAction"
+                                @click="
+                                    formService.openModal('editMedia', media)
                                 "
+                                :disabled="form.processing || !auth"
+                            >
+                                <Icon size="xl" name="create" />
+                            </Button>
+
+                            <Modal
+                                :id="`editMediaModal${media.id}`"
+                                title="Modification de ton mème"
+                            >
+                                <Stack>
+                                    <TextInput
+                                        label="Nouveau titre"
+                                        v-model="form.name"
+                                    />
+
+                                    <div>
+                                        <InputLabel
+                                            for="tags"
+                                            value="Tags"
+                                            class="my-2"
+                                        />
+                                        <Multiselect
+                                            id="tags"
+                                            v-model="form.tags"
+                                            mode="tags"
+                                            :close-on-select="false"
+                                            :searchable="true"
+                                            :create-option="true"
+                                            :options="tagsOptions"
+                                        >
+                                            <template #noresults>
+                                                <div class="p-2">
+                                                    <Text type="sub">
+                                                        Plus aucun élémént a
+                                                        afficher.
+                                                    </Text>
+                                                </div>
+                                            </template>
+                                        </Multiselect>
+                                        <div class="text-right">
+                                            <Text type="xs"
+                                                >Les tags seront synchronisés
+                                                après modification.</Text
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <LoadingButton
+                                        @click="
+                                            formService.handle('update', media)
+                                        "
+                                        :loading="form.processing"
+                                    >
+                                        Modifier ton mème
+                                    </LoadingButton>
+                                </Stack>
+                            </Modal>
+
+                            <LoadingButton
+                                v-if="canPerformAction"
                                 @click="
                                     formService
                                         .setForm(form)
@@ -183,3 +267,45 @@ const getTags = () => {
         </Stack>
     </PageLayout>
 </template>
+
+<style>
+@import '@vueform/multiselect/themes/tailwind.css';
+
+.multiselect,
+.multiselect-tags-search,
+.multiselect-dropdown,
+.multiselect-no-options,
+.multiselect-no-results {
+    background: oklch(var(--b3));
+}
+.multiselect-dropdown {
+    border-color: oklch(var(--b2));
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-option.is-pointed {
+    background: oklch(var(--p));
+    color: oklch(var(--white));
+}
+.multiselect-no-results {
+    color: oklch(var(--white));
+}
+.multiselect {
+    height: 3rem;
+    --tw-border-opacity: 1;
+    border-color: var(--fallback-p, oklch(var(--p) / var(--tw-border-opacity)));
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-tag {
+    background: oklch(var(--p));
+}
+.multiselect.is-active {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+        var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: oklch(var(--p) / 0.2);
+    --tw-ring-opacity: 0.3;
+}
+</style>

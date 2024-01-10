@@ -28,6 +28,7 @@ class FormService {
     }
 
     setProperties(item) {
+        console.log(this.form)
         Object.keys(this.form.data()).map((property) => {
             if (property in item) {
                 if (Array.isArray(item[property])) {

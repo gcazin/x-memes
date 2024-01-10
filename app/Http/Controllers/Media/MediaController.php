@@ -80,7 +80,8 @@ class MediaController extends Controller
 
             return Inertia::render('Medias/Show', [
                 'media' => $media,
-                'downloaded_file' => session('downloaded_file'),
+                'tags' => $this->tagRepository->all(),
+                'downloadedFile' => session('downloadedFile'),
                 'related' => $related,
             ]);
         }
@@ -89,17 +90,9 @@ class MediaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Media $media)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaRequest $request, int $id): void
+    public function update(UpdateMediaRequest $request, int $id)
     {
         $media = $this->mediaRepository->find($id);
 
@@ -115,7 +108,11 @@ class MediaController extends Controller
 
         $media->save();
 
-        flash('success', 'Le média a bien été modifié.');
+        flash('success', 'Le mème a bien été modifié.');
+
+        if (! auth()->user()->isAdmin()) {
+            return to_route('media.show', $media->slug);
+        }
     }
 
     /**
