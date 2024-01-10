@@ -75,12 +75,12 @@ class Media extends Model implements Sitemapable
         return $this->approved === true;
     }
 
-    public function whereApproved(): Media
+    public function whereApproved()
     {
         return $this->where('approved', true);
     }
 
-    public function whereIsNotApproved(): Media
+    public function whereIsNotApproved()
     {
         return $this->where('approved', false);
     }
