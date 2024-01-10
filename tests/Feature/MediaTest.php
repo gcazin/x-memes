@@ -283,7 +283,10 @@ it('should delete media and remove only tags not used', function () {
 it('should delete media and remove tags if not used', function () {
     $user = User::factory()->create();
 
-    $firstMedia = Media::factory()->create(['user_id' => 1])->attachTags(['foo', 'bar']);
+    $firstMedia = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => 1,
+    ])->attachTags(['foo', 'bar']);
 
     actingAs($user)->delete(route('media.destroy', $firstMedia->id));
 
