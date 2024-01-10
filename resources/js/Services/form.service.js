@@ -30,8 +30,11 @@ class FormService {
     setProperties(item) {
         Object.keys(this.form.data()).map((property) => {
             if (property in item) {
-                this.form[property] = item[property]
-                console.log(this.form['tags'])
+                if (Array.isArray(item[property])) {
+                    this.form[property] = item[property].map((p) => p.name)
+                } else {
+                    this.form[property] = item[property]
+                }
             }
         })
     }

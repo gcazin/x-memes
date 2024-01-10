@@ -108,6 +108,11 @@ class MediaController extends Controller
         $media->name = $request->name;
         $media->slug = Str::slug($request->name);
 
+        // Sync tags
+        if ($request->tags) {
+            $media->syncTags($request->tags);
+        }
+
         $media->save();
 
         flash('success', 'Le média a bien été modifié.');

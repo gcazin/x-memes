@@ -29,12 +29,7 @@ const props = defineProps({
 
 const form = useForm({
     name: null,
-    tags: [
-        {
-            value: 'humour',
-            label: 'humour',
-        },
-    ],
+    tags: [],
 })
 
 const tagsOptions = computed(() => {

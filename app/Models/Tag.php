@@ -15,6 +15,10 @@ class Tag extends SpatieTag
 {
     use HasFactory;
 
+    protected $hidden = [
+        'pivot',
+    ];
+
     protected $withCount = [
         'medias',
     ];
