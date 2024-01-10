@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Events\UserFollowed;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,10 +32,12 @@ class FollowController extends Controller
      */
     public function store(int $id): void
     {
-        $followerId = auth()->user();
-        $followableId = User::find($id);
+        $follower = auth()->user();
+        $followable = User::find($id);
 
-        $followerId->toggleFollow($followableId);
+        $follower->toggleFollow($followable);
+
+        UserFollowed::dispatchIf($follower->isFollowing($followable), $followable, $follower);
     }
 
     /**

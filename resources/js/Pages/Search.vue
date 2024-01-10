@@ -70,7 +70,6 @@ const queryPlaceholder = computed(() => {
     return null
 })
 
-console.log(props.result)
 formService.setForm(form).setRouteName(null)
 </script>
 

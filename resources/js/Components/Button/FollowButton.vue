@@ -37,15 +37,15 @@ const submit = () => {
 </script>
 
 <template>
-    <form @submit.prevent="submit" v-if="page.props.auth.user.id !== user.id">
-        <Button
-            :size="size"
-            :type="!inline ? 'secondary' : 'primary'"
-            :outline="checkIfAuthIsFollowing()"
-        >
-            {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
-        </Button>
-    </form>
+    <Button
+        v-if="page.props.auth.user.id !== user.id"
+        :size="size"
+        :type="!inline ? 'secondary' : 'primary'"
+        :outline="checkIfAuthIsFollowing()"
+        @click="submit"
+    >
+        {{ checkIfAuthIsFollowing() ? 'Ne plus suivre' : 'Suivre' }}
+    </Button>
 </template>
 
 <style scoped></style>

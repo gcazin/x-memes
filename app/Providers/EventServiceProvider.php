@@ -6,10 +6,12 @@ namespace App\Providers;
 
 use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
+use App\Events\UserFollowed;
 use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
 use App\Listeners\Media\SendMediaDeletedMail;
 use App\Listeners\Media\SendMediaDeletedNotification;
+use App\Listeners\User\SendNewFollowerNotification;
 use App\Listeners\User\SendNewUserNotification;
 use App\Listeners\User\SendWelcomeToNewUserMail;
 use App\Models\Media;
@@ -38,6 +40,10 @@ class EventServiceProvider extends ServiceProvider
         MediaDestroyed::class => [
             SendMediaDeletedNotification::class,
             SendMediaDeletedMail::class,
+        ],
+
+        UserFollowed::class => [
+            SendNewFollowerNotification::class,
         ],
     ];
 

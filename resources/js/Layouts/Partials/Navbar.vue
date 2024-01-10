@@ -9,8 +9,6 @@ import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 
-const page = usePage()
-
 const menuItems = [
     {
         icon: 'images',
@@ -39,19 +37,18 @@ const menuItems = [
     },
 ]
 
+const page = usePage()
 const showNotification = ref(false)
 const messageNotification = ref(null)
-const notifications = computed(() => {
-    return page.props.auth?.notifications
-})
+const notifications = computed(() => page.props.auth?.notifications)
 
-if (usePage().props.auth?.user) {
-    Echo.private(
-        'App.Models.User.' + usePage().props.auth.user.id
-    ).notification((notification) => {
-        showNotification.value = true
-        messageNotification.value = notification.title
-    })
+if (page.props.auth?.user) {
+    Echo.private('App.Models.User.' + page.props.auth.user.id).notification(
+        (notification) => {
+            showNotification.value = true
+            messageNotification.value = notification.title
+        }
+    )
 }
 </script>
 <template>
@@ -154,7 +151,7 @@ if (usePage().props.auth?.user) {
 
             <div class="navbar-end gap-1">
                 <!-- When the user is not connected -->
-                <template v-if="!$page.props.auth?.user">
+                <template v-if="!page.props.auth.isConnected">
                     <div class="hidden space-x-1 lg:block">
                         <a class="btn btn-ghost" :href="route('login')"
                             >Connexion</a
@@ -180,7 +177,7 @@ if (usePage().props.auth?.user) {
                             class="dropdown-content z-[1] mt-3 w-96 bg-base-100 shadow"
                         >
                             <ul
-                                class="menu menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+                                class="menu dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
                             >
                                 <li>
                                     <DropdownLink :href="route('login')">

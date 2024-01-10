@@ -77,7 +77,7 @@ defineProps({
                         </template>
                     </div>
                     <div
-                        v-if="$page.props.auth?.user && $slots.action"
+                        v-if="$page.props.auth.isConnected && $slots.action"
                         class="flex-1 text-right"
                     >
                         <slot name="action" />
