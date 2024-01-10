@@ -34,6 +34,7 @@ class SearchController extends Controller
                                 ->join('taggables as ta', 'medias.id', 'ta.taggable_id')
                                 ->join('tags as t', 't.id', 'ta.tag_id')
                                 ->select(['medias.*'])
+                                ->distinct()
                                 ->orderBy('medias.id', 'DESC');
                         })->paginate($perPage);
                     break;
