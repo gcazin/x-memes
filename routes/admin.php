@@ -27,4 +27,10 @@ Route::middleware(['role:super-admin|admin'])->prefix('admin')->name('admin.')
 
         // Badges
         Route::resource('badge', BadgeController::class)->withTrashed(['show', 'create']);
+
+        Route::get('/test/mail', function () {
+            $user = \App\Models\User::all()->random();
+
+            event(new \Illuminate\Auth\Events\Registered($user));
+        });
     });

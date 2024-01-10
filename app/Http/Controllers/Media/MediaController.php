@@ -119,7 +119,7 @@ class MediaController extends Controller
 
         $this->authorize('delete', $media);
 
-        MediaDestroyed::dispatch($media);
+        MediaDestroyed::dispatchIf(auth()->user()->hasAnyRole(['super-admin', 'admin']), $media);
 
         // If media has tags
         if ($media->tags()->count() > 0) {

@@ -2,6 +2,10 @@
 
 use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
+use App\Listeners\Media\SendMediaApprovedMail;
+use App\Listeners\Media\SendMediaApprovedNotification;
+use App\Listeners\Media\SendMediaDeletedMail;
+use App\Listeners\Media\SendMediaDeletedNotification;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
@@ -91,6 +95,14 @@ it('should approve media and send notification', function () {
     $media = $media->refresh();
 
     Event::assertDispatched(MediaApproved::class);
+    Event::assertListening(
+        MediaApproved::class,
+        SendMediaApprovedNotification::class
+    );
+    Event::assertListening(
+        MediaApproved::class,
+        SendMediaApprovedMail::class
+    );
 
     expect($media->approved)->toBe(true);
 });
@@ -107,10 +119,66 @@ it('should download media and increment download count', function () {
     expect($media->refresh()->download_count)->toBe(1);
 });
 
-test('a user can delete media that belong to him', function () {
+it("shouldn't send mail and notification when user delete his media", function () {
     Event::fake();
-    Notification::fake();
 
+    $user = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    actingAs($user)->delete(route('media.destroy', $media->id));
+
+    Event::assertNotDispatched(MediaDestroyed::class);
+});
+
+it('should send mail and notification when a super-administrator delete media', function () {
+    Event::fake();
+
+    $user = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    actingAsSuperAdmin()->delete(route('media.destroy', $media->id));
+
+    Event::assertListening(
+        MediaDestroyed::class,
+        SendMediaDeletedMail::class
+    );
+    Event::assertListening(
+        MediaDestroyed::class,
+        SendMediaDeletedNotification::class
+    );
+});
+
+it('should send mail and notification when an administrator delete media', function () {
+    Event::fake();
+
+    $user = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    actingAsAdmin()->delete(route('media.destroy', $media->id));
+
+    Event::assertListening(
+        MediaDestroyed::class,
+        SendMediaDeletedMail::class
+    );
+    Event::assertListening(
+        MediaDestroyed::class,
+        SendMediaDeletedNotification::class
+    );
+});
+
+test('a user can delete media that belong to him', function () {
     $user = User::factory()->create();
 
     $media = Media::factory()->create([
@@ -120,16 +188,11 @@ test('a user can delete media that belong to him', function () {
 
     $response = actingAs($user)->delete(route('media.destroy', $media->id));
 
-    Event::assertDispatched(MediaDestroyed::class);
-
     expect(Media::all()->count())->toBe(0)
         ->and($response->status())->toBe(200);
 });
 
 test('a user cannot delete media that does not belong to him', function () {
-    Notification::fake();
-    Event::fake();
-
     $user = User::factory()->create();
     $impostor = User::factory()->create();
 
@@ -140,28 +203,36 @@ test('a user cannot delete media that does not belong to him', function () {
 
     $response = actingAs($impostor)->delete(route('media.destroy', $media->id));
 
-    Event::assertNotDispatched(MediaDestroyed::class);
-
     expect($response->status())->toBe(403)
         ->and($response->statusText())->toBe('Forbidden');
 });
 
-test('a super-administrator or administrator can delete media that does not belong to them', function () {
-    Notification::fake();
-    Event::fake();
+test('a super-administrator can delete media that does not belong to them', function () {
     $user = User::factory()->create();
 
-    Media::factory(2)->create([
+    $media = Media::factory()->create([
         'path' => 'medias/'.Str::random().'.jpg',
         'user_id' => $user->id,
     ]);
 
-    $asSuperAdmin = actingAsSuperAdmin()->delete(route('media.destroy', 1));
-    $asAdmin = actingAsAdmin()->delete(route('media.destroy', 2));
+    $response = actingAsSuperAdmin()->delete(route('media.destroy', $media->id));
 
     expect(Media::all()->count())->toBe(0)
-        ->and($asSuperAdmin->status())->toBe(200)
-        ->and($asAdmin->status())->toBe(200);
+        ->and($response->status())->toBe(200);
+});
+
+test('an administrator can delete media that does not belong to them', function () {
+    $user = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    $response = actingAsAdmin()->delete(route('media.destroy', $media->id));
+
+    expect(Media::all()->count())->toBe(0)
+        ->and($response->status())->toBe(200);
 });
 
 it('should delete media and not remove tags if used', function () {

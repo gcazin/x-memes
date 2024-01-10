@@ -75,12 +75,12 @@ class Media extends Model implements Sitemapable
         return $this->approved === true;
     }
 
-    public function whereApproved()
+    public function whereApproved(): Media
     {
         return $this->where('approved', true);
     }
 
-    public function whereIsNotApproved()
+    public function whereIsNotApproved(): Media
     {
         return $this->where('approved', false);
     }
@@ -106,8 +106,7 @@ class Media extends Model implements Sitemapable
     public function toSearchableArray(): array
     {
         return [
-            'id' => '',
-            'name' => '',
+            'name' => $this->name,
             't.name' => '',
         ];
     }

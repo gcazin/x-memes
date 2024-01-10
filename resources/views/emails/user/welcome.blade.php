@@ -7,7 +7,7 @@ Sur X-Memes, tu peux publier, voir, télécharger, aimer des mèmes... et encore
 
 C'est le lieu parfait pour retrouver le mème que tu as cherché désespérément sur X pendant plusieurs heures.
 
-Si tu as la moindre question/ou une suggestion, n'hésite pas à me contacter sur X (<a href="https://x.com/gcazinonx">@gcazinonx</a>).
+Si tu as la moindre question/ou une suggestion, n'hésite pas à me contacter sur X (<a href="https://x.com/gcazinonx" target="_blank">@gcazinonx</a>).
 
 <x-mail::button :url="route('library.image')">
     Publier un mème
@@ -15,7 +15,7 @@ Si tu as la moindre question/ou une suggestion, n'hésite pas à me contacter su
 
 Sur ce,
 
-À bientôt sur <a href="{{ config('app.url') }}">X-Memes</a> ! 🚀
+À bientôt sur <a href="{{ config('app.url') }}" target="_blank">X-Memes</a> ! 🚀
 
 Guillaume de {{ config('app.name') }}
 </x-mail::message>

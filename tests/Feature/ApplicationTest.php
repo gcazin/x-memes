@@ -1,5 +1,9 @@
 <?php
 
+test('just a test so that the editor assigns the right file icon type', function () {
+    expect(config('app.name'))->toBe('X-Memes');
+});
+
 arch('debugging statements not used')
     ->expect(['dd', 'dump', 'var_dump'])
     ->not->toBeUsed();

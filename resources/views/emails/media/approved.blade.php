@@ -9,5 +9,5 @@ Félicitations, ton mème a été approuvé par {{ $media->user->username }}.
 
 À bientôt sur {{ config('app.name') }} ! 🚀
 
-Guillaume - {{ config('app.name') }}
+Guillaume de {{ config('app.name') }}
 </x-mail::message>

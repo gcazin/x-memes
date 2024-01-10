@@ -8,6 +8,7 @@ use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
 use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
+use App\Listeners\Media\SendMediaDeletedMail;
 use App\Listeners\Media\SendMediaDeletedNotification;
 use App\Listeners\User\SendNewUserNotification;
 use App\Listeners\User\SendWelcomeToNewUserMail;
@@ -36,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         MediaDestroyed::class => [
             SendMediaDeletedNotification::class,
+            SendMediaDeletedMail::class,
         ],
     ];
 
