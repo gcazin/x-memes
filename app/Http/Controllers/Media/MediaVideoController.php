@@ -22,6 +22,8 @@ class MediaVideoController extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        seoDescription('Retrouves tes vidéos de mèmes favoris sur X-Memes !');
+
         return Inertia::render(
             'Library',
             $this->mediaService->byType($request, 'video', 'Bibliothèque de vidéos')

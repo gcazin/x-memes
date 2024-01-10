@@ -27,7 +27,17 @@ defineProps({
 </script>
 
 <template>
-    <Head :title="title"></Head>
+    <Head :title="title">
+        <meta
+            head-key="description"
+            name="description"
+            :content="
+                typeof $page.props?.seo?.description === 'undefined'
+                    ? 'X-Memes est une plateforme où tu peux t\'inscrire, publier et voir tous tes mèmes favoris !'
+                    : $page.props.seo.description
+            "
+        />
+    </Head>
 
     <div
         class="relative min-h-screen bg-base-100 pb-6"

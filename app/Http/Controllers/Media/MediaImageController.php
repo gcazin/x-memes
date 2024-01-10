@@ -23,6 +23,8 @@ class MediaImageController extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        seoDescription('Retrouves tes images de mèmes favoris sur X-Memes !');
+
         return Inertia::render(
             'Library',
             $this->mediaService->byType($request, 'image')

@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/bibliotheque/images', MediaImageController::class)->name('library.image');
 Route::get('/bibliotheque/videos', MediaVideoController::class)->name('library.video');
+Route::get('au-hasard', MediaRandomController::class)->name('random');
 Route::get('/classement', [HomeController::class, 'leaderboard'])->name('leaderboard');
 
 // User
@@ -51,7 +52,6 @@ Route::name('media.')->prefix('media')->group(function () {
 Route::middleware('auth')->group(function () {
     //    Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('rechercher/{query?}', SearchController::class)->name('search');
-    Route::get('au-hasard', MediaRandomController::class)->name('random');
 
     Route::name('user.')->group(function () {
         Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');

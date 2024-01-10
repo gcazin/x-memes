@@ -25,6 +25,11 @@ class HomeController extends Controller
     {
         $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->get();
 
+        seoDescription(
+            'Prend part au classement des meilleurs contributeurs sur X-Memes !
+            Tu auras peut-être la chance de décrocher des badges exclusifs.'
+        );
+
         return Inertia::render('Leaderboard', [
             'leaderboard' => $leaderboard,
         ]);

@@ -31,6 +31,8 @@ const buttonColor = () => {
     return {
         primary: 'btn-primary',
         secondary: 'btn-secondary',
+        error: 'btn-error',
+        info: 'btn-info',
     }[props.type]
 }
 const buttonSize = () => {

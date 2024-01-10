@@ -371,7 +371,12 @@ watch(
                 </template>
             </div>
         </div>
-        <div v-else>Rien a afficher ici pour l'instant...</div>
+        <div v-else>
+            <Text
+                >Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis
+                ça j'dis rien...
+            </Text>
+        </div>
 
         <div ref="loadMoreIntersect">
             <div

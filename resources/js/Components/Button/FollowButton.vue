@@ -38,7 +38,7 @@ const submit = () => {
 
 <template>
     <Button
-        v-if="page.props.auth.user.id !== user.id"
+        v-if="page.props.auth?.user && page.props.auth.user.id !== user.id"
         :size="size"
         :type="!inline ? 'secondary' : 'primary'"
         :outline="checkIfAuthIsFollowing()"

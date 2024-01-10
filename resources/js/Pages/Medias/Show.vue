@@ -115,7 +115,13 @@ const getTags = () => {
                                 <Icon size="xl" name="arrow-down" />
                             </LoadingButton>
                             <LoadingButton
-                                v-if="helperService.checkRoles('super-admin')"
+                                v-if="
+                                    helperService.checkRoles(
+                                        'super-admin',
+                                        'admin'
+                                    ) ||
+                                    (auth && auth.id === media.user_id)
+                                "
                                 @click="
                                     formService
                                         .setForm(form)

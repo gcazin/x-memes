@@ -1,24 +1,49 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import InputLabel from '@/Components/Form/InputLabel.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
 import Card from '@/Components/Misc/Card.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
+import Modal from '@/Components/Modal/Modal.vue'
 import AdminDashboardLayout from '@/Layouts/AdminDashboardLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
+import Multiselect from '@vueform/multiselect'
 import _ from 'lodash'
+import { computed } from 'vue'
 
-defineProps({
+const props = defineProps({
     users: {
         type: Array,
     },
     medias: {
-        type: Object,
+        type: Array,
+    },
+    tags: {
+        type: Array,
     },
 })
 
 const form = useForm({
     name: null,
+    tags: [
+        {
+            value: 'humour',
+            label: 'humour',
+        },
+    ],
+})
+
+const tagsOptions = computed(() => {
+    return props.tags.map((tag) => {
+        return {
+            value: tag.name,
+            label: tag.name,
+        }
+    })
 })
 
 formService.setForm(form).setRouteName('media')
@@ -88,6 +113,62 @@ formService.setForm(form).setRouteName('media')
                         >
                             <Icon name="close" />
                         </button>
+                        <Button
+                            outline
+                            type="info"
+                            size="sm"
+                            class="mt-4"
+                            @click="formService.openModal('editMedia', media)"
+                        >
+                            <Icon name="create" />
+                        </Button>
+
+                        <Modal
+                            :id="`editMediaModal${media.id}`"
+                            title="Modifier le média"
+                        >
+                            <Stack>
+                                <TextInput label="Titre" v-model="form.name" />
+
+                                <div>
+                                    <InputLabel
+                                        for="tags"
+                                        value="Tags"
+                                        class="my-2"
+                                    />
+                                    <Multiselect
+                                        id="tags"
+                                        v-model="form.tags"
+                                        mode="tags"
+                                        :close-on-select="false"
+                                        :searchable="true"
+                                        :create-option="true"
+                                        :options="tagsOptions"
+                                    >
+                                        <template #noresults>
+                                            <div class="p-2">
+                                                <Text type="sub">
+                                                    Plus aucun élémént a
+                                                    afficher.
+                                                </Text>
+                                            </div>
+                                        </template>
+                                    </Multiselect>
+                                </div>
+
+                                <LoadingButton
+                                    @click="
+                                        formService
+                                            .setRouteName('media')
+                                            .handle('update', media)
+                                    "
+                                    :loading="form.processing"
+                                >
+                                    Modifier le média
+                                </LoadingButton>
+                            </Stack>
+                        </Modal>
+
                         <button
                             class="btn btn-success btn-sm mt-4"
                             @click="
@@ -275,3 +356,45 @@ formService.setForm(form).setRouteName('media')
                 </Stack>-->
     </AdminDashboardLayout>
 </template>
+
+<style>
+@import '@vueform/multiselect/themes/tailwind.css';
+
+.multiselect,
+.multiselect-tags-search,
+.multiselect-dropdown,
+.multiselect-no-options,
+.multiselect-no-results {
+    background: oklch(var(--b3));
+}
+.multiselect-dropdown {
+    border-color: oklch(var(--b2));
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-option.is-pointed {
+    background: oklch(var(--p));
+    color: oklch(var(--white));
+}
+.multiselect-no-results {
+    color: oklch(var(--white));
+}
+.multiselect {
+    height: 3rem;
+    --tw-border-opacity: 1;
+    border-color: var(--fallback-p, oklch(var(--p) / var(--tw-border-opacity)));
+    border-radius: var(--rounded-btn, 0.5rem);
+}
+.multiselect-tag {
+    background: oklch(var(--p));
+}
+.multiselect.is-active {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+        var(--tw-shadow, 0 0 #0000);
+    --tw-ring-color: oklch(var(--p) / 0.2);
+    --tw-ring-opacity: 0.3;
+}
+</style>

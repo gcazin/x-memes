@@ -41,7 +41,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allPendingMedias(): mixed
     {
-        return $this->media->whereIsNotApproved()->get();
+        return $this->media->whereIsNotApproved()->orderByDesc('created_at')->get();
     }
 
     /**

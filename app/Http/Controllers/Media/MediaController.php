@@ -76,6 +76,8 @@ class MediaController extends Controller
         if ($media) {
             $related = $this->mediaService->related($media->id);
 
+            seoDescription('Découvre le mème "'.$media->name.'" sur X-Memes dès maintenant !');
+
             return Inertia::render('Medias/Show', [
                 'media' => $media,
                 'downloaded_file' => session('downloaded_file'),
@@ -104,6 +106,7 @@ class MediaController extends Controller
         $this->authorize('update', $media);
 
         $media->name = $request->name;
+        $media->slug = Str::slug($request->name);
 
         $media->save();
 
