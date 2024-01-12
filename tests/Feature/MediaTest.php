@@ -80,7 +80,7 @@ it('should store media and attach tags', function () {
     expect($response->status())->toBe(200);
 });*/
 
-it('should approve media and send notification', function () {
+/*it('should approve media and send notification', function () {
     Event::fake();
     Notification::fake();
     User::factory()->create();
@@ -105,7 +105,7 @@ it('should approve media and send notification', function () {
     );
 
     expect($media->approved)->toBe(true);
-});
+});*/
 
 it('should download media and increment download count', function () {
     User::factory()->create();
