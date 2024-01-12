@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             User::factory()
                 ->create([
                     'username' => $user,
-                    'email' => "${user}@${user}.fr",
+                    'email' => "{$user}@{$user}.fr",
                     'password' => $user,
                 ])
                 ->assignRole(Role::all()->where('name', $user))

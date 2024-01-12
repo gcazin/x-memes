@@ -20,8 +20,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->userName();
         return [
-            'username' => str_replace('.', '', fake()->userName()),
+            'name' => str()->slug($name),
+            'username' => str_replace('.', '', $name),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'avatar' => 'avatar-placeholder/'.fake()->numberBetween(1, 4).'.jpg',
