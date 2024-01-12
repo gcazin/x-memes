@@ -16,44 +16,40 @@ class MediaResource extends Resource
 {
     protected static ?string $model = Media::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = 'Médias';
+
+    protected static ?int $navigationSort = -0;
+    protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('approved_by')
-                    ->numeric(),
+                Forms\Components\Select::make('approved_by')
+                    ->label('Approuvé par')
+                    ->relationship('user', 'username'),
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->label('Lié à')
+                    ->relationship('user', 'username')
                     ->required(),
                 Forms\Components\TextInput::make('name')
+                    ->label('Titre')
                     ->required()
                     ->maxLength(191),
-                Forms\Components\TextInput::make('path')
-                    ->required()
-                    ->maxLength(191),
-                Forms\Components\TextInput::make('thumbnail_path')
-                    ->maxLength(191),
-                Forms\Components\TextInput::make('type')
-                    ->required()
-                    ->maxLength(191),
-                Forms\Components\TextInput::make('extension')
-                    ->required()
-                    ->maxLength(191),
-                Forms\Components\Textarea::make('hash')
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('approved')
+                Forms\Components\FileUpload::make('path')
+                    ->directory('medias')
+                    ->columnSpanFull()
                     ->required(),
-                Forms\Components\DateTimePicker::make('approved_at'),
-                Forms\Components\TextInput::make('download_count')
+                Forms\Components\Select::make('type')
                     ->required()
-                    ->numeric()
-                    ->default(0),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(191),
+                    ->options([
+                        'image',
+                        'video'
+                    ]),
+                Forms\Components\Toggle::make('approved')
+                    ->label('Approuvé')
+                    ->required(),
+                Forms\Components\SpatieTagsInput::make('tags')
             ]);
     }
 
@@ -61,28 +57,34 @@ class MediaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('approved_by')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\IconColumn::make('approved')
+                    ->label('Approuvé')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label('Utilisateur')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Titre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('path')
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('thumbnail_path')
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('approved')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('download_count')
+                    ->label('Nombre de téléchargements')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\SpatieTagsColumn::make('tags'),
+                Tables\Columns\TextColumn::make('approved_by')
+                    ->label('Approuvé par')
+                    ->numeric()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Crée le')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

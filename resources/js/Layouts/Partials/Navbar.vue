@@ -93,7 +93,7 @@ if (page.props.auth?.user) {
                                 "
                             >
                                 <a
-                                    :href="route('admin.index')"
+                                    :href="route('filament.admin.pages.dashboard')"
                                     :active="route().current('admin.dashboard')"
                                 >
                                     <Icon name="construct" />
@@ -139,7 +139,7 @@ if (page.props.auth?.user) {
                     </li>
                     <li v-if="helperService.checkRoles('super-admin,admin')">
                         <a
-                            :href="route('admin.index')"
+                            :href="route('filament.admin.pages.dashboard')"
                             :active="route().current('admin.dashboard')"
                         >
                             <Icon name="construct" />

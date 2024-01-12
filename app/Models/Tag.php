@@ -13,8 +13,6 @@ use Spatie\Tags\Tag as SpatieTag;
  */
 class Tag extends SpatieTag
 {
-    use HasFactory;
-
     protected $hidden = [
         'pivot',
     ];

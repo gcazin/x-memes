@@ -16,7 +16,9 @@ class BadgeResource extends Resource
 {
     protected static ?string $model = Badge::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = 6;
+
+    protected static ?string $navigationIcon = 'heroicon-o-check-badge';
 
     public static function form(Form $form): Form
     {

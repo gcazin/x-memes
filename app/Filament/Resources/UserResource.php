@@ -16,19 +16,26 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?int $navigationSort = -2;
+
+    protected static ?string $label = 'Utilisateurs';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('username')
+                    ->label("Nom d'utilisateur")
                     ->required()
                     ->maxLength(191),
                 Forms\Components\TextInput::make('name')
+                    ->label('Nom')
                     ->maxLength(191),
-                Forms\Components\TextInput::make('avatar')
-                    ->maxLength(191),
+                Forms\Components\FileUpload::make('avatar')
+                    ->directory('avatar')
+                ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
@@ -37,6 +44,7 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(191),
                 Forms\Components\TextInput::make('password')
+                    ->label('Mot de passe')
                     ->password()
                     ->required()
                     ->maxLength(191),
@@ -48,8 +56,10 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('username')
+                    ->label("Nom d'utilisateur")
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nom')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('avatar')
                     ->searchable(),
