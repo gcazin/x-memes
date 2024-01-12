@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\MediaResource\Widgets;
 
 use App\Models\Media;

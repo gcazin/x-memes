@@ -8,7 +8,7 @@ arch('debugging statements not used')
     ->expect(['dd', 'dump', 'var_dump'])
     ->not->toBeUsed();
 
-arch('env functions only usef in config')
+arch('env functions only used in config')
     ->expect(['env'])
     ->not->toBeUsed();
 
