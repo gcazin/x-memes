@@ -32,10 +32,20 @@ const props = page.props
 <template>
     <Head :title="title">
         <template v-if="props.og">
-            <meta property="og:title" :content="props.og.title" />
-            <meta property="og:type" :content="props.og.type" />
-            <meta property="og:url" :content="props.og.url" />
-            <meta property="og:image" :content="props.og.image" />
+            <!-- Facebook Meta Tags -->
+            <meta property="og:url" :content="props.og.url">
+            <meta property="og:type" content="website">
+            <meta property="og:title" :content="props.og.title">
+            <meta property="og:description" :content="props.seo.description">
+            <meta property="og:image" :content="props.og.image">
+
+            <!-- Twitter Meta Tags -->
+            <meta name="twitter:card" content="summary_large_image">
+            <meta property="twitter:domain" content="x-memes.com">
+            <meta property="twitter:url" :content="props.og.url">
+            <meta name="twitter:title" :content="props.og.title">
+            <meta name="twitter:description" :content="props.seo.description">
+            <meta name="twitter:image" :content="props.og.image">
         </template>
         <meta
             head-key="description"

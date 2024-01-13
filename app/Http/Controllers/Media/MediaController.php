@@ -76,7 +76,7 @@ class MediaController extends Controller
         if ($media) {
             $related = $this->mediaService->related($media->id);
 
-            seoDescription('Découvre le mème "'.$media->name.'" sur X-Memes dès maintenant !');
+            seoDescription('Découvre le mème '.$media->name.' sur X-Memes dès maintenant !');
 
             openGraphData($media->name, 'image', $media->path, route('media.show', $media->slug));
 
