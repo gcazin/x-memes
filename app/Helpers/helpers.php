@@ -13,8 +13,16 @@ if (! function_exists('flash')) {
         ]);
     }
 
-    function seoDescription(string $description)
+    function seoDescription(?string $description)
     {
-        Inertia::share('seo.description', $description);
+        inertia()->share('seo.description', $description ?? 'X-Memes est une plateforme où tu peux t\'inscrire, publier et voir tous tes mèmes favoris !');
+    }
+
+    function openGraphData(string $title, string $type, string $image, string $url)
+    {
+        inertia()->share('og.title', $title);
+        inertia()->share('og.type', $type);
+        inertia()->share('og.image', url('/storage/'.$image));
+        inertia()->share('og.url', $url);
     }
 }

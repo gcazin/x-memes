@@ -4,7 +4,7 @@ import Toast from '@/Components/Misc/Toast.vue'
 import BlobBackground from '@/Layouts/Partials/BlobBackground.vue'
 import Footer from '@/Layouts/Partials/Footer.vue'
 import Navbar from '@/Layouts/Partials/Navbar.vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, usePage } from '@inertiajs/vue3'
 
 defineProps({
     title: {
@@ -24,18 +24,23 @@ defineProps({
         default: true,
     },
 })
+
+const page = usePage()
+const props = page.props
 </script>
 
 <template>
     <Head :title="title">
+        <template v-if="props.og">
+            <meta property="og:title" :content="props.og.title" />
+            <meta property="og:type" :content="props.og.type" />
+            <meta property="og:url" :content="props.og.url" />
+            <meta property="og:image" :content="props.og.image" />
+        </template>
         <meta
             head-key="description"
             name="description"
-            :content="
-                typeof $page.props?.seo?.description === 'undefined'
-                    ? 'X-Memes est une plateforme où tu peux t\'inscrire, publier et voir tous tes mèmes favoris !'
-                    : $page.props.seo.description
-            "
+            :content="props.seo.description"
         />
     </Head>
 
