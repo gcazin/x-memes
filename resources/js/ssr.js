@@ -21,6 +21,16 @@ createServer(page =>
             app.config.globalProperties.helperService = HelperService
             app.config.globalProperties.helperService.setProps(props)
             app.config.globalProperties.formService = FormService
+            app.mixin({
+                methods: {
+                    route: (name, params, absolute) => {
+                        return route(name, params, absolute, {
+                            ...page.props.ziggy,
+                            location: new URL(page.props.ziggy.url),
+                        });
+                    },
+                },
+            });
             app.use(ZiggyVue, Ziggy)
         },
         progress: {
