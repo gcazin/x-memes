@@ -2,11 +2,12 @@
     "name": "x-memes",
     "private": true,
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && vite build --ssr",
         "dev": "vite",
         "prettier": "prettier . --write --log-level=silent && ./vendor/bin/pint"
     },
     "dependencies": {
+        "@vue/server-renderer": "^3.4.13",
         "@vueform/multiselect": "^2.6.6",
         "chart.js": "^4.4.1",
         "file-saver": "^2.0.5",
