@@ -41,7 +41,7 @@ onMounted(() => {
 })
 
 const currentTheme = () => {
-    return localStorage.theme
+    return localStorage.getItem('theme')
 }
 
 const toggleTheme = (selectedTheme) => {

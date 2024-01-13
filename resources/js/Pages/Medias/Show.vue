@@ -17,7 +17,7 @@ import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
-import { saveAs } from 'file-saver'
+import saveAs from 'file-saver'
 import _ from 'lodash'
 import { computed } from 'vue'
 

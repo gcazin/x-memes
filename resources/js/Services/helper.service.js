@@ -29,10 +29,12 @@ class HelperService {
      * Sets the theme based on the stored localStorage.
      */
     setTheme() {
-        if (typeof localStorage.theme !== 'undefined') {
-            this.storeTheme(localStorage.theme)
-        } else {
-            this.storeTheme('dark')
+        if (typeof window !== 'undefined') {
+            if (typeof localStorage.theme !== 'undefined') {
+                this.storeTheme(localStorage.theme)
+            } else {
+                this.storeTheme('dark')
+            }
         }
     }
 
@@ -40,9 +42,11 @@ class HelperService {
      * Stores the specified theme in localStorage and updates the body's data-theme attribute.
      */
     storeTheme(theme) {
-        const handleTheme = localStorage.theme ? theme : 'dark'
-        document.querySelector('body').setAttribute('data-theme', handleTheme)
-        localStorage.theme = handleTheme
+        if (typeof window !== 'undefined') {
+            const handleTheme = localStorage.getItem(theme) ? theme : 'dark'
+            document.querySelector('body').setAttribute('data-theme', handleTheme)
+            localStorage.setItem('theme', handleTheme)
+        }
     }
 
     /**

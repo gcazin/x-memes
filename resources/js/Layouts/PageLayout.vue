@@ -50,7 +50,7 @@ const props = page.props
         <meta
             head-key="description"
             name="description"
-            :content="props.seo.description"
+            :content="props.seo?.description"
         />
     </Head>
 
