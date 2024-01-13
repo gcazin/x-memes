@@ -64,13 +64,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('profil', [ProfileController::class, 'destroy'])->name('destroy');
     });
 
-    Route::resource('media', MediaController::class)->withTrashed(['index', 'create', 'show']);
+    Route::resource('media', MediaController::class)->except(['index', 'create', 'show']);
     Route::name('media.')->prefix('media')->group(function () {
         Route::post('dupliquer', MediaDuplicateController::class)->name('duplicate');
         Route::get('{id}/like', MediaLikeController::class)->name('like');
     });
 
-    Route::resource('notification', NotificationController::class)->withTrashed(['show']);
+    Route::resource('notification', NotificationController::class)->except(['show']);
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
     });
