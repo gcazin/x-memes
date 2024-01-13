@@ -23,14 +23,9 @@ createServer(page =>
             app.config.globalProperties.formService = FormService
             app.mixin({
                 methods: {
-                    route: (name, params, absolute) => {
-                        return route(name, params, absolute, {
-                            ...page.props.ziggy,
-                            location: new URL(page.props.ziggy.url),
-                        });
-                    },
+                    route: (name, params, absolute, config = Ziggy) => route(name, params, absolute, config),
                 },
-            });
+            })
             app.use(ZiggyVue, Ziggy)
         },
         progress: {
