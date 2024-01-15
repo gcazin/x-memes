@@ -38,21 +38,21 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app'.DIRECTORY_SEPARATOR.'public'),
+            'url' => env('APP_URL').DIRECTORY_SEPARATOR.'storage',
             'visibility' => 'public',
             'throw' => false,
         ],
 
         'medias' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/medias'),
+            'root' => storage_path('app'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'medias'),
             'visibility' => 'public',
         ],
 
         'thumbnails' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/medias/thumbnails'),
+            'root' => storage_path('app'.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'medias'.DIRECTORY_SEPARATOR.'thumbnails'),
             'visibility' => 'public',
         ],
 

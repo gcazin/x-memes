@@ -15,16 +15,19 @@ class FileService
      */
     public function createThumbnail(UploadedFile $file, string $path): ?string
     {
-        $thumbnailName = null;
-        if ($file->extension() === 'mp4') {
-            $thumbnailName = 'thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
-            FFMpeg::fromDisk('public')
-                ->open($path)
-                ->getFrameFromSeconds(10)
-                ->export()
-                ->toDisk('medias')
-                ->save($thumbnailName);
-        }
+        $thumbnailName = 'thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
+
+        $getFrameFromMiddle = FFMpeg::fromDisk('public')
+            ->open($path)
+            ->getDurationInSeconds() / 2;
+
+        FFMpeg::fromDisk('public')
+            ->open($path)
+            ->getFrameFromSeconds($getFrameFromMiddle)
+            ->export()
+            ->toDisk('medias')
+            ->save($thumbnailName);
+
 
         return $thumbnailName;
     }

@@ -34,10 +34,12 @@ class MediaController extends Controller
     public function store(StoreMediaRequest $request): void
     {
         $file = $request->file('media_id');
-        $path = Storage::disk('public')->put('medias', $file);
+        $path = (string) Storage::disk('public')->put('medias', $file);
 
         // Create thumbnail if the media is a video
-        $thumbnail = $this->fileService->createThumbnail($file, $path);
+        if ($file->extension() === 'mp4') {
+            $thumbnail = $this->fileService->createThumbnail($file, $path);
+        }
 
         $media = Media::create([
             'name' => $request->name,

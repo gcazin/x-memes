@@ -26,7 +26,7 @@ const form = useForm({
                 <img
                     class="h-96 w-full rounded-lg object-cover shadow"
                     :src="`/storage/${
-                    media.extension === 'mp4'
+                    media.type === 'video'
                         ? media.thumbnail_path
                         : media.path
                 }`"
