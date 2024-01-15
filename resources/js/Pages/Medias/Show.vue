@@ -238,6 +238,8 @@ formService.setForm(form).setRouteName('media')
             </div>
             <div class="max-w-full">
                 <video
+                    controlsList="nodownload"
+                    oncontextmenu="return false;"
                     controls
                     class="mx-auto h-full w-96 rounded-lg shadow"
                     v-if="media.extension === 'mp4'"
