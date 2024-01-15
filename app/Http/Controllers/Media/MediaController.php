@@ -80,7 +80,12 @@ class MediaController extends Controller
 
             seoDescription('Découvre le mème '.$media->name.' sur X-Memes dès maintenant !');
 
-            openGraphData($media->name, 'image', $media->path, route('media.show', $media->slug));
+            openGraphData(
+                $media->name,
+                'image',
+                $media->type === 'video' ? $media->thumbnail_path : $media->path,
+                route('media.show', $media->slug)
+            );
 
             return Inertia::render('Medias/Show', [
                 'media' => $media,
