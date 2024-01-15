@@ -23,6 +23,10 @@ defineProps({
         type: Boolean,
         default: true,
     },
+    hasFooter: {
+        type: Boolean,
+        default: true,
+    }
 })
 
 const page = usePage()
@@ -120,7 +124,7 @@ const props = page.props
         </main>
     </div>
 
-    <Footer />
+    <Footer v-if="hasFooter" />
 
     <Toast />
 </template>

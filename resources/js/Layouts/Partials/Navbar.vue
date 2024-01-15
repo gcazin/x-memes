@@ -151,7 +151,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
 
             <div class="navbar-end gap-1">
                 <!-- When the user is not connected -->
-                <template v-if="!page.props.auth.isConnected">
+                <template v-if="!page.props?.auth?.isConnected">
                     <div class="hidden space-x-1 lg:block">
                         <a class="btn btn-ghost" :href="route('login')"
                             >Connexion</a
