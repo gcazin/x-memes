@@ -42,7 +42,7 @@ const showNotification = ref(false)
 const messageNotification = ref(null)
 const notifications = computed(() => page.props.auth?.notifications)
 
-if (page.props.auth?.user) {
+if (page.props.auth?.user && typeof window !== 'undefined') {
     Echo.private('App.Models.User.' + page.props.auth.user.id).notification(
         (notification) => {
             showNotification.value = true
