@@ -21,6 +21,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $name = fake()->userName();
+
         return [
             'name' => str()->slug($name),
             'username' => str_replace('.', '', $name),

@@ -35,18 +35,14 @@ class UserResource extends Resource
                     ->maxLength(191),
                 Forms\Components\FileUpload::make('avatar')
                     ->directory('avatar')
-                ->columnSpanFull(),
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
-                    ->maxLength(191),
-                Forms\Components\TextInput::make('password')
-                    ->label('Mot de passe')
-                    ->password()
-                    ->required()
+                    ->columnSpanFull()
                     ->maxLength(191),
             ]);
     }

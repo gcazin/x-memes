@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Widgets;
 
 use App\Models\Media;
-use App\Repositories\MediaRepository;
-use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
@@ -15,8 +13,7 @@ class MediaChart extends ChartWidget
 {
     protected static ?string $heading = 'Médias';
 
-    protected int | string | array $columnSpan = 'w-1/2';
-
+    protected int|string|array $columnSpan = 'w-1/2';
 
     protected function getData(): array
     {

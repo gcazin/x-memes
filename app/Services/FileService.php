@@ -28,7 +28,6 @@ class FileService
             ->toDisk('medias')
             ->save($thumbnailName);
 
-
         return $thumbnailName;
     }
 

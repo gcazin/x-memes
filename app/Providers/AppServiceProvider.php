@@ -32,12 +32,12 @@ class AppServiceProvider extends ServiceProvider
         Model::unguard();
 
         FilamentColor::register([
-            'danger' => Color::hex("#b91c1c"),
+            'danger' => Color::hex('#b91c1c'),
             'gray' => Color::Zinc,
-            'info' => Color::hex("#0e7490"),
-            'primary' => Color::hex("#1e40af"),
-            'success' => Color::hex("#15803d"),
-            'warning' => Color::hex("#c2410c"),
+            'info' => Color::hex('#0e7490'),
+            'primary' => Color::hex('#1e40af'),
+            'success' => Color::hex('#15803d'),
+            'warning' => Color::hex('#c2410c'),
         ]);
     }
 }

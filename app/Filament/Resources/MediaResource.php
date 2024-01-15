@@ -19,6 +19,7 @@ class MediaResource extends Resource
     protected static ?string $label = 'Médias';
 
     protected static ?int $navigationSort = -0;
+
     protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
     public static function form(Form $form): Form
@@ -44,12 +45,12 @@ class MediaResource extends Resource
                     ->required()
                     ->options([
                         'image',
-                        'video'
+                        'video',
                     ]),
                 Forms\Components\Toggle::make('approved')
                     ->label('Approuvé')
                     ->required(),
-                Forms\Components\SpatieTagsInput::make('tags')
+                Forms\Components\SpatieTagsInput::make('tags'),
             ]);
     }
 
