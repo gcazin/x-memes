@@ -20,7 +20,7 @@ const props = defineProps({
         type: String,
     },
     medias: {
-        type: Array,
+        type: Object,
     },
     tags: {
         type: Array,

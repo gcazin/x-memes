@@ -27,6 +27,7 @@ createServer(page =>
                 },
             })
             app.use(ZiggyVue, Ziggy)
+            return app
         },
         progress: {
             color: '#1e40af',

@@ -41,7 +41,7 @@ const selectedFilters = ref({
     },
     sort: props.defaultSort,
 })
-const urlParams = new URLSearchParams(window.location.search)
+const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
 
 onMounted(() => {
     addQueryTagsToSelectedTags()
@@ -221,7 +221,9 @@ const fetchData = (url, filters = null) => {
                 } else {
                     allPosts.value = [...allPosts.value, ...props.medias.data]
                 }
-                window.history.replaceState({}, '', pagination.value.path)
+                if (typeof window !== 'undefined') {
+                    window.history.replaceState({}, '', pagination.value.path)
+                }
                 pagination.value = props.medias
                 loading.value = false
             },
