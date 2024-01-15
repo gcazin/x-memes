@@ -66,7 +66,7 @@ const props = page.props
             <div class="text-center">
                 <Text type="sub">
                     Le site est actuellement au stade
-                    <span class="font-bold">de beta</span>. Si vous rencontrez
+                    <span class="font-bold">de bêta</span>. Si vous rencontrez
                     des bugs, ou si vous avez une suggestion, contactez-moi sur
                     <a
                         class="link link-secondary font-bold"

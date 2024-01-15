@@ -208,10 +208,10 @@ formService.setForm(form).setRouteName('waitlist')
                                 <h3
                                     class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
-                                    Le site est en alpha?
+                                    Le site est en bêta?
                                 </h3>
                                 <p>
-                                    Effectivement, le site est encore en alpha
+                                    Effectivement, le site est encore en bêta
                                     pour l'instant, les fonctionnalités de base
                                     y sont présentes, mais encore de nombreuses
                                     nouveautés sont en préparation. 🤫
