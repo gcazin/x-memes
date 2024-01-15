@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{id}/like', MediaLikeController::class)->name('like');
     });
 
-    Route::resource('notification', NotificationController::class)->except(['show']);
+    Route::resource('notification', NotificationController::class);
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
     });
