@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Media;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 
@@ -35,6 +36,7 @@ class GenerateSitemap extends Command
             ->add('/')
             ->add('/bibliotheque')
             ->add('/classement')
+            ->add(User::all())
             ->add(Media::all())
             ->writeToFile(public_path('sitemap.xml'));
 

@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('telescope:prune')->daily();
-        $schedule->command('sitemap:generate')->daily();
+        $schedule->command('sitemap:generate')->twiceDaily();
     }
 
     /**

@@ -19,8 +19,9 @@ use Overtrue\LaravelFollow\Traits\Followable;
 use Overtrue\LaravelFollow\Traits\Follower;
 use Overtrue\LaravelLike\Traits\Liker;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Sitemap\Contracts\Sitemapable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, Sitemapable
 {
     use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Liker, Notifiable, Searchable;
 
@@ -112,6 +113,11 @@ class User extends Authenticatable implements FilamentUser
         return [
             'username' => $this->username,
         ];
+    }
+
+    public function toSitemapTag(): string
+    {
+        return route('user.show', $this->username);
     }
 
     public function canAccessPanel(Panel $panel): bool
