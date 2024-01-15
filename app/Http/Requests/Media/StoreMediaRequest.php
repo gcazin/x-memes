@@ -26,7 +26,7 @@ class StoreMediaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|max:100',
             'media_id' => [
                 'required',
                 File::types(['video/mp4,image/jpeg,image/png,image/gif,image/webp'])

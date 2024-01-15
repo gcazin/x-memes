@@ -110,8 +110,8 @@ const uploadMedia = () => {
                         <TextInput
                             label="Titre"
                             v-model="form.name"
-                            help-text="50 caractères maximum."
-                            max-length="50"
+                            help-text="100 caractères maximum."
+                            max-length="100"
                             required
                         />
                         <InputError :message="form.errors.name" />
