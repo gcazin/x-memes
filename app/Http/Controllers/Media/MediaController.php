@@ -37,6 +37,7 @@ class MediaController extends Controller
         $path = (string) Storage::disk('public')->put('medias', $file);
 
         // Create thumbnail if the media is a video
+        $thumbnail = null;
         if ($file->extension() === 'mp4') {
             $thumbnail = $this->fileService->createThumbnail($file, $path);
         }
@@ -44,7 +45,7 @@ class MediaController extends Controller
         $media = Media::create([
             'name' => $request->name,
             'path' => $path,
-            'thumbnail_path' => 'medias/'.$thumbnail,
+            'thumbnail_path' => $thumbnail ? 'medias/'.$thumbnail : null,
             'extension' => $file->extension(),
             'type' => $file->extension() === 'mp4' ? 'video' : 'image',
             'slug' => Str::slug($request->name),
