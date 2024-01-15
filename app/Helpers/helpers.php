@@ -29,17 +29,18 @@ if (! function_exists('flash')) {
      */
     function openGraphData(string $title, string $type, string $image, string $url): void
     {
-        $title = urlencode($title);
+        /*$title = urlencode($title);
         $imageUrl = urlencode(url('/storage/'.$image));
 
         $templateId = 'e23b4a4f-83c2-4d9b-addb-051de54d819c';
         $versionNumber = 1;
 
-        $templateURL = "https://ogcdn.net/{$templateId}/v{$versionNumber}/{$title}/{$imageUrl}/og.png";
+        $templateURL = "https://ogcdn.net/{$templateId}/v{$versionNumber}/{$title}/{$imageUrl}/og.png";*/
 
         inertia()->share('og.title', $title);
         inertia()->share('og.type', $type);
-        inertia()->share('og.image', $templateURL);
+        inertia()->share('og.image', url('/storage/'.$image));
+//        inertia()->share('og.image', $templateURL);
         inertia()->share('og.url', $url);
     }
 }
