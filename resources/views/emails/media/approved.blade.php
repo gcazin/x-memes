@@ -1,7 +1,7 @@
 <x-mail::message>
 # Ton média {{ $media->name }} a été approuvé.
 
-Félicitations, ton mème a été approuvé par {{ $media->user->username }}.
+Félicitations, ton mème a été approuvé par {{ \App\Models\User::find($media->approved_by)->username }}.
 
 <x-mail::button :url="route('media.show', $media->slug)">
     Voir la publication
