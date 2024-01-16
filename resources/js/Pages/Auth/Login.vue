@@ -3,13 +3,11 @@ import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import Checkbox from '@/Components/Form/Checkbox.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
-import { Link, useForm } from '@inertiajs/vue3'
-import Icon from '@/Components/Misc/Icon.vue'
-import Text from '@/Components/Misc/Text.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import SocialLogin from '@/Components/Misc/SocialLogin.vue'
+import { Link, useForm } from '@inertiajs/vue3'
 
 defineProps({
     canResetPassword: {
@@ -71,7 +69,7 @@ const submit = () => {
                             />
                             <span
                                 class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                            >Se souvenir de moi</span
+                                >Se souvenir de moi</span
                             >
                         </label>
                     </div>

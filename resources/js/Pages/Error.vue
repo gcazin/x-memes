@@ -15,7 +15,6 @@ const description = computed(() => {
 })
 
 const isAServerError = () => props.status === 503 || props.status === 500
-
 </script>
 
 <template>
@@ -29,7 +28,11 @@ const isAServerError = () => props.status === 503 || props.status === 500
 
             <p class="mt-4">{{ description }}</p>
 
-            <a v-if="!isAServerError()" :href="route('index')" class="btn btn-primary mt-4">
+            <a
+                v-if="!isAServerError()"
+                :href="route('index')"
+                class="btn btn-primary mt-4"
+            >
                 Retour à l'accueil
             </a>
         </div>

@@ -93,7 +93,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 "
                             >
                                 <a
-                                    :href="route('filament.admin.pages.dashboard')"
+                                    :href="
+                                        route('filament.admin.pages.dashboard')
+                                    "
                                     :active="route().current('admin.dashboard')"
                                 >
                                     <Icon name="construct" />
@@ -250,6 +252,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             v-if="
                                                 notification.type.includes(
                                                     'NewUserNotification'
+                                                ) ||
+                                                notification.type.includes(
+                                                    'NewFollowerNotification'
                                                 )
                                             "
                                             :user="notification.data.content"
@@ -258,7 +263,11 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         <img
                                             v-else
                                             class="w-10 rounded"
-                                            :src="`/storage/${notification.data.content.thumbnail_path ?? notification.data.content.path}`"
+                                            :src="`/storage/${
+                                                notification.data.content
+                                                    .thumbnail_path ??
+                                                notification.data.content.path
+                                            }`"
                                             alt="Jese image"
                                         />
                                     </div>

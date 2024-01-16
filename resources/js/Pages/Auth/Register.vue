@@ -2,12 +2,12 @@
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Link, useForm } from '@inertiajs/vue3'
-import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 
 const form = useForm({
     username: '',
@@ -113,7 +113,9 @@ const submit = () => {
                                 required
                                 autocomplete="new-password"
                             />
-                            <InputError :message="form.errors.password_confirmation" />
+                            <InputError
+                                :message="form.errors.password_confirmation"
+                            />
 
                             <div class="mt-4 flex items-center justify-end">
                                 <Link
