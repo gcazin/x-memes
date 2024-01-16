@@ -12,15 +12,21 @@ it('can update profile', function () {
     ]);
 
     expect($user->username)->toBe('old-username')
-        ->and($user->description)->toBe(null);
+        ->and($user->description)->toBe(null)
+        ->and($user->x_username)->toBe(null)
+        ->and($user->github_username)->toBe(null);
 
     $response = actingAs($user)->post(route('user.update'), [
         'username' => 'new-username',
         'description' => 'New description',
+        'x_username' => 'john',
+        'github_username' => 'john',
     ]);
 
     expect($user->refresh()->username)->toBe('new-username')
-        ->and($user->refresh()->description)->toBe('New description');
+        ->and($user->refresh()->description)->toBe('New description')
+        ->and($user->x_username)->toBe('john')
+        ->and($user->github_username)->toBe('john');
 
     $response->assertRedirect(route('user.show', $user->refresh()->username));
 });
