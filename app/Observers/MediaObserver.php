@@ -8,8 +8,9 @@ use App\Models\Badge;
 use App\Models\BadgeType;
 use App\Models\Media;
 use App\Models\User;
+use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 
-class MediaObserver
+class MediaObserver implements ShouldHandleEventsAfterCommit
 {
     /**
      * Handle the Media "created" event.

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\DatabaseSizeCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
@@ -32,7 +33,7 @@ class HealthServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             DatabaseSizeCheck::new()
                 ->failWhenSizeAboveGb(errorThresholdGb: 5.0),
-            ScheduleCheck::new()
+            ScheduleCheck::new(),
         ]);
     }
 }

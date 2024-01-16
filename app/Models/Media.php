@@ -24,6 +24,8 @@ use Spatie\Tags\HasTags;
  * @property int $download_count
  * @property string $filename
  * @property string $name
+ *
+ * @method static create(array $array)
  */
 class Media extends Model implements Sitemapable
 {

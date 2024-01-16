@@ -41,7 +41,7 @@ const form = useForm({
                     <Text class="font-bold">{{ media.name }}</Text>
                     <Text type="xs">publié {{ media.created_at }}</Text>
                 </div>
-                <div class="flex-1 text-right">
+                <div class="text-right">
                     <button
                         class="btn btn-circle btn-sm w-10"
                         @click="

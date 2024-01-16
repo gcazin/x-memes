@@ -20,7 +20,7 @@ class Tag extends SpatieTag
         'medias',
     ];
 
-    public static function getLocale()
+    public static function getLocale(): string
     {
         return 'fr';
     }
