@@ -258,7 +258,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         <img
                                             v-else
                                             class="w-10 rounded"
-                                            :src="`/storage/${notification.data.content.path}`"
+                                            :src="`/storage/${notification.data.content.thumbnail_path ?? notification.data.content.path}`"
                                             alt="Jese image"
                                         />
                                     </div>

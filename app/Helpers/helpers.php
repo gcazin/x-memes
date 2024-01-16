@@ -40,7 +40,7 @@ if (! function_exists('flash')) {
         inertia()->share('og.title', $title);
         inertia()->share('og.type', $type);
         inertia()->share('og.image', url('/storage/'.$image));
-//        inertia()->share('og.image', $templateURL);
+        //        inertia()->share('og.image', $templateURL);
         inertia()->share('og.url', $url);
     }
 }

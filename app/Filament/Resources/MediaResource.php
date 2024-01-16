@@ -8,11 +8,11 @@ use App\Events\MediaApproved;
 use App\Filament\Resources\MediaResource\Pages;
 use App\Models\Media;
 use App\Services\MediaService;
-use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 
 class MediaResource extends Resource
@@ -27,8 +27,7 @@ class MediaResource extends Resource
 
     public function __construct(
         protected MediaService $mediaService
-    )
-    {
+    ) {
     }
 
     public static function form(Form $form): Form
@@ -124,7 +123,7 @@ class MediaResource extends Resource
                     }),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
-                    Tables\Actions\EditAction::make()
+                    Tables\Actions\EditAction::make(),
                 ]),
             ])
             ->bulkActions([

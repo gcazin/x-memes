@@ -32,6 +32,16 @@ class NotificationController extends Controller
 
         $notification->markAsRead();
 
+        // Approved media
+        if ($notification->type === 'App\Notifications\Media\ApprovedMediaNotification') {
+            return to_route('media.show', $notification->data['content']['slug']);
+        }
+
+        // New user notification for admin
+        if ($notification->type === 'App\Notifications\User\NewUserNotification') {
+            return to_route('user.show', $notification->data['content']['username']);
+        }
+
         return to_route('media.show', $notification->data['content']['slug']);
     }
 

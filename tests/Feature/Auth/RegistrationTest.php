@@ -3,6 +3,7 @@
 use App\Mail\WelcomeMail;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Mail;
 
 test('registration screen can be rendered', function () {
     $response = $this->get(route('register'));
@@ -11,7 +12,7 @@ test('registration screen can be rendered', function () {
 });
 
 test('new users can register', function () {
-    \Illuminate\Support\Facades\Mail::fake();
+    Mail::fake();
 
     $response = $this->post(route('register'), [
         'username' => 'test-user',
@@ -22,8 +23,8 @@ test('new users can register', function () {
 
     $this->assertAuthenticated();
 
-    Mail::assertSent(WelcomeMail::class);
-    Mail::assertSentCount(1);
+    Mail::assertQueued(WelcomeMail::class);
+    Mail::assertQueuedCount(1);
 
     $user = User::find(1);
     expect($user)->not->toBe(null)

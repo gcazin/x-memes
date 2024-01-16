@@ -6,10 +6,11 @@ namespace App\Listeners\User;
 
 use App\Models\User;
 use App\Notifications\User\NewUserNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 use Spatie\Permission\Models\Role;
 
-class SendNewUserNotification
+class SendNewUserNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
