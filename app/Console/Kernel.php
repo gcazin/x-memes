@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('sitemap:generate')->twiceDaily();
         $schedule->command('telescope:prune')->daily();
         $schedule->command('telescope:clear')->weekly();
-        $schedule->command(RunHealthChecksCommand::class)->everyMinute();
     }
 
     /**
