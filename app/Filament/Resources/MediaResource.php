@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Events\MediaApproved;
 use App\Filament\Resources\MediaResource\Pages;
 use App\Models\Media;
+use App\Services\MediaService;
+use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -22,6 +25,12 @@ class MediaResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
+    public function __construct(
+        protected MediaService $mediaService
+    )
+    {
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -36,7 +45,8 @@ class MediaResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Titre')
                     ->required()
-                    ->maxLength(191),
+                    ->maxLength(100)
+                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('path')
                     ->directory('medias')
                     ->columnSpanFull()
@@ -44,13 +54,18 @@ class MediaResource extends Resource
                 Forms\Components\Select::make('type')
                     ->required()
                     ->options([
-                        'image',
-                        'video',
-                    ]),
+                        'image' => 'Image',
+                        'video' => 'Vidéo',
+                    ])
+                    ->columnSpanFull(),
                 Forms\Components\Toggle::make('approved')
                     ->label('Approuvé')
                     ->required(),
-                Forms\Components\SpatieTagsInput::make('tags'),
+                Forms\Components\Select::make('approved_by')
+                    ->label('Approuvé par')
+                    ->relationship(name: 'user', titleAttribute: 'username'),
+                Forms\Components\SpatieTagsInput::make('tags')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -94,8 +109,23 @@ class MediaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Action::make('approved')
+                    ->hidden(fn (Media $media) => $media->approved)
+                    ->requiresConfirmation()
+                    ->label('Approuvé')
+                    ->action(function (Media $media) {
+                        $media->approved = true;
+                        $media->approved_by = auth()->user()->id;
+                        $media->approved_at = now()->toDateTime();
+
+                        $media->update();
+
+                        MediaApproved::dispatch($media);
+                    }),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make()
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
