@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\HealthCheckResults;
 use App\Filament\Resources\MediaResource\Widgets\StatsOverviewWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -18,6 +20,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -37,6 +40,21 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 StatsOverviewWidget::class,
             ])
+            ->navigationItems([
+                NavigationItem::make('Telescope')
+                    ->url(fn () => route('telescope'))
+                    ->icon('heroicon-o-rocket-launch')
+                    ->group('Paramètres'),
+                NavigationItem::make('Pulse')
+                    ->url(fn () => route('pulse'))
+                    ->icon('heroicon-o-chart-bar')
+                    ->group('Paramètres'),
+                NavigationItem::make('Logs')
+                    ->url(fn () => route('log-viewer.index'))
+                    ->icon('heroicon-o-document-text')
+                    ->group('Paramètres'),
+            ])
+            ->plugin(FilamentSpatieLaravelHealthPlugin::make()->usingPage(HealthCheckResults::class))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

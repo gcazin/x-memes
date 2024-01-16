@@ -149,4 +149,9 @@ class MediaResource extends Resource
             'edit' => Pages\EditMedia::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Données';
+    }
 }

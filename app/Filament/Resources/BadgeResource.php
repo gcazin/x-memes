@@ -86,4 +86,9 @@ class BadgeResource extends Resource
             'edit' => Pages\EditBadge::route('/{record}/edit'),
         ];
     }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Données';
+    }
 }

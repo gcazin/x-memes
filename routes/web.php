@@ -17,6 +17,7 @@ use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
 use App\Models\Media;
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('notification', NotificationController::class);
     Route::name('notification.')->prefix('notification')->group(function () {
         Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
+    });
+
+    Route::middleware('role:super-admin')->prefix('admin')->group(function () {
+        Route::get('health', HealthCheckResultsController::class);
     });
 });
 
