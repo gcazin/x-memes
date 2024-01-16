@@ -39,7 +39,7 @@ const form = useForm({
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
-                    <Text type="xs">publié {{ media.created_at }}</Text>
+                    <Text type="xs">publié {{ media.updated_at }}</Text>
                 </div>
                 <div class="text-right">
                     <button

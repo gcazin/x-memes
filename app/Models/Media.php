@@ -72,6 +72,13 @@ class Media extends Model implements Sitemapable
         );
     }
 
+    public function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+        );
+    }
+
     protected function isApproved(): bool
     {
         return $this->approved === true;

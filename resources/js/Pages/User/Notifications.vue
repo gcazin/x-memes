@@ -69,7 +69,7 @@ watch(
                     :key="index"
                     class="relative rounded-lg bg-base-300 p-4"
                 >
-                    <NotificationItem :notification unread />
+                    <NotificationItem :notification only-unread />
                 </div>
             </Stack>
 

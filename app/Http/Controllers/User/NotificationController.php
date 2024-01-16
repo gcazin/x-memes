@@ -16,7 +16,11 @@ class NotificationController extends Controller
      */
     public function index(): Response
     {
-        $notifications = auth()->user()->notifications()->paginate(10);
+        $notifications = tap(auth()->user()->notifications()->paginate(10), function ($value) {
+            return collect($value->items())->each(function ($notification) {
+                $notification->formatted_created_at = $notification->created_at->diffForHumans();
+            });
+        });
 
         return Inertia::render('User/Notifications', [
             'notifications' => $notifications,

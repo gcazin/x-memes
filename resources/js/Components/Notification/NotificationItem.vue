@@ -9,7 +9,7 @@ defineProps({
     notification: {
         type: Array,
     },
-    unread: {
+    onlyUnread: {
         type: Boolean,
         default: false,
     },
@@ -24,7 +24,7 @@ formService.setForm(form).setRouteName('notification')
 
 <template>
     <div class="flex items-center">
-        <div class="absolute -left-1.5 -top-2" v-if="unread">
+        <div class="absolute -left-1.5 -top-2" v-if="onlyUnread">
             <Icon name="ellipse" :outline="false" class="text-secondary" />
         </div>
         <div class="ml-2 mr-6">
@@ -55,7 +55,7 @@ formService.setForm(form).setRouteName('notification')
                 {{ notification.formatted_created_at }}
             </Text>
         </div>
-        <div class="relative z-50 hidden lg:block" v-if="unread">
+        <div class="relative z-50 hidden lg:block" v-if="onlyUnread">
             <button
                 @click="formService.handle('update', notification)"
                 class="btn btn-ghost btn-sm"
