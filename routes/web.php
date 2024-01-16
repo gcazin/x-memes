@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\Media\MediaDownloadController;
 use App\Http\Controllers\Media\MediaDuplicateController;
@@ -31,11 +32,11 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 */
 
 // Common pages
-Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/', HomeController::class)->name('index');
 Route::get('/bibliotheque/images', MediaImageController::class)->name('library.image');
 Route::get('/bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('au-hasard', MediaRandomController::class)->name('random');
-Route::get('/classement', [HomeController::class, 'leaderboard'])->name('leaderboard');
+Route::get('/classement', LeaderboardController::class)->name('leaderboard');
 
 // User
 Route::name('user.')->prefix('membre')->group(function () {

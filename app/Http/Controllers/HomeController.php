@@ -12,26 +12,12 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function index(): Response|RedirectResponse
+    public function __invoke(): Response|RedirectResponse
     {
         if (auth()->user()) {
             return redirect()->to(RouteServiceProvider::LIBRARY);
         }
 
         return Inertia::render('Home');
-    }
-
-    public function leaderboard(): Response
-    {
-        $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->get();
-
-        seoDescription(
-            'Prend part au classement des meilleurs contributeurs sur X-Memes !
-            Tu auras peut-être la chance de décrocher des badges exclusifs.'
-        );
-
-        return Inertia::render('Leaderboard', [
-            'leaderboard' => $leaderboard,
-        ]);
     }
 }
