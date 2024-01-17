@@ -67,8 +67,6 @@ const submit = () => {
             </div>
             <div class="w-full lg:order-1 lg:flex-1">
                 <Stack>
-                    <SocialLogin :is-login="false" />
-
                     <Section>
                         <form @submit.prevent="submit">
                             <TextInput
