@@ -18,7 +18,7 @@ const isAServerError = () => props.status === 503 || props.status === 500
 </script>
 
 <template>
-    <Head :title="status" />
+    <Head :title="status.toString()" />
 
     <PageLayout :has-navbar="!isAServerError()" :has-footer="!isAServerError()">
         <div class="mt-16 text-center lg:mt-32">
