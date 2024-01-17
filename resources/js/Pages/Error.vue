@@ -7,6 +7,7 @@ const props = defineProps({ status: Number })
 
 const description = computed(() => {
     return {
+        504: 'Oups, un problème est survenu sur nos serveurs.',
         503: '🚀 Du nouveau code est en route ! Patiente quelques secondes.',
         500: 'Oups, un problème est survenu sur nos serveurs.',
         404: "Désolé, la page que vous recherchez n'a pu être trouvée.",
