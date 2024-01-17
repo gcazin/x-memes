@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -59,7 +60,7 @@ class SocialiteController extends Controller
                 }
             }
 
-            auth()->login($user);
+            Auth::login($user);
 
             return redirect(RouteServiceProvider::LIBRARY);
         }
