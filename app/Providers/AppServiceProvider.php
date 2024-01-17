@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
 
         Model::shouldBeStrict(! $this->app->isProduction());
 
+        Model::preventLazyLoading(! $this->app->isProduction());
+
         Model::unguard();
 
         FilamentColor::register([
