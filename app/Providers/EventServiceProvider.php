@@ -60,14 +60,14 @@ class EventServiceProvider extends ServiceProvider
             // Conditionally assign badge to user.
             MediaObserver::class,
         ],
-        Tag::class => [
+        /*Tag::class => [
             // Handle the tags caching.
             TagObserver::class,
         ],
         User::class => [
             // Handle the users caching.
             UserObserver::class
-        ]
+        ]*/
     ];
 
     /**

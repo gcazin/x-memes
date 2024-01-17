@@ -20,9 +20,7 @@ class TagRepository implements RepositoryInterface
      */
     public function all()
     {
-        return Cache::rememberForever('tags', function () {
-            return $this->tag->all();
-        });
+        return $this->tag->all();
     }
 
     /**

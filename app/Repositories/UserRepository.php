@@ -21,9 +21,7 @@ class UserRepository implements RepositoryInterface
      */
     public function all(): Collection
     {
-        return Cache::rememberForever('users', function () {
-            return $this->user->all();
-        });
+        return $this->user->all();
     }
 
     public function paginate()
