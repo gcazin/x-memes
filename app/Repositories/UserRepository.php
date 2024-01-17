@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Interfaces\RepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class UserRepository implements RepositoryInterface
 {
@@ -20,7 +21,9 @@ class UserRepository implements RepositoryInterface
      */
     public function all(): Collection
     {
-        return $this->user->all();
+        return Cache::rememberForever('users', function () {
+            return $this->user->all();
+        });
     }
 
     public function paginate()

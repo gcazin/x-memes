@@ -6,14 +6,14 @@ namespace App\Observers;
 
 use Illuminate\Support\Facades\Cache;
 
-class TagObserver
+class UserObserver
 {
     /**
      * Handle the Tag "created" event.
      */
     public function created(): void
     {
-        Cache::forget('tags');
+        Cache::forget('users');
     }
 
     /**
@@ -21,7 +21,7 @@ class TagObserver
      */
     public function updated(): void
     {
-        Cache::forget('tags');
+        Cache::forget('users');
     }
 
     /**
@@ -29,6 +29,6 @@ class TagObserver
      */
     public function deleted(): void
     {
-        Cache::forget('tags');
+        Cache::forget('users');
     }
 }

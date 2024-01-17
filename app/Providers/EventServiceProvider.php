@@ -16,8 +16,10 @@ use App\Listeners\User\SendNewUserNotification;
 use App\Listeners\User\SendWelcomeToNewUserMail;
 use App\Models\Media;
 use App\Models\Tag;
+use App\Models\User;
 use App\Observers\MediaObserver;
 use App\Observers\TagObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -62,6 +64,10 @@ class EventServiceProvider extends ServiceProvider
             // Handle the tags caching.
             TagObserver::class,
         ],
+        User::class => [
+            // Handle the users caching.
+            UserObserver::class
+        ]
     ];
 
     /**
