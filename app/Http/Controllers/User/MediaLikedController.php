@@ -6,6 +6,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Media;
+use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -23,7 +24,9 @@ class MediaLikedController extends Controller
      */
     public function __invoke(Request $request, string $username): Response
     {
-        $user = $this->userRepository->firstWhere('username', $username);
+        $user = User::with('followers')
+            ->withCount('followings')
+            ->firstWhere('username', $username);
 
         $medias = $user->getLikedItems(Media::class)->paginate(10);
 

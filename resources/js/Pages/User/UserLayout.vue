@@ -152,7 +152,7 @@ const updateUser = () => {
                             <Text type="sub">
                                 {{
                                     helperService.plural(
-                                        user.followers_count,
+                                        user.followers.length,
                                         'abonné'
                                     )
                                 }}
