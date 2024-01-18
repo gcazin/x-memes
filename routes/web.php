@@ -33,8 +33,8 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 // Common pages
 Route::get('/', HomeController::class)->name('index');
-//Route::get('bibliotheque/images', MediaImageController::class)->name('library.image');
-//Route::get('bibliotheque/videos', MediaVideoController::class)->name('library.video');
+Route::get('bibliotheque/images', MediaImageController::class)->name('library.image');
+Route::get('bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('au-hasard', MediaRandomController::class)->name('random');
 Route::get('classement', LeaderboardController::class)->name('leaderboard');
 
