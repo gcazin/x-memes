@@ -17,11 +17,11 @@ Route::middleware('guest')->group(function () {
         ->name('register');
     Route::post('inscription', [RegisteredUserController::class, 'store']);
 
-    /*Route::get('auth/redirect/{provider}', [SocialiteController::class, 'redirect'])
+    Route::get('auth/redirect/{provider}', [SocialiteController::class, 'redirect'])
         ->name('socialite.redirect');
 
     Route::get('auth/callback/{provider}', [SocialiteController::class, 'callback'])
-        ->name('socialite.callback');*/
+        ->name('socialite.callback');
 
     Route::get('connexion', [AuthenticatedSessionController::class, 'create'])
         ->name('login');

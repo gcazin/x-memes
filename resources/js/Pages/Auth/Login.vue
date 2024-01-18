@@ -34,6 +34,8 @@ const submit = () => {
 <template>
     <PageLayout title="Connexion">
         <Stack>
+            <SocialLogin />
+
             <Section>
                 <form @submit.prevent="submit">
                     <TextInput

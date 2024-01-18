@@ -52,7 +52,6 @@ Route::name('media.')->prefix('media')->group(function () {
 });
 // Auth
 Route::middleware('auth')->group(function () {
-//    Route::get('/', MediaImageController::class)->name('index');
     Route::get('rechercher/{query?}', SearchController::class)->name('search');
 
     Route::name('user.')->group(function () {
