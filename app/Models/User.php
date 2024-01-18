@@ -29,8 +29,8 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      * The relationships to always eager-load.
      */
     protected $with = [
-        'roles:id,name',
-        'followers',
+//        'roles:id,name',
+//        'followers',
     ];
 
     /**
