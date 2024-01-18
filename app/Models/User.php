@@ -26,6 +26,14 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
     use Followable, Follower, HasApiTokens, HasFactory, HasRoles, Liker, Notifiable, Searchable;
 
     /**
+     * The relationships to always eager-load.
+     */
+    protected $with = [
+        'roles:id,name',
+        'followers',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -59,14 +67,6 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-    ];
-
-    /**
-     * The relationships to always eager-load.
-     */
-    protected $with = [
-        'roles:id,name',
-        'followers',
     ];
 
     protected $perPage = 10;
