@@ -19,8 +19,8 @@ class UserChart extends ChartWidget
     {
         $data = Trend::model(User::class)
             ->between(
-                start: now()->subWeek()->startOfWeek(),
-                end: now()->subWeek()->endOfWeek(),
+                start: now()->startOfMonth(),
+                end: now(),
             )
             ->perDay()
             ->count();
