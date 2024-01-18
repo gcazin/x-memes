@@ -16,7 +16,6 @@ class LeaderboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd(User::all());
         $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->paginate(10);
 
         seoDescription(
