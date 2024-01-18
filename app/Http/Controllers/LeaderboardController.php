@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class LeaderboardController extends Controller
@@ -15,6 +16,7 @@ class LeaderboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        dd(User::all());
         $leaderboard = User::withCount('medias')->take(23)->groupBy('id')->orderByDesc('medias_count')->paginate(10);
 
         seoDescription(
