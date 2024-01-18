@@ -29,6 +29,7 @@ class MediaService
             ->where('approved', true)
             ->defaultSort($defaultSort);
 
+        dd('ici');
         $sortBy = collect([
             [
                 'name' => 'Par date',
