@@ -2,9 +2,7 @@
     <footer
         class="footer mt-6 border-t border-t-primary/10 bg-base-200 p-4 text-neutral-content"
     >
-        <div
-            class="mx-auto flex w-full items-center justify-between px-2 lg:w-9/12 lg:px-0"
-        >
+        <Container class="flex items-center justify-between">
             <aside class="grid-flow-col items-center">
                 <Stack spacing="2">
                     <img
@@ -36,8 +34,8 @@
                         alt="X de Guillaume"
                     />
                 </a>
-                <!--                <a
-                    href="https://github.com/gcazin/x-memes"
+                <a
+                    href="https://github.com/gcazin"
                     target="_blank"
                     aria-label="GitHub de Guillaume"
                 >
@@ -46,11 +44,12 @@
                         src="/images/misc/github.svg"
                         alt="GitHub de X-Memes"
                     />
-                </a>-->
+                </a>
             </nav>
-        </div>
+        </Container>
     </footer>
 </template>
 <script setup>
+import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 </script>

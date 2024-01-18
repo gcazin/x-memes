@@ -13,7 +13,7 @@ const props = defineProps({
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import { usePage } from '@inertiajs/vue3'
-import { computed, ref, watch, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 
 const page = usePage()
 const flash = page.props.flash

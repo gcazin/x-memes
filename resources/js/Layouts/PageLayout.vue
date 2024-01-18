@@ -2,6 +2,7 @@
 import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
 import BlobBackground from '@/Layouts/Partials/BlobBackground.vue'
+import Container from '@/Layouts/Partials/Container.vue'
 import Footer from '@/Layouts/Partials/Footer.vue'
 import Navbar from '@/Layouts/Partials/Navbar.vue'
 import { Head, usePage } from '@inertiajs/vue3'
@@ -83,7 +84,7 @@ const props = page.props
         <BlobBackground />
         <!-- Page Heading -->
         <header v-if="hasHeader">
-            <div class="mx-auto px-4 py-6 lg:w-9/12 lg:px-0">
+            <Container class="py-6">
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
@@ -112,15 +113,17 @@ const props = page.props
                         <slot name="action" />
                     </div>
                 </div>
-            </div>
+            </Container>
         </header>
 
         <!-- Page Content -->
-        <main
-            class="relative"
-            :class="isFullSize ? 'w-full' : 'mx-auto px-4 lg:w-9/12 lg:px-0'"
-        >
-            <slot />
+        <main class="relative">
+            <Container v-if="!isFullSize">
+                <slot />
+            </Container>
+            <div v-else class="w-full">
+                <slot />
+            </div>
         </main>
     </div>
 

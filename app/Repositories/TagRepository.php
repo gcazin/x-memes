@@ -6,7 +6,6 @@ namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Cache;
 
 class TagRepository implements RepositoryInterface
 {

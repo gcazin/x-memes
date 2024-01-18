@@ -348,7 +348,7 @@ watch(
         <div
             ref="wrapper"
             v-if="allPosts && allPosts.length"
-            class="grid grid-cols-1 gap-6 md:grid-cols-3"
+            class="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3"
             :class="`grid-cols-1 md:grid-cols-${numberOfCols}`"
         >
             <div

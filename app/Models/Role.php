@@ -10,8 +10,4 @@ use Spatie\Permission\Traits\RefreshesPermissionCache;
 class Role extends SpatieRole
 {
     use RefreshesPermissionCache;
-
-//    protected $hidden = [
-//        'pivot',
-//    ];
 }
