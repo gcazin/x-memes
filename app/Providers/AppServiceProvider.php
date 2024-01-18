@@ -27,11 +27,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-//        Model::shouldBeStrict($this->app->isProduction());
+        Model::shouldBeStrict(! $this->app->isProduction());
 
-//        Model::preventLazyLoading($this->app->isLo());
-//
-//        Model::unguard();
+        Model::preventLazyLoading(! $this->app->isProduction());
+
+        Model::unguard();
 
         FilamentColor::register([
             'danger' => Color::hex('#b91c1c'),
