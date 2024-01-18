@@ -11,7 +11,7 @@ class Role extends SpatieRole
 {
     use RefreshesPermissionCache;
 
-    protected $hidden = [
-        'pivot',
-    ];
+//    protected $hidden = [
+//        'pivot',
+//    ];
 }
