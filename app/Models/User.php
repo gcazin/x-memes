@@ -133,7 +133,7 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     public function medias(): HasMany
     {
-        return $this->hasMany(Media::class, 'user_id');
+        return $this->hasMany(Media::class);
     }
 
     /**
