@@ -187,7 +187,7 @@ formService.setForm(form).setRouteName('media')
                                         </Multiselect>
                                         <div class="text-right">
                                             <Text type="xs"
-                                            >Les tags seront synchronisés
+                                                >Les tags seront synchronisés
                                                 après modification.</Text
                                             >
                                         </div>
@@ -262,11 +262,8 @@ formService.setForm(form).setRouteName('media')
                             v-for="(related, index) in related"
                             :key="index"
                         >
-                                <MediaItem
-                                    :media="related"
-                                />
+                            <MediaItem :media="related" />
                         </template>
-
                     </div>
                 </Stack>
             </div>
@@ -306,11 +303,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow, 0 0 #0000);
+        var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

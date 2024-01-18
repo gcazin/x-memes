@@ -31,6 +31,8 @@ const auth = page.props.auth?.user
 const form = useForm({
     username: auth?.username,
     description: auth?.description,
+    x_username: auth?.x_username,
+    github_username: auth?.github_username,
     avatar: null,
 })
 
@@ -74,6 +76,60 @@ const updateUser = () => {
                         <Text>
                             {{ user.description }}
                         </Text>
+                        <div
+                            class="flex"
+                            v-if="user.x_username || user.github_username"
+                        >
+                            <div class="flex flex-1 items-center gap-2">
+                                <a
+                                    :href="`https://x.com/${user.x_username}`"
+                                    target="_blank"
+                                >
+                                    <Button
+                                        ghost
+                                        size="sm"
+                                        class="px-1"
+                                        v-if="user.x_username"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="15"
+                                            height="15"
+                                            fill="none"
+                                            viewBox="0 0 1200 1227"
+                                        >
+                                            <path
+                                                fill="#fff"
+                                                d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
+                                            />
+                                        </svg>
+                                        <Text type="sub"
+                                            >@{{ user.x_username }}</Text
+                                        >
+                                    </Button>
+                                </a>
+                                <a
+                                    :href="`https://github.com/${user.github_username}`"
+                                    target="_blank"
+                                >
+                                    <Button
+                                        ghost
+                                        size="sm"
+                                        class="px-1"
+                                        v-if="user.github_username"
+                                    >
+                                        <Icon
+                                            name="logo-github"
+                                            size="xl"
+                                            :outline="false"
+                                        />
+                                        <Text type="sub"
+                                            >@{{ user.github_username }}</Text
+                                        >
+                                    </Button>
+                                </a>
+                            </div>
+                        </div>
                         <div class="flex gap-4">
                             <Text type="sub">
                                 {{
@@ -129,6 +185,7 @@ const updateUser = () => {
                                         <TextInput
                                             label="Nom d'utilisateur"
                                             v-model="form.username"
+                                            required
                                         />
                                         <InputError
                                             :message="form.errors.username"
@@ -161,6 +218,36 @@ const updateUser = () => {
                                         <InputError
                                             :message="form.errors.description"
                                         />
+                                    </div>
+                                    <div
+                                        class="flex flex-col gap-4 lg:flex-row"
+                                    >
+                                        <div class="flex-1">
+                                            <TextInput
+                                                label="Nom d'utilisateur X"
+                                                v-model="form.x_username"
+                                                autofocus
+                                                placeholder="johndoe"
+                                            />
+                                            <InputError
+                                                :message="
+                                                    form.errors.description
+                                                "
+                                            />
+                                        </div>
+                                        <div class="flex-1">
+                                            <TextInput
+                                                label="Nom d'utilisateur GitHub"
+                                                v-model="form.github_username"
+                                                autofocus
+                                                placeholder="johndoe"
+                                            />
+                                            <InputError
+                                                :message="
+                                                    form.errors.github_username
+                                                "
+                                            />
+                                        </div>
                                     </div>
                                     <div>
                                         <progress

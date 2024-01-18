@@ -7,6 +7,7 @@ const props = defineProps({ status: Number })
 
 const description = computed(() => {
     return {
+        504: 'Oups, un problème est survenu sur nos serveurs.',
         503: '🚀 Du nouveau code est en route ! Patiente quelques secondes.',
         500: 'Oups, un problème est survenu sur nos serveurs.',
         404: "Désolé, la page que vous recherchez n'a pu être trouvée.",
@@ -15,11 +16,10 @@ const description = computed(() => {
 })
 
 const isAServerError = () => props.status === 503 || props.status === 500
-
 </script>
 
 <template>
-    <Head :title="status" />
+    <Head :title="status.toString()" />
 
     <PageLayout :has-navbar="!isAServerError()" :has-footer="!isAServerError()">
         <div class="mt-16 text-center lg:mt-32">
@@ -29,7 +29,11 @@ const isAServerError = () => props.status === 503 || props.status === 500
 
             <p class="mt-4">{{ description }}</p>
 
-            <a v-if="!isAServerError()" :href="route('index')" class="btn btn-primary mt-4">
+            <a
+                v-if="!isAServerError()"
+                :href="route('index')"
+                class="btn btn-primary mt-4"
+            >
                 Retour à l'accueil
             </a>
         </div>

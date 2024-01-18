@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Interfaces\RepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class UserRepository implements RepositoryInterface
 {

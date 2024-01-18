@@ -33,12 +33,13 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->label('Nom')
                     ->maxLength(191),
-                Forms\Components\FileUpload::make('avatar')
-                    ->directory('avatar')
-                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->maxLength(65535)
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('x_username')
+                    ->label("Nom d'utilisateur X"),
+                Forms\Components\TextInput::make('github_username')
+                    ->label("Nom d'utilisateur GitHub"),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()

@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
 use App\Models\Tag;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class TagRepository implements RepositoryInterface
 {
@@ -18,7 +18,7 @@ class TagRepository implements RepositoryInterface
     /**
      * Retrieves all tag items.
      */
-    public function all(): Collection
+    public function all()
     {
         return $this->tag->all();
     }

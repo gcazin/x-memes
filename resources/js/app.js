@@ -3,11 +3,11 @@ import './bootstrap'
 
 import FormService from '@/Services/form.service.js'
 import HelperService from '@/Services/helper.service.js'
+import { Ziggy } from '@/ziggy.js'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { createApp, createSSRApp, h } from 'vue'
+import { createApp, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
-import { Ziggy } from '@/ziggy.js'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 

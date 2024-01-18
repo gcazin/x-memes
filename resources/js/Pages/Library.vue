@@ -119,7 +119,11 @@ const uploadMedia = () => {
 
                     <div class="form-control">
                         <Stack>
-                            <InputLabel for="name" value="Image / Vidéo" required />
+                            <InputLabel
+                                for="name"
+                                value="Image / Vidéo"
+                                required
+                            />
                             <img
                                 class="mx-auto h-60 rounded"
                                 v-if="media_preview_url"
