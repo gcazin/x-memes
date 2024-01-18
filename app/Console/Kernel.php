@@ -6,6 +6,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Spatie\Health\Commands\RunHealthChecksCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +17,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('sitemap:generate')->twiceDaily();
         $schedule->command('telescope:prune')->daily();
+        $schedule->command('telescope:clear')->weekly();
+        $schedule->command(RunHealthChecksCommand::class)->everyMinute();
     }
 
     /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Media;
 
 use App\Http\Controllers\Controller;
-use App\Models\Media;
 use App\Services\MediaService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

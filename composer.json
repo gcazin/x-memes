@@ -19,7 +19,6 @@
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.2",
         "laravel/scout": "^10.6",
-        "laravel/socialite": "^5.11",
         "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
         "mailersend/laravel-driver": "^2.3",

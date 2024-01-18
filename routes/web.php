@@ -77,9 +77,9 @@ Route::middleware('auth')->group(function () {
         Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
     });
 
-//    Route::middleware('role:super-admin')->prefix('admin')->group(function () {
-//        Route::get('health', HealthCheckResultsController::class);
-//    });
+    Route::middleware('role:super-admin')->prefix('admin')->group(function () {
+        Route::get('health', HealthCheckResultsController::class);
+    });
 });
 
 require __DIR__.'/auth.php';

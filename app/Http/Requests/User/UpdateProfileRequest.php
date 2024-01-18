@@ -35,8 +35,6 @@ class UpdateProfileRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'x_username' => ['sometimes', 'nullable', 'string', 'max:50'],
-            'github_username' => ['sometimes', 'nullable', 'string', 'max:50'],
             'avatar' => [
                 'image',
                 'sometimes',

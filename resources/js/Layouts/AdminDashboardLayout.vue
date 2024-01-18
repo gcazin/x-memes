@@ -126,10 +126,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                     </div>
                 </div>
                 <div class="px-6 py-2" v-if="backButton">
-                    <a
-                        class="btn btn-ghost"
-                        :href="route('filament.admin.pages.dashboard')"
-                    >
+                    <a class="btn btn-ghost" :href="route('filament.admin.pages.dashboard')">
                         <Icon name="arrow-back" size="lg" /> Retour en arrière
                     </a>
                 </div>

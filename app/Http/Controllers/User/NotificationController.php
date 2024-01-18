@@ -16,11 +16,7 @@ class NotificationController extends Controller
      */
     public function index(): Response
     {
-        $notifications = tap(auth()->user()->notifications()->paginate(10), function ($value) {
-            return collect($value->items())->each(function ($notification) {
-                $notification->formatted_created_at = $notification->created_at->diffForHumans();
-            });
-        });
+        $notifications = auth()->user()->notifications()->paginate(10);
 
         return Inertia::render('User/Notifications', [
             'notifications' => $notifications,
@@ -34,9 +30,7 @@ class NotificationController extends Controller
     {
         $notification = auth()->user()->notifications->firstWhere('id', $id);
 
-        if (is_null($notification->read_at)) {
-            $notification->markAsRead();
-        }
+        $notification->markAsRead();
 
         // Approved media
         if ($notification->type === 'App\Notifications\Media\ApprovedMediaNotification') {
@@ -44,10 +38,7 @@ class NotificationController extends Controller
         }
 
         // New user notification for admin
-        if (
-            $notification->type === 'App\Notifications\User\NewUserNotification' ||
-            $notification->type === 'App\Notifications\User\NewFollowerNotification'
-        ) {
+        if ($notification->type === 'App\Notifications\User\NewUserNotification') {
             return to_route('user.show', $notification->data['content']['username']);
         }
 

@@ -41,10 +41,7 @@ const selectedFilters = ref({
     },
     sort: props.defaultSort,
 })
-const urlParams =
-    typeof window !== 'undefined'
-        ? new URLSearchParams(window.location.search)
-        : null
+const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
 
 onMounted(() => {
     addQueryTagsToSelectedTags()

@@ -15,11 +15,6 @@ const props = defineProps({
         default: false,
         required: false,
     },
-    ghost: {
-        type: Boolean,
-        default: false,
-        required: false,
-    },
     size: {
         type: String,
         default: 'md',
@@ -64,7 +59,6 @@ const buttonSize = () => {
                 'btn-outline': outline,
                 'btn-disabled': disabled,
                 'btn-circle': circle,
-                'btn-ghost': ghost,
             },
             buttonSize(),
         ]"

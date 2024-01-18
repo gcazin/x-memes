@@ -32,13 +32,11 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     protected $fillable = [
         'name',
-        'email',
-        'password',
         'username',
         'description',
         'avatar',
-        'x_username',
-        'github_username',
+        'email',
+        'password',
     ];
 
     /**

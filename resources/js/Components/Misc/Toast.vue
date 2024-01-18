@@ -30,7 +30,7 @@ const iconColor = computed(() => {
 })
 
 watch(() => {
-    if (page.props.flash?.status || props.message) {
+    if (page.props.flash.status || props.message) {
         show.value = true
         setTimeout(() => {
             show.value = false

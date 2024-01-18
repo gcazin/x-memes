@@ -24,8 +24,6 @@ use Spatie\Tags\HasTags;
  * @property int $download_count
  * @property string $filename
  * @property string $name
- *
- * @method static create(array $array)
  */
 class Media extends Model implements Sitemapable
 {
@@ -66,13 +64,6 @@ class Media extends Model implements Sitemapable
     protected $perPage = 6;
 
     public function createdAt(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Carbon::make($value)->diffForHumans()
-        );
-    }
-
-    public function updatedAt(): Attribute
     {
         return Attribute::make(
             get: fn (string $value) => Carbon::make($value)->diffForHumans()

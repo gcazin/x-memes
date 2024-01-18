@@ -8,6 +8,7 @@ use App\Filament\Resources\TagResource\Pages;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\SpatieTagsEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -36,10 +37,10 @@ class TagResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nom'),
+                ->label('Nom'),
                 Tables\Columns\TextColumn::make('medias_count')
                     ->label('Nombres de médias associés')
-                    ->counts('medias'),
+                    ->counts('medias')
             ])
             ->filters([
                 //

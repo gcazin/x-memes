@@ -46,17 +46,8 @@ class MediaResource extends Resource
                     ->required()
                     ->maxLength(100)
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('thumbnail_path')
-                    ->directory('medias/thumbnails')
-                    ->label('Chemin')
-                    ->columnSpanFull()
-                    ->hidden(fn (Media $media) => is_null($media->thumbnail_path))
-                    ->required(),
                 Forms\Components\FileUpload::make('path')
                     ->directory('medias')
-                    ->imagePreviewHeight('250')
-                    ->fetchFileInformation(false)
-                    ->label('Chemin')
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\Select::make('type')

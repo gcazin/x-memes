@@ -26,10 +26,10 @@ const form = useForm({
                 <img
                     class="h-96 w-full rounded-lg object-cover shadow"
                     :src="`/storage/${
-                        media.type === 'video'
-                            ? media.thumbnail_path
-                            : media.path
-                    }`"
+                    media.type === 'video'
+                        ? media.thumbnail_path
+                        : media.path
+                }`"
                     :alt="media.name"
                     loading="lazy"
                 />
@@ -39,27 +39,27 @@ const form = useForm({
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
-                    <Text type="xs">publié {{ media.updated_at }}</Text>
+                    <Text type="xs">publié {{ media.created_at }}</Text>
                 </div>
-                <div class="text-right">
+                <div class="flex-1 text-right">
                     <button
                         class="btn btn-circle btn-sm w-10"
                         @click="
-                            formService
-                                .setForm(form)
-                                .setRouteName('media')
-                                .handle('like', media, 'get')
-                        "
+                        formService
+                            .setForm(form)
+                            .setRouteName('media')
+                            .handle('like', media, 'get')
+                    "
                         :disabled="form.processing || !page.props.auth?.user"
                         :class="
-                            page.props.auth?.user
-                                ? media.likers
-                                      ?.map((liker) => liker.id)
-                                      .includes($page.props.auth.user.id)
-                                    ? 'btn-outline btn-error'
-                                    : 'btn-ghost'
-                                : ''
-                        "
+                        page.props.auth?.user
+                            ? media.likers
+                                  ?.map((liker) => liker.id)
+                                  .includes($page.props.auth.user.id)
+                                ? 'btn-outline btn-error'
+                                : 'btn-ghost'
+                            : ''
+                    "
                     >
                         <Icon size="xl" name="heart" />
                     </button>
@@ -75,8 +75,8 @@ const form = useForm({
             >
                 <Avatar size="sm" :user="media.user" />
                 <span>
-                    {{ media.user.username }}
-                </span>
+                {{ media.user.username }}
+            </span>
                 <RoleBadge :user="media.user" />
             </Text>
             <div class="flex-1">

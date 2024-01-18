@@ -2,11 +2,11 @@
 import FollowButton from '@/Components/Button/FollowButton.vue'
 import Card from '@/Components/Misc/Card.vue'
 import Text from '@/Components/Misc/Text.vue'
-import Pagination from '@/Components/Table/Pagination.vue'
 import Table from '@/Components/Table/Table.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Pagination from '@/Components/Table/Pagination.vue'
 
 const props = defineProps({
     leaderboard: {
@@ -63,9 +63,7 @@ const calculateRank = () => {
 
         <Table
             :headers="['Rang', `Nom d'utilisateur`, 'Nombre de médias postés']"
-            :items="
-                isTheFirstPage() ? leaderboard.data.slice(3) : leaderboard.data
-            "
+            :items="isTheFirstPage() ? leaderboard.data.slice(3) : leaderboard.data"
             :properties="['increment', 'username', 'medias_count']"
             has-background
         >

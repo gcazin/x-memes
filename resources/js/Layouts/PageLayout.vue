@@ -26,7 +26,7 @@ defineProps({
     hasFooter: {
         type: Boolean,
         default: true,
-    },
+    }
 })
 
 const page = usePage()
@@ -37,19 +37,19 @@ const props = page.props
     <Head :title="title">
         <template v-if="props.og">
             <!-- Facebook Meta Tags -->
-            <meta property="og:url" :content="props.og.url" />
-            <meta property="og:type" content="website" />
-            <meta property="og:title" :content="props.og.title" />
-            <meta property="og:description" :content="props.seo.description" />
-            <meta property="og:image" :content="props.og.image" />
+            <meta property="og:url" :content="props.og.url">
+            <meta property="og:type" content="website">
+            <meta property="og:title" :content="props.og.title">
+            <meta property="og:description" :content="props.seo.description">
+            <meta property="og:image" :content="props.og.image">
 
             <!-- Twitter Meta Tags -->
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta property="twitter:domain" content="x-memes.com" />
-            <meta property="twitter:url" :content="props.og.url" />
-            <meta name="twitter:title" :content="props.og.title" />
-            <meta name="twitter:description" :content="props.seo.description" />
-            <meta name="twitter:image" :content="props.og.image" />
+            <meta name="twitter:card" content="summary_large_image">
+            <meta property="twitter:domain" content="x-memes.com">
+            <meta property="twitter:url" :content="props.og.url">
+            <meta name="twitter:title" :content="props.og.title">
+            <meta name="twitter:description" :content="props.seo.description">
+            <meta name="twitter:image" :content="props.og.image">
         </template>
         <meta
             head-key="description"
@@ -66,8 +66,8 @@ const props = page.props
             <div class="text-center">
                 <Text type="sub">
                     Le site est actuellement en
-                    <span class="font-bold">bêta</span>. Si vous rencontrez des
-                    bugs, ou si vous avez une suggestion, contactez-moi sur
+                    <span class="font-bold">bêta</span>. Si vous rencontrez
+                    des bugs, ou si vous avez une suggestion, contactez-moi sur
                     <a
                         class="link link-secondary font-bold"
                         href="https://x.com/gcazinonx"
