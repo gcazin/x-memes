@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'avatar' => 'avatar-placeholder/'.fake()->numberBetween(1, 4).'.jpg',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'created_at' => fake()->dateTimeBetween('-1 week', now())
         ];
     }
 

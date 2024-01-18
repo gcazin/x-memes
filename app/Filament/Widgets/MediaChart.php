@@ -19,10 +19,10 @@ class MediaChart extends ChartWidget
     {
         $data = Trend::model(Media::class)
             ->between(
-                start: now()->startOfYear(),
-                end: now()->endOfYear(),
+                start: now()->subWeek()->startOfWeek(),
+                end: now()->subWeek()->endOfWeek(),
             )
-            ->perMonth()
+            ->perDay()
             ->count();
 
         return [

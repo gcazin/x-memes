@@ -130,7 +130,7 @@ const updateUser = () => {
                                 </a>
                             </div>
                         </div>
-                        <div class="flex gap-4">
+                        <div class="flex text-center gap-2 md:gap-4">
                             <Text type="sub">
                                 {{
                                     helperService.plural(
