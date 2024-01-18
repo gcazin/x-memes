@@ -22,7 +22,7 @@ class UserController extends Controller
     public function show(string $username): Response
     {
         $user = User::with('medias')
-            ->withCount('followings')
+            ->withCount('followers', 'followings')
             ->firstWhere('username', $username);
 
         $medias = null;
