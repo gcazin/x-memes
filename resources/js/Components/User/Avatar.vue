@@ -8,7 +8,7 @@ const props = defineProps({
         required: false,
     },
     user: {
-        type: Array,
+        type: Object,
         required: false,
     },
 })

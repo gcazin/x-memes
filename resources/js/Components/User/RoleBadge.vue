@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
     user: {
-        type: Array,
+        type: Object,
         required: true,
     },
 })

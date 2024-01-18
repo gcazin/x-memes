@@ -13,7 +13,7 @@ const props = defineProps({
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import { usePage } from '@inertiajs/vue3'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, watchEffect } from 'vue'
 
 const page = usePage()
 const flash = page.props.flash
@@ -29,7 +29,7 @@ const iconColor = computed(() => {
     }[props.type ? props.type : flash.status.class]
 })
 
-watch(() => {
+watchEffect(() => {
     if (page.props.flash?.status || props.message) {
         show.value = true
         setTimeout(() => {

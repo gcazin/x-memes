@@ -152,6 +152,7 @@ formService.setForm(form).setRouteName('media')
                             </Button>
 
                             <Modal
+                                v-if="canPerformAction"
                                 :id="`editMediaModal${media.id}`"
                                 title="Modification de ton mème"
                             >

@@ -23,6 +23,9 @@ createInertiaApp({
         app.config.globalProperties.helperService = HelperService
         app.config.globalProperties.helperService.setProps(props)
         app.config.globalProperties.formService = FormService
+        app.config.compilerOptions.isCustomElement = (tag) => {
+            return tag.startsWith('ion-')
+        }
         app.use(plugin)
         app.use(ZiggyVue, Ziggy)
         return app.mount(el)
