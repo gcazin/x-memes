@@ -34,8 +34,8 @@ class Media extends Model implements Sitemapable
     protected $table = 'medias';
 
     protected $with = [
-//        'user',
-//        'tags',
+        'user',
+        'tags',
 //        'likers',
     ];
 
