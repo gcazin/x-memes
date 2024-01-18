@@ -83,7 +83,7 @@ const form = useForm({
                 <div class="flex justify-end gap-x-2">
                     <div
                         class="flex items-center justify-end"
-                        v-if="media.likers.length"
+                        v-if="media.likers_count"
                     >
                         <Icon name="heart" size="xl" class="mr-0.5" />
                         <Text type="xs">{{ media.likers.length }}</Text>

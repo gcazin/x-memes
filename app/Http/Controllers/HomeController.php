@@ -15,7 +15,6 @@ class HomeController extends Controller
 {
     public function __invoke(): Response|RedirectResponse
     {
-        dd(Media::all());
         if (auth()->user()) {
             return redirect()->to(RouteServiceProvider::LIBRARY);
         }

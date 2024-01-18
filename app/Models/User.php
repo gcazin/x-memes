@@ -30,7 +30,6 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     protected $with = [
         'roles:id,name',
-//        'followers',
     ];
 
     /**
