@@ -15,7 +15,7 @@
         "flowframe/laravel-trend": "^0.1.5",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.11",
-        "laravel/framework": "^10.10",
+        "laravel/framework": "^10.41",
         "laravel/pulse": "^1.0@beta",
         "laravel/sanctum": "^3.2",
         "laravel/scout": "^10.6",
