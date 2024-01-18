@@ -159,9 +159,9 @@ const updateUser = () => {
                             </Text>
                         </div>
                     </Stack>
-                    <div class="flex-1 text-right">
+                    <div class="flex-1 text-right" v-if="auth">
                         <FollowButton
-                            v-if="auth && user.id !== auth.id"
+                            v-if="auth && user.id !== auth?.id"
                             :user="user"
                         />
                         <Button
