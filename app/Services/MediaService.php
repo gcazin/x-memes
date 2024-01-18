@@ -27,7 +27,6 @@ class MediaService
         $medias = QueryBuilder::for(Media::class)
             ->where('type', $type)
             ->where('approved', true)
-            ->withCount('likers')
             ->defaultSort($defaultSort);
 
         $sortBy = collect([

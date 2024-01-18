@@ -229,7 +229,7 @@ formService.setForm(form).setRouteName('media')
                         <Text>
                             {{
                                 helperService.plural(
-                                    media.likers.length,
+                                    media.likers_count,
                                     "j'aime"
                                 )
                             }}

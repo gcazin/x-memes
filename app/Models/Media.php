@@ -35,6 +35,7 @@ class Media extends Model implements Sitemapable
 
     protected $with = [
         'user',
+        'likers'
     ];
 
     protected $fillable = [
