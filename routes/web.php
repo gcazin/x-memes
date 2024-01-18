@@ -33,10 +33,10 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 // Common pages
 Route::get('/', HomeController::class)->name('index');
-Route::get('/bibliotheque/images', MediaImageController::class)->name('library.image');
-Route::get('/bibliotheque/videos', MediaVideoController::class)->name('library.video');
+Route::get('bibliotheque/images', MediaImageController::class)->name('library.image');
+Route::get('bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('au-hasard', MediaRandomController::class)->name('random');
-Route::get('/classement', LeaderboardController::class)->name('leaderboard');
+Route::get('classement', LeaderboardController::class)->name('leaderboard');
 
 // User
 Route::name('user.')->prefix('membre')->group(function () {
@@ -52,7 +52,7 @@ Route::name('media.')->prefix('media')->group(function () {
 });
 // Auth
 Route::middleware('auth')->group(function () {
-    //    Route::get('/', [MediaController::class, 'index'])->name('index');
+    Route::get('/', [MediaController::class, 'index'])->name('index');
     Route::get('rechercher/{query?}', SearchController::class)->name('search');
 
     Route::name('user.')->group(function () {
@@ -77,9 +77,9 @@ Route::middleware('auth')->group(function () {
         Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
     });
 
-//    Route::middleware('role:super-admin')->prefix('admin')->group(function () {
-//        Route::get('health', HealthCheckResultsController::class);
-//    });
+    Route::middleware('role:super-admin')->prefix('admin')->group(function () {
+        Route::get('health', HealthCheckResultsController::class);
+    });
 });
 
 require __DIR__.'/auth.php';
