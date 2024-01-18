@@ -122,7 +122,7 @@ class Media extends Model implements Sitemapable
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)->without('medias');
+        return $this->belongsTo(User::class);
     }
 
     public function tags(): MorphToMany
