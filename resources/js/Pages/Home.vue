@@ -1,6 +1,7 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { Head, useForm } from '@inertiajs/vue3'
@@ -28,37 +29,39 @@ formService.setForm(form).setRouteName('waitlist')
         <div
             class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
         >
-            <div class="hero-content pt-12 text-center lg:pt-24">
-                <div class="flex flex-col">
-                    <img
-                        class="mask mask-squircle mx-auto mb-8 w-32 shadow"
-                        src="images/favicon-with-background.jpg"
-                        alt=""
-                    />
-                    <h1 class="text-3xl font-bold lg:text-5xl">
-                        La plateforme qui te permet de retrouver tes mèmes
-                        préférés!
-                    </h1>
-                    <p class="py-6 lg:text-xl">
-                        X-Memes est une plateforme où tu peux t'inscrire,
-                        publier et voir les mèmes que la communauté a posté.
-                    </p>
-                    <div class="space-x-2">
-                        <a
-                            :href="route('library.image')"
-                            class="btn btn-primary btn-lg"
-                        >
-                            Découvrir
-                        </a>
-                        <a
-                            :href="route('login')"
-                            class="btn btn-outline btn-primary btn-lg"
-                        >
-                            Se connecter
-                        </a>
+            <Container>
+                <div class="hero-content px-0 pt-12 text-center lg:pt-24">
+                    <div class="flex flex-col">
+                        <img
+                            class="mask mask-squircle mx-auto mb-8 w-32 shadow"
+                            src="images/favicon-with-background.jpg"
+                            alt=""
+                        />
+                        <h1 class="text-3xl font-bold lg:text-5xl">
+                            La plateforme qui te permet de retrouver tes mèmes
+                            préférés!
+                        </h1>
+                        <p class="py-6 lg:text-xl">
+                            X-Memes est une plateforme où tu peux t'inscrire,
+                            publier et voir les mèmes que la communauté a posté.
+                        </p>
+                        <div class="space-x-2">
+                            <a
+                                :href="route('library.image')"
+                                class="btn btn-primary btn-lg"
+                            >
+                                Découvrir
+                            </a>
+                            <a
+                                :href="route('login')"
+                                class="btn btn-outline btn-primary btn-lg"
+                            >
+                                Se connecter
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Container>
             <div class="w-full px-4">
                 <div
                     class="wow fadeInUp relative z-10 mx-auto max-w-[850px]"
@@ -82,83 +85,87 @@ formService.setForm(form).setRouteName('waitlist')
             </div>
         </div>
 
-        <div class="relative bg-base-300 px-8 pb-16 pt-20 text-center lg:px-0">
-            <Stack>
-                <p class="font-bold uppercase text-primary">Services</p>
-                <h2 class="text-4xl">Fonctionnalités</h2>
-                <p class="text-xl">
-                    X-Memes t'offre une variété de fonctionnalités te permettant
-                    de poster, télécharger et suivre les personnes que tu aimes.
-                </p>
-                <div
-                    class="mx-auto grid grid-cols-1 gap-16 py-16 lg:w-9/12 lg:grid-cols-5"
-                >
-                    <div class="flex-1">
-                        <Stack>
-                            <Icon
-                                class="rounded-full bg-primary p-4"
-                                size="5xl"
-                                name="add"
-                            />
-                            <p class="text-xl">Poste tes mèmes préférés.</p>
-                        </Stack>
+        <div class="bg-base-300 pb-16 pt-20">
+            <Container>
+                <Stack>
+                    <p class="font-bold uppercase text-primary">Services</p>
+                    <h2 class="text-4xl">Fonctionnalités</h2>
+                    <p class="text-xl">
+                        X-Memes t'offre une variété de fonctionnalités te
+                        permettant de poster, télécharger et suivre les
+                        personnes que tu aimes.
+                    </p>
+                    <div
+                        class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-16 xl:grid-cols-5"
+                    >
+                        <div class="flex-1">
+                            <Stack>
+                                <Icon
+                                    class="rounded-full bg-primary p-4"
+                                    size="5xl"
+                                    name="add"
+                                />
+                                <p class="text-xl">Poste tes mèmes préférés.</p>
+                            </Stack>
+                        </div>
+                        <div class="flex-1">
+                            <Stack>
+                                <Icon
+                                    class="rounded-full bg-primary p-4"
+                                    size="5xl"
+                                    name="image"
+                                />
+                                <p class="text-xl">
+                                    Retrouve tes mèmes préférés à un seul et
+                                    même endroit.
+                                </p>
+                            </Stack>
+                        </div>
+                        <div class="flex-1">
+                            <Stack>
+                                <Icon
+                                    class="rounded-full bg-primary p-4"
+                                    size="5xl"
+                                    name="eye"
+                                />
+                                <p class="text-xl">
+                                    Suis les personnes que tu as envie.
+                                </p>
+                            </Stack>
+                        </div>
+                        <div class="flex-1">
+                            <Stack>
+                                <Icon
+                                    class="rounded-full bg-primary p-4"
+                                    size="5xl"
+                                    name="diamond"
+                                />
+                                <p class="text-xl">
+                                    Des badges décernés en fonction de ton
+                                    activité sur le site.
+                                </p>
+                            </Stack>
+                        </div>
+                        <div class="flex-1">
+                            <Stack>
+                                <Icon
+                                    class="rounded-full bg-primary p-4"
+                                    size="5xl"
+                                    name="people"
+                                />
+                                <p class="text-xl">
+                                    Un classement des utilisateurs les plus
+                                    actifs.
+                                </p>
+                            </Stack>
+                        </div>
                     </div>
-                    <div class="flex-1">
-                        <Stack>
-                            <Icon
-                                class="rounded-full bg-primary p-4"
-                                size="5xl"
-                                name="image"
-                            />
-                            <p class="text-xl">
-                                Retrouve tes mèmes préférés à un seul et même
-                                endroit.
-                            </p>
-                        </Stack>
-                    </div>
-                    <div class="flex-1">
-                        <Stack>
-                            <Icon
-                                class="rounded-full bg-primary p-4"
-                                size="5xl"
-                                name="eye"
-                            />
-                            <p class="text-xl">
-                                Suis les personnes que tu as envie.
-                            </p>
-                        </Stack>
-                    </div>
-                    <div class="flex-1">
-                        <Stack>
-                            <Icon
-                                class="rounded-full bg-primary p-4"
-                                size="5xl"
-                                name="diamond"
-                            />
-                            <p class="text-xl">
-                                Des badges décernés en fonction de ton activité
-                                sur le site.
-                            </p>
-                        </Stack>
-                    </div>
-                    <div class="flex-1">
-                        <Stack>
-                            <Icon
-                                class="rounded-full bg-primary p-4"
-                                size="5xl"
-                                name="people"
-                            />
-                            <p class="text-xl">
-                                Un classement des utilisateurs les plus actifs.
-                            </p>
-                        </Stack>
-                    </div>
-                </div>
-            </Stack>
+                </Stack>
+            </Container>
         </div>
 
-        <div class="relative px-8 pb-16 pt-20 text-center lg:px-0">
-            <div class="relative">
+        <Container>
+            <div class="pb-16 pt-20 text-center lg:px-0">
                 <Stack class="mb-16">
                     <p class="font-bold uppercase text-primary">FAQ</p>
                     <h2 class="text-4xl">Une question ?</h2>
@@ -172,9 +179,9 @@ formService.setForm(form).setRouteName('waitlist')
                         >.
                     </p>
                 </Stack>
-                <div class="mx-auto flex flex-wrap lg:w-9/12">
-                    <div class="w-full px-4">
-                        <div class="mb-12 flex lg:mb-[70px]">
+                <div class="flex flex-wrap">
+                    <div class="flex flex-col gap-12">
+                        <div class="flex">
                             <div
                                 class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
                             >
@@ -182,7 +189,7 @@ formService.setForm(form).setRouteName('waitlist')
                             </div>
                             <div class="w-full text-left">
                                 <h3
-                                    class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
+                                    class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
                                     J'ai rencontré un bug
                                 </h3>
@@ -198,7 +205,7 @@ formService.setForm(form).setRouteName('waitlist')
                                 </p>
                             </div>
                         </div>
-                        <div class="mb-12 flex lg:mb-[70px]">
+                        <div class="flex">
                             <div
                                 class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
                             >
@@ -206,7 +213,7 @@ formService.setForm(form).setRouteName('waitlist')
                             </div>
                             <div class="w-full text-left">
                                 <h3
-                                    class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
+                                    class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
                                     Le site est en bêta?
                                 </h3>
@@ -219,33 +226,9 @@ formService.setForm(form).setRouteName('waitlist')
                             </div>
                         </div>
                     </div>
-                    <!--                <div class="w-full px-4 lg:w-1/2">
-                                        <div class="mb-12 flex lg:mb-[70px]">
-                                            <div class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]">
-                                                <Icon class="text-4xl" name="help-circle" />
-                                            </div>
-                                            <div class="w-full text-left">
-                                                <h3 class="mb-6 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl">
-                                                    Comment faire pour poster un mème?
-                                                </h3>
-                                                <Stack spacing="2">
-                                                    <p>
-                                                        C'est très simple !
-                                                    </p>
-                                                    <p>
-                                                        Tu t'inscris, tu cliques sur "Bibliothèque" en haut, tu auras un bouton "Ajouter un média",
-                                                        tu remplis le formulaire et c'est tout !
-                                                    </p>
-                                                    <p class="font-bold">
-                                                        (Pour éviter toutes dérives, tout les mèmes envoyés sont approuvés manuellement par un administrateur)
-                                                    </p>
-                                                </Stack>
-                                            </div>
-                                        </div>
-                                    </div>-->
                 </div>
             </div>
-        </div>
+        </Container>
     </PageLayout>
 </template>
 
