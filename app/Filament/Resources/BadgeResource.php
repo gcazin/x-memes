@@ -46,12 +46,15 @@ class BadgeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('badge_type_id')
+                Tables\Columns\TextColumn::make('type.name')
+                    ->label('Type de badge')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nom')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('path')
+                    ->label('Chemin')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('condition')
                     ->searchable(),

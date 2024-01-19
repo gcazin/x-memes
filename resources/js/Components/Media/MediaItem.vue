@@ -35,7 +35,7 @@ const form = useForm({
                 />
             </a>
             <div
-                class="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% to-transparent p-4"
+                class="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% to-slate-900/1 p-4"
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
