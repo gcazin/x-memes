@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Events\MediaApproved;
 use App\Models\Media;
+use App\Models\Tag;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use Illuminate\Http\Request;
@@ -59,7 +60,7 @@ class MediaService
         return [
             'title' => $title ?: "Bibliothèque d'images",
             'medias' => $medias->paginate(),
-            'tags' => $this->tagRepository->all(),
+            'tags' => Tag::whereHas('medias', fn ($query) => $query->where('type', '=', $type))->get(),
             'sortBy' => $sortBy->toArray(),
             'defaultSort' => $defaultSort,
             'duplicatedImage' => session('duplicatedImage'),

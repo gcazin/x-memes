@@ -120,7 +120,7 @@ const uploadMedia = () => {
                     <div class="form-control">
                         <Stack>
                             <InputLabel
-                                for="name"
+                                for="file"
                                 value="Image / Vidéo"
                                 required
                             />
@@ -130,6 +130,7 @@ const uploadMedia = () => {
                                 :src="media_preview_url"
                             />
                             <input
+                                name="file"
                                 type="file"
                                 class="file-input file-input-bordered file-input-primary w-full"
                                 id="media_id"

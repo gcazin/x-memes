@@ -12,10 +12,6 @@ use Spatie\Tags\Tag as SpatieTag;
  */
 class Tag extends SpatieTag
 {
-    protected $hidden = [
-        'pivot',
-    ];
-
     protected $withCount = [
         'medias',
     ];
