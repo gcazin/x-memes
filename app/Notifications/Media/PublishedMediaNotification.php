@@ -9,7 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
-class DeletedMediaNotification extends Notification
+class PublishedMediaNotification extends Notification
 {
     use Queueable;
 
@@ -17,7 +17,7 @@ class DeletedMediaNotification extends Notification
      * Create a new notification instance.
      */
     public function __construct(
-        public Media $media,
+        public Media $media
     ) {
         //
     }
@@ -42,9 +42,6 @@ class DeletedMediaNotification extends Notification
         return $this->getNotificationContent();
     }
 
-    /**
-     * Get the array representation of the notification.
-     */
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
         return new BroadcastMessage($this->getNotificationContent());
@@ -56,7 +53,7 @@ class DeletedMediaNotification extends Notification
     public function getNotificationContent(): array
     {
         return [
-            'title' => "Ton mème {$this->media->name} vient d'être supprimé!",
+            'title' => "Un mème vient d'être publié!",
             'content' => $this->media,
         ];
     }

@@ -6,11 +6,14 @@ namespace App\Providers;
 
 use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
+use App\Events\MediaPublished;
 use App\Events\UserFollowed;
 use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
 use App\Listeners\Media\SendMediaDeletedMail;
 use App\Listeners\Media\SendMediaDeletedNotification;
+use App\Listeners\Media\SendMediaPublishedMail;
+use App\Listeners\Media\SendMediaPublishedNotification;
 use App\Listeners\User\SendNewFollowerNotification;
 use App\Listeners\User\SendNewUserNotification;
 use App\Listeners\User\SendWelcomeToNewUserMail;
@@ -36,6 +39,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             SendNewUserNotification::class,
             SendWelcomeToNewUserMail::class,
+        ],
+
+        MediaPublished::class => [
+            SendMediaPublishedNotification::class,
+            SendMediaPublishedMail::class,
         ],
         MediaApproved::class => [
             SendMediaApprovedNotification::class,

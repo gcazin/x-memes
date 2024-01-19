@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Media;
 
 use App\Events\MediaDestroyed;
+use App\Events\MediaPublished;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
@@ -58,6 +59,8 @@ class MediaController extends Controller
             $media->attachTags($request->tags);
         }
 
+        MediaPublished::dispatch($media);
+
         if ($request->user()->isSuperAdmin()) {
             $this->mediaService->approve($media->id);
         } else {
@@ -66,6 +69,7 @@ class MediaController extends Controller
                 'Le média est en attente d\'approbation,
                 un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
             );
+
         }
     }
 

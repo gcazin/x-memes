@@ -2,10 +2,13 @@
 
 use App\Events\MediaApproved;
 use App\Events\MediaDestroyed;
+use App\Events\MediaPublished;
 use App\Listeners\Media\SendMediaApprovedMail;
 use App\Listeners\Media\SendMediaApprovedNotification;
 use App\Listeners\Media\SendMediaDeletedMail;
 use App\Listeners\Media\SendMediaDeletedNotification;
+use App\Listeners\Media\SendMediaPublishedMail;
+use App\Listeners\Media\SendMediaPublishedNotification;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
@@ -55,6 +58,27 @@ it('should store media and attach tags', function () {
 
     expect($response->status())->toBe(200)
         ->and($media->tags()->pluck('name')->toArray())->toBe(['tag1', 'tag2']);
+});
+
+it('should send mail and notification when an user post a media', function () {
+    Event::fake();
+    Mail::fake();
+
+    $user = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'path' => 'medias/'.Str::random().'.jpg',
+        'user_id' => $user->id,
+    ]);
+
+    Event::assertListening(
+        MediaPublished::class,
+        SendMediaPublishedNotification::class
+    );
+    Event::assertListening(
+        MediaPublished::class,
+        SendMediaPublishedMail::class
+    );
 });
 
 /*it('should store  video media and create thumbnail', function () {

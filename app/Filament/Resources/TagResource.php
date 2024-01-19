@@ -24,10 +24,6 @@ class TagResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required(),
-                Forms\Components\TextInput::make('type')
-                    ->maxLength(191),
             ]);
     }
 

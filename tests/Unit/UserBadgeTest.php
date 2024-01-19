@@ -3,6 +3,7 @@
 use App\Models\Badge;
 use App\Models\BadgeType;
 use App\Models\Media;
+use App\Models\Role;
 use App\Models\User;
 
 test('badge is not attached to user when not necessary', function () {
@@ -64,6 +65,32 @@ test('badge is not attached to user when media is not approved', function () {
     $userBadges = $user->refresh()->badges();
     expect($userBadges->count())->toBe(0);
 });
+
+/*test('badge role is correctly attached to user', function () {
+    $user = User::factory()->create();
+
+    // Badge : type media (by number of medias published (1,5,10,100...))
+    $mediaBadgeType = BadgeType::factory()->create(['name' => 'role']);
+    // Badge : type seniority (by year (1,2,3,4...))
+    $seniorityBadgeType = BadgeType::factory()->create(['name' => 'super-admin']);
+
+    // 1 published media
+    $mediaBadge = Badge::factory()->create([
+        'name' => 'Badge 1 is media',
+        'condition' => '1',
+        'badge_type_id' => $mediaBadgeType->id,
+    ]);
+
+    Role::create(['name' => 'super-admin']);
+
+    User::factory()->create()->assignRole('super-admin');
+
+    $userBadges = $user->refresh()->badges();
+    expect($userBadges->first()->id)->toBe($mediaBadge->id)
+        ->and($userBadges->first()->name)->toBe('Badge 1 is media')
+        ->and($userBadges->first()->badge_type_id)->toBe($mediaBadge->id)
+        ->and($userBadges->count())->toBeOne();
+});*/
 
 test('badge attached to user is not interfering with other type', function () {
     $user = User::factory()->create();

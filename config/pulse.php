@@ -150,6 +150,7 @@ return [
             'sample_rate' => env('PULSE_EXCEPTIONS_SAMPLE_RATE', 1),
             'location' => env('PULSE_EXCEPTIONS_LOCATION', true),
             'ignore' => [
+                '/^Inertia\\\\Ssr\\\\SsrException\\\\/',
                 // '/^Package\\\\Exceptions\\\\/',
             ],
         ],

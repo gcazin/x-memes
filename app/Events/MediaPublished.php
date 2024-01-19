@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\Media;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UserFollowed implements ShouldBroadcast
+class MediaPublished implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,8 +19,7 @@ class UserFollowed implements ShouldBroadcast
      * Create a new event instance.
      */
     public function __construct(
-        public User $followable,
-        public User $follower,
+        public Media $media
     ) {
         //
     }
@@ -30,6 +29,6 @@ class UserFollowed implements ShouldBroadcast
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel('App.Models.User.'.$this->followable->id);
+        return new PrivateChannel('App.Models.User.'.$this->media->user_id);
     }
 }

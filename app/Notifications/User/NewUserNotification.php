@@ -28,15 +28,7 @@ class NewUserNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable)
-    {
-        //
+        return ['database', 'broadcast'];
     }
 
     /**

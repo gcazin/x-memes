@@ -21,6 +21,7 @@ class MediaDestroyed implements ShouldBroadcast
     public function __construct(
         public Media $media
     ) {
+        //
     }
 
     /**
