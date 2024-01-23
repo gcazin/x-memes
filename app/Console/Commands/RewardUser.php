@@ -46,18 +46,18 @@ class RewardUser extends Command
 
             // User registered
             PointFacade::setUser($user)->reward(null, PointType::REGISTERED);
-            $this->info($users->count() . ' ont gagné des points d\'inscription');
+            $this->info($users->count().' ont gagné des points d\'inscription');
 
             // Medias approved
             $medias->each(function (Media $media) use ($user) {
                 PointFacade::setUser($user)->reward($media->id, PointType::MEDIA_APPROVED);
-                $this->info($user->username . ' a gagné des points pour les médias approuvés.');
+                $this->info($user->username.' a gagné des points pour les médias approuvés.');
 
                 // Liked medias
                 $likers = $media->likers();
                 $likers->each(function () use ($user, $media) {
                     PointFacade::setUser($user)->reward($media->id, PointType::USER_LIKED_MEDIA);
-                    $this->info($user->username . ' a gagné des points pour les likes sur ses médias.');
+                    $this->info($user->username.' a gagné des points pour les likes sur ses médias.');
                 });
             });
 
@@ -65,10 +65,10 @@ class RewardUser extends Command
             $followers->each(function (User $follower) use ($user) {
                 if ($follower->hasAnyRole('super-admin', 'admin')) {
                     PointFacade::setUser($user)->reward($follower->id, PointType::STAFF_USER_FOLLOWING);
-                    $this->info($user->username . ' a gagné des points pour les follows du staff.');
+                    $this->info($user->username.' a gagné des points pour les follows du staff.');
                 }
                 PointFacade::setUser($user)->reward($follower->id, PointType::USER_FOLLOWING);
-                $this->info($user->username . ' a gagné des points pour les follows.');
+                $this->info($user->username.' a gagné des points pour les follows.');
             });
         });
 

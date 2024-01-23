@@ -97,6 +97,7 @@ class MediaService
         $tags = $media->tags->pluck('name')->toArray();
 
         return Media::withAnyTags($tags)
+            ->approved()
             ->where('id', '!=', $media->id)
             ->take(4)
             ->get();

@@ -1,33 +1,25 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
 import FollowButton from '@/Components/Button/FollowButton.vue'
 import Card from '@/Components/Misc/Card.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
+import Modal from '@/Components/Modal/Modal.vue'
 import Pagination from '@/Components/Table/Pagination.vue'
 import Table from '@/Components/Table/Table.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
-import Icon from '@/Components/Misc/Icon.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import Tag from '@/Components/Misc/Tag.vue'
-import helperService from '../Services/helper.service.js'
 import formService from '@/Services/form.service.js'
-import InputLabel from '@/Components/Form/InputLabel.vue'
-import Button from '@/Components/Button/Button.vue'
-import TextInput from '@/Components/Form/TextInput.vue'
-import Modal from '@/Components/Modal/Modal.vue'
-import Section from '@/Layouts/Partials/Section.vue'
-import LoadingButton from '@/Components/Button/LoadingButton.vue'
-import Multiselect from '@vueform/multiselect'
-import InputError from '@/Components/Form/InputError.vue'
 
 const props = defineProps({
     leaderboard: {
         type: Object,
     },
     pointTypes: {
-        type: Array
-    }
+        type: Array,
+    },
 })
 
 console.log(props.leaderboard)
@@ -55,35 +47,42 @@ const calculateRank = () => {
             </Button>
         </template>
 
-        <Modal id="rewardsModal" title="Comment fonctionne le classement ?" max-width="4xl">
+        <Modal
+            id="rewardsModal"
+            title="Comment fonctionne le classement ?"
+            max-width="4xl"
+        >
             <Stack spacing="2">
                 <Text>
-                    Le fonctionnement du classement a été revu, et permet à tout le monde de monter dans le classement facilement !
+                    Le fonctionnement du classement a été revu, et permet à tout
+                    le monde de monter dans le classement facilement !
                 </Text>
                 <Text>
-                    La seule manière de gagner des points avant était de poster des images/vidéos sur le site et de monter dans le
+                    La seule manière de gagner des points avant était de poster
+                    des images/vidéos sur le site et de monter dans le
                     classement en prenant en compte le nombre de mèmes postés.
                 </Text>
                 <Text>
-                    <span class="font-bold text-primary">Maintenant</span>, vous avez beaucoup plus de manière de gagner des points :
+                    <span class="font-bold text-primary">Maintenant</span>, vous
+                    avez beaucoup plus de manière de gagner des points :
                 </Text>
                 <Stack>
                     <div class="overflow-x-auto">
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Points</th>
-                            </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Points</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr
-                                v-for="(pointType, index) in pointTypes"
-                                :key="index"
-                            >
-                                <th>{{ pointType.description }}</th>
-                                <th>{{ pointType.amount }}</th>
-                            </tr>
+                                <tr
+                                    v-for="(pointType, index) in pointTypes"
+                                    :key="index"
+                                >
+                                    <th>{{ pointType.description }}</th>
+                                    <th>{{ pointType.amount }}</th>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -99,14 +98,24 @@ const calculateRank = () => {
                 class="border lg:my-8"
                 :class="{
                     'border-orange-500': index === 1,
-                    'border-yellow-500 lg:order-1 lg:scale-110 lg:z-10': index === 0,
+                    'border-yellow-500 lg:z-10 lg:order-1 lg:scale-110':
+                        index === 0,
                     'border-primary lg:order-2': index === 2,
                 }"
             >
-                <Stack class="flex flex-col items-center justify-center" spacing="2">
+                <Stack
+                    class="flex flex-col items-center justify-center"
+                    spacing="2"
+                >
                     <Tag
                         size="lg"
-                        :type="index === 0 ? 'secondary' : index === 1 ? 'warning' : 'primary'"
+                        :type="
+                            index === 0
+                                ? 'secondary'
+                                : index === 1
+                                  ? 'warning'
+                                  : 'primary'
+                        "
                         :outline="index !== 0"
                     >
                         #{{ index + 1 }}

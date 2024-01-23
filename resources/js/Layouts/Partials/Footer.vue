@@ -1,35 +1,24 @@
 <template>
     <footer
-        class="footer mt-6 border-t border-t-primary/10 bg-base-200 p-4 text-neutral-content"
+        class="footer footer-center rounded bg-base-200 p-10 text-base-content"
     >
-        <Container class="flex items-center justify-between">
-            <aside class="grid-flow-col items-center">
-                <Stack spacing="2">
-                    <img
-                        src="/images/favicon.png"
-                        class="w-12 rounded-full"
-                        alt=""
-                    />
-                    <p>X-Memes © 2023 - Tous droits réservés</p>
-                    <p>
-                        Développé avec ❤️ par
-                        <a
-                            class="font-bold"
-                            href="https://guillaume-cazin.fr"
-                            target="_blank"
-                            >Guillaume</a
-                        >
-                    </p>
-                </Stack>
-            </aside>
-            <nav class="flex gap-4 md:place-self-center md:justify-self-end">
+        <nav class="grid grid-flow-col gap-4">
+            <a :href="route('changelog')" class="link-hover link"
+                >Journal des modifications</a
+            >
+            <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link"
+                >Contact</a
+            >
+        </nav>
+        <nav>
+            <div class="grid grid-flow-col gap-4">
                 <a
                     href="https://twitter.com/gcazinonx"
                     target="_blank"
                     aria-label="X de Guillaume"
                 >
                     <img
-                        class="w-6"
+                        class="w-5"
                         src="/images/misc/x.svg"
                         alt="X de Guillaume"
                     />
@@ -45,11 +34,21 @@
                         alt="GitHub de X-Memes"
                     />
                 </a>
-            </nav>
-        </Container>
+            </div>
+        </nav>
+        <aside>
+            <p>Copyright © 2024 - Tous droits réservés par X-Memes.</p>
+            <p>
+                Développé avec ❤️ par
+                <a
+                    class="font-bold"
+                    href="https://guillaume-cazin.fr"
+                    target="_blank"
+                >
+                    Guillaume
+                </a>
+            </p>
+        </aside>
     </footer>
 </template>
-<script setup>
-import Container from '@/Layouts/Partials/Container.vue'
-import Stack from '@/Layouts/Partials/Stack.vue'
-</script>
+<script setup></script>

@@ -80,7 +80,9 @@ class MediaController extends Controller
      */
     public function show(string $slug): Response
     {
-        $media = Media::with('user.followers')->firstWhere('slug', $slug);
+        $media = Media::with('user.followers')
+            ->where('approved', true)
+            ->firstWhere('slug', $slug);
 
         if ($media) {
             $related = $this->mediaService->related($media->id);

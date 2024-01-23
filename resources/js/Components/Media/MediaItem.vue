@@ -35,11 +35,11 @@ const form = useForm({
                 />
             </a>
             <div
-                class="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% to-slate-900/1 p-4"
+                class="to-slate-900/1 absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% p-4"
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
-                    <Text type="xs">publié {{ media.updated_at }}</Text>
+                    <Text type="xs">publié {{ media.approved_at }}</Text>
                 </div>
                 <div class="text-right">
                     <button

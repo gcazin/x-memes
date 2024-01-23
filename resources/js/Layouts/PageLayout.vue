@@ -66,7 +66,13 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    Nouveauté ! Le fonctionnement du <a class="link link-primary font-bold" :href="route('leaderboard')">classement</a> a été changé.
+                    Nouveauté ! Le fonctionnement du
+                    <a
+                        class="link link-primary font-bold"
+                        :href="route('leaderboard')"
+                        >classement</a
+                    >
+                    a été mis à jour.
                 </Text>
             </div>
         </div>
@@ -97,10 +103,7 @@ const props = page.props
                             </div>
                         </template>
                     </div>
-                    <div
-                        v-if="$page.props.auth?.isConnected && $slots.action"
-                        class="flex-1 text-right"
-                    >
+                    <div v-if="$slots.action" class="flex-1 text-right">
                         <slot name="action" />
                     </div>
                 </div>

@@ -97,7 +97,7 @@ const uploadMedia = () => {
 
 <template>
     <PageLayout :title="title">
-        <template #action>
+        <template #action v-if="$page.props.auth?.isConnected">
             <Button @click="formService.openModal('addMedia')"
                 >Ajouter un mème</Button
             >

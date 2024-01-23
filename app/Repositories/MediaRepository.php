@@ -29,7 +29,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allApprovedMedias($force = true): mixed
     {
-        $model = $this->media->whereApproved();
+        $model = $this->media->approved();
 
         return $force
             ? $model->get()

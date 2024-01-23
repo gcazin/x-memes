@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,9 @@ class Media extends Model implements Sitemapable
 
     protected $perPage = 6;
 
+    /**
+     * Defines a custom cast for the 'created_at' attribute to format its display.
+     */
     public function createdAt(): Attribute
     {
         return Attribute::make(
@@ -72,6 +76,9 @@ class Media extends Model implements Sitemapable
         );
     }
 
+    /**
+     * Defines a custom cast for the 'updated_at' attribute to format its display.
+     */
     public function updatedAt(): Attribute
     {
         return Attribute::make(
@@ -79,19 +86,38 @@ class Media extends Model implements Sitemapable
         );
     }
 
+    /**
+     * Defines a custom cast for the 'approved_at' attribute to format its display.
+     */
+    public function approvedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+        );
+    }
+
+    /**
+     * Checks if the media item is approved.
+     */
     protected function isApproved(): bool
     {
         return $this->approved === true;
     }
 
-    public function whereApproved()
+    /**
+     * Scope a query to only include approved media items.
+     */
+    public function scopeApproved(Builder $query): void
     {
-        return $this->where('approved', true);
+        $query->where('approved', true);
     }
 
-    public function whereIsNotApproved()
+    /**
+     * Scope a query to only include not approved media items.
+     */
+    public function scopeNotApproved(Builder $query): void
     {
-        return $this->where('approved', false);
+        $query->where('approved', false);
     }
 
     /**
@@ -102,6 +128,9 @@ class Media extends Model implements Sitemapable
         return $this->isApproved();
     }
 
+    /**
+     * Get the URL for the media item in the sitemap.
+     */
     public function toSitemapTag(): string
     {
         return route('media.show', $this->slug);
@@ -120,11 +149,17 @@ class Media extends Model implements Sitemapable
         ];
     }
 
+    /**
+     * Represents the user who uploaded the media item.
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Represents the tags associated with the media item.
+     */
     public function tags(): MorphToMany
     {
         return $this
@@ -133,7 +168,9 @@ class Media extends Model implements Sitemapable
     }
 
     /**
-     * Get all the points
+     * Represents the points associated with the media item.
+     *
+     * @return MorphMany The relationship instance.
      */
     public function points(): MorphMany
     {

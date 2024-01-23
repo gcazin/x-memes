@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\ChangelogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\Media\MediaController;
@@ -37,6 +38,7 @@ Route::get('bibliotheque/images', MediaImageController::class)->name('library.im
 Route::get('bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('au-hasard', MediaRandomController::class)->name('random');
 Route::get('classement', LeaderboardController::class)->name('leaderboard');
+Route::get('nouveautes', ChangelogController::class)->name('changelog');
 
 // User
 Route::name('user.')->prefix('membre')->group(function () {

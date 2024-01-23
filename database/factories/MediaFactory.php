@@ -27,6 +27,7 @@ class MediaFactory extends Factory
         $extension = explode('.', $filename)[1];
 
         $title = fake()->name;
+        $approved = fake()->boolean;
 
         return [
             'name' => $title,
@@ -37,7 +38,9 @@ class MediaFactory extends Factory
             'hash' => $extension === 'mp4' ? null : 0000000000000000010001000100001011110111111111110011110000111100,
             'user_id' => User::all()->random()->id,
             'slug' => Str::slug($title),
-            'approved' => fake()->boolean,
+            'approved' => $approved,
+            'approved_by' => $approved ? 1 : null,
+            'approved_at' => $approved ? fake()->dateTime : null,
             'download_count' => fake()->numberBetween(1, 1000),
             'created_at' => fake()->dateTimeBetween('-1 week'),
         ];

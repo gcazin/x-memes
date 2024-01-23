@@ -5,9 +5,11 @@
  */
 
 import axios from 'axios';
+import moment from 'moment'
 
 if (typeof window !== 'undefined') {
     window.axios = axios;
+    window.moment = moment;
 
     window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }
