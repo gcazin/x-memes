@@ -52,7 +52,7 @@ const dateTime = (value) => {
 </template>
 
 <style scoped>
-:deep ul {
+:deep(ul) {
     display: block;
     list-style-type: disc;
     margin-block-start: 1em;
