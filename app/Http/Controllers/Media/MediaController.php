@@ -80,7 +80,7 @@ class MediaController extends Controller
      */
     public function show(string $slug): Response
     {
-        $media = $this->mediaRepository->firstWhere('slug', $slug);
+        $media = Media::with('user.followers')->firstWhere('slug', $slug);
 
         if ($media) {
             $related = $this->mediaService->related($media->id);
@@ -98,7 +98,7 @@ class MediaController extends Controller
 
             return Inertia::render('Medias/Show', [
                 'media' => $media,
-                'tags' => $this->tagRepository->all(),
+                'tags' => $media->tags,
                 'downloadedFile' => session('downloadedFile'),
                 'related' => $related,
             ]);
