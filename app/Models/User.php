@@ -32,7 +32,7 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     protected $with = [
         'roles:id,name',
-        'followers',
+//        'followers',
     ];
 
     /**
@@ -147,13 +147,16 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
         return $this->belongsToMany(Badge::class);
     }
 
+    /**
+     * Get the point amount
+     */
     public function point(): HasOne
     {
         return $this->hasOne(Point::class);
     }
 
     /**
-     * Get all the points
+     * Get all the actions points associated
      */
     public function points(): MorphMany
     {
