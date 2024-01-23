@@ -13,7 +13,7 @@ import Tag from '@/Components/Misc/Tag.vue'
 
 const props = defineProps({
     leaderboard: {
-        type: Array,
+        type: Object,
     },
 })
 
