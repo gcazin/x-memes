@@ -33,7 +33,7 @@ const dateTime = (value) => {
     <PageLayout title="Journal des modifications">
         <template #action>
             Dernière mise à jour du site :
-            {{ dateTime(releases[0].published_at) }}
+            {{ dateTime(commits[0].commit.committer.date) }}
         </template>
         <Section v-for="(release, index) in releases" :key="index">
             <Stack>
