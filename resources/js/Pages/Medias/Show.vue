@@ -15,7 +15,7 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
-import { Head, useForm, usePage } from '@inertiajs/vue3'
+import { Head, router, useForm, usePage } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import _ from 'lodash'
@@ -46,6 +46,9 @@ const form = useForm({
 })
 
 const downloadItem = async (item) => {
+    if (! page.props.auth.isConnected) {
+      router.visit(route('login'))
+    }
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
     })
@@ -115,7 +118,6 @@ formService.setForm(form).setRouteName('media')
                                 @click="
                                     formService.handle('like', media, 'get')
                                 "
-                                :disabled="form.processing || !auth"
                                 :type="
                                     auth
                                         ? media.likers
@@ -133,7 +135,6 @@ formService.setForm(form).setRouteName('media')
 
                             <LoadingButton
                                 @click="downloadItem(media)"
-                                :disabled="form.processing || !auth"
                                 class="btn btn-circle btn-primary"
                             >
                                 <Icon size="xl" name="arrow-down" />
@@ -248,7 +249,7 @@ formService.setForm(form).setRouteName('media')
                 ></video>
                 <img
                     v-else
-                    class="mx-auto h-96 w-full rounded-lg object-contain"
+                    class="mx-auto h-96 w-full rounded-lg object-contain pointer-events-none"
                     :src="`/storage/${media.path}`"
                     :alt="media.name"
                     loading="lazy"
@@ -258,7 +259,7 @@ formService.setForm(form).setRouteName('media')
             <div class="mt-8" v-if="related && related.length">
                 <Stack>
                     <Text type="subtitle">Images similaires</Text>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                         <template
                             v-for="(related, index) in related"
                             :key="index"

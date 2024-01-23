@@ -38,7 +38,7 @@ Route::get('bibliotheque/images', MediaImageController::class)->name('library.im
 Route::get('bibliotheque/videos', MediaVideoController::class)->name('library.video');
 Route::get('au-hasard', MediaRandomController::class)->name('random');
 Route::get('classement', LeaderboardController::class)->name('leaderboard');
-Route::get('nouveautes', ChangelogController::class)->name('changelog');
+Route::get('journal-des-modifications', ChangelogController::class)->name('changelog');
 
 // User
 Route::name('user.')->prefix('membre')->group(function () {
@@ -50,7 +50,6 @@ Route::name('user.')->prefix('membre')->group(function () {
 // Media
 Route::name('media.')->prefix('media')->group(function () {
     Route::get('{slug}', [MediaController::class, 'show'])->name('show');
-    Route::get('{id}/telecharger', MediaDownloadController::class)->name('download');
 });
 // Auth
 Route::middleware('auth')->group(function () {
@@ -71,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::name('media.')->prefix('media')->group(function () {
         Route::post('dupliquer', MediaDuplicateController::class)->name('duplicate');
         Route::get('{id}/like', MediaLikeController::class)->name('like');
+        Route::get('{id}/telecharger', MediaDownloadController::class)->name('download');
     });
 
     Route::resource('notification', NotificationController::class);

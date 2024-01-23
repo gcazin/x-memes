@@ -99,7 +99,7 @@ class MediaService
         return Media::withAnyTags($tags)
             ->approved()
             ->where('id', '!=', $media->id)
-            ->take(4)
+            ->take(3)
             ->get();
     }
 }
