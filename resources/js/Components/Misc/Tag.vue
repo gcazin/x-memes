@@ -31,7 +31,7 @@ defineProps({
             'badge-neutral': type === 'neutral',
             'badge-accent': type === 'accent',
 
-            'btn-outline': outline,
+            'badge-outline': outline,
         }"
     >
         <slot></slot>

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
@@ -30,6 +32,7 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     protected $with = [
         'roles:id,name',
+        'followers',
     ];
 
     /**
@@ -142,5 +145,18 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
     public function badges(): BelongsToMany
     {
         return $this->belongsToMany(Badge::class);
+    }
+
+    public function point(): HasOne
+    {
+        return $this->hasOne(Point::class);
+    }
+
+    /**
+     * Get all the points
+     */
+    public function points(): MorphMany
+    {
+        return $this->morphMany(UserPoint::class, 'pointable');
     }
 }

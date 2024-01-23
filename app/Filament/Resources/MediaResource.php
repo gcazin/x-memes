@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
+use App\Enums\PointType;
 use App\Events\MediaApproved;
+use App\Facades\PointFacade;
 use App\Filament\Resources\MediaResource\Pages;
 use App\Models\Media;
 use App\Services\MediaService;
@@ -127,6 +129,8 @@ class MediaResource extends Resource
                         $media->approved_at = now()->toDateTime();
 
                         $media->update();
+
+                        PointFacade::reward($media->id, PointType::MEDIA_APPROVED);
 
                         MediaApproved::dispatch($media);
                     }),

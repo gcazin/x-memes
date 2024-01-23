@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Media;
 
+use App\Enums\PointType;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
+use App\Facades\PointFacade as Point;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
@@ -91,6 +93,8 @@ class MediaController extends Controller
                 $media->type === 'video' ? $media->thumbnail_path : $media->path,
                 route('media.show', $media->slug)
             );
+
+            Point::reward($media->id, PointType::MEDIA_SEEN);
 
             return Inertia::render('Medias/Show', [
                 'media' => $media,

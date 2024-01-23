@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laravel\Scout\Searchable;
 use Overtrue\LaravelLike\Traits\Likeable;
@@ -129,5 +130,13 @@ class Media extends Model implements Sitemapable
         return $this
             ->morphToMany(self::getTagClassName(), 'taggable', 'taggables', null, 'tag_id')
             ->orderBy('order_column');
+    }
+
+    /**
+     * Get all the points
+     */
+    public function points(): MorphMany
+    {
+        return $this->morphMany(UserPoint::class, 'pointable');
     }
 }

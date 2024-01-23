@@ -7,18 +7,17 @@ import Table from '@/Components/Table/Table.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Icon from '@/Components/Misc/Icon.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 
 const props = defineProps({
     leaderboard: {
         type: Array,
     },
-    users: {
-        type: Object,
-    },
-    medias: {
-        type: Object,
-    },
 })
+
+console.log(props.leaderboard)
 
 const isTheFirstPage = () => {
     return props.leaderboard.current_page === 1
@@ -42,8 +41,21 @@ const calculateRank = () => {
                 v-if="isTheFirstPage()"
                 v-for="(member, index) in leaderboard.data.slice(0, 3)"
                 :key="index"
+                class="border lg:my-8"
+                :class="{
+                    'border-orange-500': index === 1,
+                    'border-yellow-500 lg:order-1 lg:scale-110 lg:z-10': index === 0,
+                    'border-primary lg:order-2': index === 2,
+                }"
             >
-                <div class="flex flex-col items-center justify-center gap-4">
+                <Stack class="flex flex-col items-center justify-center" spacing="2">
+                    <Tag
+                        size="lg"
+                        :type="index === 0 ? 'secondary' : index === 1 ? 'warning' : 'primary'"
+                        :outline="index !== 0"
+                    >
+                        #{{ index + 1 }}
+                    </Tag>
                     <a
                         :href="route('user.show', member.username)"
                         class="text-center"
@@ -54,19 +66,19 @@ const calculateRank = () => {
                         </Text>
                     </a>
                     <div class="badge badge-lg bg-secondary/10 text-secondary">
-                        {{ member.medias_count }} médias postés
+                        {{ member.point.amount }} points
                     </div>
                     <FollowButton :user="member" />
-                </div>
+                </Stack>
             </Card>
         </div>
 
         <Table
-            :headers="['Rang', `Nom d'utilisateur`, 'Nombre de médias postés']"
+            :headers="['Rang', `Nom d'utilisateur`, 'Nombre de points']"
             :items="
                 isTheFirstPage() ? leaderboard.data.slice(3) : leaderboard.data
             "
-            :properties="['increment', 'username', 'medias_count']"
+            :properties="['increment', 'username', 'points']"
             has-background
         >
             <template #increment="item">
@@ -84,6 +96,9 @@ const calculateRank = () => {
                         </span>
                     </div>
                 </a>
+            </template>
+            <template #points="item">
+                {{ item.point.amount }}
             </template>
         </Table>
 

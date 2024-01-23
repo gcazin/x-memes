@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\PointType;
+use App\Facades\PointFacade;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -58,6 +60,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        PointFacade::reward(null, PointType::REGISTERED);
 
         return redirect(RouteServiceProvider::LIBRARY);
     }

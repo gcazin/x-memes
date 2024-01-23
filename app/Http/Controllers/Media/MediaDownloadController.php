@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Media;
 
+use App\Enums\PointType;
+use App\Facades\PointFacade as Point;
 use App\Http\Controllers\Controller;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
@@ -27,6 +29,8 @@ class MediaDownloadController extends Controller
         $media->download_count += 1;
 
         $media->update();
+
+        Point::reward($media->id, PointType::MEDIA_DOWNLOADED);
 
         return Storage::download($media->path);
     }

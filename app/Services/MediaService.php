@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enums\PointType;
 use App\Events\MediaApproved;
+use App\Facades\PointFacade;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Repositories\MediaRepository;
@@ -80,6 +82,7 @@ class MediaService
 
         $this->media->update();
 
+        PointFacade::reward($this->media->id, PointType::MEDIA_APPROVED);
         MediaApproved::dispatch($this->media);
 
         return $this->media;
