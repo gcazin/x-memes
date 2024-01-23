@@ -66,16 +66,7 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    Le site est actuellement en
-                    <span class="font-bold">bêta</span>. Si vous rencontrez des
-                    bugs, ou si vous avez une suggestion, contactez-moi sur
-                    <a
-                        class="link link-secondary font-bold"
-                        href="https://x.com/gcazinonx"
-                        target="_blank"
-                    >
-                        @gcazinonx</a
-                    >.
+                    Nouveauté ! Le fonctionnement du <a class="link link-primary font-bold" :href="route('leaderboard')">classement</a> a été changé.
                 </Text>
             </div>
         </div>

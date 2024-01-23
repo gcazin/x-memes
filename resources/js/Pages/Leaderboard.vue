@@ -10,11 +10,24 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import Tag from '@/Components/Misc/Tag.vue'
+import helperService from '../Services/helper.service.js'
+import formService from '@/Services/form.service.js'
+import InputLabel from '@/Components/Form/InputLabel.vue'
+import Button from '@/Components/Button/Button.vue'
+import TextInput from '@/Components/Form/TextInput.vue'
+import Modal from '@/Components/Modal/Modal.vue'
+import Section from '@/Layouts/Partials/Section.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
+import Multiselect from '@vueform/multiselect'
+import InputError from '@/Components/Form/InputError.vue'
 
 const props = defineProps({
     leaderboard: {
         type: Object,
     },
+    pointTypes: {
+        type: Array
+    }
 })
 
 console.log(props.leaderboard)
@@ -36,6 +49,48 @@ const calculateRank = () => {
 
 <template>
     <PageLayout title="Classement des meilleurs contributeurs">
+        <template #action>
+            <Button @click="formService.openModal('rewards')">
+                Comment gagner des points ?
+            </Button>
+        </template>
+
+        <Modal id="rewardsModal" title="Comment fonctionne le classement ?" max-width="4xl">
+            <Stack spacing="2">
+                <Text>
+                    Le fonctionnement du classement a été revu, et permet à tout le monde de monter dans le classement facilement !
+                </Text>
+                <Text>
+                    La seule manière de gagner des points avant était de poster des images/vidéos sur le site et de monter dans le
+                    classement en prenant en compte le nombre de mèmes postés.
+                </Text>
+                <Text>
+                    <span class="font-bold text-primary">Maintenant</span>, vous avez beaucoup plus de manière de gagner des points :
+                </Text>
+                <Stack>
+                    <div class="overflow-x-auto">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr
+                                v-for="(pointType, index) in pointTypes"
+                                :key="index"
+                            >
+                                <th>{{ pointType.description }}</th>
+                                <th>{{ pointType.amount }}</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </Stack>
+            </Stack>
+        </Modal>
+
         <div class="mb-4 flex flex-col gap-2 lg:flex-row lg:gap-4">
             <Card
                 v-if="isTheFirstPage()"
