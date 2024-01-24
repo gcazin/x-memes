@@ -18,7 +18,6 @@ defineProps({
 const form = useForm({
     email: null,
 })
-const numberOfPlaces = 10
 
 formService.setForm(form).setRouteName('waitlist')
 </script>

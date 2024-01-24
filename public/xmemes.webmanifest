@@ -1,0 +1,16 @@
+{
+  "theme_color" : "#1e40af",
+  "background_color" : "#1e40af",
+  "description": "La plateforme qui te permet de retrouver tes mèmes préférés !",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "https://x-memes.com/images/favicon-with-background.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "X-Memes",
+  "short_name": "X-Memes",
+  "start_url": "/bibliotheque/images"
+}

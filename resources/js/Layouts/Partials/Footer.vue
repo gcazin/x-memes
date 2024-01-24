@@ -6,6 +6,7 @@
             <a :href="route('changelog')" class="link-hover link"
                 >Journal des modifications</a
             >
+            -
             <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link"
                 >Contact</a
             >
