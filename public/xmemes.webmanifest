@@ -1,6 +1,6 @@
 {
-  "theme_color" : "#1e40af",
-  "background_color" : "#1e40af",
+  "theme_color" : "white",
+  "background_color" : "white",
   "description": "La plateforme qui te permet de retrouver tes mèmes préférés !",
   "display": "fullscreen",
   "icons": [
