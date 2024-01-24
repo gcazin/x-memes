@@ -71,68 +71,71 @@ const submit = () => {
 
                     <Section>
                         <form @submit.prevent="submit">
-                            <TextInput
-                                label="Nom d'utilisateur"
-                                id="username"
-                                type="text"
-                                class="mt-1 block w-full"
-                                v-model="form.username"
-                                required
-                                autofocus
-                                autocomplete="username"
-                            />
+                            <Stack>
+                                <TextInput
+                                    label="Nom d'utilisateur"
+                                    id="username"
+                                    type="text"
+                                    class="mt-1 block w-full"
+                                    v-model="form.username"
+                                    required
+                                    autofocus
+                                    autocomplete="username"
+                                    help-text="25 caractères maximum, sans caractères spéciaux, en minuscule."
+                                />
 
-                            <InputError :message="form.errors.username" />
+                                <InputError :message="form.errors.username" />
 
-                            <TextInput
-                                label="Adresse email"
-                                id="email"
-                                type="email"
-                                class="mt-1 block w-full"
-                                v-model="form.email"
-                                required
-                                autocomplete="email"
-                            />
-                            <InputError :message="form.errors.email" />
+                                <TextInput
+                                    label="Adresse email"
+                                    id="email"
+                                    type="email"
+                                    class="mt-1 block w-full"
+                                    v-model="form.email"
+                                    required
+                                    autocomplete="email"
+                                />
+                                <InputError :message="form.errors.email" />
 
-                            <TextInput
-                                label="Mot de passe"
-                                type="password"
-                                class="mt-1 block w-full"
-                                v-model="form.password"
-                                required
-                                autocomplete="new-password"
-                            />
-                            <InputError :message="form.errors.password" />
+                                <TextInput
+                                    label="Mot de passe"
+                                    type="password"
+                                    class="mt-1 block w-full"
+                                    v-model="form.password"
+                                    required
+                                    autocomplete="new-password"
+                                />
+                                <InputError :message="form.errors.password" />
 
-                            <TextInput
-                                label="Confirmation du mot de passe"
-                                type="password"
-                                class="mt-1 block w-full"
-                                v-model="form.password_confirmation"
-                                required
-                                autocomplete="new-password"
-                            />
-                            <InputError
-                                :message="form.errors.password_confirmation"
-                            />
+                                <TextInput
+                                    label="Confirmation du mot de passe"
+                                    type="password"
+                                    class="mt-1 block w-full"
+                                    v-model="form.password_confirmation"
+                                    required
+                                    autocomplete="new-password"
+                                />
+                                <InputError
+                                    :message="form.errors.password_confirmation"
+                                />
 
-                            <div class="mt-4 flex items-center justify-end">
-                                <Link
-                                    :href="route('login')"
-                                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                                >
-                                    Déjà inscrit?
-                                </Link>
+                                <div class="mt-4 flex items-center justify-end">
+                                    <Link
+                                        :href="route('login')"
+                                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                                    >
+                                        Déjà inscrit?
+                                    </Link>
 
-                                <button
-                                    class="btn btn-primary ms-4"
-                                    :class="{ 'opacity-25': form.processing }"
-                                    :disabled="form.processing"
-                                >
-                                    S'inscrire
-                                </button>
-                            </div>
+                                    <button
+                                        class="btn btn-primary ms-4"
+                                        :class="{ 'opacity-25': form.processing }"
+                                        :disabled="form.processing"
+                                    >
+                                        S'inscrire
+                                    </button>
+                                </div>
+                            </Stack>
                         </form>
                     </Section>
                 </Stack>

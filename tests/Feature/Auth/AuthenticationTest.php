@@ -3,13 +3,13 @@
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
-test('login screen can be rendered', function () {
-    $response = $this->get('/connexion');
+it('can be render login page', function () {
+    $response = $this->get(route('login'));
 
     $response->assertStatus(200);
 });
 
-test('users can authenticate using the login screen with his username', function () {
+it('can authenticate using the login screen with his username', function () {
     $user = User::factory()->create();
 
     $response = $this->post('/connexion', [
@@ -21,7 +21,7 @@ test('users can authenticate using the login screen with his username', function
     $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
-test('users can authenticate using the login screen with his email', function () {
+it('can authenticate using the login screen with his email', function () {
     $user = User::factory()->create();
 
     $response = $this->post('/connexion', [
@@ -33,7 +33,7 @@ test('users can authenticate using the login screen with his email', function ()
     $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
-test('users can not authenticate with invalid password', function () {
+it('can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
     $this->post('/connexion', [
@@ -44,7 +44,7 @@ test('users can not authenticate with invalid password', function () {
     $this->assertGuest();
 });
 
-test('users can not authenticate with invalid password with his email', function () {
+it('can not authenticate with invalid password with his email', function () {
     $user = User::factory()->create();
 
     $this->post('/connexion', [
@@ -55,7 +55,7 @@ test('users can not authenticate with invalid password with his email', function
     $this->assertGuest();
 });
 
-test('users can logout', function () {
+it('can logout', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->post('/deconnexion');

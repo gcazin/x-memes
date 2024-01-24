@@ -5,14 +5,15 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Mail;
 
-test('registration screen can be rendered', function () {
+it('can display registration page', function () {
     $response = $this->get(route('register'));
 
     $response->assertStatus(200);
 });
 
-test('new users can register', function () {
+it('can register', function () {
     Mail::fake();
+    $this->seed('PointTypeSeeder');
 
     $response = $this->post(route('register'), [
         'username' => 'test-user',
@@ -33,7 +34,7 @@ test('new users can register', function () {
     $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
-test("new users can't have the same username", function () {
+it('cannot have the same username', function () {
     User::factory()->create(['username' => 'test-user']);
 
     $response = $this->post(route('register'), [
@@ -46,7 +47,7 @@ test("new users can't have the same username", function () {
     $response->assertSessionHasErrors(['username']);
 });
 
-test('new users has the username trimmed', function () {
+it('can have his username trimmed', function () {
     $response = $this->post(route('register'), [
         'username' => 'test-user',
         'email' => 'test@example.com',

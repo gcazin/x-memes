@@ -14,23 +14,22 @@ beforeEach(function () {
     $this->seed(PointTypeSeeder::class);
 });
 
-test('user get reward when he visits media page', function () {
+it('can get reward when he visits media page', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create();
 
-    $response = actingAs($user)->get(route('media.show', $media->slug));
+    actingAs($user)->get(route('media.show', $media->slug))->assertStatus(200);
 
     $point = $user->point()->first();
 
-    expect($response->status())->toBe(200)
-        ->and($point->amount)->toBe(PointType::firstWhere('name', 'media_seen')->amount)
+    expect($point->amount)->toBe(PointType::firstWhere('name', 'media_seen')->amount)
         ->and($media->points()->first()->pointable_id)->toBe($media->id)
         ->and($media->points()->first()->user_id)->toBe($user->id)
         ->and($media->points()->count())->toBe(1)
         ->and($user->points()->count())->toBe(0);
 });
 
-test('user get reward when he downloads media', function () {
+it('can get reward when he downloads media', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create();
 
@@ -45,7 +44,7 @@ test('user get reward when he downloads media', function () {
         ->and($user->points()->count())->toBe(0);
 });
 
-test('user get reward when a user like his media', function () {
+it('can get reward when a user like his media', function () {
     $liked = User::factory()->create();
     $liker = User::factory()->create();
 
@@ -61,7 +60,7 @@ test('user get reward when a user like his media', function () {
         ->and($liker->points()->count())->toBe(0);
 });
 
-test('user get reward when his media is approved', function () {
+it('can get reward when his media is approved', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create([
         'approved' => false,
@@ -84,7 +83,7 @@ test('user get reward when his media is approved', function () {
         ->and($user->points()->count())->toBe(0);
 });
 
-test('user get reward when a user follow him', function () {
+it('can get reward when a user follow him', function () {
     $follower = User::factory()->create([
         'username' => 'follower',
     ]);
@@ -101,7 +100,7 @@ test('user get reward when a user follow him', function () {
         ->and($point->amount)->toBe(PointType::firstWhere('name', 'user_following')->amount);
 });
 
-test('user get reward when a staff member follow him', function () {
+it('can get reward when a staff member follow him', function () {
     $followable = User::factory()->create([
         'username' => 'followable',
     ]);
@@ -117,7 +116,7 @@ test('user get reward when a staff member follow him', function () {
         ->and($point->amount)->toBe($amount);
 });
 
-test('user get reward when daily login', function () {
+it('can get reward when daily login', function () {
     $user = User::factory()->create();
 
     actingAs($user)->get(route('library.image'));
@@ -126,7 +125,7 @@ test('user get reward when daily login', function () {
     expect($point->amount)->toBe(PointType::firstWhere('name', 'daily_login')->amount);
 });
 
-test('user is only rewarded on the first login', function () {
+it('can is only rewarded on the first login', function () {
     $user = User::factory()->create();
 
     actingAs($user)->get(route('library.image'));
@@ -136,7 +135,7 @@ test('user is only rewarded on the first login', function () {
     expect($point->amount)->not->toBe(PointType::firstWhere('name', 'daily_login')->amount * 2);
 });
 
-test('user is rewarded when he register', function () {
+it('can be rewarded when he registers', function () {
     $response = $this->post(route('register'), [
         'username' => 'test-user',
         'email' => 'test@example.com',
@@ -152,7 +151,7 @@ test('user is rewarded when he register', function () {
     expect($point->amount)->toBe(PointType::firstWhere('name', 'registered')->amount);
 });
 
-test('user has the correct amount of points', function () {
+it('can have the correct number of points', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create([
         'approved' => false,
@@ -177,7 +176,7 @@ test('user has the correct amount of points', function () {
         ->and($media->points()->count())->toBe(2);
 });
 
-test('super-admin|admin get reward when his media is approved', function () {
+test('super-admin|admin receives a reward when his media is approved', function () {
     actingAsSuperAdmin()->post(route('media.store'), [
         'name' => 'Test Media',
         'media_id' => UploadedFile::fake()->image('test.jpg'),
@@ -195,7 +194,7 @@ test('super-admin|admin get reward when his media is approved', function () {
         ->and($user->points()->count())->toBe(0);
 });
 
-test('user cannot get reward when he downloads media multiple times', function () {
+it('cannot get reward when he downloads media multiple times', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create();
 
@@ -232,4 +231,4 @@ test('artisan command deliver correct reward', function () {
 
     expect($point->amount)->toBe($amount)
         ->and($user2->point()->first()->amount)->toBe(PointType::firstWhere('name', 'registered')->amount);
-})->only();
+});

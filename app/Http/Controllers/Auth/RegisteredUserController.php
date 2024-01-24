@@ -49,6 +49,7 @@ class RegisteredUserController extends Controller
                 'string',
                 'max:25',
                 'alpha_dash',
+                'lowercase',
                 Rule::unique(User::class, 'username'),
             ],
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,

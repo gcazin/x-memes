@@ -29,7 +29,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allApprovedMedias($force = true): mixed
     {
-        $model = $this->media->approved();
+        $model = $this->media->published();
 
         return $force
             ? $model->get()
@@ -62,7 +62,7 @@ class MediaRepository implements RepositoryInterface
     public function paginateWithSelectedTags(string $tags)
     {
         return Media::withAnyTags(explode(',', $tags))
-            ->whereIsApproved()
+            ->published()
             ->orderByDesc('approved_at')
             ->paginate();
     }

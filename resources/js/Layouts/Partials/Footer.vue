@@ -1,6 +1,6 @@
 <template>
     <footer
-        class="footer footer-center rounded bg-base-200 p-10 text-base-content"
+        class="footer footer-center rounded bg-base-200 py-8 text-base-content"
     >
         <nav class="grid grid-flow-col gap-4">
             <a :href="route('changelog')" class="link-hover link"

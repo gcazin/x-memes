@@ -58,7 +58,8 @@ defineExpose({ focus: () => input.value.focus() })
             :placeholder="placeholder"
             :maxlength="maxLength"
         />
-        <div v-if="helpText" class="label ms-auto pb-0">
+        <div v-if="helpText" class="label pb-0">
+            <span class="label-text-alt"></span>
             <span class="label-text-alt">{{ helpText }}</span>
         </div>
     </label>

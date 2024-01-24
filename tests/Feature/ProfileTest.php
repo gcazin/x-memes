@@ -3,13 +3,13 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
-test('profile page is displayed', function () {
+it('can display profile page', function () {
     $response = actingAsGuest()->get(route('profile.edit'));
 
     expect($response->status())->toBe(200);
 });
 
-test('profile information can be updated', function () {
+it('can update profile information', function () {
     Storage::fake('public');
     $user = User::factory()->create();
 
@@ -44,7 +44,7 @@ test('email verification status is unchanged when the email address is unchanged
     $this->assertNotNull($user->refresh()->email_verified_at);
 });
 
-test('user can delete their account', function () {
+it('can delete their account', function () {
     $user = User::factory()->create();
 
     $response = $this

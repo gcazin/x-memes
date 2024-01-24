@@ -40,9 +40,6 @@ class Point
                 $this->putUserInLeaderboard();
             }
 
-            if (is_null($this->user)) {
-                dd($this->user);
-            }
             if (($this->user->email !== auth()->user()?->email) || ! $id) {
                 $model = $this->user->points();
             } else {

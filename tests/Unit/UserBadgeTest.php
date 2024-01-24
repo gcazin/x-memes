@@ -6,7 +6,7 @@ use App\Models\Media;
 use App\Models\Role;
 use App\Models\User;
 
-test('badge is not attached to user when not necessary', function () {
+test('cannot have the badge when not needed', function () {
     $user = User::factory()->create();
     BadgeType::factory()->create(['name' => 'media']);
     Badge::factory()->create([
@@ -19,7 +19,7 @@ test('badge is not attached to user when not necessary', function () {
     expect($user->refresh()->badges()->count())->toBe(0);
 });
 
-test('badge is correctly attached to user', function () {
+test('can correctly attach the badge to the user', function () {
     $user = User::factory()->create();
     BadgeType::factory()->create(['name' => 'media']);
     $badge = Badge::factory()->create([
@@ -34,7 +34,7 @@ test('badge is correctly attached to user', function () {
         ->and($userBadges->first()->name)->toBe('Media badge');
 });
 
-test('badge is not attached to user multiples times', function () {
+test('cannot attach the badge to the user more than once', function () {
     $user = User::factory()->create();
 
     BadgeType::factory()->create(['name' => 'media']);
@@ -48,7 +48,7 @@ test('badge is not attached to user multiples times', function () {
     expect($user->refresh()->badges()->count())->toBe(1);
 });
 
-test('badge is not attached to user when media is not approved', function () {
+test('cannot attach badge if media not approved', function () {
     $user = User::factory()->create();
 
     BadgeType::factory()->create(['name' => 'media']);
@@ -92,7 +92,7 @@ test('badge is not attached to user when media is not approved', function () {
         ->and($userBadges->count())->toBeOne();
 });*/
 
-test('badge attached to user is not interfering with other type', function () {
+test('cannot interfere with other badges of the same type', function () {
     $user = User::factory()->create();
 
     // Badge : type media (by number of medias published (1,5,10,100...))
@@ -122,7 +122,7 @@ test('badge attached to user is not interfering with other type', function () {
         ->and($userBadges->count())->toBeOne();
 });
 
-test('badge is correctly attached to the user when he has been registered for a certain amount of time.',
+test('can have a badge when registered for a certain period of time',
     function () {
         $user = User::factory()->create([
             'created_at' => now()->addYear(),

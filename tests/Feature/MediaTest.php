@@ -24,6 +24,7 @@ use function Pest\Laravel\actingAs;
 
 it('should index approved medias', function () {
     $user = User::factory()->create();
+    $this->seed('PointTypeSeeder');
 
     Media::factory()->create([
         'name' => 'Approved media',
@@ -202,7 +203,7 @@ it('should send mail and notification when an administrator delete media', funct
     );
 });
 
-test('a user can delete media that belong to him', function () {
+it('can delete media that belong to him', function () {
     $user = User::factory()->create();
 
     $media = Media::factory()->create([
@@ -216,7 +217,7 @@ test('a user can delete media that belong to him', function () {
         ->and($response->status())->toBe(200);
 });
 
-test('a user cannot delete media that does not belong to him', function () {
+it('cannot delete media that does not belong to him', function () {
     $user = User::factory()->create();
     $impostor = User::factory()->create();
 
@@ -259,7 +260,7 @@ test('an administrator can delete media that does not belong to them', function 
         ->and($response->status())->toBe(200);
 });
 
-it('should delete media and not remove tags if used', function () {
+it('can delete media and not remove tags if used', function () {
     $user = User::factory()->create();
 
     $firstMedia = Media::factory()->create([
@@ -277,7 +278,7 @@ it('should delete media and not remove tags if used', function () {
         ->and(Media::all()->count())->toBe(1);
 });
 
-it('should delete media and remove only tags not used', function () {
+it('can delete media and remove only tags not used', function () {
     $user = User::factory()->create();
 
     // 3 tags : foo, bar, baz
@@ -304,7 +305,7 @@ it('should delete media and remove only tags not used', function () {
         ->and(Tag::all()->count())->toBe(2);
 });
 
-it('should delete media and remove tags if not used', function () {
+it('can delete media and remove tags if not used', function () {
     $user = User::factory()->create();
 
     $firstMedia = Media::factory()->create([

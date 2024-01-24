@@ -87,16 +87,6 @@ class Media extends Model implements Sitemapable
     }
 
     /**
-     * Defines a custom cast for the 'approved_at' attribute to format its display.
-     */
-    public function approvedAt(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => Carbon::make($value)->diffForHumans()
-        );
-    }
-
-    /**
      * Checks if the media item is approved.
      */
     protected function isApproved(): bool
@@ -107,7 +97,7 @@ class Media extends Model implements Sitemapable
     /**
      * Scope a query to only include approved media items.
      */
-    public function scopeApproved(Builder $query): void
+    public function scopePublished(Builder $query): void
     {
         $query->where('approved', true);
     }
@@ -115,7 +105,7 @@ class Media extends Model implements Sitemapable
     /**
      * Scope a query to only include not approved media items.
      */
-    public function scopeNotApproved(Builder $query): void
+    public function scopeNotPublished(Builder $query): void
     {
         $query->where('approved', false);
     }
