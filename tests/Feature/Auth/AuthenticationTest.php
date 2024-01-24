@@ -21,6 +21,28 @@ it('can authenticate using the login screen with his username', function () {
     $response->assertRedirect(RouteServiceProvider::LIBRARY);
 });
 
+it('can authenticate using username in uppercase', function () {
+    $this->seed('PointTypeSeeder');
+
+    $this->post(route('register'), [
+        'username' => 'JOHNDOE',
+        'email' => 'test@example.com',
+        'password' => 'password',
+        'password_confirmation' => 'password',
+    ]);
+
+    $user = User::first();
+    expect($user->username)->toBe('johndoe');
+
+    $response = $this->post(route('login'), [
+        'username' => 'JOHNDOE',
+        'password' => 'password',
+    ]);
+
+    $this->assertAuthenticated();
+    $response->assertRedirect(RouteServiceProvider::LIBRARY);
+});
+
 it('can authenticate using the login screen with his email', function () {
     $user = User::factory()->create();
 

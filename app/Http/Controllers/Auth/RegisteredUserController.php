@@ -49,14 +49,13 @@ class RegisteredUserController extends Controller
                 'string',
                 'max:25',
                 'alpha_dash',
-                'lowercase',
                 Rule::unique(User::class, 'username'),
             ],
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = $this->userService->create($request->username, $request->email, Hash::make($request->password));
+        $user = $this->userService->create(strtolower($request->username), $request->email, Hash::make($request->password));
 
         event(new Registered($user));
 

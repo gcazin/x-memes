@@ -32,6 +32,7 @@ class UpdateProfileRequest extends FormRequest
                 'string',
                 'max:25',
                 'alpha_dash',
+                'lowercase',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],

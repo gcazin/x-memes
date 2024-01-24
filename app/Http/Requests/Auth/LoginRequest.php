@@ -37,7 +37,7 @@ class LoginRequest extends FormRequest
 
     public function checkLoginType(): string
     {
-        $login = $this->input('username');
+        $login = Str::lower($this->input('username'));
 
         $loginMethod = filter_var($this->input('username'), FILTER_VALIDATE_EMAIL)
             ? 'email'
