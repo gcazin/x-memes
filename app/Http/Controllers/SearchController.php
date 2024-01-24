@@ -29,6 +29,7 @@ class SearchController extends Controller
                     break;
                 case 'medias':
                     $result = Media::search(trim($query))
+                        ->where('approved', true)
                         ->query(function ($query) {
                             $query
                                 ->join('taggables as ta', 'medias.id', 'ta.taggable_id')

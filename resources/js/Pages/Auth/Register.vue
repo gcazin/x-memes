@@ -59,7 +59,7 @@ const submit = () => {
                             <Icon name="bar-chart" size="xl" />
                             <span
                                 >Un classement des personnes les plus
-                                actives</span
+                                actives.</span
                             >
                         </Text>
                     </Stack>
