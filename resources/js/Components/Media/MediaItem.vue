@@ -5,8 +5,6 @@ import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
-import moment from 'moment'
-import 'moment/dist/locale/fr'
 
 const props = defineProps({
     media: {
@@ -21,7 +19,6 @@ const form = useForm({
 })
 
 const dateTime = (value) => {
-    moment.locale('fr')
     return moment(value).fromNow()
 }
 </script>

@@ -5,11 +5,13 @@
  */
 
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import 'moment/dist/locale/fr'
 
 if (typeof window !== 'undefined') {
     window.axios = axios;
     window.moment = moment;
+    moment().locale('fr')
 
     window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }

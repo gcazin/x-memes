@@ -5,8 +5,6 @@ import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head } from '@inertiajs/vue3'
 import { marked } from 'marked'
-import moment from 'moment'
-import 'moment/dist/locale/fr'
 
 const props = defineProps({
     releases: {
@@ -22,7 +20,6 @@ const markdown = (value) => {
 }
 
 const dateTime = (value) => {
-    moment.locale('fr')
     return moment(value).fromNow()
 }
 </script>
