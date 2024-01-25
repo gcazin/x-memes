@@ -31,10 +31,9 @@ class SendEmailsToAllUsers extends Command
         $this->info('Début de l\'envoi des mails...');
         $users = User::all();
 
-        /*$users->each(function ($user) {
+        $users->each(function ($user) {
            Mail::to($user)->send(new SendMailToAllUsers());
-        });*/
-        Mail::to(User::first())->send(new SendMailToAllUsers());
+        });
 
         $this->info($users->count() . ' emails ont été envoyés !');
     }
