@@ -53,8 +53,11 @@ class AdminPanelProvider extends PanelProvider
                     ->url(fn () => route('log-viewer.index'))
                     ->icon('heroicon-o-document-text')
                     ->group('Paramètres'),
+                NavigationItem::make('Retour vers le site')
+                    ->url(fn () => route('library.image'))
+                    ->icon('heroicon-o-home')
+                    ->group('Paramètres'),
             ])
-            ->plugin(FilamentSpatieLaravelHealthPlugin::make()->usingPage(HealthCheckResults::class))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
