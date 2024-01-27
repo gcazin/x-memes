@@ -36,6 +36,10 @@ class Media extends Model implements Sitemapable
 
     protected $table = 'medias';
 
+    protected $withCount = [
+        'comments'
+    ];
+
     protected $with = [
         'user',
         'likers',

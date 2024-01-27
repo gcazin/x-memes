@@ -13,10 +13,6 @@ class HomeController extends Controller
 {
     public function __invoke(): Response|RedirectResponse
     {
-        if (auth()->user()) {
-            return redirect()->to(RouteServiceProvider::LIBRARY);
-        }
-
         return Inertia::render('Home');
     }
 }

@@ -4,7 +4,7 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
-import { Head, useForm } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 
 defineProps({
     stage: {
@@ -15,6 +15,8 @@ defineProps({
     },
 })
 
+const page = usePage()
+const auth = page.props.auth
 const form = useForm({
     email: null,
 })
@@ -52,10 +54,10 @@ formService.setForm(form).setRouteName('waitlist')
                                 Découvrir
                             </a>
                             <a
-                                :href="route('login')"
+                                :href="auth.isConnected ? route('user.show', auth.user.username) : route('login')"
                                 class="btn btn-outline btn-primary btn-lg"
                             >
-                                Se connecter
+                                {{ auth.isConnected ? 'Voir mon profil' : 'Se connecter' }}
                             </a>
                         </div>
                     </div>
