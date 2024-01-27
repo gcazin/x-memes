@@ -10,7 +10,7 @@ use App\Services\FileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class MediaDuplicateController extends Controller
+class DuplicateController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository,

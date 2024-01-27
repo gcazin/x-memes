@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
 use App\Mail\SendMailToAllUsers;
@@ -32,9 +34,9 @@ class SendEmailsToAllUsers extends Command
         $users = User::all();
 
         $users->each(function ($user) {
-           Mail::to($user)->send(new SendMailToAllUsers());
+            Mail::to($user)->send(new SendMailToAllUsers());
         });
 
-        $this->info($users->count() . ' emails ont été envoyés !');
+        $this->info($users->count().' emails ont été envoyés !');
     }
 }

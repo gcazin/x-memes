@@ -32,7 +32,7 @@ class UsernameInLowercase extends Command
 
         $users = User::all();
         $users->each(function ($user) {
-            $this->info($user->username . ' changé en ' . strtolower($user->username));
+            $this->info($user->username.' changé en '.strtolower($user->username));
             $user->username = strtolower($user->username);
             $user->update();
         });

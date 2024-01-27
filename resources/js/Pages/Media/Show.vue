@@ -4,6 +4,7 @@ import FollowButton from '@/Components/Button/FollowButton.vue'
 import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputLabel from '@/Components/Form/InputLabel.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import Textarea from '@/Components/Form/Textarea.vue'
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
@@ -12,6 +13,7 @@ import Modal from '@/Components/Modal/Modal.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
@@ -20,12 +22,17 @@ import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import _ from 'lodash'
 import { computed } from 'vue'
+import Pagination from '@/Components/Table/Pagination.vue'
+import Comment from '@/Pages/Medias/Partials/Comment.vue'
 
 const props = defineProps({
     media: {
         type: Object,
     },
     tags: {
+        type: Array,
+    },
+    comments: {
         type: Array,
     },
     downloadedFile: {
@@ -42,18 +49,35 @@ const auth = page.props.auth?.user
 const form = useForm({
     name: null,
     tags: [],
+})
+
+const replyForm = useForm({
+    content: null,
     media_id: props.media.id,
+    reply_to: null,
 })
 
 const downloadItem = async (item) => {
-    if (! page.props.auth.isConnected) {
-      router.visit(route('login'))
+    if (!page.props.auth.isConnected) {
+        router.visit(route('login'))
     }
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
     })
 
     saveAs(response.data, item.path)
+}
+
+const submitReplyComment = (comment) => {
+    replyForm.reply_to = comment.id
+    replyForm.post(route('media.comment.reply', {
+        id: replyForm.media_id,
+        reply_to: replyForm.reply_to
+    }), {
+        onSuccess: () => {
+            console.log('oui')
+        }
+    })
 }
 
 const canPerformAction =
@@ -83,7 +107,7 @@ formService.setForm(form).setRouteName('media')
         <Stack spacing="2">
             <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
             <div class="space-x-1">
-                <Tag :key="index" v-for="(tag, index) in getTags()">
+                <Tag :key="index" v-for="(tag, index) in getTags()" outline>
                     {{ tag.name }}
                 </Tag>
             </div>
@@ -189,7 +213,7 @@ formService.setForm(form).setRouteName('media')
                                         </Multiselect>
                                         <div class="text-right">
                                             <Text type="xs"
-                                                >Les tags seront synchronisés
+                                            >Les tags seront synchronisés
                                                 après modification.</Text
                                             >
                                         </div>
@@ -238,37 +262,112 @@ formService.setForm(form).setRouteName('media')
                     </Stack>
                 </div>
             </div>
-            <div class="max-w-full">
-                <video
-                    controlsList="nodownload"
-                    oncontextmenu="return false;"
-                    controls
-                    class="mx-auto h-full w-96 rounded-lg shadow"
-                    v-if="media.extension === 'mp4'"
-                    :src="`/storage/${media.path}`"
-                ></video>
-                <img
-                    v-else
-                    class="mx-auto h-96 w-full rounded-lg object-contain pointer-events-none"
-                    :src="`/storage/${media.path}`"
-                    :alt="media.name"
-                    loading="lazy"
-                />
-            </div>
+            <Stack>
+                <div class="max-w-full">
+                    <video
+                        controlsList="nodownload"
+                        oncontextmenu="return false;"
+                        controls
+                        class="mx-auto h-full w-96 rounded-lg shadow"
+                        v-if="media.extension === 'mp4'"
+                        :src="`/storage/${media.path}`"
+                    ></video>
+                    <img
+                        v-else
+                        class="pointer-events-none mx-auto h-96 w-full rounded-lg object-contain"
+                        :src="`/storage/${media.path}`"
+                        :alt="media.name"
+                        loading="lazy"
+                    />
+                </div>
 
-            <div class="mt-8" v-if="related && related.length">
-                <Stack>
-                    <Text type="subtitle">Images similaires</Text>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                        <template
-                            v-for="(related, index) in related"
-                            :key="index"
-                        >
-                            <MediaItem :media="related" />
-                        </template>
+                <!-- Comments -->
+                <form
+                    v-if="auth"
+                    @submit.prevent="
+                        formService
+                            .setRouteName('media.comment')
+                            .handle('store', media)
+                    "
+                >
+                    <Stack spacing="2">
+                        <div class="flex items-center">
+                            <div class="text-center">
+                                <Avatar :user="auth" class="w-12 mr-4" />
+                            </div>
+                            <div class="flex-1">
+                                <Textarea
+                                    label="Commentaire"
+                                    v-model="form.content"
+                                    autofocus
+                                    :disabled="!auth"
+                                    :placeholder="`J't'écoute ${auth.username}, dit-moi tout`"
+                                />
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <LoadingButton> Commenter </LoadingButton>
+                        </div>
+                    </Stack>
+                </form>
+
+                <Text type="subtitle"
+                >Commentaires ({{ comments.total }})</Text
+                >
+                <div
+                    v-for="(comment, index) in comments.data"
+                    :key="index"
+                    class="flex flex-col !space-y-2"
+                >
+                    <Comment :comment="comment" :media="media" />
+                    <!-- Reply comment -->
+                    <div class="flex justify-end">
+                        <div class="w-11/12">
+                            <form
+                                v-if="reply && replyComment === comment.id"
+                                @submit.prevent="submitReplyComment(comment)"
+                            >
+                                <Stack spacing="2">
+                                    <div class="flex items-center">
+                                        <div class="text-center">
+                                            <Avatar :user="auth" class="w-12 mr-4" />
+                                        </div>
+                                        <div class="flex-1">
+                                <Textarea
+                                    label="Commentaire"
+                                    v-model="replyForm.content"
+                                    autofocus
+                                    :disabled="!auth"
+                                    :placeholder="`J't'écoute ${auth.username}, dit-moi tout`"
+                                />
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <LoadingButton> Commenter </LoadingButton>
+                                    </div>
+                                </Stack>
+                            </form>
+                        </div>
                     </div>
-                </Stack>
-            </div>
+                </div>
+
+                <Pagination :item="comments" />
+
+                <!-- Related medias -->
+                <div class="mt-8" v-if="related && related.length">
+                    <Stack>
+                        <Text type="subtitle">Images similaires</Text>
+                        <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                            <template
+                                v-for="(related, index) in related"
+                                :key="index"
+                            >
+                                <MediaItem :media="related" />
+                            </template>
+                        </div>
+                    </Stack>
+                </div>
+            </Stack>
         </Stack>
     </PageLayout>
 </template>
@@ -305,11 +404,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-        var(--tw-shadow, 0 0 #0000);
+    var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

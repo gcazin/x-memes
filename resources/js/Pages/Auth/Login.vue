@@ -70,7 +70,7 @@ const submit = () => {
                                 />
                                 <span
                                     class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                                >Se souvenir de moi</span
+                                    >Se souvenir de moi</span
                                 >
                             </label>
                         </div>

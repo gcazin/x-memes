@@ -129,7 +129,9 @@ const submit = () => {
 
                                     <button
                                         class="btn btn-primary ms-4"
-                                        :class="{ 'opacity-25': form.processing }"
+                                        :class="{
+                                            'opacity-25': form.processing,
+                                        }"
                                         :disabled="form.processing"
                                     >
                                         S'inscrire

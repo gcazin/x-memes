@@ -28,7 +28,7 @@ class MediaChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Medias publiés',
+                    'label' => 'Media publiés',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],

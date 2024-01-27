@@ -8,6 +8,6 @@ return [
         'filament.admin.auth.*',
         'filament.imports.*',
         'filament.exports.*',
-        'log-viewer.*'
+        'log-viewer.*',
     ],
 ];

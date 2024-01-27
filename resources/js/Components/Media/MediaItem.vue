@@ -43,7 +43,9 @@ const dateTime = (value) => {
             >
                 <div class="flex-1">
                     <Text class="font-bold">{{ media.name }}</Text>
-                    <Text type="xs">publié {{ dateTime(media.approved_at) }}</Text>
+                    <Text type="xs"
+                        >publié {{ dateTime(media.approved_at) }}</Text
+                    >
                 </div>
                 <div class="text-right">
                     <button

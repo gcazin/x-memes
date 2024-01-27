@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class MediaDownloadController extends Controller
+class DownloadController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository

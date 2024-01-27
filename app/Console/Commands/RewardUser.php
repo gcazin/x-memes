@@ -50,7 +50,7 @@ class RewardUser extends Command
             PointFacade::setUser($user)->reward(null, PointType::REGISTERED);
             $this->info($users->count().' ont gagné des points d\'inscription');
 
-            // Medias approved
+            // Media approved
             $medias->each(function (Media $media) use ($user) {
                 PointFacade::setUser($user)->reward($media->id, PointType::MEDIA_APPROVED);
                 $this->info($user->username.' a gagné des points pour les médias approuvés.');

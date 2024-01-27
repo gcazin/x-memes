@@ -1,5 +1,5 @@
 <script setup>
-import MediaGallery from '@/Pages/Medias/Partials/MediaGallery.vue'
+import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
 import UserLayout from '@/Pages/User/UserLayout.vue'
 
 defineProps({

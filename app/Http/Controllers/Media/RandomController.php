@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 
-class MediaRandomController extends Controller
+class RandomController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository
