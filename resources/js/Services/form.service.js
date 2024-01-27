@@ -4,6 +4,7 @@ class FormService {
         this.routeName = null
         this.props = null
         this.modalName = null
+        this.preserveState = false
         return this
     }
 
@@ -38,6 +39,12 @@ class FormService {
                 }
             }
         })
+    }
+
+    setPreserveState() {
+        this.preserveState = true
+
+        return this
     }
 
     getRouteName() {
@@ -80,8 +87,9 @@ class FormService {
 
         switch (action) {
             case 'store':
-                this.form.post(route(`${routeName}.store`), {
+                this.form.post(route(`${routeName}.store`, item?.id), {
                     preserveScroll: true,
+                    preserveState: this.preserveState,
                     onSuccess: () => {
                         this.closeModal()
                     },
@@ -90,12 +98,14 @@ class FormService {
             case 'update':
                 this.form.put(route(`${routeName}.update`, item?.id), {
                     preserveScroll: true,
+                    preserveState: this.preserveState,
                     onSuccess: () => this.closeModal(),
                 })
                 break
             case 'destroy':
                 this.form.delete(route(`${routeName}.destroy`, item?.id), {
                     preserveScroll: true,
+                    preserveState: this.preserveState,
                     onBefore: () =>
                         confirm('Es-tu sûr de supprimer cet élément ?'),
                 })
@@ -108,6 +118,7 @@ class FormService {
                     ),
                     {
                         preserveScroll: true,
+                        preserveState: this.preserveState,
                         onSuccess: () => this.closeModal(),
                     }
                 )

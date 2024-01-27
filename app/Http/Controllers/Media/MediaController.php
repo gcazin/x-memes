@@ -86,6 +86,11 @@ class MediaController extends Controller
 
         if ($media) {
             $related = $this->mediaService->related($media->id);
+            $comments = $media
+                ->comments()
+                ->whereNull('parent_id')
+                ->orderByDesc('created_at')
+                ->paginate(10);
 
             seoDescription('Découvre le mème '.$media->name.' sur X-Memes dès maintenant !');
 
@@ -98,9 +103,10 @@ class MediaController extends Controller
 
             Point::reward($media->id, PointType::MEDIA_SEEN);
 
-            return Inertia::render('Medias/Show', [
+            return Inertia::render('Media/Show', [
                 'media' => $media,
                 'tags' => $media->tags,
+                'comments' => $comments,
                 'downloadedFile' => session('downloadedFile'),
                 'related' => $related,
             ]);

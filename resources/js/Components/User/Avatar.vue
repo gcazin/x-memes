@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const props = defineProps({
     size: {
@@ -13,12 +13,6 @@ const props = defineProps({
     },
 })
 
-let avatar = ref(
-    props.user.avatar.includes('avatar-placeholder')
-        ? `/images/${props.user.avatar}`
-        : `/storage/${props.user.avatar}`
-)
-
 const avatarSizeClass = computed(() => {
     return {
         full: 'w-96',
@@ -28,12 +22,18 @@ const avatarSizeClass = computed(() => {
         sm: 'w-8',
     }[props.size]
 })
+
+const getAvatar = () => {
+    return props.user.avatar.includes('avatar-placeholder')
+        ? `/images/${props.user.avatar}`
+        : `/storage/${props.user.avatar}`
+}
 </script>
 <template>
     <div class="avatar">
         <div :class="[avatarSizeClass]">
             <img
-                :src="avatar"
+                :src="getAvatar()"
                 :alt="`Avatar de ${user?.username}`"
                 class="rounded-lg object-cover"
             />

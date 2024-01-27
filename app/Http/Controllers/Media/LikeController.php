@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 
-class MediaLikeController extends Controller
+class LikeController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository

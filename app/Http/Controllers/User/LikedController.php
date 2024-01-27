@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class MediaLikedController extends Controller
+class LikedController extends Controller
 {
     public function __construct(
         protected UserRepository $userRepository

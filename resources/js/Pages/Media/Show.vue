@@ -4,17 +4,18 @@ import FollowButton from '@/Components/Button/FollowButton.vue'
 import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputLabel from '@/Components/Form/InputLabel.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
-import Textarea from '@/Components/Form/Textarea.vue'
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Modal from '@/Components/Modal/Modal.vue'
+import Pagination from '@/Components/Table/Pagination.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
-import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
+import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
+import Comments from '@/Pages/Media/Partials/Comment/Comments.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm, usePage } from '@inertiajs/vue3'
@@ -22,8 +23,7 @@ import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import _ from 'lodash'
 import { computed } from 'vue'
-import Pagination from '@/Components/Table/Pagination.vue'
-import Comment from '@/Pages/Medias/Partials/Comment.vue'
+import Section from '@/Layouts/Partials/Section.vue'
 
 const props = defineProps({
     media: {
@@ -44,21 +44,15 @@ const props = defineProps({
 })
 
 const page = usePage()
-const auth = page.props.auth?.user
+const auth = page.props.auth
 
 const form = useForm({
     name: null,
     tags: [],
 })
 
-const replyForm = useForm({
-    content: null,
-    media_id: props.media.id,
-    reply_to: null,
-})
-
 const downloadItem = async (item) => {
-    if (!page.props.auth.isConnected) {
+    if (!page.props.auth?.user.isConnected) {
         router.visit(route('login'))
     }
     const response = await axios.get(route('media.download', item.id), {
@@ -68,21 +62,9 @@ const downloadItem = async (item) => {
     saveAs(response.data, item.path)
 }
 
-const submitReplyComment = (comment) => {
-    replyForm.reply_to = comment.id
-    replyForm.post(route('media.comment.reply', {
-        id: replyForm.media_id,
-        reply_to: replyForm.reply_to
-    }), {
-        onSuccess: () => {
-            console.log('oui')
-        }
-    })
-}
-
 const canPerformAction =
     helperService.checkRoles('super-admin', 'admin') ||
-    (auth && auth.id === props.media.user_id)
+    (auth && auth?.user?.id === props.media.user_id)
 
 const tagsOptions = computed(() => {
     return props.tags.map((tag) => {
@@ -104,13 +86,13 @@ formService.setForm(form).setRouteName('media')
     <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
 
     <PageLayout>
-        <Stack spacing="2">
-            <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
-            <div class="space-x-1">
-                <Tag :key="index" v-for="(tag, index) in getTags()" outline>
-                    {{ tag.name }}
-                </Tag>
-            </div>
+        <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
+        <div class="space-x-1">
+            <Tag :key="index" v-for="(tag, index) in getTags()" outline>
+                {{ tag.name }}
+            </Tag>
+        </div>
+        <Stack>
             <div class="flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center gap-x-4">
@@ -143,11 +125,11 @@ formService.setForm(form).setRouteName('media')
                                     formService.handle('like', media, 'get')
                                 "
                                 :type="
-                                    auth
+                                    auth.isConnected
                                         ? media.likers
                                               ?.map((liker) => liker.id)
                                               .includes(
-                                                  $page.props.auth.user.id
+                                                  auth.user.id
                                               )
                                             ? 'error'
                                             : ''
@@ -171,7 +153,7 @@ formService.setForm(form).setRouteName('media')
                                 @click="
                                     formService.openModal('editMedia', media)
                                 "
-                                :disabled="form.processing || !auth"
+                                :disabled="form.processing || !auth.isConnected"
                             >
                                 <Icon size="xl" name="create" />
                             </Button>
@@ -282,75 +264,15 @@ formService.setForm(form).setRouteName('media')
                 </div>
 
                 <!-- Comments -->
-                <form
-                    v-if="auth"
-                    @submit.prevent="
-                        formService
-                            .setRouteName('media.comment')
-                            .handle('store', media)
-                    "
-                >
-                    <Stack spacing="2">
-                        <div class="flex items-center">
-                            <div class="text-center">
-                                <Avatar :user="auth" class="w-12 mr-4" />
-                            </div>
-                            <div class="flex-1">
-                                <Textarea
-                                    label="Commentaire"
-                                    v-model="form.content"
-                                    autofocus
-                                    :disabled="!auth"
-                                    :placeholder="`J't'écoute ${auth.username}, dit-moi tout`"
-                                />
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <LoadingButton> Commenter </LoadingButton>
-                        </div>
-                    </Stack>
-                </form>
-
-                <Text type="subtitle"
-                >Commentaires ({{ comments.total }})</Text
-                >
-                <div
-                    v-for="(comment, index) in comments.data"
-                    :key="index"
-                    class="flex flex-col !space-y-2"
-                >
-                    <Comment :comment="comment" :media="media" />
-                    <!-- Reply comment -->
-                    <div class="flex justify-end">
-                        <div class="w-11/12">
-                            <form
-                                v-if="reply && replyComment === comment.id"
-                                @submit.prevent="submitReplyComment(comment)"
-                            >
-                                <Stack spacing="2">
-                                    <div class="flex items-center">
-                                        <div class="text-center">
-                                            <Avatar :user="auth" class="w-12 mr-4" />
-                                        </div>
-                                        <div class="flex-1">
-                                <Textarea
-                                    label="Commentaire"
-                                    v-model="replyForm.content"
-                                    autofocus
-                                    :disabled="!auth"
-                                    :placeholder="`J't'écoute ${auth.username}, dit-moi tout`"
-                                />
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <LoadingButton> Commenter </LoadingButton>
-                                    </div>
-                                </Stack>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
+                <CommentForm
+                    v-if="auth.isConnected"
+                    :media
+                />
+                <Text v-if="comments.total > 0" type="subtitle">Commentaires ({{ comments.total }})</Text>
+                <Section v-else>
+                    Aucun commentaire pour l'instant.
+                </Section>
+                <Comments :comments :media />
                 <Pagination :item="comments" />
 
                 <!-- Related medias -->
