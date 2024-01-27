@@ -26,7 +26,7 @@ class MediaService
 
     public function byType(Request $request, string $type, ?string $title = null): array
     {
-        $defaultSort = '-created_at';
+        $defaultSort = '-download_count';
         $medias = QueryBuilder::for(Media::class)
             ->where('type', $type)
             ->where('approved', true)
