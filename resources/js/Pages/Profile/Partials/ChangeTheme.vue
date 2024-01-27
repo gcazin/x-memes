@@ -4,7 +4,7 @@ import { onMounted } from 'vue'
 
 const availableThemes = [
     {
-        label: 'Foncé',
+        label: 'Thème de base',
         name: 'dark',
         type: 'dark',
     },

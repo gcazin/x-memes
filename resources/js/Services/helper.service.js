@@ -43,7 +43,7 @@ class HelperService {
      */
     storeTheme(theme) {
         if (typeof window !== 'undefined') {
-            const handleTheme = localStorage.getItem(theme) ? theme : 'dark'
+            const handleTheme = localStorage.getItem('theme') ? theme : 'dark'
             document
                 .querySelector('body')
                 .setAttribute('data-theme', handleTheme)
