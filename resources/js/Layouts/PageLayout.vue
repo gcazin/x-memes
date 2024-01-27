@@ -66,13 +66,7 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    Nouveauté ! Le fonctionnement du
-                    <a
-                        class="link link-primary font-bold"
-                        :href="route('leaderboard')"
-                        >classement</a
-                    >
-                    a été mis à jour.
+                    Je découvre toutes les <a class="link link-primary" :href="route('changelog')">nouveautés</a> !
                 </Text>
             </div>
         </div>
