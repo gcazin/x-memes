@@ -24,6 +24,19 @@
                 gtag('config', 'G-SK1GK3DSKZ');
             }
         </script>
+        <script type="application/ld+json">
+            {
+              "@context": "https://schema.org/",
+              "@type": "WebSite",
+              "name": "X-Memes",
+              "url": "https://x-memes.com/",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://x-memes.com/rechercher?query={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+        </script>
 
         <!-- Scripts -->
         @routes

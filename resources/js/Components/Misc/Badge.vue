@@ -24,6 +24,7 @@ const iconType = computed(() => {
             <div class="badge-icon" :class="`badge-${iconType}`">
                 <img
                     :src="`/images/${badge.path}`"
+                    :alt="badge.name"
                     class="mx-auto"
                     width="80"
                 />

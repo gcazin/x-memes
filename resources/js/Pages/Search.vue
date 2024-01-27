@@ -124,6 +124,7 @@ formService.setForm(form).setRouteName(null)
                 <img
                     src="/images/assets/wait.jpg"
                     class="mx-auto w-80 rounded-lg shadow-lg"
+                    alt="Mèmems d'une personne qui attend"
                 />
             </template>
             <template v-if="form.processing">

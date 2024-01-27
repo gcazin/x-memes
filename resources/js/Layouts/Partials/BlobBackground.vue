@@ -11,7 +11,7 @@
                 />
                 <img
                     src="/images/background/blur-2.png"
-                    alt=""
+                    alt="Fond flouté"
                     class="w-[71.75rem] max-w-none flex-none dark:hidden"
                     decoding="async"
                     loading="lazy"

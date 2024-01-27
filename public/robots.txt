@@ -3,3 +3,5 @@ Disallow: /admin/*
 Disallow: /profil/*
 Disallow: /notification/*
 Disallow: /rechercher/*
+
+Sitemap: https://x-memes.com/sitemap.xml

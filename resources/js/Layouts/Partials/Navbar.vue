@@ -285,7 +285,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                                     notification.data.content
                                                         .path
                                                 }`"
-                                                alt="Jese image"
+                                                :alt="notification.data.title"
                                             />
                                         </div>
                                         <div class="w-full ps-3">
