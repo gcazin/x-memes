@@ -38,7 +38,7 @@
             </div>
         </nav>
         <aside>
-            <p>Copyright © 2024 - Tous droits réservés par X-Memes.</p>
+            <p>Copyright © {{ moment().year() }} - Tous droits réservés par X-Memes.</p>
             <p>
                 Développé avec ❤️ par
                 <a
@@ -52,4 +52,6 @@
         </aside>
     </footer>
 </template>
-<script setup></script>
+<script setup>
+import moment from 'moment'
+</script>

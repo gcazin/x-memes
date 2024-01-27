@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
                 MediaSeeder::class,
                 CommentSeeder::class,
             ]);
+
+            \Artisan::call('user:reward');
         }
     }
 }

@@ -3,25 +3,35 @@ import Icon from '@/Components/Misc/Icon.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import formService from '@/Services/form.service.js'
-import { Head, useForm, usePage } from '@inertiajs/vue3'
+import { Head, usePage } from '@inertiajs/vue3'
 
 defineProps({
     stage: {
         type: String,
     },
-    waitlist: {
-        type: Array,
-    },
 })
 
 const page = usePage()
 const auth = page.props.auth
-const form = useForm({
-    email: null,
-})
 
-formService.setForm(form).setRouteName('waitlist')
+const features = [
+    {
+        icon: 'add',
+        description: 'Poste, aime, et commente tes mèmes préférés.'
+    },
+    {
+        icon: 'eye',
+        description: 'Suis les personnes que tu as envie.'
+    },
+    {
+        icon: 'diamond',
+        description: 'Des badges décernés en fonction de ton activité sur le site.'
+    },
+    {
+        icon: 'people',
+        description: 'Un classement des utilisateurs les plus actifs en fonction des points gagnés.'
+    },
+]
 </script>
 
 <template>
@@ -92,72 +102,21 @@ formService.setForm(form).setRouteName('waitlist')
                     <p class="font-bold uppercase text-primary">Services</p>
                     <h2 class="text-4xl">Fonctionnalités</h2>
                     <p class="text-xl">
-                        X-Memes t'offre une variété de fonctionnalités te
+                        X-Memes t'offre une variété de fonctionnalités, entre autres, te
                         permettant de poster, télécharger et suivre les
                         personnes que tu aimes.
                     </p>
                     <div
-                        class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-3 lg:grid-cols-4 lg:gap-16 xl:grid-cols-5"
+                        class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
                     >
-                        <div class="flex-1">
+                        <div class="flex-1" v-for="(feature, index) in features" :key="index">
                             <Stack>
                                 <Icon
-                                    class="rounded-full bg-primary p-4"
+                                    class="rounded-full bg-primary text-white p-4"
                                     size="5xl"
-                                    name="add"
+                                    :name="feature.icon"
                                 />
-                                <p class="text-xl">Poste tes mèmes préférés.</p>
-                            </Stack>
-                        </div>
-                        <div class="flex-1">
-                            <Stack>
-                                <Icon
-                                    class="rounded-full bg-primary p-4"
-                                    size="5xl"
-                                    name="image"
-                                />
-                                <p class="text-xl">
-                                    Retrouve tes mèmes préférés à un seul et
-                                    même endroit.
-                                </p>
-                            </Stack>
-                        </div>
-                        <div class="flex-1">
-                            <Stack>
-                                <Icon
-                                    class="rounded-full bg-primary p-4"
-                                    size="5xl"
-                                    name="eye"
-                                />
-                                <p class="text-xl">
-                                    Suis les personnes que tu as envie.
-                                </p>
-                            </Stack>
-                        </div>
-                        <div class="flex-1">
-                            <Stack>
-                                <Icon
-                                    class="rounded-full bg-primary p-4"
-                                    size="5xl"
-                                    name="diamond"
-                                />
-                                <p class="text-xl">
-                                    Des badges décernés en fonction de ton
-                                    activité sur le site.
-                                </p>
-                            </Stack>
-                        </div>
-                        <div class="flex-1">
-                            <Stack>
-                                <Icon
-                                    class="rounded-full bg-primary p-4"
-                                    size="5xl"
-                                    name="people"
-                                />
-                                <p class="text-xl">
-                                    Un classement des utilisateurs les plus
-                                    actifs.
-                                </p>
+                                <p class="text-xl">{{ feature.description }}</p>
                             </Stack>
                         </div>
                     </div>
@@ -192,7 +151,7 @@ formService.setForm(form).setRouteName('waitlist')
                                 <h3
                                     class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
-                                    J'ai rencontré un bug
+                                    J'ai rencontré un bug :(
                                 </h3>
                                 <p>
                                     Tu peux me contacter sur X
