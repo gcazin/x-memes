@@ -5,6 +5,7 @@ import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
+import moment from 'moment'
 
 const props = defineProps({
     media: {

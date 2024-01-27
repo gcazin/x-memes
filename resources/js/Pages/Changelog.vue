@@ -5,6 +5,7 @@ import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head } from '@inertiajs/vue3'
 import { marked } from 'marked'
+import moment from 'moment'
 
 const props = defineProps({
     releases: {
