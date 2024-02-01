@@ -48,7 +48,7 @@ const dateTime = (value) => {
                         >publié {{ dateTime(media.approved_at) }}</Text
                     >
                 </div>
-                <div class="text-right">
+                <div class="text-right" v-if="page.props.auth.isConnected">
                     <button
                         class="btn btn-circle btn-sm w-10"
                         @click="
