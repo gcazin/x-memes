@@ -165,9 +165,7 @@ class MediaController extends Controller
 
         flash('success', 'Le mème a bien été modifié.');
 
-        if (! auth()->user()->isAdmin()) {
-            return to_route('media.show', $media->slug);
-        }
+        return to_route('media.show', $media->slug);
     }
 
     /**
@@ -207,6 +205,11 @@ class MediaController extends Controller
             $notification->delete();
         }
 
+        // Remove comments
+        $media->comments()->delete();
+
         $media->delete();
+
+        return redirect()->to(route('library.image'));
     }
 }

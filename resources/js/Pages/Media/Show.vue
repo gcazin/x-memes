@@ -93,45 +93,50 @@ formService.setForm(form).setRouteName('media')
     <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
 
     <PageLayout>
-        <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
-        <div class="space-x-1">
-            <Tag :key="index" v-for="(tag, index) in getTags()" outline>
-                {{ tag.name }}
-            </Tag>
-        </div>
         <Stack>
-            <div class="flex items-center">
-                <div class="flex-1">
-                    <div class="flex items-center gap-x-4">
-                        <div class="">
-                            <a :href="route('user.show', media.user.username)">
-                                <Avatar :user="media.user" />
-                            </a>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <a :href="route('user.show', media.user.username)">
-                                {{ media.user.username }}
-                                <RoleBadge
-                                    class="!align-text-top"
-                                    :user="media.user"
-                                />
-                            </a>
-                            <FollowButton size="sm" :user="media.user">
-                                Suivre
-                            </FollowButton>
+            <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
+            <div class="space-x-1">
+                <Tag :key="index" v-for="(tag, index) in getTags()" outline>
+                    {{ tag.name }}
+                </Tag>
+            </div>
+            <Stack>
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-x-4">
+                            <div class="">
+                                <a :href="route('user.show', media.user.username)">
+                                    <Avatar :user="media.user" />
+                                </a>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <a :href="route('user.show', media.user.username)">
+                                    {{ media.user.username }}
+                                    <RoleBadge
+                                        class="!align-text-top"
+                                        :user="media.user"
+                                    />
+                                </a>
+                                <FollowButton size="sm" :user="media.user">
+                                    Suivre
+                                </FollowButton>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="flex-1 text-right">
-                    <Stack spacing="1">
-                        <div class="space-x-1">
-                            <Button
-                                outline
-                                circle
-                                @click="
+                    <div class="flex-1 text-right">
+                        <Stack spacing="1">
+                            <div class="space-x-2">
+                                <div class="indicator">
+                                <span class="indicator-item badge badge-sm badge-secondary">
+                                    {{ media.likers.length }}
+                                </span>
+                                    <Button
+                                        outline
+                                        circle
+                                        @click="
                                     formService.handle('like', media, 'get')
                                 "
-                                :type="
+                                        :type="
                                     auth.isConnected
                                         ? media.likers
                                               ?.map((liker) => liker.id)
@@ -140,158 +145,157 @@ formService.setForm(form).setRouteName('media')
                                             : ''
                                         : ''
                                 "
-                            >
-                                <Icon size="xl" name="heart" />
-                            </Button>
-
-                            <LoadingButton
-                                @click="downloadItem(media)"
-                                class="btn btn-circle btn-primary"
-                            >
-                                <Icon size="xl" name="import" />
-                            </LoadingButton>
-
-                            <Button
-                                circle
-                                type="info"
-                                v-if="canPerformAction"
-                                @click="
-                                    formService.openModal('editMedia', media)
-                                "
-                                :disabled="form.processing || !auth.isConnected"
-                            >
-                                <Icon size="xl" name="pen" />
-                            </Button>
-
-                            <Modal
-                                v-if="canPerformAction"
-                                :id="`editMediaModal${media.id}`"
-                                title="Modification de ton mème"
-                            >
-                                <Stack>
-                                    <TextInput
-                                        label="Nouveau titre"
-                                        v-model="form.name"
-                                    />
-
-                                    <div>
-                                        <InputLabel
-                                            for="tags"
-                                            value="Tags"
-                                            class="my-2"
-                                        />
-                                        <Multiselect
-                                            id="tags"
-                                            v-model="form.tags"
-                                            mode="tags"
-                                            :close-on-select="false"
-                                            :searchable="true"
-                                            :create-option="true"
-                                            :options="tagsOptions"
-                                        >
-                                            <template #noresults>
-                                                <div class="p-2">
-                                                    <Text type="sub">
-                                                        Plus aucun élémént a
-                                                        afficher.
-                                                    </Text>
-                                                </div>
-                                            </template>
-                                        </Multiselect>
-                                        <div class="text-right">
-                                            <Text type="xs"
-                                                >Les tags seront synchronisés
-                                                après modification.</Text
-                                            >
-                                        </div>
-                                    </div>
-
-                                    <LoadingButton
-                                        @click="
-                                            formService.handle('update', media)
-                                        "
-                                        :loading="form.processing"
                                     >
-                                        Modifier ton mème
-                                    </LoadingButton>
-                                </Stack>
-                            </Modal>
+                                        <Icon size="xl" name="heart" />
+                                    </Button>
+                                </div>
 
-                            <LoadingButton
-                                v-if="canPerformAction"
-                                @click="
+                                <div class="indicator">
+                                <span class="indicator-item badge badge-sm badge-secondary">
+                                    {{ media.download_count }}
+                                </span>
+                                    <LoadingButton
+                                        @click="downloadItem(media)"
+                                        class="btn btn-circle btn-primary"
+                                    >
+                                        <Icon size="xl" name="import" />
+                                    </LoadingButton>
+                                </div>
+
+                                <div v-if="canPerformAction" class="dropdown dropdown-end">
+                                    <div tabindex="0" role="button" class="btn px-2 btn-ghost">
+                                        <Icon name="ellipsis-v" size="xl" />
+                                    </div>
+                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                        <li
+                                            @click="formService.openModal('editMedia', media)"
+                                        >
+                                            <a>
+                                                <Text type="sub">
+                                                    <Icon name="edit" size="xl" />
+                                                    Modifier
+                                                </Text>
+                                            </a>
+                                        </li>
+                                        <li
+                                            @click="
                                     formService
                                         .setForm(form)
                                         .setRouteName('media')
                                         .handle('destroy', media)
                                 "
-                                class="btn btn-circle btn-error"
-                            >
-                                <Icon size="xl" name="trash" />
-                            </LoadingButton>
-                        </div>
-                        <Text>
-                            {{
-                                helperService.plural(
-                                    media.download_count,
-                                    'téléchargement'
-                                )
-                            }}
-                        </Text>
-                        <Text>
-                            {{
-                                helperService.plural(
-                                    media.likers.length,
-                                    "j'aime"
-                                )
-                            }}
-                        </Text>
-                    </Stack>
-                </div>
-            </div>
-            <Stack>
-                <div class="max-w-full">
-                    <video
-                        v-if="media.extension === 'mp4'"
-                        controlsList="nodownload"
-                        oncontextmenu="return false;"
-                        controls
-                        class="mx-auto h-full w-96 rounded-lg shadow"
-                        :poster="`/storage/${media.thumbnail_path}`"
-                        :src="`/storage/${media.path}`"
-                    ></video>
-                    <img
-                        v-else
-                        class="pointer-events-none mx-auto h-96 w-full rounded-lg object-contain"
-                        :src="`/storage/${media.path}`"
-                        :alt="media.name"
-                        loading="lazy"
-                    />
-                </div>
+                                        >
+                                            <a class="text-error font-bold">
+                                                <Text type="sub">
+                                                    <Icon name="trash" size="xl" />
+                                                    Supprimer
+                                                </Text>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                <!-- Comments -->
-                <CommentForm v-if="auth.isConnected" :media />
-                <Text v-if="comments.total > 0" type="subtitle"
+                                <Modal
+                                    v-if="canPerformAction"
+                                    :id="`editMediaModal${media.id}`"
+                                    title="Modification de ton mème"
+                                >
+                                    <Stack>
+                                        <TextInput
+                                            label="Nouveau titre"
+                                            v-model="form.name"
+                                        />
+
+                                        <div>
+                                            <InputLabel
+                                                for="tags"
+                                                value="Tags"
+                                                class="my-2"
+                                            />
+                                            <Multiselect
+                                                id="tags"
+                                                v-model="form.tags"
+                                                mode="tags"
+                                                :close-on-select="false"
+                                                :searchable="true"
+                                                :create-option="true"
+                                                :options="tagsOptions"
+                                            >
+                                                <template #noresults>
+                                                    <div class="p-2">
+                                                        <Text type="sub">
+                                                            Plus aucun élémént a
+                                                            afficher.
+                                                        </Text>
+                                                    </div>
+                                                </template>
+                                            </Multiselect>
+                                            <div class="text-right">
+                                                <Text type="xs"
+                                                >Les tags seront synchronisés
+                                                    après modification.</Text
+                                                >
+                                            </div>
+                                        </div>
+
+                                        <LoadingButton
+                                            @click="
+                                            formService.handle('update', media)
+                                        "
+                                            :loading="form.processing"
+                                        >
+                                            Modifier ton mème
+                                        </LoadingButton>
+                                    </Stack>
+                                </Modal>
+                            </div>
+                        </Stack>
+                    </div>
+                </div>
+                <Stack>
+                    <div class="max-w-full">
+                        <video
+                            v-if="media.extension === 'mp4'"
+                            controlsList="nodownload"
+                            oncontextmenu="return false;"
+                            controls
+                            class="mx-auto h-full w-96 rounded-lg shadow"
+                            :poster="`/storage/${media.thumbnail_path}`"
+                            :src="`/storage/${media.path}`"
+                        ></video>
+                        <img
+                            v-else
+                            class="pointer-events-none mx-auto h-96 w-full rounded-lg object-contain"
+                            :src="`/storage/${media.path}`"
+                            :alt="media.name"
+                            loading="lazy"
+                        />
+                    </div>
+
+                    <!-- Comments -->
+                    <CommentForm v-if="auth.isConnected" :media />
+                    <Text v-if="comments.total > 0" type="subtitle"
                     >Commentaires ({{ comments.total }})</Text
-                >
-                <Section v-else> Aucun commentaire pour l'instant. </Section>
-                <Comments :comments :media />
-                <Pagination :item="comments" />
+                    >
+                    <Section v-else> Aucun commentaire pour l'instant. </Section>
+                    <Comments :comments :media />
+                    <Pagination :item="comments" />
 
-                <!-- Related medias -->
-                <div class="mt-8" v-if="related && related.length">
-                    <Stack>
-                        <Text type="subtitle">Images similaires</Text>
-                        <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                            <template
-                                v-for="(related, index) in related"
-                                :key="index"
-                            >
-                                <MediaItem :media="related" />
-                            </template>
-                        </div>
-                    </Stack>
-                </div>
+                    <!-- Related medias -->
+                    <div class="mt-8" v-if="related && related.length">
+                        <Stack>
+                            <Text type="subtitle">Images similaires</Text>
+                            <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                                <template
+                                    v-for="(related, index) in related"
+                                    :key="index"
+                                >
+                                    <MediaItem :media="related" />
+                                </template>
+                            </div>
+                        </Stack>
+                    </div>
+                </Stack>
             </Stack>
         </Stack>
     </PageLayout>
@@ -329,11 +333,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-        var(--tw-shadow, 0 0 #0000);
+    var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }
