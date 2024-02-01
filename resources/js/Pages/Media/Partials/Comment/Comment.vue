@@ -117,6 +117,7 @@ const editCommentForm = (comment) => {
                 is-editing
                 v-model="editComment"
                 submit-text="Modifier"
+                v-model:cancel="editComment"
             />
             <div v-else>{{ comment.content }}</div>
             <div class="flex items-center space-x-2" v-if="auth">

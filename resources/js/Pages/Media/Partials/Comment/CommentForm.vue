@@ -61,15 +61,16 @@ const cancel = defineModel('cancel', { type: Boolean, default: false })
  * Handle the submission for comment and reply
  */
 const submit = () => {
-    formService.setRouteName('media.comment').setForm(form)
+    formService.setRouteName('media.comment').setForm(form).setPreserveState()
 
     const media = props.media
     if (props.isReply) {
-        formService.setRouteName('media.comment.reply').setPreserveState()
+        formService.setRouteName('media.comment.reply')
         return formService.handle('store', media)
     }
 
     if (props.isEditing) {
+        cancelForm()
         return formService.handle('update', media)
     }
 
