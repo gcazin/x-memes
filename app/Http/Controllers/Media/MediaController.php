@@ -59,7 +59,7 @@ class MediaController extends Controller
 
         // Add tags if present
         if ($request->tags) {
-            $media->attachTags($request->tags);
+            $media->attachTags($this->mediaService->formatTags($request->tags));
         }
 
         MediaPublished::dispatch($media);
@@ -130,7 +130,7 @@ class MediaController extends Controller
 
         // Sync tags
         if ($request->tags) {
-            $media->syncTags($request->tags);
+            $media->syncTags($this->mediaService->formatTags($request->tags));
         }
 
         $media->save();

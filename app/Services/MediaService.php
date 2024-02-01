@@ -102,4 +102,12 @@ class MediaService
             ->take(3)
             ->get();
     }
+
+    /**
+     * Format tags to be always in lowercase
+     */
+    public function formatTags($tags): array
+    {
+        return array_map(fn ($tag) => strtolower($tag), $tags);
+    }
 }

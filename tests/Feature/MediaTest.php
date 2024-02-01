@@ -51,11 +51,11 @@ it('should store media and attach tags', function () {
     $response = actingAsGuest()->post(route('media.store'), [
         'name' => 'Test Media',
         'media_id' => $image = UploadedFile::fake()->image('test.jpg'),
+        'tags' => ['TAG1', 'TAG2']
     ]);
 
     $media = Media::first();
     Storage::disk('public')->assertExists('medias/'.$image->hashName());
-    $media->attachTags(['tag1', 'tag2']);
 
     expect($response->status())->toBe(200)
         ->and($media->tags()->pluck('name')->toArray())->toBe(['tag1', 'tag2']);

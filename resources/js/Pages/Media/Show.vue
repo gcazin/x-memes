@@ -24,6 +24,7 @@ import saveAs from 'file-saver'
 import _ from 'lodash'
 import { computed } from 'vue'
 import Section from '@/Layouts/Partials/Section.vue'
+import moment from 'moment'
 
 const props = defineProps({
     media: {
@@ -52,14 +53,17 @@ const form = useForm({
 })
 
 const downloadItem = async (item) => {
-    if (!page.props.auth?.user.isConnected) {
+    if (! auth.isConnected) {
         router.visit(route('login'))
     }
+
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
     })
 
-    saveAs(response.data, item.path)
+    const media = props.media
+    const path = `${moment().valueOf()}-${media.name.toLowerCase().replaceAll(' ', '-')}-x-memes.${media.extension}`
+    saveAs(response.data, path)
 }
 
 const canPerformAction =
