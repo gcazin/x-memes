@@ -183,8 +183,8 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 class="btn btn-circle btn-ghost"
                             >
                                 <Icon
-                                    class="text-3xl"
-                                    name="person-circle"
+                                    class="text-2xl"
+                                    name="user"
                                     :outline="false"
                                 />
                             </div>

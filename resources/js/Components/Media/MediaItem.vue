@@ -99,11 +99,11 @@ const dateTime = (value) => {
                         class="flex items-center justify-end"
                         v-if="media.comments_count > 0"
                     >
-                        <Icon name="chatbubble-ellipses" size="xl" class="mr-0.5" />
+                        <Icon name="comment-alt-lines" size="xl" class="mr-0.5" />
                         <Text type="xs">{{ media.comments_count }}</Text>
                     </div>
                     <div class="flex items-center justify-end">
-                        <Icon name="download" size="xl" class="mr-0.5" />
+                        <Icon name="import" size="xl" class="mr-0.5" />
                         <Text type="xs">{{ media.download_count }}</Text>
                     </div>
                 </div>

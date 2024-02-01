@@ -50,7 +50,7 @@ const jsonLD = {
             "description": props.seo.description,
             ...props.seo.type === 'video' && {
                 name: props.seo.title,
-                thumbnail_url: props.seo.image,
+                thumbnailUrl: props.seo.image,
                 uploadDate: props.seo.date
             },
             ...props.seo.author && {
