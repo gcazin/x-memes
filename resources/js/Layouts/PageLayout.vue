@@ -48,12 +48,17 @@ const jsonLD = {
             "@type": props.seo.type === 'image' ? 'ImageObject' : 'VideoObject',
             "contentUrl": props.seo.media,
             "description": props.seo.description,
+            ...props.seo.type === 'video' && {
+                name: props.seo.title,
+                thumbnail_url: props.seo.image,
+                uploadDate: props.seo.date
+            },
             ...props.seo.author && {
                 "creator": {
                     "@type": "Person",
                     "name": props.seo.author
                 },
-            }
+            },
         }
     })
 }

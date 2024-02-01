@@ -102,6 +102,7 @@ class MediaController extends Controller
                 ->media($media->path)
                 ->author($media->user->username)
                 ->url(route('media.show', $media->slug))
+                ->date($media->getRawOriginal('created_at'))
                 ->share();
 
             return Inertia::render('Media/Show', [

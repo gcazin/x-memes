@@ -20,6 +20,7 @@ class SEO
     protected ?string $media = null;
     protected ?string $author = null;
     protected ?string $url = null;
+    protected ?string $date = null;
 
     public function __construct()
     {
@@ -29,6 +30,7 @@ class SEO
         $this->media = null;
         $this->author = null;
         $this->url = null;
+        $this->date = null;
     }
 
     public function title(string $title): SEO
@@ -80,6 +82,13 @@ class SEO
         return $this;
     }
 
+    public function date(string $date): SEO
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
     public function share(): void
     {
         inertia()->share('seo.title', $this->title);
@@ -89,6 +98,6 @@ class SEO
         inertia()->share('seo.media', $this->media);
         inertia()->share('seo.author', $this->author);
         inertia()->share('seo.url', $this->url ?? config('app.url'));
-        //        inertia()->share('og.media', $templateURL);
+        inertia()->share('seo.date', $this->date);
     }
 }
