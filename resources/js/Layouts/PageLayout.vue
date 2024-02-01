@@ -84,7 +84,9 @@ const jsonLD = {
             name="description"
             :content="props.seo?.description"
         />
-        <component is="script" type="application/ld+json" v-html="jsonLD"></component>
+        <component is="script" type="application/ld+json">
+            {{ jsonLD }}
+        </component>
     </Head>
 
     <div
