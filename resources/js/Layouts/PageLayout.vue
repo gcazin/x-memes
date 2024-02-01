@@ -38,17 +38,15 @@ const jsonLD = {
     "@type": "WebSite",
     "name": "X-Memes",
     "url": props.seo?.url,
-    ...(! props.seo?.image && {
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://x-memes.com/rechercher?query={search_term_string}",
-            "query-input": "required name=search_term_string"
-        },
-    }),
-    ...(props.seo?.image && {
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://x-memes.com/rechercher?query={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    ...(props.seo?.media && {
         "mainEntity": {
             "@type": props.seo.type === 'image' ? 'ImageObject' : 'VideoObject',
-            "contentUrl": props.seo.image,
+            "contentUrl": props.seo.media,
             "description": props.seo.description,
             ...props.seo.author && {
                 "creator": {
