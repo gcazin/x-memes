@@ -16,7 +16,7 @@ class SEO
     protected ?string $title;
     protected ?string $description = self::DEFAULT_DESCRIPTION;
     protected ?string $type = null;
-    protected ?string $image = null;
+    protected ?string $media = null;
     protected ?string $author = null;
     protected ?string $url = null;
 
@@ -24,7 +24,7 @@ class SEO
     {
         $this->title = null;
         $this->type = null;
-        $this->image = null;
+        $this->media = null;
         $this->author = null;
         $this->url = null;
     }
@@ -50,9 +50,9 @@ class SEO
         return $this;
     }
 
-    public function image(?string $image): SEO
+    public function media(?string $media): SEO
     {
-        $this->image = url('/storage/'.$image);
+        $this->media = url('/storage/'.$media);
 
         return $this;
     }
@@ -76,9 +76,9 @@ class SEO
         inertia()->share('seo.title', $this->title);
         inertia()->share('seo.description', $this->description);
         inertia()->share('seo.type', $this->type);
-        inertia()->share('seo.image', $this->image);
+        inertia()->share('seo.media', $this->media);
         inertia()->share('seo.author', $this->author);
         inertia()->share('seo.url', $this->url ?? config('app.url'));
-        //        inertia()->share('og.image', $templateURL);
+        //        inertia()->share('og.media', $templateURL);
     }
 }
