@@ -35,7 +35,7 @@ const features = [
 </script>
 
 <template>
-    <Head title="Accueil" />
+    <Head title="La référence des mèmes sur X (Twitter)" />
     <PageLayout is-full-size>
         <div
             class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
