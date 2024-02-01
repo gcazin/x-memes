@@ -41,7 +41,7 @@
             <p>
                 Développé avec ❤️ par
                 <a
-                    class="font-bold"
+                    class="link link-secondary font-bold"
                     href="https://guillaume-cazin.fr"
                     target="_blank"
                 >

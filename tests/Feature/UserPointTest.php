@@ -16,7 +16,7 @@ beforeEach(function () {
 
 it('can get reward when he visits media page', function () {
     $user = User::factory()->create();
-    $media = Media::factory()->create();
+    $media = Media::factory()->create(['approved' => true]);
 
     actingAs($user)->get(route('media.show', $media->slug))->assertStatus(200);
 

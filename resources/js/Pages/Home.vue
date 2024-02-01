@@ -97,10 +97,10 @@ const features = [
                         />
                     </div>
                     <div class="absolute -left-9 bottom-0 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="" />
+                        <img src="/images/misc/blob.svg" alt="Fond pointillé image d'accueil" />
                     </div>
                     <div class="absolute -right-6 -top-6 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="" />
+                        <img src="/images/misc/blob.svg" alt="Fond pointillé image d'accueil" />
                     </div>
                 </div>
             </div>

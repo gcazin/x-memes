@@ -213,8 +213,9 @@ it('can delete media that belong to him', function () {
 
     $response = actingAs($user)->delete(route('media.destroy', $media->id));
 
-    expect(Media::all()->count())->toBe(0)
-        ->and($response->status())->toBe(200);
+    expect(Media::all()->count())->toBe(0);
+
+    $response->assertRedirect(route('library.image'));
 });
 
 it('cannot delete media that does not belong to him', function () {
@@ -242,8 +243,9 @@ test('a super-administrator can delete media that does not belong to them', func
 
     $response = actingAsSuperAdmin()->delete(route('media.destroy', $media->id));
 
-    expect(Media::all()->count())->toBe(0)
-        ->and($response->status())->toBe(200);
+    expect(Media::all()->count())->toBe(0);
+
+    $response->assertRedirect(route('library.image'));
 });
 
 test('an administrator can delete media that does not belong to them', function () {
@@ -254,10 +256,12 @@ test('an administrator can delete media that does not belong to them', function 
         'user_id' => $user->id,
     ]);
 
-    $response = actingAsAdmin()->delete(route('media.destroy', $media->id));
+    $response = actingAsSuperAdmin()->delete(route('media.destroy', $media->id));
 
     expect(Media::all()->count())->toBe(0)
-        ->and($response->status())->toBe(200);
+        ->and($response->status())->toBe(302);
+
+    $response->assertRedirect(route('library.image'));
 });
 
 it('can delete media and not remove tags if used', function () {
