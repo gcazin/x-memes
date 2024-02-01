@@ -251,6 +251,7 @@ formService.setForm(form).setRouteName('media')
                         oncontextmenu="return false;"
                         controls
                         class="mx-auto h-full w-96 rounded-lg shadow"
+                        :poster="media.thumbnail_path"
                         v-if="media.extension === 'mp4'"
                         :src="`/storage/${media.path}`"
                     ></video>
