@@ -110,6 +110,7 @@ class MediaController extends Controller
                     Schema::videoObject()
                         ->contentUrl(url('/storage/'.$image))
                         ->name($media->name)
+                        ->description('Télécharge le mème '.$media->name.' facilement sur X-Memes !')
                         ->thumbnailUrl($media->thumbnail_path)
                         ->uploadDate($media->getRawOriginal('created_at'))
                         ->author(Schema::person()
