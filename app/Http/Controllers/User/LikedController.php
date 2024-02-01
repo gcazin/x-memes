@@ -31,8 +31,8 @@ class LikedController extends Controller
 
         $medias = $user->getLikedItems(Media::class)->paginate(10);
 
-        Seo::description('Découvre les publications de '.$username.' sur ' . config('app.name'))
-            ->title('Publications aimées de ' . $username . ' sur ' . config('app.name'))
+        Seo::description('Découvre les publications de '.$username.' sur '.config('app.name'))
+            ->title('Publications aimées de '.$username.' sur '.config('app.name'))
             ->type('profile')
             ->share();
 

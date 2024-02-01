@@ -37,7 +37,7 @@ class Media extends Model implements Sitemapable
     protected $table = 'medias';
 
     protected $withCount = [
-        'comments'
+        'comments',
     ];
 
     protected $with = [

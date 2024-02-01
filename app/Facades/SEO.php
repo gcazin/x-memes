@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\Facades;
 
-use App\Models\Point as UserPoint;
-use App\Models\PointType;
-use App\Models\User;
-use Illuminate\Contracts\Auth\Authenticatable;
-
 class SEO
 {
     const DEFAULT_DESCRIPTION = 'X-Memes est une plateforme où tu peux t\'inscrire, publier et voir tous tes mèmes favoris !';
 
     protected ?string $title;
+
     protected ?string $description = self::DEFAULT_DESCRIPTION;
+
     protected ?string $type = null;
+
     protected ?string $image = null;
+
     protected ?string $media = null;
+
     protected ?string $url = null;
+
     protected ?string $schema = null;
 
     public function __construct()

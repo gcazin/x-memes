@@ -1,4 +1,5 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
 import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import Textarea from '@/Components/Form/Textarea.vue'
@@ -6,8 +7,7 @@ import Avatar from '@/Components/User/Avatar.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
-import { onMounted, onUpdated, ref } from 'vue'
-import Button from '@/Components/Button/Button.vue'
+import { onMounted } from 'vue'
 
 const props = defineProps({
     media: {
@@ -27,11 +27,11 @@ const props = defineProps({
     },
     submitText: {
         type: String,
-        default: 'Commenter'
+        default: 'Commenter',
     },
     labelText: {
         type: String,
-        default: 'Commentaire'
+        default: 'Commentaire',
     },
 })
 
@@ -43,7 +43,7 @@ const form = useForm({
     }),
     ...(props.isEditing && {
         comment_id: props.comment.id,
-    })
+    }),
 })
 
 onMounted(() => {
@@ -85,7 +85,7 @@ const cancelForm = () => {
     <form @submit.prevent="submit()">
         <Stack spacing="2">
             <div class="flex items-center">
-                <div class="text-center" v-if="! isEditing">
+                <div class="text-center" v-if="!isEditing">
                     <Avatar :user="auth.user" class="mr-4 w-10 md:w-12" />
                 </div>
                 <div class="flex-1">
@@ -100,8 +100,10 @@ const cancelForm = () => {
                     <InputError :message="form.errors.content" />
                 </div>
             </div>
-            <div class="text-right space-x-2">
-                <Button ghost v-if="isEditing || isReply" @click="cancelForm()">Fermer</Button>
+            <div class="space-x-2 text-right">
+                <Button ghost v-if="isEditing || isReply" @click="cancelForm()"
+                    >Fermer</Button
+                >
                 <LoadingButton>{{ submitText }}</LoadingButton>
             </div>
         </Stack>

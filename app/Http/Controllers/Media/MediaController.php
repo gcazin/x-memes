@@ -103,8 +103,7 @@ class MediaController extends Controller
                     Schema::interactionCounter()
                         ->interactionType(Schema::downloadAction())
                         ->userInteractionCount($media->download_count)
-                )
-            ;
+                );
 
             if ($media->type === 'video') {
                 $jsonLD->mainEntity(
@@ -125,7 +124,7 @@ class MediaController extends Controller
             }
 
             SEO::description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
-                ->title($media->name . ' sur ' . config('app.name'))
+                ->title($media->name.' sur '.config('app.name'))
                 ->type($media->type)
                 ->url(route('media.show', $media->slug))
                 ->image($image)

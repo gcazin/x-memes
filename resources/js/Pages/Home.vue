@@ -17,19 +17,21 @@ const auth = page.props.auth
 const features = [
     {
         icon: 'add',
-        description: 'Poste, aime, et commente tes mèmes préférés.'
+        description: 'Poste, aime, et commente tes mèmes préférés.',
     },
     {
         icon: 'eye',
-        description: 'Suis les personnes que tu as envie.'
+        description: 'Suis les personnes que tu as envie.',
     },
     {
         icon: 'diamond',
-        description: 'Des badges décernés en fonction de ton activité sur le site.'
+        description:
+            'Des badges décernés en fonction de ton activité sur le site.',
     },
     {
         icon: 'people',
-        description: 'Un classement des utilisateurs les plus actifs en fonction des points gagnés.'
+        description:
+            'Un classement des utilisateurs les plus actifs en fonction des points gagnés.',
     },
 ]
 </script>
@@ -64,10 +66,18 @@ const features = [
                                 Découvrir
                             </a>
                             <a
-                                :href="auth.isConnected ? route('user.show', auth.user.username) : route('login')"
+                                :href="
+                                    auth.isConnected
+                                        ? route('user.show', auth.user.username)
+                                        : route('login')
+                                "
                                 class="btn btn-outline btn-primary btn-lg"
                             >
-                                {{ auth.isConnected ? 'Voir mon profil' : 'Se connecter' }}
+                                {{
+                                    auth.isConnected
+                                        ? 'Voir mon profil'
+                                        : 'Se connecter'
+                                }}
                             </a>
                         </div>
                     </div>
@@ -102,17 +112,21 @@ const features = [
                     <p class="font-bold uppercase text-primary">Services</p>
                     <h2 class="text-4xl">Fonctionnalités</h2>
                     <p class="text-xl">
-                        X-Memes t'offre une variété de fonctionnalités, entre autres, te
-                        permettant de poster, télécharger et suivre les
-                        personnes que tu aimes.
+                        X-Memes t'offre une variété de fonctionnalités, entre
+                        autres, te permettant de poster, télécharger et suivre
+                        les personnes que tu aimes.
                     </p>
                     <div
                         class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
                     >
-                        <div class="flex-1" v-for="(feature, index) in features" :key="index">
+                        <div
+                            class="flex-1"
+                            v-for="(feature, index) in features"
+                            :key="index"
+                        >
                             <Stack>
                                 <Icon
-                                    class="rounded-full bg-primary text-white p-4"
+                                    class="rounded-full bg-primary p-4 text-white"
                                     size="5xl"
                                     :name="feature.icon"
                                 />

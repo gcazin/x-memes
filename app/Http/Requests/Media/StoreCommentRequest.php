@@ -25,7 +25,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'content' => ['required', 'string', 'max:255'],
-            'parent_id' => ['sometimes', 'nullable', 'integer']
+            'parent_id' => ['sometimes', 'nullable', 'integer'],
         ];
     }
 }

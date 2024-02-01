@@ -36,7 +36,7 @@ const dateTime = (value) => {
         <Section v-for="(release, index) in releases" :key="index">
             <Stack>
                 <div class="flex justify-between">
-                    <Text class="text-primary font-bold">
+                    <Text class="font-bold text-primary">
                         Version {{ release.tag_name }}
                     </Text>
                     <Text>

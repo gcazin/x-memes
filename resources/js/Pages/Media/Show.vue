@@ -13,6 +13,7 @@ import Pagination from '@/Components/Table/Pagination.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
 import Comments from '@/Pages/Media/Partials/Comment/Comments.vue'
@@ -22,9 +23,8 @@ import { Head, router, useForm, usePage } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import _ from 'lodash'
-import { computed } from 'vue'
-import Section from '@/Layouts/Partials/Section.vue'
 import moment from 'moment'
+import { computed } from 'vue'
 
 const props = defineProps({
     media: {
@@ -53,7 +53,7 @@ const form = useForm({
 })
 
 const downloadItem = async (item) => {
-    if (! auth.isConnected) {
+    if (!auth.isConnected) {
         router.visit(route('login'))
     }
 
@@ -62,7 +62,9 @@ const downloadItem = async (item) => {
     })
 
     const media = props.media
-    const path = `${moment().valueOf()}-${media.name.toLowerCase().replaceAll(' ', '-')}-x-memes.${media.extension}`
+    const path = `${moment().valueOf()}-${media.name
+        .toLowerCase()
+        .replaceAll(' ', '-')}-x-memes.${media.extension}`
     saveAs(response.data, path)
 }
 
@@ -133,9 +135,7 @@ formService.setForm(form).setRouteName('media')
                                     auth.isConnected
                                         ? media.likers
                                               ?.map((liker) => liker.id)
-                                              .includes(
-                                                  auth.user.id
-                                              )
+                                              .includes(auth.user.id)
                                             ? 'error'
                                             : ''
                                         : ''
@@ -200,7 +200,7 @@ formService.setForm(form).setRouteName('media')
                                         </Multiselect>
                                         <div class="text-right">
                                             <Text type="xs"
-                                            >Les tags seront synchronisés
+                                                >Les tags seront synchronisés
                                                 après modification.</Text
                                             >
                                         </div>
@@ -270,14 +270,11 @@ formService.setForm(form).setRouteName('media')
                 </div>
 
                 <!-- Comments -->
-                <CommentForm
-                    v-if="auth.isConnected"
-                    :media
-                />
-                <Text v-if="comments.total > 0" type="subtitle">Commentaires ({{ comments.total }})</Text>
-                <Section v-else>
-                    Aucun commentaire pour l'instant.
-                </Section>
+                <CommentForm v-if="auth.isConnected" :media />
+                <Text v-if="comments.total > 0" type="subtitle"
+                    >Commentaires ({{ comments.total }})</Text
+                >
+                <Section v-else> Aucun commentaire pour l'instant. </Section>
                 <Comments :comments :media />
                 <Pagination :item="comments" />
 
@@ -332,11 +329,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow, 0 0 #0000);
+        var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

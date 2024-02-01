@@ -99,7 +99,11 @@ const dateTime = (value) => {
                         class="flex items-center justify-end"
                         v-if="media.comments_count > 0"
                     >
-                        <Icon name="comment-alt-lines" size="xl" class="mr-0.5" />
+                        <Icon
+                            name="comment-alt-lines"
+                            size="xl"
+                            class="mr-0.5"
+                        />
                         <Text type="xs">{{ media.comments_count }}</Text>
                     </div>
                     <div class="flex items-center justify-end">

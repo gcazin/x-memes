@@ -33,7 +33,7 @@ it('can update media', function () {
 
     actingAs($user)->put(route('media.comment.update', $media->id), [
         'content' => 'doe',
-        'comment_id' => $comment->id
+        'comment_id' => $comment->id,
     ]);
 
     expect($comment->refresh()->content)->toBe('doe');

@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\Media\Comment\CommentController;
 use App\Http\Controllers\Media\Comment\LikeController as CommentLikeController;
-use App\Http\Controllers\Media\Comment\ReplyCommentController;
 use App\Http\Controllers\Media\DownloadController;
 use App\Http\Controllers\Media\DuplicateController;
 use App\Http\Controllers\Media\ImageController;

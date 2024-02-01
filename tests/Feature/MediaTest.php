@@ -51,7 +51,7 @@ it('should store media and attach tags', function () {
     $response = actingAsGuest()->post(route('media.store'), [
         'name' => 'Test Media',
         'media_id' => $image = UploadedFile::fake()->image('test.jpg'),
-        'tags' => ['TAG1', 'TAG2']
+        'tags' => ['TAG1', 'TAG2'],
     ]);
 
     $media = Media::first();

@@ -5,11 +5,10 @@ import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
+import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
-import Modal from '@/Components/Modal/Modal.vue'
-import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
 import { ref } from 'vue'
 
 const props = defineProps({
@@ -66,7 +65,11 @@ const editCommentForm = (comment) => {
                 <Text type="xs">
                     {{ comment.created_at }}
                 </Text>
-                <Text v-if="comment.created_at !== comment.updated_at" type="xs" class="italic">
+                <Text
+                    v-if="comment.created_at !== comment.updated_at"
+                    type="xs"
+                    class="italic"
+                >
                     modifié {{ comment.updated_at }}
                 </Text>
                 <div
@@ -88,7 +91,9 @@ const editCommentForm = (comment) => {
                         class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
                     >
                         <li>
-                            <button @click="editCommentForm(comment)">Modifier</button>
+                            <button @click="editCommentForm(comment)">
+                                Modifier
+                            </button>
                         </li>
                         <li>
                             <div
@@ -131,7 +136,7 @@ const editCommentForm = (comment) => {
                             ? comment.likers
                                   ?.map((liker) => liker.id)
                                   .includes($page.props.auth.user.id)
-                                ? 'text-error btn-error'
+                                ? 'btn-error text-error'
                                 : 'btn-ghost'
                             : ''
                     "
@@ -146,7 +151,11 @@ const editCommentForm = (comment) => {
                     @click="getReplies(comment)"
                 >
                     <Icon size="xl" name="chatbox-ellipses" />
-                    {{ comment.replies.length ? `Voir les réponses (${comment.replies.length})` : 'Sois le premier à commenter' }}
+                    {{
+                        comment.replies.length
+                            ? `Voir les réponses (${comment.replies.length})`
+                            : 'Sois le premier à commenter'
+                    }}
                 </Button>
             </div>
         </Stack>

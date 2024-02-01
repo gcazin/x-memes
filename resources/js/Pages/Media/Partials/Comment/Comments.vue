@@ -1,10 +1,8 @@
 <script setup>
 import Stack from '@/Layouts/Partials/Stack.vue'
 import Comment from '@/Pages/Media/Partials/Comment/Comment.vue'
-import { useForm, usePage } from '@inertiajs/vue3'
-import { ref } from 'vue'
 import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
-import Modal from '@/Components/Modal/Modal.vue'
+import { ref } from 'vue'
 
 const props = defineProps({
     media: {

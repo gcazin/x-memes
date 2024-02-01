@@ -29,12 +29,15 @@
                     target="_blank"
                     aria-label="GitHub de Guillaume"
                 >
-                   <Icon name="github" size="3xl" />
+                    <Icon name="github" size="3xl" />
                 </a>
             </div>
         </nav>
         <aside>
-            <p>Copyright © {{ moment().year() }} - Tous droits réservés par X-Memes.</p>
+            <p>
+                Copyright © {{ moment().year() }} - Tous droits réservés par
+                X-Memes.
+            </p>
             <p>
                 Développé avec ❤️ par
                 <a
@@ -49,6 +52,6 @@
     </footer>
 </template>
 <script setup>
-import moment from 'moment'
 import Icon from '@/Components/Misc/Icon.vue'
+import moment from 'moment'
 </script>

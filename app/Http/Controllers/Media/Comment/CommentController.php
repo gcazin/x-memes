@@ -17,7 +17,7 @@ class CommentController extends Controller
             'content' => $request->get('content'), // phpstorm treats $request->content as an error...
             'user_id' => $request->user()->id,
             'media_id' => $request->media_id,
-            'parent_id' => $request->parent_id
+            'parent_id' => $request->parent_id,
         ]);
     }
 

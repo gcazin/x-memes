@@ -213,7 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Point' => \App\Facades\PointFacade::class,
-        'SEO' => \App\Facades\SeoFacade::class
+        'SEO' => \App\Facades\SeoFacade::class,
     ])->toArray(),
 
 ];

@@ -10,7 +10,6 @@ use App\Models\PointType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Spatie\SchemaOrg\Schema;
 
 class LeaderboardController extends Controller
 {
