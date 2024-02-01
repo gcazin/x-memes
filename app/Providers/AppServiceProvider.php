@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Facades\Point;
+use App\Facades\SEO;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('point', function () {
             return new Point();
+        });
+
+        $this->app->bind('seo', function () {
+            return new SEO();
         });
     }
 

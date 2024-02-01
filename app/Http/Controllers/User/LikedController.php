@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\User;
@@ -29,6 +30,11 @@ class LikedController extends Controller
             ->firstWhere('username', $username);
 
         $medias = $user->getLikedItems(Media::class)->paginate(10);
+
+        Seo::description('Découvre les publications de '.$username.' sur ' . config('app.name'))
+            ->title('Publications aimées de ' . $username . ' sur ' . config('app.name'))
+            ->type('profile')
+            ->share();
 
         return Inertia::render('User/LikedMedias', [
             'user' => $user,

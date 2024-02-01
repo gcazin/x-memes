@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateProfileRequest;
 use App\Models\User;
@@ -30,6 +31,11 @@ class UserController extends Controller
         if ($user) {
             $medias = $this->mediaRepository->paginateByUser($user->id);
         }
+
+        Seo::description('Découvre le profil de '.$username.' sur X-Memes - '.$user->medias()->count() . ' mèmes publiés - ' . $user->followers()->count() . ' abonnés')
+            ->title('Profil de ' . $username . ' sur ' . config('app.name'))
+            ->type('profile')
+            ->share();
 
         return Inertia::render('User/Show', [
             'user' => $user,

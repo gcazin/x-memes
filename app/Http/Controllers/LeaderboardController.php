@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Facades\SeoFacade as SEO;
 use App\Models\Point;
 use App\Models\PointType;
 use App\Models\User;
@@ -25,10 +26,11 @@ class LeaderboardController extends Controller
 
         $pointTypes = PointType::all()->map->only(['description', 'amount']);
 
-        seoDescription(
-            'Prend part au classement des meilleurs contributeurs sur X-Memes !
-            Tu auras peut-être la chance de décrocher des badges exclusifs.'
-        );
+        SEO::description('Prend part au classement des meilleurs contributeurs sur X-Memes !
+            Tu auras peut-être la chance de décrocher des badges exclusifs.')
+            ->title('Classement des meilleurs contributeurs')
+            ->url(route('leaderboard'))
+            ->share();
 
         return Inertia::render('Leaderboard', [
             'leaderboard' => $leaderboard,

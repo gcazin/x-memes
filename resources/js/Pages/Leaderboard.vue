@@ -22,8 +22,6 @@ const props = defineProps({
     },
 })
 
-console.log(props.leaderboard)
-
 const isTheFirstPage = () => {
     return props.leaderboard.current_page === 1
 }

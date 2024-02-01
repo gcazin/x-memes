@@ -8,6 +8,7 @@ use App\Enums\PointType;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
 use App\Facades\PointFacade as Point;
+use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
@@ -92,16 +93,15 @@ class MediaController extends Controller
                 ->orderByDesc('created_at')
                 ->paginate(10);
 
-            seoDescription('Découvre le mème '.$media->name.' sur X-Memes dès maintenant !');
-
-            openGraphData(
-                $media->name,
-                'image',
-                $media->type === 'video' ? $media->thumbnail_path : $media->path,
-                route('media.show', $media->slug)
-            );
-
             Point::reward($media->id, PointType::MEDIA_SEEN);
+
+            SEO::description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
+                ->title('Oui')
+                ->type('image')
+                ->image($media->type === 'video' ? $media->thumbnail_path : $media->path)
+                ->author($media->user->username)
+                ->url(route('media.show', $media->slug))
+                ->share();
 
             return Inertia::render('Media/Show', [
                 'media' => $media,

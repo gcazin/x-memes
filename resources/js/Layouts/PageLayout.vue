@@ -32,31 +32,59 @@ defineProps({
 
 const page = usePage()
 const props = page.props
+
+const jsonLD = {
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    "name": "X-Memes",
+    "url": props.seo?.url,
+    ...(! props.seo?.image && {
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://x-memes.com/rechercher?query={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+    }),
+    ...(props.seo?.image && {
+        "mainEntity": {
+            "@type": props.seo.type === 'image' ? 'ImageObject' : 'VideoObject',
+            "contentUrl": props.seo.image,
+            "description": props.seo.description,
+            ...props.seo.author && {
+                "creator": {
+                    "@type": "Person",
+                    "name": props.seo.author
+                },
+            }
+        }
+    })
+}
 </script>
 
 <template>
     <Head :title="title">
-        <template v-if="props.og">
+        <template v-if="props.seo">
             <!-- Facebook Meta Tags -->
-            <meta property="og:url" :content="props.og.url" />
+            <meta property="og:url" :content="props.seo.url" />
             <meta property="og:type" content="website" />
-            <meta property="og:title" :content="props.og.title" />
+            <meta property="og:title" :content="props.seo.title" />
             <meta property="og:description" :content="props.seo.description" />
-            <meta property="og:image" :content="props.og.image" />
+            <meta property="og:image" :content="props.seo.image" />
 
             <!-- Twitter Meta Tags -->
             <meta name="twitter:card" content="summary_large_image" />
             <meta property="twitter:domain" content="x-memes.com" />
-            <meta property="twitter:url" :content="props.og.url" />
-            <meta name="twitter:title" :content="props.og.title" />
+            <meta property="twitter:url" :content="props.seo.url" />
+            <meta name="twitter:title" :content="props.seo.title" />
             <meta name="twitter:description" :content="props.seo.description" />
-            <meta name="twitter:image" :content="props.og.image" />
+            <meta name="twitter:image" :content="props.seo.image" />
         </template>
         <meta
             head-key="description"
             name="description"
             :content="props.seo?.description"
         />
+        <component is="script" type="application/ld+json" v-html="jsonLD"></component>
     </Head>
 
     <div
