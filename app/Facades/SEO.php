@@ -18,9 +18,8 @@ class SEO
     protected ?string $type = null;
     protected ?string $image = null;
     protected ?string $media = null;
-    protected ?string $author = null;
     protected ?string $url = null;
-    protected ?string $date = null;
+    protected ?string $schema = null;
 
     public function __construct()
     {
@@ -28,9 +27,9 @@ class SEO
         $this->type = null;
         $this->image = null;
         $this->media = null;
-        $this->author = null;
         $this->url = null;
-        $this->date = null;
+
+        $this->schema = null;
     }
 
     public function title(string $title): SEO
@@ -68,13 +67,6 @@ class SEO
         return $this;
     }
 
-    public function author(?string $author): SEO
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function url(string $url): SEO
     {
         $this->url = $url;
@@ -82,9 +74,9 @@ class SEO
         return $this;
     }
 
-    public function date(string $date): SEO
+    public function schema(string $schema): SEO
     {
-        $this->date = $date;
+        $this->schema = $schema;
 
         return $this;
     }
@@ -96,8 +88,7 @@ class SEO
         inertia()->share('seo.type', $this->type);
         inertia()->share('seo.image', $this->image);
         inertia()->share('seo.media', $this->media);
-        inertia()->share('seo.author', $this->author);
         inertia()->share('seo.url', $this->url ?? config('app.url'));
-        inertia()->share('seo.date', $this->date);
+        inertia()->share('jsonLD', $this->schema);
     }
 }

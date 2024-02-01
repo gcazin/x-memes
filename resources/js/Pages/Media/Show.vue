@@ -87,6 +87,7 @@ formService.setForm(form).setRouteName('media')
 </script>
 
 <template>
+    {{ props.seo }}
     <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
 
     <PageLayout>

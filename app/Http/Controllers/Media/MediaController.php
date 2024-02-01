@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\SchemaOrg\Schema;
 
 class MediaController extends Controller
 {
@@ -95,14 +96,40 @@ class MediaController extends Controller
 
             Point::reward($media->id, PointType::MEDIA_SEEN);
 
+            $image = $media->type === 'image' ? $media->path : $media->thumbnail_path;
+            $jsonLD = Schema::webPage()
+                ->description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
+                ->interactionStatistic(
+                    Schema::interactionCounter()
+                        ->interactionType(Schema::downloadAction())
+                        ->userInteractionCount($media->download_count)
+                )
+            ;
+
+            if ($media->type === 'video') {
+                $jsonLD->mainEntity(
+                    Schema::videoObject()
+                        ->contentUrl(url('/storage/'.$image))
+                        ->name($media->name)
+                        ->thumbnailUrl($media->thumbnail_path)
+                        ->uploadDate($media->getRawOriginal('created_at'))
+                        ->author(Schema::person()
+                            ->name($media->user->username)
+                        )
+                );
+            } else {
+                $jsonLD->mainEntity(
+                    Schema::imageObject()
+                        ->contentUrl(url('/storage/'.$image))
+                );
+            }
+
             SEO::description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
                 ->title($media->name . ' sur ' . config('app.name'))
                 ->type($media->type)
-                ->image($media->type === 'image' ? $media->path : $media->thumbnail_path)
-                ->media($media->path)
-                ->author($media->user->username)
                 ->url(route('media.show', $media->slug))
-                ->date($media->getRawOriginal('created_at'))
+                ->image($image)
+                ->schema($jsonLD->toScript())
                 ->share();
 
             return Inertia::render('Media/Show', [

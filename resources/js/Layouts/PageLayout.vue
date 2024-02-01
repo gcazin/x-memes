@@ -32,36 +32,6 @@ defineProps({
 
 const page = usePage()
 const props = page.props
-
-const jsonLD = {
-    "@context": "https://schema.org/",
-    "@type": "WebSite",
-    "name": "X-Memes",
-    "url": props.seo?.url,
-    "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://x-memes.com/rechercher?query={search_term_string}",
-        "query-input": "required name=search_term_string"
-    },
-    ...(props.seo?.media && {
-        "mainEntity": {
-            "@type": props.seo.type === 'image' ? 'ImageObject' : 'VideoObject',
-            "contentUrl": props.seo.media,
-            "description": props.seo.description,
-            ...props.seo.type === 'video' && {
-                name: props.seo.title,
-                thumbnailUrl: props.seo.image,
-                uploadDate: props.seo.date
-            },
-            ...props.seo.author && {
-                "creator": {
-                    "@type": "Person",
-                    "name": props.seo.author
-                },
-            },
-        }
-    })
-}
 </script>
 
 <template>
@@ -69,7 +39,7 @@ const jsonLD = {
         <template v-if="props.seo">
             <!-- Facebook Meta Tags -->
             <meta property="og:url" :content="props.seo.url" />
-            <meta property="og:type" content="website" />
+            <meta property="og:type" :content="props.seo.type" />
             <meta property="og:title" :content="props.seo.title" />
             <meta property="og:description" :content="props.seo.description" />
             <meta property="og:image" :content="props.seo.image" />
@@ -87,9 +57,7 @@ const jsonLD = {
             name="description"
             :content="props.seo?.description"
         />
-        <component is="script" type="application/ld+json">
-            {{ jsonLD }}
-        </component>
+        {{ props.jsonLD }}
     </Head>
 
     <div

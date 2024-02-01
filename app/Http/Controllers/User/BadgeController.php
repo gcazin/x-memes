@@ -11,6 +11,7 @@ use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\SchemaOrg\Schema;
 
 class BadgeController extends Controller
 {
@@ -30,9 +31,15 @@ class BadgeController extends Controller
 
         $medias = $this->mediaRepository->paginateByUser($user->id);
 
-        Seo::description('Découvre les badges de '.$username.' sur ' . config('app.name'))
+        $title = 'Découvre les badges de '.$username.' sur ' . config('app.name');
+        Seo::description($title)
             ->title('Badges de ' . $username . ' sur ' . config('app.name'))
             ->type('profile')
+            ->schema(
+                Schema::webPage()
+                    ->name($title)
+                    ->toScript()
+            )
             ->share();
 
         return Inertia::render('User/Badges', [
