@@ -247,12 +247,12 @@ formService.setForm(form).setRouteName('media')
             <Stack>
                 <div class="max-w-full">
                     <video
+                        v-if="media.extension === 'mp4'"
                         controlsList="nodownload"
                         oncontextmenu="return false;"
                         controls
                         class="mx-auto h-full w-96 rounded-lg shadow"
-                        :poster="media.thumbnail_path"
-                        v-if="media.extension === 'mp4'"
+                        :poster="`/storage/${media.thumbnail_path}`"
                         :src="`/storage/${media.path}`"
                     ></video>
                     <img
