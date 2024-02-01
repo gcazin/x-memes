@@ -84,7 +84,7 @@ const editCommentForm = (comment) => {
                         role="button"
                         class="btn btn-ghost btn-xs"
                     >
-                        <Icon name="ellipsis-vertical" size="lg" />
+                        <Icon name="ellipsis-v" size="lg" />
                     </div>
                     <ul
                         tabindex="0"
@@ -150,7 +150,7 @@ const editCommentForm = (comment) => {
                     size="sm"
                     @click="getReplies(comment)"
                 >
-                    <Icon size="xl" name="chatbox-ellipses" />
+                    <Icon size="xl" name="comment-alt-lines" />
                     {{
                         comment.replies.length
                             ? `Voir les réponses (${comment.replies.length})`
