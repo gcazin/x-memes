@@ -67,11 +67,10 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    Je découvre toutes les
+                    Découvrir les dernières
                     <a class="link link-primary" :href="route('changelog')"
                         >nouveautés</a
                     >
-                    !
                 </Text>
             </div>
         </div>

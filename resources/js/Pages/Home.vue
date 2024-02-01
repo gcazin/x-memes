@@ -16,7 +16,7 @@ const auth = page.props.auth
 
 const features = [
     {
-        icon: 'add',
+        icon: 'plus',
         description: 'Poste, aime, et commente tes mèmes préférés.',
     },
     {
@@ -24,12 +24,12 @@ const features = [
         description: 'Suis les personnes que tu as envie.',
     },
     {
-        icon: 'diamond',
+        icon: 'award',
         description:
             'Des badges décernés en fonction de ton activité sur le site.',
     },
     {
-        icon: 'people',
+        icon: 'chart-bar-alt',
         description:
             'Un classement des utilisateurs les plus actifs en fonction des points gagnés.',
     },
@@ -71,7 +71,7 @@ const features = [
                                         ? route('user.show', auth.user.username)
                                         : route('login')
                                 "
-                                class="btn btn-outline btn-primary btn-lg"
+                                class="btn btn-outline btn-secondary btn-lg"
                             >
                                 {{
                                     auth.isConnected
@@ -124,10 +124,10 @@ const features = [
                             v-for="(feature, index) in features"
                             :key="index"
                         >
-                            <Stack>
+                            <Stack spacing="8">
                                 <Icon
-                                    class="rounded-full bg-primary p-4 text-white"
-                                    size="5xl"
+                                    class="rounded-full bg-primary px-5 py-4 text-white"
+                                    size="4xl"
                                     :name="feature.icon"
                                 />
                                 <p class="text-xl">{{ feature.description }}</p>
@@ -159,7 +159,7 @@ const features = [
                             <div
                                 class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
                             >
-                                <Icon class="text-4xl" name="help-circle" />
+                                <Icon class="text-4xl" name="bug" />
                             </div>
                             <div class="w-full text-left">
                                 <h3
@@ -183,7 +183,7 @@ const features = [
                             <div
                                 class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
                             >
-                                <Icon class="text-4xl" name="help-circle" />
+                                <Icon class="text-4xl" name="bolt" />
                             </div>
                             <div class="w-full text-left">
                                 <h3
