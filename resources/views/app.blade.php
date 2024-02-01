@@ -25,6 +25,9 @@
             }
         </script>
 
+        <!-- Icons set -->
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
         <!-- Scripts -->
         @routes
         @vite('resources/js/app.js')
@@ -46,7 +49,5 @@
                 // console.log('Service workers are not supported.');
             }
         </script>
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </body>
 </html>

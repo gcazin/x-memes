@@ -12,22 +12,22 @@ import { computed, ref } from 'vue'
 
 const menuItems = [
     {
-        icon: 'images',
+        icon: 'image',
         route: 'library.image',
         name: 'Images',
     },
     {
-        icon: 'videocam',
+        icon: 'video',
         route: 'library.video',
         name: 'Vidéos',
     },
     {
-        icon: 'trending-up',
+        icon: 'chart-bar',
         route: 'leaderboard',
         name: 'Classement',
     },
     {
-        icon: 'dice',
+        icon: 'dice-four',
         route: 'random',
         name: 'Au hasard',
     },
@@ -71,7 +71,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 for="my-drawer"
                                 class="btn btn-ghost pl-0 xl:hidden"
                             >
-                                <Icon name="menu" size="4xl" />
+                                <Icon name="bars" size="4xl" />
                             </label>
                         </div>
                         <div class="drawer-side z-50">
@@ -89,7 +89,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         :href="route(item.route)"
                                         :active="route().current(item.route)"
                                     >
-                                        <Icon :name="item.icon" size="sm" />
+                                        <Icon :name="item.icon" size="xl" />
                                         <Text>{{ item.name }}</Text>
                                     </a>
                                 </li>
@@ -110,7 +110,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             route().current('admin.dashboard')
                                         "
                                     >
-                                        <Icon name="construct" />
+                                        <Icon name="constructor" />
                                         <Text>Administration</Text>
                                     </a>
                                 </li>
@@ -158,7 +158,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 :href="route('filament.admin.pages.dashboard')"
                                 :active="route().current('admin.dashboard')"
                             >
-                                <Icon name="construct" />
+                                <Icon name="constructor" />
                                 Administration
                             </a>
                         </li>
@@ -231,7 +231,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 aria-labelledby="Notifications"
                             >
                                 <div class="indicator">
-                                    <Icon size="xl" name="notifications" />
+                                    <Icon size="xl" name="bell" />
                                     <span
                                         class="badge indicator-item badge-error badge-sm"
                                         v-if="notifications.length"
@@ -349,7 +349,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                                 )
                                             "
                                         >
-                                            <Icon name="person" size="lg" />
+                                            <Icon name="user" size="lg" />
                                             Voir mon profil
                                         </DropdownLink>
                                     </li>
@@ -366,7 +366,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             :href="route('logout')"
                                             method="post"
                                         >
-                                            <Icon name="log-out" size="lg" />
+                                            <Icon name="signout" size="lg" />
                                             Déconnexion
                                         </DropdownLink>
                                     </li>

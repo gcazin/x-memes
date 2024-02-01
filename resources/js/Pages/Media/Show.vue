@@ -143,7 +143,7 @@ formService.setForm(form).setRouteName('media')
                                 @click="downloadItem(media)"
                                 class="btn btn-circle btn-primary"
                             >
-                                <Icon size="xl" name="arrow-down" />
+                                <Icon size="xl" name="import" />
                             </LoadingButton>
 
                             <Button
@@ -155,7 +155,7 @@ formService.setForm(form).setRouteName('media')
                                 "
                                 :disabled="form.processing || !auth.isConnected"
                             >
-                                <Icon size="xl" name="create" />
+                                <Icon size="xl" name="pen" />
                             </Button>
 
                             <Modal

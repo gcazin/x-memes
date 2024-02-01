@@ -119,7 +119,7 @@ const updateUser = () => {
                                         v-if="user.github_username"
                                     >
                                         <Icon
-                                            name="logo-github"
+                                            name="github"
                                             size="xl"
                                             :outline="false"
                                         />
@@ -285,7 +285,7 @@ const updateUser = () => {
                                 route().current('user.show'),
                         }"
                     >
-                        <Icon name="document" size="lg" class="mr-1" />
+                        <Icon name="apps" size="xl" />
                     </a>
                     <a
                         :href="route('user.media.liked', user.username)"
@@ -296,7 +296,7 @@ const updateUser = () => {
                                 route().current('user.media.liked'),
                         }"
                     >
-                        <Icon name="heart" size="lg" class="mr-1" />
+                        <Icon name="heart" size="xl" />
                     </a>
                     <a
                         :href="route('user.badge.index', user.username)"
@@ -307,7 +307,7 @@ const updateUser = () => {
                                 route().current('user.badge.index'),
                         }"
                     >
-                        <Icon name="apps" size="lg" class="mr-1" />
+                        <Icon name="award" size="xl" />
                     </a>
                 </div>
             </Stack>

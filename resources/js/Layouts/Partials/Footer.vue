@@ -12,7 +12,7 @@
             >
         </nav>
         <nav>
-            <div class="grid grid-flow-col gap-4">
+            <div class="grid grid-flow-col items-center gap-4">
                 <a
                     href="https://twitter.com/gcazinonx"
                     target="_blank"
@@ -29,11 +29,7 @@
                     target="_blank"
                     aria-label="GitHub de Guillaume"
                 >
-                    <img
-                        class="w-6"
-                        src="/images/misc/github.svg"
-                        alt="GitHub de X-Memes"
-                    />
+                   <Icon name="github" size="3xl" />
                 </a>
             </div>
         </nav>
@@ -54,4 +50,5 @@
 </template>
 <script setup>
 import moment from 'moment'
+import Icon from '@/Components/Misc/Icon.vue'
 </script>

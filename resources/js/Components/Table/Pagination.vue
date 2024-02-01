@@ -18,14 +18,14 @@ defineProps({
             class="btn btn-outline join-item btn-neutral"
             :class="{ 'btn-disabled': !item.prev_page_url }"
         >
-            <Icon name="chevron-back" />
+            <Icon name="angle-left-b" size="xl" />
         </a>
         <a
             class="btn btn-outline join-item btn-neutral"
             :href="item.next_page_url"
             :class="{ 'btn-disabled': !item.next_page_url }"
         >
-            <Icon name="chevron-forward" />
+            <Icon name="angle-right-b" size="xl" />
         </a>
     </div>
 </template>

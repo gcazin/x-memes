@@ -19,11 +19,6 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
-            compilerOptions: {
-                compilerOptions: {
-                    isCustomElement: (icon) => icon.startsWith('ion-'),
-                },
-            },
         }),
     ],
 });
