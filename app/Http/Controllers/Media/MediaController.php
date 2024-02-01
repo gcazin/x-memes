@@ -96,8 +96,8 @@ class MediaController extends Controller
             Point::reward($media->id, PointType::MEDIA_SEEN);
 
             SEO::description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
-                ->title('Oui')
-                ->type('image')
+                ->title($media->name . ' sur ' . config('app.name'))
+                ->type($media->type)
                 ->image($media->type === 'video' ? $media->thumbnail_path : $media->path)
                 ->author($media->user->username)
                 ->url(route('media.show', $media->slug))
