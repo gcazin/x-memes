@@ -135,7 +135,7 @@ formService.setForm(form).setRouteName('media')
                             <div class="space-x-2">
                                 <div class="indicator">
                                     <span
-                                        class="badge indicator-item badge-secondary badge-sm"
+                                        class="badge indicator-item badge-error badge-sm"
                                     >
                                         {{ media.likers.length }}
                                     </span>
@@ -165,7 +165,7 @@ formService.setForm(form).setRouteName('media')
 
                                 <div class="indicator">
                                     <span
-                                        class="badge indicator-item badge-secondary badge-sm"
+                                        class="badge indicator-item badge-primary badge-sm"
                                     >
                                         {{ media.download_count }}
                                     </span>
@@ -198,11 +198,11 @@ formService.setForm(form).setRouteName('media')
                                             "
                                         >
                                             <a>
+                                                <Icon
+                                                    name="edit"
+                                                    size="xl"
+                                                />
                                                 <Text type="sub">
-                                                    <Icon
-                                                        name="edit"
-                                                        size="xl"
-                                                    />
                                                     Modifier
                                                 </Text>
                                             </a>
