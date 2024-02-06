@@ -43,7 +43,7 @@ const dateTime = (value) => {
                         {{ dateTime(release.published_at) }}
                     </Text>
                 </div>
-                <Text v-html="markdown(release.body)"></Text>
+                <p v-html="markdown(release.body)"></p>
             </Stack>
         </Section>
     </PageLayout>

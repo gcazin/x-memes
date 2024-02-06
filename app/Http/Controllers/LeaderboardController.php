@@ -18,11 +18,13 @@ class LeaderboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $leaderboard = User::with('point', 'followers')->orderByDesc(
-            Point::select('amount')
-                ->whereColumn('user_id', 'users.id')
-                ->orderByDesc('amount')
-        )->paginate(10);
+        $leaderboard = User::with('point', 'followers')
+            ->where('lang', app()->getLocale())
+            ->orderByDesc(
+                Point::select('amount')
+                    ->whereColumn('user_id', 'users.id')
+                    ->orderByDesc('amount')
+            )->paginate(10);
 
         $pointTypes = PointType::all()->map->only(['description', 'amount']);
 
