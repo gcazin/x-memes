@@ -57,7 +57,6 @@ const buttonSize = () => {
 
 const slots = useSlots()
 const text = slots.default()[0].children
-console.log(typeof text !== 'array')
 </script>
 
 <template>

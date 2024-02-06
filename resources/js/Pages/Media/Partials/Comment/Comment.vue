@@ -48,7 +48,6 @@ const getReplies = (comment) => {
 }
 
 const editCommentForm = (comment) => {
-    console.log('iocio')
     editComment.value = comment.id
 }
 </script>

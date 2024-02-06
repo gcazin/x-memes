@@ -48,7 +48,6 @@ const form = useForm({
 
 onMounted(() => {
     if (props.isEditing) {
-        console.log(props.comment)
         form.content = props.comment.content
     }
 })
