@@ -32,7 +32,7 @@ defineProps({
             <thead>
                 <tr>
                     <th v-for="(header, index) in headers" :key="index">
-                        {{ header }}
+                        {{ $t(header) }}
                     </th>
                     <th v-if="hasAction" class="text-right">Actions</th>
                 </tr>
@@ -64,7 +64,9 @@ defineProps({
                     </td>
                 </tr>
                 <tr v-else class="px-6 py-4">
-                    <td class="">Aucune donnée à afficher.</td>
+                    <td class="">
+                        {{ $t('Aucune donnée à afficher.') }}
+                    </td>
                 </tr>
             </tbody>
         </table>

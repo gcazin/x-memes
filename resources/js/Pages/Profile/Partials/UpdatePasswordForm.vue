@@ -3,6 +3,9 @@ import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import Text from '@/Components/Misc/Text.vue'
+import Button from '@/Components/Button/Button.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 
 const passwordInput = ref(null)
 const currentPasswordInput = ref(null)
@@ -33,12 +36,12 @@ const updatePassword = () => {
 
 <template>
     <header>
-        <h2 class="text-lg font-medium">Mise à jour du mot de passe</h2>
+        <Text class="font-bold">Mise à jour du mot de passe</Text>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <Text type="xs">
             Veillez à ce que votre compte utilise un mot de passe long et
             aléatoire pour rester sécurisé.
-        </p>
+        </Text>
     </header>
 
     <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
@@ -73,9 +76,9 @@ const updatePassword = () => {
         <InputError :message="form.errors.password_confirmation" />
 
         <div class="flex items-center gap-4">
-            <button class="btn btn-primary" :disabled="form.processing">
+            <LoadingButton :loading="form.processing">
                 Sauvegarder
-            </button>
+            </LoadingButton>
 
             <Transition
                 enter-active-class="transition ease-in-out"

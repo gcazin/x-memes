@@ -89,7 +89,6 @@ formService.setForm(form).setRouteName('media')
 </script>
 
 <template>
-    {{ props.seo }}
     <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
 
     <PageLayout>
@@ -154,12 +153,12 @@ formService.setForm(form).setRouteName('media')
                                 <span class="indicator-item badge badge-sm badge-secondary">
                                     {{ media.download_count }}
                                 </span>
-                                    <LoadingButton
+                                    <Button
+                                        circle
                                         @click="downloadItem(media)"
-                                        class="btn btn-circle btn-primary"
                                     >
                                         <Icon size="xl" name="import" />
-                                    </LoadingButton>
+                                    </Button>
                                 </div>
 
                                 <div v-if="canPerformAction" class="dropdown dropdown-end">
@@ -186,8 +185,8 @@ formService.setForm(form).setRouteName('media')
                                 "
                                         >
                                             <a class="text-error font-bold">
+                                                <Icon name="trash" size="xl" />
                                                 <Text type="sub">
-                                                    <Icon name="trash" size="xl" />
                                                     Supprimer
                                                 </Text>
                                             </a>
@@ -277,7 +276,9 @@ formService.setForm(form).setRouteName('media')
                     <Text v-if="comments.total > 0" type="subtitle"
                     >Commentaires ({{ comments.total }})</Text
                     >
-                    <Section v-else> Aucun commentaire pour l'instant. </Section>
+                    <Section v-else>
+                        <Text>Sois le premier à commenter !</Text>
+                    </Section>
                     <Comments :comments :media />
                     <Pagination :item="comments" />
 

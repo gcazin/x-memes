@@ -10,6 +10,7 @@ import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 const props = defineProps({
     media: {
@@ -92,7 +93,7 @@ const editCommentForm = (comment) => {
                     >
                         <li>
                             <button @click="editCommentForm(comment)">
-                                Modifier
+                                {{ $t('Modifier') }}
                             </button>
                         </li>
                         <li>
@@ -104,7 +105,7 @@ const editCommentForm = (comment) => {
                                         .handle('destroy', comment)
                                 "
                             >
-                                Supprimer
+                                {{ $t('Supprimer') }}
                             </div>
                         </li>
                     </ul>
@@ -155,7 +156,7 @@ const editCommentForm = (comment) => {
                     {{
                         comment.replies.length
                             ? `Voir les réponses (${comment.replies.length})`
-                            : 'Sois le premier à commenter'
+                            : trans('Sois le premier à commenter')
                     }}
                 </Button>
             </div>

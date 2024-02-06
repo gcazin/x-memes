@@ -30,6 +30,7 @@ class MediaService
         $medias = QueryBuilder::for(Media::class)
             ->where('type', $type)
             ->where('approved', true)
+            ->where('lang', app()->getLocale())
             ->defaultSort($defaultSort);
 
         $sortBy = collect([
@@ -99,6 +100,7 @@ class MediaService
         return Media::withAnyTags($tags)
             ->published()
             ->where('id', '!=', $media->id)
+            ->where('lang', app()->getLocale())
             ->take(3)
             ->get();
     }

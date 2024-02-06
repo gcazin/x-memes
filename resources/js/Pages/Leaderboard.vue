@@ -128,7 +128,9 @@ const calculateRank = () => {
                         </Text>
                     </a>
                     <div class="badge badge-lg bg-secondary/10 text-secondary">
-                        {{ member.point.amount }} points
+                        <Text>
+                            {{ member.point.amount }} points
+                        </Text>
                     </div>
                     <FollowButton :user="member" />
                 </Stack>

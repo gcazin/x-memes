@@ -1,5 +1,6 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, useSlots } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 const props = defineProps({
     type: {
@@ -24,6 +25,8 @@ const tagType = computed(() => {
         xs: 'span',
     }[props.type]
 })
+const slots = useSlots()
+const text = slots.default()[0].children
 </script>
 <template>
     <component
@@ -39,7 +42,12 @@ const tagType = computed(() => {
             'link-hover link': type === 'link',
         }"
     >
-        <slot></slot>
+        <template v-if="text !== null && !Array.isArray(text)">
+            {{ trans(text.trim()) }}
+        </template>
+        <template v-else>
+            <slot />
+        </template>
     </component>
 </template>
 <style scoped></style>

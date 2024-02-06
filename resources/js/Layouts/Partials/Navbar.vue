@@ -9,6 +9,7 @@ import Container from '@/Layouts/Partials/Container.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
+import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 
 const menuItems = [
     {
@@ -34,7 +35,6 @@ const menuItems = [
     {
         icon: 'search',
         route: 'search',
-        name: 'Rechercher',
     },
 ]
 
@@ -90,28 +90,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         :active="route().current(item.route)"
                                     >
                                         <Icon :name="item.icon" size="xl" />
-                                        <Text>{{ item.name }}</Text>
-                                    </a>
-                                </li>
-                                <li
-                                    v-if="
-                                        helperService.checkRoles(
-                                            'super-admin,admin'
-                                        )
-                                    "
-                                >
-                                    <a
-                                        :href="
-                                            route(
-                                                'filament.admin.pages.dashboard'
-                                            )
-                                        "
-                                        :active="
-                                            route().current('admin.dashboard')
-                                        "
-                                    >
-                                        <Icon name="constructor" />
-                                        <Text>Administration</Text>
+                                        <Text v-if="'name' in item">{{ $t(item.name) }}</Text>
                                     </a>
                                 </li>
                             </ul>
@@ -128,12 +107,6 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                             />
                             <span class="text-lg font-bold xl:text-2xl">
                                 X-Memes
-                                <Tag
-                                    type="secondary"
-                                    size="sm"
-                                    class="hidden align-middle xl:block"
-                                    >{{ page.props.stage }}</Tag
-                                >
                             </span>
                         </div>
                     </a>
@@ -148,18 +121,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 :active="route().current(item.route)"
                             >
                                 <Icon :name="item.icon" size="xl" />
-                                {{ item.name }}
-                            </a>
-                        </li>
-                        <li
-                            v-if="helperService.checkRoles('super-admin,admin')"
-                        >
-                            <a
-                                :href="route('filament.admin.pages.dashboard')"
-                                :active="route().current('admin.dashboard')"
-                            >
-                                <Icon name="constructor" />
-                                Administration
+                                <Text v-if="'name' in item">{{ item.name }}</Text>
                             </a>
                         </li>
                     </ul>
@@ -167,13 +129,15 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
 
                 <div class="navbar-end gap-1">
                     <!-- When the user is not connected -->
+
+                    <LanguageSwitcher />
+
                     <template v-if="!page.props?.auth?.isConnected">
                         <div class="hidden space-x-1 2xl:block">
-                            <a class="btn btn-ghost" :href="route('login')"
-                                >Connexion</a
+                            <a class="btn btn-primary" :href="route('login')"
                             >
-                            <a class="btn btn-primary" :href="route('register')"
-                                >Inscription</a
+                                <Text type="xs">Connexion</Text>
+                            </a
                             >
                         </div>
                         <div class="dropdown dropdown-end block 2xl:hidden">
@@ -197,12 +161,12 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 >
                                     <li>
                                         <DropdownLink :href="route('login')">
-                                            Connexion
+                                            <Text>Connexion</Text>
                                         </DropdownLink>
                                     </li>
                                     <li>
                                         <DropdownLink :href="route('register')">
-                                            Inscription
+                                            <Text>Inscription</Text>
                                         </DropdownLink>
                                     </li>
                                 </ul>
@@ -231,7 +195,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 aria-labelledby="Notifications"
                             >
                                 <div class="indicator">
-                                    <Icon size="xl" name="bell" />
+                                    <Icon size="2xl" name="bell" />
                                     <span
                                         class="badge indicator-item badge-error badge-sm"
                                         v-if="notifications.length"
@@ -302,7 +266,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 </div>
                                 <div v-else>
                                     <p class="p-4">
-                                        Aucune notification à afficher
+                                        <Text type="sub">Aucune notification à afficher</Text>
                                     </p>
                                 </div>
                                 <a
@@ -324,15 +288,12 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                             <div
                                 tabindex="0"
                                 role="button"
-                                class="btn btn-ghost md:px-0"
+                                class="btn btn-ghost btn-circle"
                             >
                                 <Avatar
                                     :user="$page.props.auth.user"
                                     size="sm"
                                 />
-                                <Text class="hidden lg:inline" type="sub">{{
-                                    $page.props.auth.user.username
-                                }}</Text>
                             </div>
                             <div
                                 tabindex="0"
@@ -350,15 +311,29 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             "
                                         >
                                             <Icon name="user" size="lg" />
-                                            Voir mon profil
+                                            <Text type="sub">Voir mon profil</Text>
                                         </DropdownLink>
+                                    </li>
+                                    <li
+                                        v-if="helperService.checkRoles('super-admin,admin')"
+                                    >
+                                        <a
+                                            :href="
+                                            route(
+                                                'filament.admin.pages.dashboard'
+                                            )
+                                        "
+                                        >
+                                            <Icon name="constructor" />
+                                            <Text>Administration</Text>
+                                        </a>
                                     </li>
                                     <li>
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
                                             <Icon name="cog" size="lg" />
-                                            Paramètres
+                                            <Text type="sub">Paramètres</Text>
                                         </DropdownLink>
                                     </li>
                                     <li>
@@ -367,7 +342,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             method="post"
                                         >
                                             <Icon name="signout" size="lg" />
-                                            Déconnexion
+                                            <Text type="sub">Déconnexion</Text>
                                         </DropdownLink>
                                     </li>
                                 </ul>

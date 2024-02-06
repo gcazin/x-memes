@@ -1,5 +1,7 @@
 <script setup>
 import Button from '@/Components/Button/Button.vue'
+import { useSlots } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 defineProps({
     type: {
@@ -10,11 +12,19 @@ defineProps({
         type: Boolean,
     },
 })
+
+const slots = useSlots()
+const text = slots.default()[0].children
 </script>
 
 <template>
+    <span v-if="loading" class="loading loading-spinner"></span>
     <Button submit :disabled="loading">
-        <span v-if="loading" class="loading loading-spinner"></span>
-        <slot />
+        <template v-if="text !== null && !Array.isArray(text)">
+            {{ $t(text.trim()) }}
+        </template>
+        <template v-else>
+            <slot />
+        </template>
     </Button>
 </template>

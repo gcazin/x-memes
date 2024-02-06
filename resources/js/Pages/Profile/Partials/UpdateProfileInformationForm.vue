@@ -3,6 +3,8 @@ import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
 import formService from '@/Services/form.service.js'
 import { Link, useForm, usePage } from '@inertiajs/vue3'
+import Text from '@/Components/Misc/Text.vue'
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 
 defineProps({
     mustVerifyEmail: {
@@ -24,12 +26,11 @@ formService.setForm(form).setRouteName('profile')
 
 <template>
     <header>
-        <h2 class="text-lg font-medium">Informations du profil</h2>
+        <Text class="font-bold">Informations du profil</Text>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Mettez à jour les informations de profil et l'adresse email de votre
-            compte.
-        </p>
+        <Text type="xs">
+            Mettez à jour l'adresse email de votre compte.
+        </Text>
     </header>
 
     <form @submit.prevent="formService.handle('update')" class="mt-6 space-y-6">
@@ -65,9 +66,9 @@ formService.setForm(form).setRouteName('profile')
         </div>
 
         <div class="flex items-center gap-4">
-            <button class="btn btn-primary" :disabled="form.processing">
+            <LoadingButton :loading="form.processing">
                 Sauvegarder
-            </button>
+            </LoadingButton>
         </div>
     </form>
 </template>

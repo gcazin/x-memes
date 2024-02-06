@@ -8,6 +8,8 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Link, useForm } from '@inertiajs/vue3'
+import Button from '@/Components/Button/Button.vue'
+import Icon from '@/Components/Misc/Icon.vue'
 
 defineProps({
     canResetPassword: {
@@ -70,18 +72,18 @@ const submit = () => {
                                 />
                                 <span
                                     class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                                    >Se souvenir de moi</span
+                                    >{{ $t('Se souvenir de moi')}}</span
                                 >
                             </label>
                         </div>
 
-                        <div class="mt-4 flex items-center justify-end">
+                        <div class="mt-4 flex items-center justify-end gap-x-4">
                             <Link
                                 v-if="canResetPassword"
                                 :href="route('password.request')"
                                 class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                             >
-                                Mot de passe oublié?
+                                {{ $t('Mot de passe oublié?') }}
                             </Link>
 
                             <LoadingButton
@@ -95,6 +97,10 @@ const submit = () => {
                     </Stack>
                 </form>
             </Section>
+            <a :href="route('register')" class="btn btn-wide btn-primary w-full">
+                <Icon name="user-plus" size="2xl" />
+                {{ $t('S\'inscrire maintenant') }}
+            </a>
         </Stack>
     </PageLayout>
 </template>

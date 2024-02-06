@@ -5,6 +5,7 @@ import Modal from '@/Components/Modal/Modal.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import Text from '@/Components/Misc/Text.vue'
 
 const passwordInput = ref(null)
 
@@ -30,35 +31,35 @@ const closeModal = () => {
 
 <template>
     <header>
-        <h2 class="text-lg font-medium text-error">Supprimer le compte</h2>
+        <Text class="font-bold text-error">Supprimer le compte</Text>
 
-        <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+        <Text type="sub">
             Une fois votre compte supprimé, toutes ses ressources et données
             seront définitivement effacées. Avant de supprimer votre compte,
             veuillez télécharger toutes les données ou informations que vous
             souhaitez conserver.
-        </p>
+        </Text>
     </header>
 
     <button
         class="btn btn-error mt-4"
         @click="formService.openModal('deleteAccount')"
     >
-        Supprimer le compte
+        {{ $t('Supprimer le compte') }}
     </button>
 
     <Modal id="deleteAccountModal" @close="closeModal">
         <div class="p-6">
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+            <Text class="font-bold">
                 Êtes-vous sûr de vouloir supprimer votre compte ?
-            </h2>
+            </Text>
 
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <Text type="sub">
                 Une fois votre compte supprimé, toutes ses ressources et données
                 seront définitivement effacées. Veuillez saisir votre mot de
                 passe pour confirmer que vous souhaitez supprimer définitivement
                 votre compte.
-            </p>
+            </Text>
 
             <TextInput
                 label="Mot de passe"
@@ -66,7 +67,7 @@ const closeModal = () => {
                 v-model="form.password"
                 type="password"
                 class="mt-1 block w-3/4"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 @keyup.enter="deleteUser"
             />
 
@@ -74,19 +75,19 @@ const closeModal = () => {
 
             <div class="mt-6 flex justify-end">
                 <button
-                    class="btn btn-secondary"
+                    class="btn btn-primary"
                     @click="formService.closeModal('deleteAccount')"
                 >
-                    Annuler
+                    {{ $t('Annuler') }}
                 </button>
 
                 <button
-                    class="btn btn-error ms-3"
+                    class="btn btn-error btn-outline ms-3"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                     @click="deleteUser"
                 >
-                    Supprimer le compte
+                    {{ $t('Supprimer le compte') }}
                 </button>
             </div>
         </div>

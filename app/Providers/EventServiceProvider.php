@@ -65,16 +65,14 @@ class EventServiceProvider extends ServiceProvider
 
     protected $observers = [
         Media::class => [
-            // Conditionally assign badge to user.
             MediaObserver::class,
+        ],
+        User::class => [
+            UserObserver::class
         ],
         /*Tag::class => [
             // Handle the tags caching.
             TagObserver::class,
-        ],
-        User::class => [
-            // Handle the users caching.
-            UserObserver::class
         ]*/
     ];
 

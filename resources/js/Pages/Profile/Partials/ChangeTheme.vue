@@ -1,6 +1,7 @@
 <script setup>
 import helperService from '@/Services/helper.service.js'
 import { onMounted } from 'vue'
+import Text from '@/Components/Misc/Text.vue'
 
 const availableThemes = [
     {
@@ -50,16 +51,16 @@ const toggleTheme = (selectedTheme) => {
 </script>
 <template>
     <header>
-        <h2 class="text-lg font-medium">Changer le thème global du site</h2>
+        <Text class="font-bold">Changer le thème global du site</Text>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <Text type="xs">
             Mettez le site à votre image en changeant de thème.
-        </p>
+        </Text>
     </header>
 
     <div class="mt-6 flex flex-col gap-10 lg:flex-row">
         <div class="flex-1">
-            <p class="mb-2 font-bold">Thème foncé</p>
+            <Text class="mb-2 font-bold">Thème foncé</Text>
             <div
                 v-for="theme in availableThemes.filter(
                     (t) => t.type === 'dark'
@@ -67,7 +68,7 @@ const toggleTheme = (selectedTheme) => {
                 class="form-control"
             >
                 <label class="label cursor-pointer gap-4">
-                    <span class="label-text">{{ theme.label }}</span>
+                    <span class="label-text">{{ $t(theme.label) }}</span>
                     <input
                         type="radio"
                         name="theme-radios"
@@ -80,7 +81,7 @@ const toggleTheme = (selectedTheme) => {
             </div>
         </div>
         <div class="flex-1">
-            <p class="mb-2 font-bold">Thème clair</p>
+            <Text class="mb-2 font-bold">Thème clair</Text>
             <div
                 v-for="theme in availableThemes.filter(
                     (t) => t.type === 'light'
@@ -88,7 +89,7 @@ const toggleTheme = (selectedTheme) => {
                 class="form-control"
             >
                 <label class="label cursor-pointer gap-4">
-                    <span class="label-text">{{ theme.label }}</span>
+                    <span class="label-text">{{ $t(theme.label) }}</span>
                     <input
                         type="radio"
                         name="theme-radios"

@@ -36,6 +36,10 @@ class MediaObserver
                 }
             }
         }
+
+        $media->update([
+            'lang' => app()->getLocale()
+        ]);
     }
 
     /**

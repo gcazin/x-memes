@@ -4,6 +4,7 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import Text from '@/Components/Misc/Text.vue'
 
 defineProps({
     stage: {
@@ -48,22 +49,22 @@ const features = [
                         <img
                             class="mask mask-squircle mx-auto mb-8 w-32 shadow"
                             src="images/favicon-with-background.jpg"
-                            alt=""
+                            alt="Logo du site X-Memes"
                         />
                         <h1 class="text-3xl font-bold lg:text-5xl">
-                            La plateforme qui te permet de retrouver tes mèmes
-                            préférés!
+                            {{ $t('La plateforme qui te permet de retrouver tes mèmes préférés!') }}
                         </h1>
                         <p class="py-6 lg:text-xl">
-                            X-Memes est une plateforme où tu peux t'inscrire,
-                            publier et voir les mèmes que la communauté a posté.
+                            {{ $t('X-Memes est une plateforme où tu peux t\'inscrire, publier et voir les mèmes que la communauté a posté.') }}
                         </p>
                         <div class="space-x-2">
                             <a
                                 :href="route('library.image')"
                                 class="btn btn-primary btn-lg"
                             >
-                                Découvrir
+                                <Text type="sub">
+                                    Découvrir
+                                </Text>
                             </a>
                             <a
                                 :href="
@@ -73,11 +74,11 @@ const features = [
                                 "
                                 class="btn btn-outline btn-secondary btn-lg"
                             >
-                                {{
-                                    auth.isConnected
-                                        ? 'Voir mon profil'
-                                        : 'Se connecter'
-                                }}
+                                <Text type="sub">{{
+                                        auth.isConnected
+                                            ? 'Voir mon profil'
+                                            : 'Se connecter'
+                                    }}</Text>
                             </a>
                         </div>
                     </div>
@@ -109,12 +110,12 @@ const features = [
         <div class="bg-base-300 pb-16 pt-20">
             <Container>
                 <Stack>
-                    <p class="font-bold uppercase text-primary">Services</p>
-                    <h2 class="text-4xl">Fonctionnalités</h2>
+                    <p class="font-bold uppercase text-primary">{{ $t('Services') }}</p>
+                    <h2 class="text-4xl">{{ $t('Fonctionnalités') }}</h2>
                     <p class="text-xl">
-                        X-Memes t'offre une variété de fonctionnalités, entre
-                        autres, te permettant de poster, télécharger et suivre
-                        les personnes que tu aimes.
+                        {{ $t('X-Memes t\'offre une variété de fonctionnalités, ' +
+                        'entre autres, te permettant de poster, ' +
+                        'télécharger et suivre les personnes que tu aimes.')}}
                     </p>
                     <div
                         class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
@@ -130,7 +131,7 @@ const features = [
                                     size="4xl"
                                     :name="feature.icon"
                                 />
-                                <p class="text-xl">{{ feature.description }}</p>
+                                <p class="text-xl">{{ $t(feature.description) }}</p>
                             </Stack>
                         </div>
                     </div>
@@ -142,7 +143,7 @@ const features = [
             <div class="pb-16 pt-20 text-center lg:px-0">
                 <Stack class="mb-16">
                     <p class="font-bold uppercase text-primary">FAQ</p>
-                    <h2 class="text-4xl">Une question ?</h2>
+                    <h2 class="text-4xl">{{ $t('Une question ?') }}</h2>
                     <p class="text-xl">
                         Si tu trouves pas la réponse à ta question, ou si tu as
                         une suggestion, tu peux me contacter sur X

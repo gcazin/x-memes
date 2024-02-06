@@ -74,18 +74,16 @@ const dateTime = (value) => {
             </div>
         </div>
         <div class="flex items-center pt-2">
-            <Text
-                type="link"
-                to="user.show"
-                :parameter="media.user.username"
-                class="flex items-center gap-x-2"
+            <a
+                :href="route('user.show', media.user.username)"
+                class="link flex items-center gap-x-2"
             >
                 <Avatar size="sm" :user="media.user" />
-                <span>
+                <Text type="xs">
                     {{ media.user.username }}
-                </span>
+                </Text>
                 <RoleBadge :user="media.user" />
-            </Text>
+            </a>
             <div class="flex-1">
                 <div class="flex justify-end gap-x-2">
                     <div

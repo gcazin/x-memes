@@ -7,7 +7,7 @@ import Modal from '@/Components/Modal/Modal.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { router, usePage } from '@inertiajs/vue3'
-import { onMounted, ref, toRef, watch } from 'vue'
+import { computed, onMounted, ref, toRef, watch } from 'vue'
 
 const props = defineProps({
     medias: {
@@ -49,7 +49,6 @@ const urlParams =
 onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
-    getSortTitle()
 })
 
 /**
@@ -87,7 +86,7 @@ const loadMorePosts = () => {
     )
 }
 
-const getSortTitle = () => {
+const getSortTitle = computed(() => {
     const selector = selectedFilters.value.sort
 
     let title = ''
@@ -118,7 +117,7 @@ const getSortTitle = () => {
     }
 
     return title
-}
+})
 
 const checkIfTagIsSelected = (tag) => {
     return selectedFilters.value.filters.tags.includes(tag)
@@ -276,9 +275,7 @@ watch(
                 class="flex-1"
                 v-if="allPosts && allPosts.length && selectedFilters.sort"
             >
-                <Text>
-                    {{ getSortTitle() }}
-                </Text>
+                    {{ $t(getSortTitle) }}
             </div>
             <div
                 class="mt-4 flex-1 space-x-2 text-right lg:mt-0"
@@ -293,7 +290,8 @@ watch(
                         role="button"
                         class="btn btn-ghost btn-sm"
                     >
-                        Trier <Icon name="chevron-down" />
+                        <Text type="xs">Trier</Text>
+                        <Icon name="chevron-down" />
                     </div>
                     <ul
                         tabindex="0"
@@ -302,7 +300,7 @@ watch(
                     >
                         <li v-for="(sort, index) in sortBy" :key="index">
                             <a @click="sortByProperty(index, sort.value)">
-                                {{ sort.name }}
+                                {{ $t(sort.name) }}
                                 <Icon
                                     class="ms-auto inline"
                                     :name="`arrow-${checkIfSortIsSelected(
@@ -319,7 +317,8 @@ watch(
                         role="button"
                         class="btn btn-ghost btn-sm"
                     >
-                        Filter par tags <Icon name="chevron-down" />
+                        <Text type="xs">Filter par tags</Text>
+                        <Icon name="chevron-down" />
                     </div>
                     <ul
                         tabindex="0"
@@ -378,7 +377,7 @@ watch(
         </div>
         <div v-else>
             <Text
-                >Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis
+            >Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis
                 ça j'dis rien...
             </Text>
         </div>
@@ -405,12 +404,12 @@ watch(
                 </Text>
                 <div class="space-x-2">
                     <a :href="route('register')" class="btn btn-primary"
-                        >Inscription</a
+                    >Inscription</a
                     >
                     <a
                         :href="route('login')"
                         class="btn btn-outline btn-primary"
-                        >Connexion</a
+                    >Connexion</a
                     >
                 </div>
             </Stack>

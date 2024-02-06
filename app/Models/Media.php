@@ -27,6 +27,7 @@ use Spatie\Tags\HasTags;
  * @property int $download_count
  * @property string $filename
  * @property string $name
+ * @property mixed|string $lang
  *
  * @method static create(array $array)
  */
@@ -58,6 +59,7 @@ class Media extends Model implements Sitemapable
         'download_count',
         'slug',
         'user_id',
+        'lang'
     ];
 
     protected $hidden = [
@@ -172,6 +174,11 @@ class Media extends Model implements Sitemapable
         return $this->morphMany(UserPoint::class, 'pointable');
     }
 
+    /**
+     * Represents the comments associated with the media item.
+     *
+     * @return HasMany
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

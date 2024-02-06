@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class UserObserver
@@ -11,9 +12,11 @@ class UserObserver
     /**
      * Handle the Tag "created" event.
      */
-    public function created(): void
+    public function created(User $user): void
     {
-        Cache::forget('users');
+        $user->update([
+            'lang' => app()->getLocale()
+        ]);
     }
 
     /**
@@ -21,7 +24,7 @@ class UserObserver
      */
     public function updated(): void
     {
-        Cache::forget('users');
+        //
     }
 
     /**
@@ -29,6 +32,6 @@ class UserObserver
      */
     public function deleted(): void
     {
-        Cache::forget('users');
+        //
     }
 }

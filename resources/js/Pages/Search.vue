@@ -10,6 +10,7 @@ import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm } from '@inertiajs/vue3'
 import { computed } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 const props = defineProps({
     type: {
@@ -89,7 +90,7 @@ formService.setForm(form).setRouteName(null)
                                 :key="index"
                                 :value="option.name"
                             >
-                                {{ option.label }}
+                                {{ trans(option.label.trim()) }}
                             </option>
                         </select>
                     </label>

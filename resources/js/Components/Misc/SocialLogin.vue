@@ -87,7 +87,7 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
             </div>
         </a>
     </div>
-    <div class="divider">OU</div>
+    <div class="divider">{{ $t('OU') }}</div>
 </template>
 
 <style scoped></style>

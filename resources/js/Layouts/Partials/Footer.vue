@@ -4,12 +4,18 @@
     >
         <nav class="grid grid-flow-col gap-4">
             <a :href="route('changelog')" class="link-hover link"
-                >Journal des modifications</a
+                >
+                <Text type="sub">Journal des modifications</Text>
+            </a
             >
             -
             <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link"
-                >Contact</a
+                >
+                <Text type="sub">Contact</Text>
+            </a
             >
+            -
+            <LanguageSwitcher />
         </nav>
         <nav>
             <div class="grid grid-flow-col items-center gap-4">
@@ -35,8 +41,8 @@
         </nav>
         <aside>
             <p>
-                Copyright © {{ moment().year() }} - Tous droits réservés par
-                X-Memes.
+                Copyright © {{ moment().year() }} -
+                <Text type="xs">Tous droits réservés par {{ $page.props.appName }}.</Text>
             </p>
             <p>
                 Développé avec ❤️ par
@@ -54,4 +60,6 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
 import moment from 'moment'
+import Text from '@/Components/Misc/Text.vue'
+import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 </script>

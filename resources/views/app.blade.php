@@ -28,6 +28,13 @@
         <!-- Icons set -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
+        @php
+            $ROUTE_PARAMS = Route::current()->parameters();
+            $ROUTE_PARAMS['locale'] = (app()->getLocale() == 'fr') ? 'fr' : 'en';
+            $ALTERNATE_LOCALE_ROUTE = route(Route::currentRouteName(), $ROUTE_PARAMS);
+        @endphp
+        <link rel="alternate" hreflang="{{ $ROUTE_PARAMS['locale'] }}" href="{{ $ALTERNATE_LOCALE_ROUTE }}" />
+
         <!-- Scripts -->
         @routes
         @vite('resources/js/app.js')
@@ -35,9 +42,6 @@
     </head>
     <body class="font-sans antialiased !mb-0">
         @inertia
-        <script>
-            console.log('Non tu ne trouveras rien ici petit chenapan')
-        </script>
         <script>
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js').then(function(registration) {

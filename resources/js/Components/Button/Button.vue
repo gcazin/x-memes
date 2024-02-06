@@ -1,4 +1,6 @@
 <script setup>
+import { useSlots } from 'vue'
+
 const props = defineProps({
     type: {
         type: String,
@@ -52,6 +54,10 @@ const buttonSize = () => {
         sm: 'btn-sm',
     }[props.size]
 }
+
+const slots = useSlots()
+const text = slots.default()[0].children
+console.log(typeof text !== 'array')
 </script>
 
 <template>
@@ -69,6 +75,11 @@ const buttonSize = () => {
             buttonSize(),
         ]"
     >
-        <slot />
+        <template v-if="text !== null && !Array.isArray(text)">
+            {{ $t(text.trim()) }}
+        </template>
+        <template v-else>
+            <slot />
+        </template>
     </button>
 </template>

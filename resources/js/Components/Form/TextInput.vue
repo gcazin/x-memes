@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 defineProps({
     modelValue: {
@@ -44,7 +45,7 @@ defineExpose({ focus: () => input.value.focus() })
     <label class="form-control w-full">
         <div v-if="label" class="label">
             <span class="label-text">
-                {{ label }}
+                {{ $t(label) }}
                 <span class="text-red-500">{{ required ? '*' : null }}</span>
             </span>
         </div>
@@ -55,12 +56,12 @@ defineExpose({ focus: () => input.value.focus() })
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             ref="input"
-            :placeholder="placeholder"
+            :placeholder="placeholder ? $t(placeholder) : null"
             :maxlength="maxLength"
         />
         <div v-if="helpText" class="label pb-0">
             <span class="label-text-alt"></span>
-            <span class="label-text-alt">{{ helpText }}</span>
+            <span class="label-text-alt">{{ $t(helpText) }}</span>
         </div>
     </label>
 </template>
