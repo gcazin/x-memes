@@ -42,18 +42,18 @@ Route::prefix(LaravelLocalization::setLocale())
     ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
     ->group(function () {
         Route::get('/', HomeController::class)->name('index');
-        Route::get('bibliotheque/images', ImageController::class)->name('library.image');
-        Route::get('bibliotheque/videos', VideoController::class)->name('library.video');
-        Route::get('au-hasard', RandomController::class)->name('random');
-        Route::get('classement', LeaderboardController::class)->name('leaderboard');
-        Route::get('journal-des-modifications', ChangelogController::class)->name('changelog');
+        Route::get('library/images', ImageController::class)->name('library.image');
+        Route::get('library/videos', VideoController::class)->name('library.video');
+        Route::get('random', RandomController::class)->name('random');
+        Route::get('leaderboard', LeaderboardController::class)->name('leaderboard');
+        Route::get('changelog', ChangelogController::class)->name('changelog');
         // Common pages
 
         // User
         Route::name('user.')->prefix('membre')->group(function () {
             Route::get('{username}', [UserController::class, 'show'])->name('show');
             Route::get('{username}/badges', BadgeController::class)->name('badge.index');
-            Route::get('{username}/publications-likees', LikedController::class)->name('media.liked');
+            Route::get('{username}/liked-publications', LikedController::class)->name('media.liked');
         });
 
         // Media
@@ -63,24 +63,24 @@ Route::prefix(LaravelLocalization::setLocale())
 
         // Auth
         Route::middleware('auth')->group(function () {
-            Route::get('rechercher/{query?}', SearchController::class)->name('search');
+            Route::get('search/{query?}', SearchController::class)->name('search');
 
             Route::name('user.')->group(function () {
-                Route::post('suivre/{id}', [FollowController::class, 'store'])->name('follow');
-                Route::post('membre/modifier-informations', [UserController::class, 'update'])->name('update');
+                Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');
+                Route::post('member/update-informations', [UserController::class, 'update'])->name('update');
             });
 
             Route::name('profile.')->group(function () {
-                Route::get('profil', [ProfileController::class, 'edit'])->name('edit');
-                Route::put('profil', [ProfileController::class, 'update'])->name('update');
-                Route::delete('profil', [ProfileController::class, 'destroy'])->name('destroy');
+                Route::get('profile', [ProfileController::class, 'edit'])->name('edit');
+                Route::put('profile', [ProfileController::class, 'update'])->name('update');
+                Route::delete('profile', [ProfileController::class, 'destroy'])->name('destroy');
             });
 
             Route::resource('media', MediaController::class)->except(['index', 'create', 'show']);
             Route::name('media.')->prefix('media')->group(function () {
-                Route::post('dupliquer', DuplicateController::class)->name('duplicate');
+                Route::post('duplicate', DuplicateController::class)->name('duplicate');
                 Route::get('{id}/like', LikeController::class)->name('like');
-                Route::get('{id}/telecharger', DownloadController::class)->name('download');
+                Route::get('{id}/download', DownloadController::class)->name('download');
 
                 Route::name('comment.')->prefix('commentaire')->group(function () {
                     Route::post('{id}', [CommentController::class, 'store'])->name('store');
@@ -89,14 +89,14 @@ Route::prefix(LaravelLocalization::setLocale())
                     Route::delete('{id}', [CommentController::class, 'destroy'])->name('destroy');
 
                     Route::name('reply.')->group(function () {
-                        Route::post('{id}/repondre', [CommentController::class, 'store'])->name('store');
+                        Route::post('{id}/reply', [CommentController::class, 'store'])->name('store');
                     });
                 });
             });
 
             Route::resource('notification', NotificationController::class);
             Route::name('notification.')->prefix('notification')->group(function () {
-                Route::put('marquer-tout-comme-lu', [NotificationController::class, 'update'])->name('markAllAsRead');
+                Route::put('read-all-as-read', [NotificationController::class, 'update'])->name('markAllAsRead');
             });
 
             Route::middleware('role:super-admin')->prefix('admin')->group(function () {
