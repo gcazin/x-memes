@@ -17,7 +17,7 @@ const availableLanguages = [
         value: 'fr',
     },
     {
-        label: 'English',
+        label: 'Anglais',
         value: 'en',
     },
 ]
