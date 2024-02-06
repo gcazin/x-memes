@@ -1,7 +1,6 @@
 <script setup>
 import Button from '@/Components/Button/Button.vue'
 import { useForm, usePage } from '@inertiajs/vue3'
-import { trans } from 'laravel-vue-i18n'
 import { computed } from 'vue'
 
 const props = defineProps({

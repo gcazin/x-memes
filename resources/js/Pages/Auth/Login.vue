@@ -3,13 +3,12 @@ import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import Checkbox from '@/Components/Form/Checkbox.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import Icon from '@/Components/Misc/Icon.vue'
 import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Link, useForm } from '@inertiajs/vue3'
-import Button from '@/Components/Button/Button.vue'
-import Icon from '@/Components/Misc/Icon.vue'
 
 defineProps({
     canResetPassword: {
@@ -72,7 +71,7 @@ const submit = () => {
                                 />
                                 <span
                                     class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                                    >{{ $t('Se souvenir de moi')}}</span
+                                    >{{ $t('Se souvenir de moi') }}</span
                                 >
                             </label>
                         </div>
@@ -97,9 +96,12 @@ const submit = () => {
                     </Stack>
                 </form>
             </Section>
-            <a :href="route('register')" class="btn btn-wide btn-primary w-full">
+            <a
+                :href="route('register')"
+                class="btn btn-primary btn-wide w-full"
+            >
                 <Icon name="user-plus" size="2xl" />
-                {{ $t('S\'inscrire maintenant') }}
+                {{ $t("S'inscrire maintenant") }}
             </a>
         </Stack>
     </PageLayout>

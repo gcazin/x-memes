@@ -9,8 +9,8 @@ import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm } from '@inertiajs/vue3'
-import { computed } from 'vue'
 import { trans } from 'laravel-vue-i18n'
+import { computed } from 'vue'
 
 const props = defineProps({
     type: {

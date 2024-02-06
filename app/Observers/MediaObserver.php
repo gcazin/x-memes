@@ -38,7 +38,7 @@ class MediaObserver
         }
 
         $media->update([
-            'lang' => app()->getLocale()
+            'lang' => app()->getLocale(),
         ]);
     }
 

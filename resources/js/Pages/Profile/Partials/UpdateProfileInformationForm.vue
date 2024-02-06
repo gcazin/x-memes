@@ -1,10 +1,10 @@
 <script setup>
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import Text from '@/Components/Misc/Text.vue'
 import formService from '@/Services/form.service.js'
 import { Link, useForm, usePage } from '@inertiajs/vue3'
-import Text from '@/Components/Misc/Text.vue'
-import LoadingButton from '@/Components/Button/LoadingButton.vue'
 
 defineProps({
     mustVerifyEmail: {
@@ -28,9 +28,7 @@ formService.setForm(form).setRouteName('profile')
     <header>
         <Text class="font-bold">Informations du profil</Text>
 
-        <Text type="xs">
-            Mettez à jour l'adresse email de votre compte.
-        </Text>
+        <Text type="xs"> Mettez à jour l'adresse email de votre compte. </Text>
     </header>
 
     <form @submit.prevent="formService.handle('update')" class="mt-6 space-y-6">

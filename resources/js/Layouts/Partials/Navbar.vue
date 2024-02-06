@@ -1,15 +1,14 @@
 <script setup>
 import DropdownLink from '@/Components/Dropdown/DropdownLink.vue'
 import Icon from '@/Components/Misc/Icon.vue'
-import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import Container from '@/Layouts/Partials/Container.vue'
+import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
-import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 
 const menuItems = [
     {
@@ -90,7 +89,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         :active="route().current(item.route)"
                                     >
                                         <Icon :name="item.icon" size="xl" />
-                                        <Text v-if="'name' in item">{{ $t(item.name) }}</Text>
+                                        <Text v-if="'name' in item">{{
+                                            $t(item.name)
+                                        }}</Text>
                                     </a>
                                 </li>
                             </ul>
@@ -121,7 +122,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 :active="route().current(item.route)"
                             >
                                 <Icon :name="item.icon" size="xl" />
-                                <Text v-if="'name' in item">{{ item.name }}</Text>
+                                <Text v-if="'name' in item">{{
+                                    item.name
+                                }}</Text>
                             </a>
                         </li>
                     </ul>
@@ -134,11 +137,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
 
                     <template v-if="!page.props?.auth?.isConnected">
                         <div class="hidden space-x-1 2xl:block">
-                            <a class="btn btn-primary" :href="route('login')"
-                            >
+                            <a class="btn btn-primary" :href="route('login')">
                                 <Text type="xs">Connexion</Text>
-                            </a
-                            >
+                            </a>
                         </div>
                         <div class="dropdown dropdown-end block 2xl:hidden">
                             <div
@@ -266,7 +267,10 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 </div>
                                 <div v-else>
                                     <p class="p-4">
-                                        <Text type="sub">Aucune notification à afficher</Text>
+                                        <Text type="sub"
+                                            >Aucune notification à
+                                            afficher</Text
+                                        >
                                     </p>
                                 </div>
                                 <a
@@ -288,7 +292,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                             <div
                                 tabindex="0"
                                 role="button"
-                                class="btn btn-ghost btn-circle"
+                                class="btn btn-circle btn-ghost"
                             >
                                 <Avatar
                                     :user="$page.props.auth.user"
@@ -311,18 +315,24 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             "
                                         >
                                             <Icon name="user" size="lg" />
-                                            <Text type="sub">Voir mon profil</Text>
+                                            <Text type="sub"
+                                                >Voir mon profil</Text
+                                            >
                                         </DropdownLink>
                                     </li>
                                     <li
-                                        v-if="helperService.checkRoles('super-admin,admin')"
+                                        v-if="
+                                            helperService.checkRoles(
+                                                'super-admin,admin'
+                                            )
+                                        "
                                     >
                                         <a
                                             :href="
-                                            route(
-                                                'filament.admin.pages.dashboard'
-                                            )
-                                        "
+                                                route(
+                                                    'filament.admin.pages.dashboard'
+                                                )
+                                            "
                                         >
                                             <Icon name="constructor" />
                                             <Text>Administration</Text>

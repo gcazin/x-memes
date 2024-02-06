@@ -1,7 +1,7 @@
 <script setup>
+import Text from '@/Components/Misc/Text.vue'
 import helperService from '@/Services/helper.service.js'
 import { onMounted } from 'vue'
-import Text from '@/Components/Misc/Text.vue'
 
 const availableThemes = [
     {

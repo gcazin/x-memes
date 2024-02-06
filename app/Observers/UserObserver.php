@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Observers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Cache;
 
 class UserObserver
 {
@@ -15,7 +14,7 @@ class UserObserver
     public function created(User $user): void
     {
         $user->update([
-            'lang' => app()->getLocale()
+            'lang' => app()->getLocale(),
         ]);
     }
 

@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Mcamara\LaravelLocalization\LaravelLocalization;
 
 it('can be render login page', function () {
     $response = $this->get(route('login'));

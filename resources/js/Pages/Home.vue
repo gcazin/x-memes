@@ -1,10 +1,10 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head, usePage } from '@inertiajs/vue3'
-import Text from '@/Components/Misc/Text.vue'
 
 defineProps({
     stage: {
@@ -52,19 +52,25 @@ const features = [
                             alt="Logo du site X-Memes"
                         />
                         <h1 class="text-3xl font-bold lg:text-5xl">
-                            {{ $t('La plateforme qui te permet de retrouver tes mèmes préférés!') }}
+                            {{
+                                $t(
+                                    'La plateforme qui te permet de retrouver tes mèmes préférés!'
+                                )
+                            }}
                         </h1>
                         <p class="py-6 lg:text-xl">
-                            {{ $t('X-Memes est une plateforme où tu peux t\'inscrire, publier et voir les mèmes que la communauté a posté.') }}
+                            {{
+                                $t(
+                                    "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté."
+                                )
+                            }}
                         </p>
                         <div class="space-x-2">
                             <a
                                 :href="route('library.image')"
                                 class="btn btn-primary btn-lg"
                             >
-                                <Text type="sub">
-                                    Découvrir
-                                </Text>
+                                <Text type="sub"> Découvrir </Text>
                             </a>
                             <a
                                 :href="
@@ -75,10 +81,10 @@ const features = [
                                 class="btn btn-outline btn-secondary btn-lg"
                             >
                                 <Text type="sub">{{
-                                        auth.isConnected
-                                            ? 'Voir mon profil'
-                                            : 'Se connecter'
-                                    }}</Text>
+                                    auth.isConnected
+                                        ? 'Voir mon profil'
+                                        : 'Se connecter'
+                                }}</Text>
                             </a>
                         </div>
                     </div>
@@ -98,10 +104,16 @@ const features = [
                         />
                     </div>
                     <div class="absolute -left-9 bottom-0 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="Fond pointillé image d'accueil" />
+                        <img
+                            src="/images/misc/blob.svg"
+                            alt="Fond pointillé image d'accueil"
+                        />
                     </div>
                     <div class="absolute -right-6 -top-6 z-[-1]">
-                        <img src="/images/misc/blob.svg" alt="Fond pointillé image d'accueil" />
+                        <img
+                            src="/images/misc/blob.svg"
+                            alt="Fond pointillé image d'accueil"
+                        />
                     </div>
                 </div>
             </div>
@@ -110,12 +122,18 @@ const features = [
         <div class="bg-base-300 pb-16 pt-20">
             <Container>
                 <Stack>
-                    <p class="font-bold uppercase text-primary">{{ $t('Services') }}</p>
+                    <p class="font-bold uppercase text-primary">
+                        {{ $t('Services') }}
+                    </p>
                     <h2 class="text-4xl">{{ $t('Fonctionnalités') }}</h2>
                     <p class="text-xl">
-                        {{ $t('X-Memes t\'offre une variété de fonctionnalités, ' +
-                        'entre autres, te permettant de poster, ' +
-                        'télécharger et suivre les personnes que tu aimes.')}}
+                        {{
+                            $t(
+                                "X-Memes t'offre une variété de fonctionnalités, " +
+                                    'entre autres, te permettant de poster, ' +
+                                    'télécharger et suivre les personnes que tu aimes.'
+                            )
+                        }}
                     </p>
                     <div
                         class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
@@ -131,7 +149,9 @@ const features = [
                                     size="4xl"
                                     :name="feature.icon"
                                 />
-                                <p class="text-xl">{{ $t(feature.description) }}</p>
+                                <p class="text-xl">
+                                    {{ $t(feature.description) }}
+                                </p>
                             </Stack>
                         </div>
                     </div>

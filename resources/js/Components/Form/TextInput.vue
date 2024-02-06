@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { trans } from 'laravel-vue-i18n'
 
 defineProps({
     modelValue: {

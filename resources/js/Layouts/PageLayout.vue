@@ -67,7 +67,8 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    X-Memes est maintenant disponible en 🇫🇷 français, 🇬🇧 anglais, et 🇪🇸 espagnol !
+                    X-Memes est maintenant disponible en 🇫🇷 français, 🇬🇧
+                    anglais, et 🇪🇸 espagnol !
                 </Text>
             </div>
         </div>
@@ -89,7 +90,10 @@ const props = page.props
                                 <slot name="title" />
                             </div>
                         </template>
-                        <h1 v-else-if="title" class="text-2xl font-semibold leading-tight">
+                        <h1
+                            v-else-if="title"
+                            class="text-2xl font-semibold leading-tight"
+                        >
                             {{ $t(title) }}
                         </h1>
                         <template v-if="$slots.subtitle">

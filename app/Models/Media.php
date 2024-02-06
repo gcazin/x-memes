@@ -59,7 +59,7 @@ class Media extends Model implements Sitemapable
         'download_count',
         'slug',
         'user_id',
-        'lang'
+        'lang',
     ];
 
     protected $hidden = [
@@ -176,8 +176,6 @@ class Media extends Model implements Sitemapable
 
     /**
      * Represents the comments associated with the media item.
-     *
-     * @return HasMany
      */
     public function comments(): HasMany
     {

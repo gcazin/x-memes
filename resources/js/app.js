@@ -6,9 +6,9 @@ import HelperService from '@/Services/helper.service.js'
 import { Ziggy } from '@/ziggy.js'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import { i18nVue } from 'laravel-vue-i18n'
 import { createApp, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
-import { i18nVue } from 'laravel-vue-i18n'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
@@ -28,10 +28,10 @@ createInertiaApp({
         app.use(ZiggyVue, Ziggy)
         app.use(i18nVue, {
             fallbackLang: 'fr',
-            resolve: async lang => {
-                const langs = import.meta.glob('../../lang/*.json');
-                return await langs[`../../lang/${lang}.json`]();
-            }
+            resolve: async (lang) => {
+                const langs = import.meta.glob('../../lang/*.json')
+                return await langs[`../../lang/${lang}.json`]()
+            },
         })
         return app.mount(el)
     },

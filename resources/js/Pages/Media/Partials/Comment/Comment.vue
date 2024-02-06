@@ -9,8 +9,8 @@ import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
-import { ref } from 'vue'
 import { trans } from 'laravel-vue-i18n'
+import { ref } from 'vue'
 
 const props = defineProps({
     media: {

@@ -68,7 +68,7 @@ class EventServiceProvider extends ServiceProvider
             MediaObserver::class,
         ],
         User::class => [
-            UserObserver::class
+            UserObserver::class,
         ],
         /*Tag::class => [
             // Handle the tags caching.

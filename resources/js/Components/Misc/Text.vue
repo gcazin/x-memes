@@ -1,6 +1,6 @@
 <script setup>
-import { computed, useSlots } from 'vue'
 import { trans } from 'laravel-vue-i18n'
+import { computed, useSlots } from 'vue'
 
 const props = defineProps({
     type: {

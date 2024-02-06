@@ -5,7 +5,11 @@
 export default {
     methods: {
         __(key, replace = {}) {
-            if (typeof key !== 'undefined' && key !== null && typeof key === 'string') {
+            if (
+                typeof key !== 'undefined' &&
+                key !== null &&
+                typeof key === 'string'
+            ) {
                 const trimmedKey = key.trim()
 
                 let translation = this.$page.props.language[trimmedKey]
@@ -14,7 +18,7 @@ export default {
 
                 Object.keys(replace).forEach(function (key) {
                     translation = translation.replace(':' + key, replace[key])
-                });
+                })
 
                 return translation
             }

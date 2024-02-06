@@ -1,11 +1,11 @@
 <script setup>
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import Text from '@/Components/Misc/Text.vue'
 import Modal from '@/Components/Modal/Modal.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import Text from '@/Components/Misc/Text.vue'
 
 const passwordInput = ref(null)
 
@@ -82,7 +82,7 @@ const closeModal = () => {
                 </button>
 
                 <button
-                    class="btn btn-error btn-outline ms-3"
+                    class="btn btn-outline btn-error ms-3"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                     @click="deleteUser"

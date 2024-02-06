@@ -1,11 +1,10 @@
 <script setup>
+import LoadingButton from '@/Components/Button/LoadingButton.vue'
 import InputError from '@/Components/Form/InputError.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
+import Text from '@/Components/Misc/Text.vue'
 import { useForm } from '@inertiajs/vue3'
 import { ref } from 'vue'
-import Text from '@/Components/Misc/Text.vue'
-import Button from '@/Components/Button/Button.vue'
-import LoadingButton from '@/Components/Button/LoadingButton.vue'
 
 const passwordInput = ref(null)
 const currentPasswordInput = ref(null)

@@ -275,7 +275,7 @@ watch(
                 class="flex-1"
                 v-if="allPosts && allPosts.length && selectedFilters.sort"
             >
-                    {{ $t(getSortTitle) }}
+                {{ $t(getSortTitle) }}
             </div>
             <div
                 class="mt-4 flex-1 space-x-2 text-right lg:mt-0"
@@ -377,7 +377,7 @@ watch(
         </div>
         <div v-else>
             <Text
-            >Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis
+                >Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis
                 ça j'dis rien...
             </Text>
         </div>
@@ -404,12 +404,12 @@ watch(
                 </Text>
                 <div class="space-x-2">
                     <a :href="route('register')" class="btn btn-primary"
-                    >Inscription</a
+                        >Inscription</a
                     >
                     <a
                         :href="route('login')"
                         class="btn btn-outline btn-primary"
-                    >Connexion</a
+                        >Connexion</a
                     >
                 </div>
             </Stack>

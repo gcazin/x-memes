@@ -4,9 +4,9 @@ import { Ziggy } from '@/ziggy.js'
 import { createInertiaApp } from '@inertiajs/vue3'
 import createServer from '@inertiajs/vue3/server'
 import { renderToString } from '@vue/server-renderer'
+import { i18nVue } from 'laravel-vue-i18n'
 import { createSSRApp, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
-import { i18nVue } from 'laravel-vue-i18n'
 
 createServer((page) =>
     createInertiaApp({
@@ -33,9 +33,11 @@ createServer((page) =>
             })
             app.use(i18nVue, {
                 lang: 'en',
-                resolve: lang => {
-                    const langs = import.meta.glob('../../lang/*.json', { eager: true });
-                    return langs[`../../lang/${lang}.json`].default;
+                resolve: (lang) => {
+                    const langs = import.meta.glob('../../lang/*.json', {
+                        eager: true,
+                    })
+                    return langs[`../../lang/${lang}.json`].default
                 },
             })
             app.use(ZiggyVue, Ziggy)

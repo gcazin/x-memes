@@ -1,7 +1,6 @@
 <script setup>
 import Button from '@/Components/Button/Button.vue'
 import { useSlots } from 'vue'
-import { trans } from 'laravel-vue-i18n'
 
 defineProps({
     type: {

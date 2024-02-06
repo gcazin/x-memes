@@ -3,17 +3,13 @@
         class="footer footer-center rounded bg-base-200 py-8 text-base-content"
     >
         <nav class="grid grid-flow-col gap-4">
-            <a :href="route('changelog')" class="link-hover link"
-                >
+            <a :href="route('changelog')" class="link-hover link">
                 <Text type="sub">Journal des modifications</Text>
-            </a
-            >
+            </a>
             -
-            <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link"
-                >
+            <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link">
                 <Text type="sub">Contact</Text>
-            </a
-            >
+            </a>
             -
             <LanguageSwitcher />
         </nav>
@@ -42,7 +38,9 @@
         <aside>
             <p>
                 Copyright © {{ moment().year() }} -
-                <Text type="xs">Tous droits réservés par {{ $page.props.appName }}.</Text>
+                <Text type="xs"
+                    >Tous droits réservés par {{ $page.props.appName }}.</Text
+                >
             </p>
             <p>
                 Développé avec ❤️ par
@@ -59,7 +57,7 @@
 </template>
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
-import moment from 'moment'
 import Text from '@/Components/Misc/Text.vue'
 import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
+import moment from 'moment'
 </script>

@@ -104,12 +104,20 @@ formService.setForm(form).setRouteName('media')
                     <div class="flex-1">
                         <div class="flex items-center gap-x-4">
                             <div class="">
-                                <a :href="route('user.show', media.user.username)">
+                                <a
+                                    :href="
+                                        route('user.show', media.user.username)
+                                    "
+                                >
                                     <Avatar :user="media.user" />
                                 </a>
                             </div>
                             <div class="flex flex-col gap-2">
-                                <a :href="route('user.show', media.user.username)">
+                                <a
+                                    :href="
+                                        route('user.show', media.user.username)
+                                    "
+                                >
                                     {{ media.user.username }}
                                     <RoleBadge
                                         class="!align-text-top"
@@ -126,65 +134,88 @@ formService.setForm(form).setRouteName('media')
                         <Stack spacing="1">
                             <div class="space-x-2">
                                 <div class="indicator">
-                                <span class="indicator-item badge badge-sm badge-secondary">
-                                    {{ media.likers.length }}
-                                </span>
+                                    <span
+                                        class="badge indicator-item badge-secondary badge-sm"
+                                    >
+                                        {{ media.likers.length }}
+                                    </span>
                                     <Button
                                         outline
                                         circle
                                         @click="
-                                    formService.handle('like', media, 'get')
-                                "
+                                            formService.handle(
+                                                'like',
+                                                media,
+                                                'get'
+                                            )
+                                        "
                                         :type="
-                                    auth.isConnected
-                                        ? media.likers
-                                              ?.map((liker) => liker.id)
-                                              .includes(auth.user.id)
-                                            ? 'error'
-                                            : ''
-                                        : ''
-                                "
+                                            auth.isConnected
+                                                ? media.likers
+                                                      ?.map((liker) => liker.id)
+                                                      .includes(auth.user.id)
+                                                    ? 'error'
+                                                    : ''
+                                                : ''
+                                        "
                                     >
                                         <Icon size="xl" name="heart" />
                                     </Button>
                                 </div>
 
                                 <div class="indicator">
-                                <span class="indicator-item badge badge-sm badge-secondary">
-                                    {{ media.download_count }}
-                                </span>
-                                    <Button
-                                        circle
-                                        @click="downloadItem(media)"
+                                    <span
+                                        class="badge indicator-item badge-secondary badge-sm"
                                     >
+                                        {{ media.download_count }}
+                                    </span>
+                                    <Button circle @click="downloadItem(media)">
                                         <Icon size="xl" name="import" />
                                     </Button>
                                 </div>
 
-                                <div v-if="canPerformAction" class="dropdown dropdown-end">
-                                    <div tabindex="0" role="button" class="btn px-2 btn-ghost">
+                                <div
+                                    v-if="canPerformAction"
+                                    class="dropdown dropdown-end"
+                                >
+                                    <div
+                                        tabindex="0"
+                                        role="button"
+                                        class="btn btn-ghost px-2"
+                                    >
                                         <Icon name="ellipsis-v" size="xl" />
                                     </div>
-                                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                    <ul
+                                        tabindex="0"
+                                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                                    >
                                         <li
-                                            @click="formService.openModal('editMedia', media)"
+                                            @click="
+                                                formService.openModal(
+                                                    'editMedia',
+                                                    media
+                                                )
+                                            "
                                         >
                                             <a>
                                                 <Text type="sub">
-                                                    <Icon name="edit" size="xl" />
+                                                    <Icon
+                                                        name="edit"
+                                                        size="xl"
+                                                    />
                                                     Modifier
                                                 </Text>
                                             </a>
                                         </li>
                                         <li
                                             @click="
-                                    formService
-                                        .setForm(form)
-                                        .setRouteName('media')
-                                        .handle('destroy', media)
-                                "
+                                                formService
+                                                    .setForm(form)
+                                                    .setRouteName('media')
+                                                    .handle('destroy', media)
+                                            "
                                         >
-                                            <a class="text-error font-bold">
+                                            <a class="font-bold text-error">
                                                 <Icon name="trash" size="xl" />
                                                 <Text type="sub">
                                                     Supprimer
@@ -231,16 +262,20 @@ formService.setForm(form).setRouteName('media')
                                             </Multiselect>
                                             <div class="text-right">
                                                 <Text type="xs"
-                                                >Les tags seront synchronisés
-                                                    après modification.</Text
+                                                    >Les tags seront
+                                                    synchronisés après
+                                                    modification.</Text
                                                 >
                                             </div>
                                         </div>
 
                                         <LoadingButton
                                             @click="
-                                            formService.handle('update', media)
-                                        "
+                                                formService.handle(
+                                                    'update',
+                                                    media
+                                                )
+                                            "
                                             :loading="form.processing"
                                         >
                                             Modifier ton mème
@@ -274,7 +309,7 @@ formService.setForm(form).setRouteName('media')
                     <!-- Comments -->
                     <CommentForm v-if="auth.isConnected" :media />
                     <Text v-if="comments.total > 0" type="subtitle"
-                    >Commentaires ({{ comments.total }})</Text
+                        >Commentaires ({{ comments.total }})</Text
                     >
                     <Section v-else>
                         <Text>Sois le premier à commenter !</Text>
@@ -334,11 +369,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow, 0 0 #0000);
+        var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

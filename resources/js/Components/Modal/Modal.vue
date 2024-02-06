@@ -80,7 +80,9 @@ const maxWidthClass = computed(() => {
                     class="modal-box border border-base-200 shadow-lg"
                     :class="[maxWidthClass]"
                 >
-                    <p v-if="title" class="mb-2 text-lg font-bold">{{ $t(title) }}</p>
+                    <p v-if="title" class="mb-2 text-lg font-bold">
+                        {{ $t(title) }}
+                    </p>
                     <template v-if="$slots.description">
                         <p class="py-4">
                             <slot name="description"></slot>
