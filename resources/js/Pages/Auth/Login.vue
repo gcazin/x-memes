@@ -42,7 +42,7 @@ const submit = () => {
                 class="btn btn-primary btn-wide w-full"
             >
                 <Icon name="user-plus" size="2xl" />
-                {{ $t("Pas encore inscrit ?") }}
+                {{ $t('Pas encore inscrit ?') }}
             </a>
             <Section>
                 <form @submit.prevent="submit">

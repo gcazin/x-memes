@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
     protected function refreshApplicationWithLocale($locale): void
     {
         self::tearDown();
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=' . $locale);
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'='.$locale);
         self::setUp();
     }
 

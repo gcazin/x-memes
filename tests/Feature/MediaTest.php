@@ -12,7 +12,6 @@ use App\Listeners\Media\SendMediaPublishedNotification;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;

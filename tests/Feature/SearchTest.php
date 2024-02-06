@@ -27,7 +27,7 @@ it('should returns no result if media is not approved', function () {
 
     actingAsGuest()->get(route('search', [
         'type' => 'medias',
-        'query' => 'foo'
+        'query' => 'foo',
     ]))->assertInertia(fn (AssertableInertia $page) => $page
         ->component('Search')
         ->has('result.data', 0)

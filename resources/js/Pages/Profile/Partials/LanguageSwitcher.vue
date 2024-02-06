@@ -2,7 +2,7 @@
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import helperService from '@/Services/helper.service.js'
-import { router, usePage } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
 import { onMounted } from 'vue'
 
 onMounted(() => {
