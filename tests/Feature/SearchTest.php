@@ -25,11 +25,13 @@ it('should returns no result if media is not approved', function () {
         'approved' => false,
     ]);
 
-    actingAsGuest()->get('rechercher?query=foo&type=medias')
-        ->assertInertia(fn (AssertableInertia $page) => $page
-            ->component('Search')
-            ->has('result.data', 0)
-        );
+    actingAsGuest()->get(route('search', [
+        'type' => 'medias',
+        'query' => 'foo'
+    ]))->assertInertia(fn (AssertableInertia $page) => $page
+        ->component('Search')
+        ->has('result.data', 0)
+    );
 });
 
 /*it('should returns results with tags', function () {

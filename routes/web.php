@@ -39,7 +39,7 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 Route::get('language/{language}', LocalizationController::class)->name('language');
 
 Route::prefix(LaravelLocalization::setLocale())
-    ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+    ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'localize'])
     ->group(function () {
         Route::get('/', HomeController::class)->name('index');
         Route::get('library/images', ImageController::class)->name('library.image');
@@ -63,7 +63,7 @@ Route::prefix(LaravelLocalization::setLocale())
 
         // Auth
         Route::middleware('auth')->group(function () {
-            Route::get('search/{query?}', SearchController::class)->name('search');
+            Route::get('search', SearchController::class)->name('search');
 
             Route::name('user.')->group(function () {
                 Route::post('follow/{id}', [FollowController::class, 'store'])->name('follow');

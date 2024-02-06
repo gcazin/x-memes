@@ -37,6 +37,13 @@ const submit = () => {
         <Stack>
             <SocialLogin />
 
+            <a
+                :href="route('register')"
+                class="btn btn-primary btn-wide w-full"
+            >
+                <Icon name="user-plus" size="2xl" />
+                {{ $t("Pas encore inscrit ?") }}
+            </a>
             <Section>
                 <form @submit.prevent="submit">
                     <Stack>
@@ -96,13 +103,6 @@ const submit = () => {
                     </Stack>
                 </form>
             </Section>
-            <a
-                :href="route('register')"
-                class="btn btn-primary btn-wide w-full"
-            >
-                <Icon name="user-plus" size="2xl" />
-                {{ $t("S'inscrire maintenant") }}
-            </a>
         </Stack>
     </PageLayout>
 </template>

@@ -37,7 +37,7 @@ defineExpose({ focus: () => input.value.focus() })
 <template>
     <label class="form-control mb-2">
         <div class="label">
-            <span class="label-text">{{ label }}</span>
+            <span class="label-text">{{ $t(label) }}</span>
         </div>
         <textarea
             class="textarea textarea-bordered textarea-primary h-24 bg-base-300"

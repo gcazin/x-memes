@@ -177,7 +177,7 @@ it('can have the correct number of points', function () {
 });
 
 test('super-admin|admin receives a reward when his media is approved', function () {
-    actingAsSuperAdmin()->post(route('media.store'), [
+    $response = actingAsSuperAdmin()->post(route('media.store'), [
         'name' => 'Test Media',
         'media_id' => UploadedFile::fake()->image('test.jpg'),
     ]);

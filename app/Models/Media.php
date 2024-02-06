@@ -94,6 +94,16 @@ class Media extends Model implements Sitemapable
     }
 
     /**
+     * Defines a custom cast for the 'approved_at' attribute to format its display.
+     */
+    public function approvedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::make($value)->diffForHumans() : null,
+        );
+    }
+
+    /**
      * Checks if the media item is approved.
      */
     protected function isApproved(): bool

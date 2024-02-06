@@ -36,8 +36,8 @@ it('should index approved medias', function () {
         'user_id' => $user,
     ]);
 
-    actingAsGuest()
-        ->get(RouteServiceProvider::LIBRARY)
+    $response = actingAsGuest()
+        ->get(route('library.image'))
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Library', fn (AssertableInertia $page) => $page
                 ->component('MediaGallery')

@@ -44,6 +44,10 @@ expect()->extend('toBeOne', function () {
 |
 */
 
+uses()->beforeEach(function () {
+    $this->refreshApplicationWithLocale('fr');
+})->in('Unit', 'Feature');
+
 function actingAsSuperAdmin()
 {
     $role = Role::create(['name' => 'super-admin']);

@@ -25,6 +25,7 @@ import saveAs from 'file-saver'
 import _ from 'lodash'
 import moment from 'moment'
 import { computed } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 const props = defineProps({
     media: {
@@ -308,9 +309,9 @@ formService.setForm(form).setRouteName('media')
 
                     <!-- Comments -->
                     <CommentForm v-if="auth.isConnected" :media />
-                    <Text v-if="comments.total > 0" type="subtitle"
-                        >Commentaires ({{ comments.total }})</Text
-                    >
+                    <Text v-if="comments.total > 0" type="subtitle">
+                        {{ $t('Commentaires (:count)', { count: comments.total }) }}
+                    </Text>
                     <Section v-else>
                         <Text>Sois le premier à commenter !</Text>
                     </Section>

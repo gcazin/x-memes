@@ -25,14 +25,6 @@ const availableLanguages = [
 const currentLanguage = () => {
     return page.props.locale
 }
-
-const toggleLanguage = (language) => {
-    return router.visit(route('language', language), {
-        onSuccess: () => {
-            window.location.reload()
-        },
-    })
-}
 </script>
 <template>
     <div class="dropdown dropdown-end">
@@ -48,7 +40,7 @@ const toggleLanguage = (language) => {
                     v-for="(language, index) in availableLanguages"
                     :key="index"
                 >
-                    <a @click="toggleLanguage(language.value)">
+                    <a :href="route('language', language.value)">
                         <Text type="sub">{{ language.label }}</Text>
                     </a>
                 </li>

@@ -2,17 +2,18 @@
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 it('can be render login page', function () {
     $response = $this->get(route('login'));
 
     $response->assertStatus(200);
-})->only();
+});
 
 it('can authenticate using the login screen with his username', function () {
     $user = User::factory()->create();
 
-    $response = $this->post('/connexion', [
+    $response = $this->post(LaravelLocalization::localizeUrl('login'), [
         'username' => $user->username,
         'password' => 'password',
     ]);
@@ -46,7 +47,7 @@ it('can authenticate using username in uppercase', function () {
 it('can authenticate using the login screen with his email', function () {
     $user = User::factory()->create();
 
-    $response = $this->post('/connexion', [
+    $response = $this->post(route('login'), [
         'username' => $user->email,
         'password' => 'password',
     ]);
@@ -58,7 +59,7 @@ it('can authenticate using the login screen with his email', function () {
 it('can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $this->post('/connexion', [
+    $this->post(route('login'), [
         'username' => $user->username,
         'password' => 'wrong-password',
     ]);
@@ -69,7 +70,7 @@ it('can not authenticate with invalid password', function () {
 it('can not authenticate with invalid password with his email', function () {
     $user = User::factory()->create();
 
-    $this->post('/connexion', [
+    $this->post(route('login'), [
         'username' => $user->email,
         'password' => 'wrong-password',
     ]);
@@ -80,7 +81,7 @@ it('can not authenticate with invalid password with his email', function () {
 it('can logout', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post('/deconnexion');
+    $response = $this->actingAs($user)->post(route('logout'));
 
     $this->assertGuest();
     $response->assertRedirect('/');
