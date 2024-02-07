@@ -94,7 +94,7 @@ const cancelForm = () => {
                         v-model="form.content"
                         autofocus
                         :disabled="!auth.isConnected"
-                        :placeholder="`J't'écoute ${auth.user.username}, dit-moi tout`"
+                        placeholder="Ton commentaire"
                     />
 
                     <InputError :message="form.errors.content" />
