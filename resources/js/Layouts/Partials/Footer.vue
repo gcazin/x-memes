@@ -38,12 +38,10 @@
         <aside>
             <p>
                 Copyright © {{ moment().year() }} -
-                <Text type="xs"
-                    >Tous droits réservés par {{ $page.props.appName }}.</Text
-                >
+                {{ $t('Tous droits réservés par :name.', { name: $page.props.appName.toString() }) }}
             </p>
             <p>
-                Développé avec ❤️ par
+                {{ $t('Développé avec ❤️ par')}}
                 <a
                     class="link link-secondary font-bold"
                     href="https://guillaume-cazin.fr"
@@ -60,4 +58,5 @@ import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import moment from 'moment'
+import { trans } from 'laravel-vue-i18n'
 </script>

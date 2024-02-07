@@ -29,7 +29,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allApprovedMedias($force = true): mixed
     {
-        $model = $this->media->published();
+        $model = $this->media->published()->where('lang', app()->getLocale());
 
         return $force
             ? $model->get()
@@ -41,7 +41,7 @@ class MediaRepository implements RepositoryInterface
      */
     public function allPendingMedias(): mixed
     {
-        return $this->media->whereIsNotApproved()->orderByDesc('created_at')->get();
+        return $this->media->notPublished()->orderByDesc('created_at')->get();
     }
 
     /**
@@ -49,7 +49,7 @@ class MediaRepository implements RepositoryInterface
      *
      * @return mixed
      */
-    public function paginate()
+    public function paginate(): mixed
     {
         return $this->allApprovedMedias(false)
             ->orderByDesc('approved_at')
@@ -89,7 +89,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Finds the first media item returned by the given key-value pair.
      */
-    public function firstWhere($key, $value)
+    public function firstWhere($key, $value): Media
     {
         return $this->media->firstWhere($key, $value);
     }

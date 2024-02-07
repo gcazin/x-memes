@@ -139,11 +139,11 @@ const uploadMedia = () => {
                         </Stack>
                         <div class="label ms-auto pb-0">
                             <span class="label-text-alt">
-                                Types de fichier acceptés:
+                                {{ $t('Types de fichier acceptés:') }}
                                 <span class="font-bold"
                                     >.mp4, .jpg, .jpeg, .png, .gif, .webp</span
                                 >
-                                - Taille maximale:
+                                - {{ $t('Taille maximale:') }}
                                 <span class="font-bold">25mo</span>
                             </span>
                         </div>

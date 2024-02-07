@@ -60,10 +60,15 @@ class MediaService
             }
         }
 
+        $tags = Tag::query()
+            ->whereHas('medias', fn ($query) => $query->where('type', '=', $type))
+            ->whereLocale('name', app()->getLocale())
+            ->get();
+
         return [
             'title' => $title ?: "Bibliothèque d'images",
             'medias' => $medias->paginate(),
-            'tags' => Tag::whereHas('medias', fn ($query) => $query->where('type', '=', $type))->get(),
+            'tags' => $tags,
             'sortBy' => $sortBy->toArray(),
             'defaultSort' => $defaultSort,
             'duplicatedImage' => session('duplicatedImage'),

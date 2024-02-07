@@ -38,6 +38,7 @@ const features = [
 </script>
 
 <template>
+    {{ $t('products.key') }}
     <Head title="La référence des mèmes sur X (Twitter)" />
     <PageLayout is-full-size>
         <div
