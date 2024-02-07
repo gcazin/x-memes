@@ -4,6 +4,7 @@ import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
+import Button from '@/Components/Button/Button.vue'
 
 defineProps({
     notification: {
@@ -56,12 +57,13 @@ formService.setForm(form).setRouteName('notification')
             </Text>
         </div>
         <div class="relative z-50 hidden lg:block" v-if="onlyUnread">
-            <button
+            <Button
+                size="sm"
+                ghost
                 @click="formService.handle('update', notification)"
-                class="btn btn-ghost btn-sm"
             >
                 Marquer comme lu
-            </button>
+            </Button>
         </div>
     </div>
 </template>

@@ -305,13 +305,13 @@ formService.setForm(form).setRouteName('media')
 
                     <!-- Comments -->
                     <CommentForm v-if="auth.isConnected" :media />
-                    <Text v-if="comments.total > 0" type="subtitle">
+                    <p v-if="comments.total > 0" class="text-2xl">
                         {{
                             $t('Commentaires (:count)', {
                                 count: comments.total,
                             })
                         }}
-                    </Text>
+                    </p>
                     <Section v-else>
                         <Text>Sois le premier à commenter !</Text>
                     </Section>

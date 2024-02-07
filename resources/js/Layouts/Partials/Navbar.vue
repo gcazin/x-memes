@@ -278,11 +278,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                     class="flex items-center justify-center rounded-b bg-base-300 py-2 text-center hover:bg-base-200"
                                 >
                                     <Icon name="eye" class="mr-1" />
-                                    <Text type="xs">
-                                        Voir toutes les notifications ({{
-                                            notifications.length
-                                        }})
-                                    </Text>
+                                    <p>
+                                        {{ $t('Voir toutes les notifications (:count)', { count: notifications.length }) }}
+                                    </p>
                                 </a>
                             </div>
                         </div>

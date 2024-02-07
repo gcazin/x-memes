@@ -124,7 +124,7 @@ formService.setForm(form).setRouteName(null)
             <template v-if="!query">
                 <img
                     src="/images/assets/wait.jpg"
-                    class="mx-auto w-80 rounded-lg shadow-lg"
+                    class="mx-auto w-full lg:w-80 rounded-lg shadow-lg"
                     alt="Mèmems d'une personne qui attend"
                 />
             </template>
@@ -151,7 +151,7 @@ formService.setForm(form).setRouteName(null)
                 "
             >
                 <div class="alert alert-info">
-                    Aucun résultat a afficher. Essayer avec un autre terme.
+                    Aucun résultat à afficher. Essayer avec un autre terme.
                 </div>
             </template>
         </Stack>

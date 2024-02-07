@@ -97,7 +97,7 @@ watch(
                     <Pagination :item="notifications" />
                 </template>
                 <Section v-else>
-                    <Text>Aucune notification a afficher.</Text>
+                    <Text>Aucune notification à afficher.</Text>
                 </Section>
             </Stack>
         </Stack>
