@@ -41,7 +41,7 @@ const currentLanguage = () => {
                     :key="index"
                 >
                     <a :href="route('language', language.value)">
-                        <Text type="sub">{{ language.label }}</Text>
+                        <Text type="sub">{{ $t(language.label) }}</Text>
                     </a>
                 </li>
             </ul>
