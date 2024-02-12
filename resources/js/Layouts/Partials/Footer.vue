@@ -1,3 +1,13 @@
+<script setup>
+import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Misc/Text.vue'
+import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
+import moment from 'moment'
+import { usePage } from '@inertiajs/vue3'
+
+const page = usePage()
+</script>
+
 <template>
     <footer
         class="footer footer-center rounded bg-base-200 py-8 text-base-content"
@@ -40,7 +50,7 @@
                 Copyright © {{ moment().year() }} -
                 {{
                     $t('Tous droits réservés par :name.', {
-                        name: $page.props.appName.toString(),
+                        name: page.props.appName,
                     })
                 }}
             </Text>
@@ -57,9 +67,3 @@
         </aside>
     </footer>
 </template>
-<script setup>
-import Icon from '@/Components/Misc/Icon.vue'
-import Text from '@/Components/Misc/Text.vue'
-import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
-import moment from 'moment'
-</script>
