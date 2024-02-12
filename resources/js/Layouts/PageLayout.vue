@@ -69,9 +69,9 @@ const props = page.props
                 <Text type="sub">
                     {{
                         $t(
-                            'X-Memes est maintenant disponible en 🇫🇷 français, 🇬🇧 anglais, et 🇪🇸 espagnol !'
+                            'X-Memes est maintenant disponible en anglais!'
                         )
-                    }}
+                    }} 🇬🇧
                 </Text>
             </div>
         </div>

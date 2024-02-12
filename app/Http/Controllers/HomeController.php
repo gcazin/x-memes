@@ -14,15 +14,15 @@ class HomeController extends Controller
 {
     public function __invoke(): Response|RedirectResponse
     {
-        SEO::title('La réference des mèmes sur X (Twitter)')
-            ->description('La plateforme qui te permet de retrouver tes mèmes préférés!')
+        SEO::title('X-MEMES - La plateforme référence des mèmes d\'Internet')
+            ->description('Télécharge, commente, aime et publie des mèmes d\'Internet pour la communauté. Inscrivez-vous dès maintenant pour ne plus avoir à chercher des heures votre mème préféré!')
             ->schema(
                 Schema::webSite()
                     ->name(config('app.name'))
                     ->url(config('app.url'))
                     ->potentialAction(
                         Schema::searchAction()
-                            ->target(config('app.url').'/rechercher?query={search_term_string}')
+                            ->target(config('app.url').'/search?query={search_term_string}')
                     )
                     ->toScript()
             )

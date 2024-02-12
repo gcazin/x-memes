@@ -53,7 +53,8 @@ const updateUser = () => {
 </script>
 
 <template>
-    <Head :title="`Profil de ${user.username}`"></Head>
+    <Head :title="page.props.seo.title" />
+
     <PageLayout>
         <Stack spacing="4">
             <Stack spacing="8">
@@ -236,6 +237,7 @@ const updateUser = () => {
                                                 v-model="form.x_username"
                                                 autofocus
                                                 placeholder="johndoe"
+                                                help-text="Sans le @."
                                             />
                                             <InputError
                                                 :message="
@@ -249,6 +251,7 @@ const updateUser = () => {
                                                 v-model="form.github_username"
                                                 autofocus
                                                 placeholder="johndoe"
+                                                help-text="Sans le @."
                                             />
                                             <InputError
                                                 :message="

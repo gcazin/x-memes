@@ -31,9 +31,9 @@ class BadgeController extends Controller
 
         $medias = $this->mediaRepository->paginateByUser($user->id);
 
-        $title = 'Découvre les badges de '.$username.' sur '.config('app.name');
+        $title = __('Badges de :username', ['username' => $username]);
         Seo::description($title)
-            ->title('Badges de '.$username.' sur '.config('app.name'))
+            ->title($title)
             ->type('profile')
             ->schema(
                 Schema::webPage()

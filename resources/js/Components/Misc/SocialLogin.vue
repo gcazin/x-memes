@@ -42,7 +42,7 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
                         fill="#EB4335"
                     />
                 </svg>
-                <Text type="sub">{{ text }} avec Google</Text>
+                <Text type="sub">{{ $t(`${text} avec Google`) }}</Text>
             </div>
         </a>
         <a
@@ -62,7 +62,7 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
                         d="M714.163 519.284 1160.89 0h-105.86L667.137 450.887 357.328 0H0l468.492 681.821L0 1226.37h105.866l409.625-476.152 327.181 476.152H1200L714.137 519.284h.026ZM569.165 687.828l-47.468-67.894-377.686-540.24h162.604l304.797 435.991 47.468 67.894 396.2 566.721H892.476L569.165 687.854v-.026Z"
                     />
                 </svg>
-                <Text type="sub">{{ text }} avec X</Text>
+                <Text type="sub">{{ $t(`${text} avec X`) }}</Text>
             </div>
         </a>
         <a
@@ -83,7 +83,7 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
                         fill="#545454"
                     />
                 </svg>
-                <Text type="sub">{{ text }} avec GitHub</Text>
+                <Text type="sub">{{ $t(`${text} avec GitHub`) }}</Text>
             </div>
         </a>
     </div>

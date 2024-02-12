@@ -8,7 +8,7 @@ import Stack from '@/Layouts/Partials/Stack.vue'
 import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
-import { Head, router, useForm } from '@inertiajs/vue3'
+import { Head, router, useForm, usePage } from '@inertiajs/vue3'
 import { trans } from 'laravel-vue-i18n'
 import { computed } from 'vue'
 
@@ -72,10 +72,12 @@ const queryPlaceholder = computed(() => {
 })
 
 formService.setForm(form).setRouteName(null)
+
+const page = usePage()
 </script>
 
 <template>
-    <Head title="Recherche" />
+    <Head :title="page.props.seo.title" />
     <PageLayout :title="title">
         <Stack spacing="8">
             <form @submit.prevent="search">
@@ -151,7 +153,7 @@ formService.setForm(form).setRouteName(null)
                 "
             >
                 <div class="alert alert-info">
-                    Aucun résultat à afficher. Essayer avec un autre terme.
+                    {{ $t('Aucun résultat à afficher. Essayer avec un autre terme.') }}
                 </div>
             </template>
         </Stack>

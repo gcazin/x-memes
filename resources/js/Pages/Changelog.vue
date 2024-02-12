@@ -29,9 +29,9 @@ const page = usePage()
 </script>
 
 <template>
-    <Head title="Journal des modifications" />
+    <Head :title="page.props.seo.title" />
 
-    <PageLayout title="Journal des modifications">
+    <PageLayout :title="page.props.seo.title">
         <template #action>
             {{
                 trans('Dernière mise à jour du site : :date', {

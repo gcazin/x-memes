@@ -22,11 +22,11 @@ class VideoController extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        seoDescription('Retrouves tes vidéos de mèmes favoris sur X-Memes !');
+        seoDescription('Télécharge, commente, aime et publie des mèmes vidéos d\'Internet pour la communauté. Inscris-toi dès maintenant pour ne plus avoir à chercher des heures ton mème préféré!');
 
         return Inertia::render(
             'Library',
-            $this->mediaService->byType($request, 'video', 'Bibliothèque de vidéos')
+            $this->mediaService->byType($request, 'video', 'Les meilleurs mèmes vidéos d\'Internet')
         );
     }
 }

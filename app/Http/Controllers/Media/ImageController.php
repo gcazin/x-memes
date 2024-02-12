@@ -25,7 +25,7 @@ class ImageController extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        seoDescription('Retrouves tes images de mèmes favoris sur X-Memes !');
+        seoDescription('Télécharge, commente, aime et publie des mèmes d\'Internet pour la communauté. Inscrivez-vous dès maintenant pour ne plus avoir à chercher des heures votre mème préféré!');
 
         if (auth()->user()) {
             PointFacade::reward(null, PointType::DAILY_LOGIN);
@@ -33,7 +33,7 @@ class ImageController extends Controller
 
         return Inertia::render(
             'Library',
-            $this->mediaService->byType($request, 'image')
+            $this->mediaService->byType($request, 'image', 'Les meilleurs mèmes d\'Internet')
         );
     }
 }

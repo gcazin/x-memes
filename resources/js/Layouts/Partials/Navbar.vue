@@ -138,7 +138,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                     <template v-if="!page.props?.auth?.isConnected">
                         <div class="hidden space-x-1 2xl:block">
                             <a class="btn btn-primary" :href="route('login')">
-                                <Text type="xs">Connexion</Text>
+                                <Text type="xs">{{ $t('Connexion') }}</Text>
                             </a>
                         </div>
                         <div class="dropdown dropdown-end block 2xl:hidden">
@@ -177,16 +177,6 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
 
                     <!-- When the user is connected -->
                     <template v-else>
-                        <!-- Search icon -->
-                        <a
-                            tabindex="0"
-                            role="button"
-                            class="flex items-center lg:hidden"
-                            aria-labelledby="Search"
-                            :href="route('search')"
-                        >
-                            <Icon size="xl" name="search" />
-                        </a>
                         <!-- Notification icon -->
                         <div class="dropdown dropdown-end">
                             <div

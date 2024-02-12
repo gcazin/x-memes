@@ -124,8 +124,8 @@ class MediaController extends Controller
                 );
             }
 
-            SEO::description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
-                ->title($media->name.' sur '.config('app.name'))
+            SEO::description(__('Télécharge le mème :name sur X-Memes dès maintenant !', ['name' => $media->name]))
+                ->title($media->name)
                 ->type($media->type)
                 ->url(route('media.show', $media->slug))
                 ->image($image)

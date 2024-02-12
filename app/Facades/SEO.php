@@ -35,14 +35,14 @@ class SEO
 
     public function title(string $title): SEO
     {
-        $this->title = $title;
+        $this->title = __($title);
 
         return $this;
     }
 
     public function description(string $description): SEO
     {
-        $this->description = $description;
+        $this->description = __($description);
 
         return $this;
     }

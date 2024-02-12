@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Github\AuthMethod;
 use Github\Client;
 use Inertia\Inertia;
+use App\Facades\SeoFacade as SEO;
 
 class ChangelogController extends Controller
 {
@@ -16,6 +17,10 @@ class ChangelogController extends Controller
         $client->authenticate(config('services.github_api_key'), null, AuthMethod::ACCESS_TOKEN);
         $releases = $client->api('repo')->releases()->all('gcazin', 'x-memes');
         $commits = $client->api('repo')->commits()->all('gcazin', 'x-memes', ['sha' => 'main']);
+
+        SEO::title('Journal des modifications')
+            ->description('Récapitulatif des changements sur X-Memes')
+            ->share();
 
         return Inertia::render('Changelog', [
             'releases' => $releases,

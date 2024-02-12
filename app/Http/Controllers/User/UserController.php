@@ -32,8 +32,8 @@ class UserController extends Controller
             $medias = $this->mediaRepository->paginateByUser($user->id);
         }
 
-        Seo::description('Découvre le profil de '.$username.' sur X-Memes - '.$user->medias()->count().' mèmes publiés - '.$user->followers()->count().' abonnés')
-            ->title('Profil de '.$username.' sur '.config('app.name'))
+        Seo::title(__('Profil de :username', ['username' => $username]))
+            ->description('Profil de '.$username.' sur X-Memes - '.$user->medias()->count().' mèmes publiés - '.$user->followers()->count().' abonnés')
             ->type('profile')
             ->share();
 

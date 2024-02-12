@@ -89,7 +89,7 @@ formService.setForm(form).setRouteName('media')
 </script>
 
 <template>
-    <Head :title="`${media.name} - ${_.map(getTags(), 'name').join(', ')}`" />
+    <Head :title="page.props.seo.title" />
 
     <PageLayout>
         <Stack>
@@ -200,7 +200,7 @@ formService.setForm(form).setRouteName('media')
                                             <a>
                                                 <Icon name="edit" size="xl" />
                                                 <Text type="sub">
-                                                    Modifier
+                                                    {{ $t('Modifier') }}
                                                 </Text>
                                             </a>
                                         </li>
@@ -215,7 +215,7 @@ formService.setForm(form).setRouteName('media')
                                             <a class="font-bold text-error">
                                                 <Icon name="trash" size="xl" />
                                                 <Text type="sub">
-                                                    Supprimer
+                                                    {{ $t('Supprimer') }}
                                                 </Text>
                                             </a>
                                         </li>
@@ -229,7 +229,7 @@ formService.setForm(form).setRouteName('media')
                                 >
                                     <Stack>
                                         <TextInput
-                                            label="Nouveau titre"
+                                            label="Titre"
                                             v-model="form.name"
                                         />
 
@@ -258,11 +258,9 @@ formService.setForm(form).setRouteName('media')
                                                 </template>
                                             </Multiselect>
                                             <div class="text-right">
-                                                <Text type="xs"
-                                                    >Les tags seront
-                                                    synchronisés après
-                                                    modification.</Text
-                                                >
+                                                <Text type="xs">
+                                                    {{ $t('Les tags seront synchronisés après modification.') }}
+                                                </Text>
                                             </div>
                                         </div>
 
