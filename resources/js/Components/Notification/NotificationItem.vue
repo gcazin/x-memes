@@ -38,7 +38,7 @@ formService.setForm(form).setRouteName('notification')
             />
             <img
                 v-else
-                :src="`/storage/${notification.data.content.path}`"
+                :src="`/storage/${notification.data.content.thumbnail_path ?? notification.data.content.path}`"
                 alt=""
                 class="mx-auto w-16 rounded"
             />
