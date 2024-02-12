@@ -42,6 +42,7 @@ Route::prefix(LaravelLocalization::setLocale())
     ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'localize'])
     ->group(function () {
         Route::get('/', HomeController::class)->name('index');
+
         Route::get('library/images', ImageController::class)->name('library.image');
         Route::get('library/videos', VideoController::class)->name('library.video');
         Route::get('random', RandomController::class)->name('random');

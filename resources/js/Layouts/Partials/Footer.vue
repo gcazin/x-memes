@@ -49,9 +49,7 @@ const page = usePage()
             <Text type="sub">
                 Copyright © {{ moment().year() }} -
                 {{
-                    $t('Tous droits réservés par :name.', {
-                        name: page.props.appName,
-                    })
+                    $t('Tous droits réservés par X-Memes.')
                 }}
             </Text>
             <Text type="sub">
