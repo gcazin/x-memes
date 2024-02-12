@@ -39,7 +39,7 @@ use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 Route::get('language/{language}', LocalizationController::class)->name('language');
 
 Route::prefix(LaravelLocalization::setLocale())
-    ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'localize'])
+    ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localize'])
     ->group(function () {
         Route::get('/', HomeController::class)->name('index');
 
