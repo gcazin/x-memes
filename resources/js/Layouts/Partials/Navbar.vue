@@ -260,7 +260,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         <Text type="sub">
                                             {{
                                                 $t(
-                                                    'Aucune notification à afficher'
+                                                    'Aucune notification à afficher.'
                                                 )
                                             }}
                                         </Text>
