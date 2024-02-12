@@ -39,7 +39,7 @@
     </head>
     <body class="font-sans antialiased !mb-0">
         @inertia
-        <script>
+<!--        <script>
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
                     // console.log('Service worker registration succeeded:', registration);
@@ -49,6 +49,6 @@
             } else {
                 // console.log('Service workers are not supported.');
             }
-        </script>
+        </script>-->
     </body>
 </html>
