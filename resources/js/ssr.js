@@ -32,7 +32,6 @@ createServer((page) =>
                 },
             })
             app.use(i18nVue, {
-                lang: 'fr',
                 resolve: (lang) => {
                     const langs = import.meta.glob('../../lang/*.json', {
                         eager: true,
