@@ -17,7 +17,7 @@ it('can update password', function () {
 
     $response
         ->assertSessionHasNoErrors()
-        ->assertRedirect('/fr/profile');
+        ->assertRedirect(route('profile.edit'));
 
     $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
 });
@@ -36,5 +36,5 @@ test('correct password must be provided to update password', function () {
 
     $response
         ->assertSessionHasErrors('current_password')
-        ->assertRedirect('fr/profile');
+        ->assertRedirect(route('profile.edit'));
 });

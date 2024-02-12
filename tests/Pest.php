@@ -45,7 +45,7 @@ expect()->extend('toBeOne', function () {
 */
 
 uses()->beforeEach(function () {
-    $this->refreshApplicationWithLocale('fr');
+    $this->refreshApplicationWithLocale('en');
 })->in('Unit', 'Feature');
 
 function actingAsSuperAdmin()
