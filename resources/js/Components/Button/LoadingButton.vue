@@ -1,6 +1,5 @@
 <script setup>
 import Button from '@/Components/Button/Button.vue'
-import { useSlots } from 'vue'
 
 defineProps({
     type: {

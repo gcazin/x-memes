@@ -98,9 +98,9 @@ const uploadMedia = () => {
 <template>
     <PageLayout :title="title">
         <template #action v-if="$page.props.auth?.isConnected">
-            <Button @click="formService.openModal('addMedia')"
-                >{{ $t('Ajouter un mème') }}</Button
-            >
+            <Button @click="formService.openModal('addMedia')">{{
+                $t('Ajouter un mème')
+            }}</Button>
         </template>
 
         <Modal id="addMediaModal" title="Ajouter un mème" max-width="4xl">
@@ -184,9 +184,13 @@ const uploadMedia = () => {
                                     {{ $t('1 image similaire a été trouvé!') }}
                                 </Text>
                                 <Text type="sub">
-                                    {{ $t('S\'il s\'agit d\'une erreur, ' +
-                                    'tu peux quand même la poster, ' +
-                                    'elle sera vérifié dans tout les cas') }}
+                                    {{
+                                        $t(
+                                            "S'il s'agit d'une erreur, " +
+                                                'tu peux quand même la poster, ' +
+                                                'elle sera vérifié dans tout les cas'
+                                        )
+                                    }}
                                 </Text>
                             </Section>
                         </div>
@@ -207,14 +211,20 @@ const uploadMedia = () => {
                         :loading="form.processing"
                         :disabled="form.processing"
                     >
-                        {{ $t(duplicated ? `La poster quand même?` : 'Ajouter') }}
+                        {{
+                            $t(duplicated ? `La poster quand même?` : 'Ajouter')
+                        }}
                     </LoadingButton>
                     <div>
                         <Text type="xs" class="italic">
-                            {{ $t('* Le mème sera en attente d\'approbation ' +
-                            'par un administrateur avant d\'être publié sur le site. ' +
-                            'Les administrateurs du site se réserve ' +
-                            'le droit de refuser toute image qui ne serait pas conforme.') }}
+                            {{
+                                $t(
+                                    "* Le mème sera en attente d'approbation " +
+                                        "par un administrateur avant d'être publié sur le site. " +
+                                        'Les administrateurs du site se réserve ' +
+                                        'le droit de refuser toute image qui ne serait pas conforme.'
+                                )
+                            }}
                         </Text>
                     </div>
                 </Stack>

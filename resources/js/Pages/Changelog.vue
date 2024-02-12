@@ -4,9 +4,9 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import { getActiveLanguage, trans } from 'laravel-vue-i18n'
 import { marked } from 'marked'
 import moment from 'moment'
-import { getActiveLanguage, trans } from 'laravel-vue-i18n'
 
 const props = defineProps({
     releases: {
@@ -33,7 +33,11 @@ const page = usePage()
 
     <PageLayout title="Journal des modifications">
         <template #action>
-            {{ trans('Dernière mise à jour du site : :date', { date: dateTime(commits[0].commit.committer.date) })}}
+            {{
+                trans('Dernière mise à jour du site : :date', {
+                    date: dateTime(commits[0].commit.committer.date),
+                })
+            }}
         </template>
         <Section v-for="(release, index) in releases" :key="index">
             <Stack>

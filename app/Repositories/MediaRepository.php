@@ -46,8 +46,6 @@ class MediaRepository implements RepositoryInterface
 
     /**
      * Paginates all approved media items.
-     *
-     * @return mixed
      */
     public function paginate(): mixed
     {

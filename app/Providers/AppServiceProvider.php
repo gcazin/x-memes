@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
                 if ($locale === $defaultLocale) {
                     $languageUrls[$locale] = $noPrefixSegments;
                 } else {
-                    $languageUrls[$locale] =  $locale . '/' . $noPrefixSegments;
+                    $languageUrls[$locale] = $locale.'/'.$noPrefixSegments;
                 }
             }
 

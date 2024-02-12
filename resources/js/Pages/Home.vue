@@ -80,9 +80,13 @@ const features = [
                                 "
                                 class="btn btn-outline btn-secondary btn-lg"
                             >
-                                <Text type="sub">{{ $t(auth.isConnected
-                                    ? 'Voir mon profil'
-                                    : 'Se connecter') }}</Text>
+                                <Text type="sub">{{
+                                    $t(
+                                        auth.isConnected
+                                            ? 'Voir mon profil'
+                                            : 'Se connecter'
+                                    )
+                                }}</Text>
                             </a>
                         </div>
                     </div>
@@ -163,7 +167,11 @@ const features = [
                     <Text class="font-bold uppercase text-primary">FAQ</Text>
                     <h2 class="text-4xl">{{ $t('Une question ?') }}</h2>
                     <p class="text-xl">
-                        {{ $t('Réponse aux questions les plus fréquemment posées.') }}
+                        {{
+                            $t(
+                                'Réponse aux questions les plus fréquemment posées.'
+                            )
+                        }}
                     </p>
                 </Stack>
                 <div class="flex flex-wrap">
@@ -178,10 +186,14 @@ const features = [
                                 <h3
                                     class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
-                                    {{ $t('J\'ai rencontré un bug :(') }}
+                                    {{ $t("J'ai rencontré un bug :(") }}
                                 </h3>
                                 <Text>
-                                    {{ $t('Si tu as trouvé un bug, tu peux me contacter sur X') }}
+                                    {{
+                                        $t(
+                                            'Si tu as trouvé un bug, tu peux me contacter sur X'
+                                        )
+                                    }}
                                     (<a
                                         class="link-primary"
                                         href="https://twitter.com/gcazinonx"

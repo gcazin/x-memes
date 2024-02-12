@@ -9,7 +9,6 @@ import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
-import { trans } from 'laravel-vue-i18n'
 
 const menuItems = [
     {
@@ -124,7 +123,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                             >
                                 <Icon :name="item.icon" size="xl" />
                                 <Text v-if="'name' in item">{{
-                                   $t(item.name)
+                                    $t(item.name)
                                 }}</Text>
                             </a>
                         </li>
@@ -269,7 +268,11 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 <div v-else>
                                     <p class="p-4">
                                         <Text type="sub">
-                                            {{ $t('Aucune notification à afficher') }}
+                                            {{
+                                                $t(
+                                                    'Aucune notification à afficher'
+                                                )
+                                            }}
                                         </Text>
                                     </p>
                                 </div>
@@ -279,7 +282,12 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 >
                                     <Icon name="eye" class="mr-1" />
                                     <Text type="sub">
-                                        {{ $t('Voir toutes les notifications (:count)', { count: notifications.length }) }}
+                                        {{
+                                            $t(
+                                                'Voir toutes les notifications (:count)',
+                                                { count: notifications.length }
+                                            )
+                                        }}
                                     </Text>
                                 </a>
                             </div>
@@ -313,7 +321,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             "
                                         >
                                             <Icon name="user" size="lg" />
-                                            <Text type="sub">{{ $t('Voir mon profil') }}</Text>
+                                            <Text type="sub">{{
+                                                $t('Voir mon profil')
+                                            }}</Text>
                                         </DropdownLink>
                                     </li>
                                     <li
@@ -339,7 +349,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             :href="route('profile.edit')"
                                         >
                                             <Icon name="cog" size="lg" />
-                                            <Text type="sub">{{ $t('Paramètres') }}</Text>
+                                            <Text type="sub">{{
+                                                $t('Paramètres')
+                                            }}</Text>
                                         </DropdownLink>
                                     </li>
                                     <li>
@@ -348,7 +360,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             method="post"
                                         >
                                             <Icon name="signout" size="lg" />
-                                            <Text type="sub">{{ $t('Déconnexion') }}</Text>
+                                            <Text type="sub">{{
+                                                $t('Déconnexion')
+                                            }}</Text>
                                         </DropdownLink>
                                     </li>
                                 </ul>

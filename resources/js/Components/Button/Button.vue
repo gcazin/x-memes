@@ -1,6 +1,4 @@
 <script setup>
-import { useSlots } from 'vue'
-
 const props = defineProps({
     type: {
         type: String,

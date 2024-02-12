@@ -1,10 +1,10 @@
 <script setup>
+import Button from '@/Components/Button/Button.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
-import Button from '@/Components/Button/Button.vue'
 
 defineProps({
     notification: {
