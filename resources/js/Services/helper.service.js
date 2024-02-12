@@ -1,3 +1,5 @@
+import { trans } from 'laravel-vue-i18n'
+
 class HelperService {
     constructor() {
         this.props = {}
@@ -55,7 +57,7 @@ class HelperService {
      * Formats a value and word into a pluralized string based on the value.
      */
     plural(value, word) {
-        return value > 1 ? `${value} ${word}s` : `${value} ${word}`
+        return value > 1 ? `${value} ${trans(word)}s` : `${value} ${trans(word)}`
     }
 }
 

@@ -33,9 +33,9 @@ class GenerateSitemap extends Command
         $this->info('Sitemap generation in progress...');
 
         Sitemap::create()
-            ->add('/')
-            ->add('/bibliotheque')
-            ->add('/classement')
+            ->add(route(name: 'library.image', absolute: false))
+            ->add(route(name: 'library.video', absolute: false))
+            ->add(route(name: 'leaderboard', absolute: false))
             ->add(User::all())
             ->add(Media::all())
             ->writeToFile(public_path('sitemap.xml'));

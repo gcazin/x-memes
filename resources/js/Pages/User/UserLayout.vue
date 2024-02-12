@@ -161,7 +161,7 @@ const updateUser = () => {
                                 {{
                                     helperService.plural(
                                         user.followings_count,
-                                        $t('abonnnement')
+                                        'abonnement'
                                     )
                                 }}
                             </Text>
@@ -179,7 +179,7 @@ const updateUser = () => {
                             size="sm"
                             @click="formService.openModal('editProfile')"
                         >
-                            Modifier le profil
+                            {{ $t('Modifier le profil') }}
                         </Button>
 
                         <Modal

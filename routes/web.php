@@ -50,7 +50,7 @@ Route::prefix(LaravelLocalization::setLocale())
         // Common pages
 
         // User
-        Route::name('user.')->prefix('membre')->group(function () {
+        Route::name('user.')->prefix('member')->group(function () {
             Route::get('{username}', [UserController::class, 'show'])->name('show');
             Route::get('{username}/badges', BadgeController::class)->name('badge.index');
             Route::get('{username}/liked-publications', LikedController::class)->name('media.liked');
