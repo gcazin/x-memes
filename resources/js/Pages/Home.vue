@@ -38,7 +38,6 @@ const features = [
 </script>
 
 <template>
-    {{ $t('products.key') }}
     <Head title="La référence des mèmes sur X (Twitter)" />
     <PageLayout is-full-size>
         <div
@@ -71,7 +70,7 @@ const features = [
                                 :href="route('library.image')"
                                 class="btn btn-primary btn-lg"
                             >
-                                <Text type="sub"> Découvrir </Text>
+                                <Text type="sub">{{ $t('Découvrir') }}</Text>
                             </a>
                             <a
                                 :href="
@@ -81,11 +80,9 @@ const features = [
                                 "
                                 class="btn btn-outline btn-secondary btn-lg"
                             >
-                                <Text type="sub">{{
-                                    auth.isConnected
-                                        ? 'Voir mon profil'
-                                        : 'Se connecter'
-                                }}</Text>
+                                <Text type="sub">{{ $t(auth.isConnected
+                                    ? 'Voir mon profil'
+                                    : 'Se connecter') }}</Text>
                             </a>
                         </div>
                     </div>
@@ -187,9 +184,9 @@ const features = [
                                 <h3
                                     class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
                                 >
-                                    J'ai rencontré un bug :(
+                                    {{ $t('J\'ai rencontré un bug :(') }}
                                 </h3>
-                                <p>
+                                <Text>
                                     Tu peux me contacter sur X
                                     <a
                                         class="link-primary"
@@ -198,27 +195,7 @@ const features = [
                                         >ici</a
                                     >
                                     si jamais tu as trouvé un bug.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div
-                                class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
-                            >
-                                <Icon class="text-4xl" name="bolt" />
-                            </div>
-                            <div class="w-full text-left">
-                                <h3
-                                    class="mb-4 text-xl font-semibold sm:text-2xl lg:text-xl xl:text-2xl"
-                                >
-                                    Le site est en bêta?
-                                </h3>
-                                <p>
-                                    Effectivement, le site est encore en bêta
-                                    pour l'instant, les fonctionnalités de base
-                                    y sont présentes, mais encore de nombreuses
-                                    nouveautés sont en préparation. 🤫
-                                </p>
+                                </Text>
                             </div>
                         </div>
                     </div>

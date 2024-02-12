@@ -28,12 +28,9 @@
         <!-- Icons set -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-        @php
-            $ROUTE_PARAMS = Route::current()->parameters();
-            $ROUTE_PARAMS['locale'] = (app()->getLocale() == 'fr') ? 'fr' : 'en';
-            $ALTERNATE_LOCALE_ROUTE = route(Route::currentRouteName(), $ROUTE_PARAMS);
-        @endphp
-        <link rel="alternate" hreflang="{{ $ROUTE_PARAMS['locale'] }}" href="{{ $ALTERNATE_LOCALE_ROUTE }}" />
+        @foreach ($languageUrls as $language => $url)
+            <link rel="alternate" hreflang="{{ $language }}" href="{{ url('/') }}/{{ $url }}" />
+        @endforeach
 
         <!-- Scripts -->
         @routes

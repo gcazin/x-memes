@@ -119,5 +119,7 @@
     "classement": "leaderboard",
     "nouveautés": "news",
     "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?",
-    "Ton commentaire": "Your comment"
+    "Ton commentaire": "Your comment",
+    "modifié :date": "updated :date",
+    "J'ai rencontré un bug :(": "I encountered a bug :("
 }

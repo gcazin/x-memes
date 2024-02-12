@@ -50,18 +50,31 @@ class AppServiceProvider extends ServiceProvider
             'warning' => Color::hex('#c2410c'),
         ]);
 
-        /*Collection::macro('paginate', function($perPage, $page = null, $pageName = 'page') {
-            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
-            return new LengthAwarePaginator(
-                $this->forPage($page, $perPage),
-                $this->count(),
-                $perPage,
-                $page,
-                [
-                    'path' => LengthAwarePaginator::resolveCurrentPath(),
-                    'pageName' => $pageName,
-                ]
-            );
-        });*/
+        view()->composer('*', function ($view) {
+            $languageUrls = [];
+
+            $currentLocale = request()->segment(1);
+            $locales = config('app.available_locales'); // ['en', 'fr']
+            $defaultLocale = config('app.fallback_locale'); // 'en'
+
+            // Remove language prefix if not default from segments
+            $noPrefixSegments = request()->segments();
+            if ($currentLocale !== $defaultLocale && in_array($currentLocale, $locales)) {
+                array_shift($noPrefixSegments);
+            }
+            // Keep all segments
+            $noPrefixSegments = implode('/', $noPrefixSegments);
+
+            // Generate an array of locales associated with URLs
+            foreach ($locales as $locale) {
+                if ($locale === $defaultLocale) {
+                    $languageUrls[$locale] = $noPrefixSegments;
+                } else {
+                    $languageUrls[$locale] =  $locale . '/' . $noPrefixSegments;
+                }
+            }
+
+            return $view->with('languageUrls', $languageUrls);
+        });
     }
 }
