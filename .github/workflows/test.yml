@@ -58,6 +58,9 @@ jobs:
       - name: Install yarn dependencies
         run: yarn install
 
+      - name: Generate Ziggy routes file
+        run: php artisan ziggy:generate
+
       - name: Run yarn
         run: yarn run build
 
