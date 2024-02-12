@@ -2,6 +2,7 @@
 
 return [
     'except' => [
+        'debugbar.*',
         '_debugbar.*',
         'horizon.*', 'admin.*',
         'filament.admin.resources.*',
