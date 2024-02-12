@@ -275,7 +275,7 @@ formService.setForm(form).setRouteName('media')
                                             "
                                             :loading="form.processing"
                                         >
-                                            Modifier ton mème
+                                            {{ $t('Modifier ton mème') }}
                                         </LoadingButton>
                                     </Stack>
                                 </Modal>

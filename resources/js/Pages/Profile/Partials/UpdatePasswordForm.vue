@@ -76,7 +76,7 @@ const updatePassword = () => {
 
         <div class="flex items-center gap-4">
             <LoadingButton :loading="form.processing">
-                Sauvegarder
+                {{ $t('Sauvegarder') }}
             </LoadingButton>
 
             <Transition

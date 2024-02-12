@@ -97,7 +97,7 @@ const submit = () => {
                                 :disabled="form.processing"
                                 :loading="form.processing"
                             >
-                                Connexion
+                                {{ $t('Connexion') }}
                             </LoadingButton>
                         </div>
                     </Stack>

@@ -104,7 +104,7 @@ const cancelForm = () => {
                 <Button ghost v-if="isEditing || isReply" @click="cancelForm()"
                     >Fermer</Button
                 >
-                <LoadingButton>{{ submitText }}</LoadingButton>
+                <LoadingButton>{{ $t(submitText) }}</LoadingButton>
             </div>
         </Stack>
     </form>

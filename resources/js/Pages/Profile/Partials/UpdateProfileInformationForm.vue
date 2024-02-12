@@ -65,7 +65,7 @@ formService.setForm(form).setRouteName('profile')
 
         <div class="flex items-center gap-4">
             <LoadingButton :loading="form.processing">
-                Sauvegarder
+                {{ $t('Sauvegarder') }}
             </LoadingButton>
         </div>
     </form>

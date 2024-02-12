@@ -85,7 +85,7 @@ const submit = () => {
 
             <div class="mt-4 flex items-center justify-end">
                 <LoadingButton :loading="form.processing">
-                    Réinitialiser le mot de passe
+                    {{ $t('Réinitialiser le mot de passe') }}
                 </LoadingButton>
             </div>
         </form>

@@ -25,8 +25,6 @@ const tagType = computed(() => {
         xs: 'span',
     }[props.type]
 })
-const slots = useSlots()
-const text = slots.default()[0].children
 </script>
 <template>
     <component
@@ -42,12 +40,7 @@ const text = slots.default()[0].children
             'link-hover link': type === 'link',
         }"
     >
-        <template v-if="text !== null && !Array.isArray(text)">
-            {{ trans(text.trim()) }}
-        </template>
-        <template v-else>
-            <slot />
-        </template>
+        <slot />
     </component>
 </template>
 <style scoped></style>

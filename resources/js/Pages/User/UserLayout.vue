@@ -39,8 +39,8 @@ const form = useForm({
 const downloadMediaCount =
     props.user.medias && props.user.medias.length
         ? props.user.medias
-              .map((media) => media.download_count)
-              .reduce((accumulator, media) => accumulator + media)
+            .map((media) => media.download_count)
+            .reduce((accumulator, media) => accumulator + media)
         : 0
 
 const updateUser = () => {
@@ -104,7 +104,7 @@ const updateUser = () => {
                                             />
                                         </svg>
                                         <Text type="sub"
-                                            >@{{ user.x_username }}</Text
+                                        >@{{ user.x_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -124,7 +124,7 @@ const updateUser = () => {
                                             :outline="false"
                                         />
                                         <Text type="sub"
-                                            >@{{ user.github_username }}</Text
+                                        >@{{ user.github_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -161,7 +161,7 @@ const updateUser = () => {
                                 {{
                                     helperService.plural(
                                         user.followings_count,
-                                        'abonnnement'
+                                        $t('abonnnement')
                                     )
                                 }}
                             </Text>
@@ -268,7 +268,7 @@ const updateUser = () => {
                                         </progress>
                                     </div>
                                     <LoadingButton :loading="form.processing">
-                                        Modifier le profil
+                                        {{ $t('Modifier le profil')}}
                                     </LoadingButton>
                                 </Stack>
                             </form>

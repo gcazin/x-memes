@@ -41,7 +41,7 @@ const verificationLinkSent = computed(
         <form @submit.prevent="submit">
             <div class="mt-4 flex items-center justify-between">
                 <LoadingButton :loading="form.processing">
-                    Renvoyer l'e-mail de vérification
+                    {{ $t('Renvoyer l\'e-mail de vérification' )}}
                 </LoadingButton>
 
                 <Link

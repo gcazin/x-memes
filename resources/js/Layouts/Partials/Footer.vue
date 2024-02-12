@@ -4,7 +4,7 @@
     >
         <nav class="grid grid-flow-col gap-4">
             <a :href="route('changelog')" class="link-hover link">
-                <Text type="sub">Journal des modifications</Text>
+                <Text type="sub">{{ $t('Journal des modifications') }}</Text>
             </a>
             -
             <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link">
@@ -36,11 +36,11 @@
             </div>
         </nav>
         <aside>
-            <p>
+            <Text type="sub">
                 Copyright © {{ moment().year() }} -
                 {{ $t('Tous droits réservés par :name.', { name: $page.props.appName.toString() }) }}
-            </p>
-            <p>
+            </Text>
+            <Text type="sub">
                 {{ $t('Développé avec ❤️ par')}}
                 <a
                     class="link link-secondary font-bold"
@@ -49,7 +49,7 @@
                 >
                     Guillaume
                 </a>
-            </p>
+            </Text>
         </aside>
     </footer>
 </template>

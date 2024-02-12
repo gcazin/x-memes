@@ -43,7 +43,7 @@ const submit = () => {
         :outline="checkIfAuthIsFollowing"
         @click="submit"
     >
-        {{ checkIfAuthIsFollowing ? 'Ne plus suivre' : 'Suivre' }}
+        {{ $t(checkIfAuthIsFollowing ? 'Ne plus suivre' : 'Suivre') }}
     </Button>
 </template>
 

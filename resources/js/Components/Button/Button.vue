@@ -54,9 +54,6 @@ const buttonSize = () => {
         sm: 'btn-sm',
     }[props.size]
 }
-
-const slots = useSlots()
-const text = slots.default()[0].children
 </script>
 
 <template>
@@ -74,11 +71,6 @@ const text = slots.default()[0].children
             buttonSize(),
         ]"
     >
-        <template v-if="text !== null && !Array.isArray(text)">
-            {{ $t(text.trim()) }}
-        </template>
-        <template v-else>
-            <slot />
-        </template>
+        <slot />
     </button>
 </template>

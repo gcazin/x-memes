@@ -41,7 +41,7 @@ const calculateRank = () => {
     <PageLayout title="Classement des meilleurs contributeurs">
         <template #action>
             <Button @click="formService.openModal('rewards')">
-                Comment gagner des points ?
+                {{ $t('Comment gagner des points ?') }}
             </Button>
         </template>
 

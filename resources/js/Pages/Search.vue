@@ -103,7 +103,7 @@ formService.setForm(form).setRouteName(null)
                         :loading="form.processing"
                         class="ms-auto lg:m-auto"
                     >
-                        Rechercher
+                        {{ $t('Rechercher') }}
                     </LoadingButton>
                 </div>
             </form>

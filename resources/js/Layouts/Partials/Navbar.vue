@@ -9,6 +9,7 @@ import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
+import { trans } from 'laravel-vue-i18n'
 
 const menuItems = [
     {
@@ -89,9 +90,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                         :active="route().current(item.route)"
                                     >
                                         <Icon :name="item.icon" size="xl" />
-                                        <Text v-if="'name' in item">{{
-                                            $t(item.name)
-                                        }}</Text>
+                                        <Text v-if="'name' in item">
+                                            {{ $t(item.name) }}
+                                        </Text>
                                     </a>
                                 </li>
                             </ul>
@@ -123,7 +124,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                             >
                                 <Icon :name="item.icon" size="xl" />
                                 <Text v-if="'name' in item">{{
-                                    item.name
+                                   $t(item.name)
                                 }}</Text>
                             </a>
                         </li>
@@ -162,12 +163,12 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 >
                                     <li>
                                         <DropdownLink :href="route('login')">
-                                            <Text>Connexion</Text>
+                                            <Text>{{ $t('Connexion') }}</Text>
                                         </DropdownLink>
                                     </li>
                                     <li>
                                         <DropdownLink :href="route('register')">
-                                            <Text>Inscription</Text>
+                                            <Text>{{ $t('Inscription') }}</Text>
                                         </DropdownLink>
                                     </li>
                                 </ul>
@@ -267,10 +268,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 </div>
                                 <div v-else>
                                     <p class="p-4">
-                                        <Text type="sub"
-                                            >Aucune notification à
-                                            afficher</Text
-                                        >
+                                        <Text type="sub">
+                                            {{ $t('Aucune notification à afficher') }}
+                                        </Text>
                                     </p>
                                 </div>
                                 <a
@@ -278,9 +278,9 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                     class="flex items-center justify-center rounded-b bg-base-300 py-2 text-center hover:bg-base-200"
                                 >
                                     <Icon name="eye" class="mr-1" />
-                                    <p>
+                                    <Text type="sub">
                                         {{ $t('Voir toutes les notifications (:count)', { count: notifications.length }) }}
-                                    </p>
+                                    </Text>
                                 </a>
                             </div>
                         </div>
@@ -313,9 +313,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             "
                                         >
                                             <Icon name="user" size="lg" />
-                                            <Text type="sub"
-                                                >Voir mon profil</Text
-                                            >
+                                            <Text type="sub">{{ $t('Voir mon profil') }}</Text>
                                         </DropdownLink>
                                     </li>
                                     <li
@@ -341,7 +339,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             :href="route('profile.edit')"
                                         >
                                             <Icon name="cog" size="lg" />
-                                            <Text type="sub">Paramètres</Text>
+                                            <Text type="sub">{{ $t('Paramètres') }}</Text>
                                         </DropdownLink>
                                     </li>
                                     <li>
@@ -350,7 +348,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                             method="post"
                                         >
                                             <Icon name="signout" size="lg" />
-                                            <Text type="sub">Déconnexion</Text>
+                                            <Text type="sub">{{ $t('Déconnexion') }}</Text>
                                         </DropdownLink>
                                     </li>
                                 </ul>

@@ -67,8 +67,7 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    X-Memes est maintenant disponible en 🇫🇷 français, 🇬🇧
-                    anglais, et 🇪🇸 espagnol !
+                    {{ $t('X-Memes est maintenant disponible en 🇫🇷 français, 🇬🇧 anglais, et 🇪🇸 espagnol !') }}
                 </Text>
             </div>
         </div>

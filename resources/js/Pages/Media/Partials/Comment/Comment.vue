@@ -70,7 +70,7 @@ const editCommentForm = (comment) => {
                     type="xs"
                     class="italic"
                 >
-                    modifié {{ comment.updated_at }}
+                    {{ $t('modifié :date', { date: comment.updated_at } ) }}
                 </Text>
                 <div
                     class="dropdown dropdown-end ms-auto"

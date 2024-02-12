@@ -290,7 +290,7 @@ watch(
                         role="button"
                         class="btn btn-ghost btn-sm"
                     >
-                        <Text type="xs">Trier</Text>
+                        <Text type="xs">{{ $t('Trier') }}</Text>
                         <Icon name="chevron-down" />
                     </div>
                     <ul
@@ -317,7 +317,7 @@ watch(
                         role="button"
                         class="btn btn-ghost btn-sm"
                     >
-                        <Text type="xs">Filter par tags</Text>
+                        <Text type="xs">{{ $t('Filter par tags') }}</Text>
                         <Icon name="chevron-down" />
                     </div>
                     <ul

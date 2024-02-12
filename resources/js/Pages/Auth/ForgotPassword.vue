@@ -57,7 +57,7 @@ const submit = () => {
                         :loading="form.processing"
                         :disabled="form.processing"
                     >
-                        Recevoir le mail
+                        {{ $t('Recevoir le mail') }}
                     </LoadingButton>
                 </div>
             </form>
