@@ -259,7 +259,11 @@ formService.setForm(form).setRouteName('media')
                                             </Multiselect>
                                             <div class="text-right">
                                                 <Text type="xs">
-                                                    {{ $t('Les tags seront synchronisés après modification.') }}
+                                                    {{
+                                                        $t(
+                                                            'Les tags seront synchronisés après modification.'
+                                                        )
+                                                    }}
                                                 </Text>
                                             </div>
                                         </div>

@@ -67,11 +67,7 @@ const props = page.props
         <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0">
             <div class="text-center">
                 <Text type="sub">
-                    {{
-                        $t(
-                            'X-Memes est maintenant disponible en anglais!'
-                        )
-                    }} 🇬🇧
+                    {{ $t('X-Memes est maintenant disponible en anglais!') }} 🇬🇧
                 </Text>
             </div>
         </div>

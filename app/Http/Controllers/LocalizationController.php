@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class LocalizationController extends Controller
 {

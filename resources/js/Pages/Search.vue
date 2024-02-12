@@ -153,7 +153,11 @@ const page = usePage()
                 "
             >
                 <div class="alert alert-info">
-                    {{ $t('Aucun résultat à afficher. Essayer avec un autre terme.') }}
+                    {{
+                        $t(
+                            'Aucun résultat à afficher. Essayer avec un autre terme.'
+                        )
+                    }}
                 </div>
             </template>
         </Stack>

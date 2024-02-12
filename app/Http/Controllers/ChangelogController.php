@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Facades\SeoFacade as SEO;
 use Github\AuthMethod;
 use Github\Client;
 use Inertia\Inertia;
-use App\Facades\SeoFacade as SEO;
 
 class ChangelogController extends Controller
 {

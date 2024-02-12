@@ -377,7 +377,11 @@ watch(
         </div>
         <div v-else>
             <Text>
-                {{ $t('Aucun résultat n\'a été trouvé, mais tu peux y remédier, j\'dis ça j\'dis rien...')}}
+                {{
+                    $t(
+                        "Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis ça j'dis rien..."
+                    )
+                }}
             </Text>
         </div>
 
