@@ -86,8 +86,8 @@ class SEO
     {
         inertia()->share('seo.title', $this->title);
         inertia()->share('seo.description', $this->description);
-        inertia()->share('seo.type', $this->type);
-        inertia()->share('seo.image', $this->image);
+        inertia()->share('seo.type', $this->type ?? 'website');
+        inertia()->share('seo.image', $this->image ?? url('/images/home.png'));
         inertia()->share('seo.media', $this->media);
         inertia()->share('seo.url', $this->url ?? config('app.url'));
         inertia()->share('jsonLD', $this->schema);
