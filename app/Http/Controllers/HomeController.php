@@ -23,6 +23,7 @@ class HomeController extends Controller
                     ->potentialAction(
                         Schema::searchAction()
                             ->target(config('app.url').'/search?query={search_term_string}')
+                        ->query(__('Rechercher un mème...'))
                     )
                     ->toScript()
             )
