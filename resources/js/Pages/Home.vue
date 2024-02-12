@@ -160,20 +160,14 @@ const features = [
         <Container>
             <div class="pb-16 pt-20 text-center lg:px-0">
                 <Stack class="mb-16">
-                    <p class="font-bold uppercase text-primary">FAQ</p>
+                    <Text class="font-bold uppercase text-primary">FAQ</Text>
                     <h2 class="text-4xl">{{ $t('Une question ?') }}</h2>
                     <p class="text-xl">
-                        Si tu trouves pas la réponse à ta question, ou si tu as
-                        une suggestion, tu peux me contacter sur X
-                        <a
-                            class="link-primary"
-                            href="https://twitter.com/gcazinonx"
-                            >ici</a
-                        >.
+                        {{ $t('Réponse aux questions les plus fréquemment posées.') }}
                     </p>
                 </Stack>
                 <div class="flex flex-wrap">
-                    <div class="flex flex-col gap-12">
+                    <div class="flex flex-1 flex-col gap-12">
                         <div class="flex">
                             <div
                                 class="mr-4 flex h-[50px] w-full max-w-[50px] items-center justify-center rounded-xl bg-primary text-white sm:mr-6 sm:h-[60px] sm:max-w-[60px]"
@@ -187,14 +181,13 @@ const features = [
                                     {{ $t('J\'ai rencontré un bug :(') }}
                                 </h3>
                                 <Text>
-                                    Tu peux me contacter sur X
-                                    <a
+                                    {{ $t('Si tu as trouvé un bug, tu peux me contacter sur X') }}
+                                    (<a
                                         class="link-primary"
                                         href="https://twitter.com/gcazinonx"
                                         target="_blank"
-                                        >ici</a
-                                    >
-                                    si jamais tu as trouvé un bug.
+                                        >@gcazinonx</a
+                                    >).
                                 </Text>
                             </div>
                         </div>
