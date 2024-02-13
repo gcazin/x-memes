@@ -4,7 +4,7 @@ import UserLayout from '@/Pages/User/UserLayout.vue'
 
 defineProps({
     user: {
-        type: Array,
+        type: Object,
     },
     medias: {
         type: Array,

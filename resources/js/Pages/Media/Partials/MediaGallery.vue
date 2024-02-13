@@ -11,7 +11,7 @@ import { computed, onMounted, ref, toRef, watch } from 'vue'
 
 const props = defineProps({
     medias: {
-        type: Array,
+        type: Object,
         required: true,
     },
     numberOfCols: {

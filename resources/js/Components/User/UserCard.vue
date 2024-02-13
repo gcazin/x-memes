@@ -5,7 +5,7 @@ import RoleBadge from '@/Components/User/RoleBadge.vue'
 
 defineProps({
     user: {
-        type: Array,
+        type: Object,
     },
     hasBackground: {
         type: Boolean,

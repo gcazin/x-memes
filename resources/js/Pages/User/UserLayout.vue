@@ -18,7 +18,7 @@ import helperService from '../../Services/helper.service.js'
 
 const props = defineProps({
     user: {
-        type: Array,
+        type: Object,
     },
     medias: {
         type: Array,

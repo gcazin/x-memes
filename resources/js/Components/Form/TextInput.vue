@@ -24,7 +24,7 @@ defineProps({
         type: Boolean,
     },
     maxLength: {
-        type: Number,
+        type: [Number, String],
     },
 })
 
