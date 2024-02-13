@@ -95,9 +95,15 @@ formService.setForm(form).setRouteName('media')
         <Stack>
             <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
             <div class="space-x-1">
-                <Tag :key="index" v-for="(tag, index) in getTags()" outline>
-                    {{ tag.name }}
-                </Tag>
+                <a
+                    :key="index"
+                    v-for="(tag, index) in getTags()"
+                    :href="route('tag.show', tag.name)"
+                >
+                    <Tag outline>
+                        {{ tag.name }}
+                    </Tag>
+                </a>
             </div>
             <Stack>
                 <div class="flex items-center">
@@ -323,7 +329,9 @@ formService.setForm(form).setRouteName('media')
                     <!-- Related medias -->
                     <div class="pt-8" v-if="related && related.length">
                         <Stack>
-                            <Text type="subtitle">{{ $t('Images similaires') }}</Text>
+                            <Text type="subtitle">{{
+                                $t('Images similaires')
+                            }}</Text>
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                                 <template
                                     v-for="(related, index) in related"

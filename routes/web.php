@@ -14,6 +14,7 @@ use App\Http\Controllers\Media\ImageController;
 use App\Http\Controllers\Media\LikeController;
 use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\Media\RandomController;
+use App\Http\Controllers\Media\TagController;
 use App\Http\Controllers\Media\VideoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
@@ -60,6 +61,11 @@ Route::prefix(LaravelLocalization::setLocale())
         // Media
         Route::name('media.')->prefix('media')->group(function () {
             Route::get('{slug}', [MediaController::class, 'show'])->name('show');
+        });
+
+        // Tag
+        Route::name('tag.')->prefix('tag')->group(function () {
+            Route::get('{name}', TagController::class)->name('show');
         });
 
         // Auth
