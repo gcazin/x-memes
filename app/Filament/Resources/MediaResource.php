@@ -23,9 +23,11 @@ class MediaResource extends Resource
 
     protected static ?string $label = 'Médias';
 
-    protected static ?int $navigationSort = -0;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
+
+    protected static ?string $navigationGroup = 'Données';
 
     public function __construct(
         protected MediaService $mediaService
@@ -161,10 +163,5 @@ class MediaResource extends Resource
             'view' => Pages\ViewMedia::route('/{record}'),
             'edit' => Pages\EditMedia::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

@@ -16,9 +16,11 @@ class BadgeResource extends Resource
 {
     protected static ?string $model = Badge::class;
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 7;
 
     protected static ?string $navigationIcon = 'heroicon-o-check-badge';
+
+    protected static ?string $navigationGroup = 'Données';
 
     public static function form(Form $form): Form
     {
@@ -88,10 +90,5 @@ class BadgeResource extends Resource
             'view' => Pages\ViewBadge::route('/{record}'),
             'edit' => Pages\EditBadge::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

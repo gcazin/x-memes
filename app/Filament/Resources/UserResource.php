@@ -16,7 +16,9 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?int $navigationSort = -2;
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationGroup = 'Données';
 
     protected static ?string $label = 'Utilisateurs';
 
@@ -92,10 +94,5 @@ class UserResource extends Resource
             'view' => Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

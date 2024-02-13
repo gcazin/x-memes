@@ -2,8 +2,8 @@
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
-import moment from 'moment'
 import { usePage } from '@inertiajs/vue3'
+import moment from 'moment'
 
 const page = usePage()
 </script>
@@ -48,9 +48,7 @@ const page = usePage()
         <aside>
             <Text type="sub">
                 Copyright © {{ moment().year() }} -
-                {{
-                    $t('Tous droits réservés par X-Memes.')
-                }}
+                {{ $t('Tous droits réservés par X-Memes.') }}
             </Text>
             <Text type="sub">
                 {{ $t('Développé avec ❤️ par') }}

@@ -211,9 +211,7 @@ const uploadMedia = () => {
                         :loading="form.processing"
                         :disabled="form.processing"
                     >
-                        {{
-                            $t(duplicated ? `Poster quand même?` : 'Ajouter')
-                        }}
+                        {{ $t(duplicated ? `Poster quand même?` : 'Ajouter') }}
                     </LoadingButton>
                     <div>
                         <Text type="xs" class="italic">

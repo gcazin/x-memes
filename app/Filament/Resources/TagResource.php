@@ -16,7 +16,11 @@ class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationIcon = 'heroicon-o-tag';
+
+    protected static ?string $navigationGroup = 'Données';
 
     public static function form(Form $form): Form
     {
@@ -66,10 +70,5 @@ class TagResource extends Resource
             'view' => Pages\ViewTag::route('/{record}'),
             'edit' => Pages\EditTag::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

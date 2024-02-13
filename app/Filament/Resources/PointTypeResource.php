@@ -18,9 +18,11 @@ class PointTypeResource extends Resource
 
     protected static ?string $label = 'Point';
 
-    protected static ?int $navigationSort = 0;
+    protected static ?int $navigationSort = 5;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationGroup = 'Données';
 
     public static function form(Form $form): Form
     {
@@ -73,10 +75,5 @@ class PointTypeResource extends Resource
         return [
             'index' => Pages\ManagePointTypes::route('/'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

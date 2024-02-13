@@ -16,9 +16,11 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?int $navigationSort = -1;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
+
+    protected static ?string $navigationGroup = 'Données';
 
     public static function form(Form $form): Form
     {
@@ -67,10 +69,5 @@ class RoleResource extends Resource
             'view' => Pages\ViewRole::route('/{record}'),
             'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
-    }
-
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Données';
     }
 }

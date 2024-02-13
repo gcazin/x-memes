@@ -281,10 +281,7 @@ watch(
                 class="mt-4 flex-1 space-x-2 text-right lg:mt-0"
                 v-if="(tags && tags.length) || sortBy"
             >
-                <div
-                    v-if="sortBy"
-                    class="dropdown"
-                >
+                <div v-if="sortBy" class="dropdown">
                     <div
                         tabindex="0"
                         role="button"
@@ -311,7 +308,10 @@ watch(
                         </li>
                     </ul>
                 </div>
-                <div v-if="tags.length" class="dropdown border-l border-gray-500 pl-2 dropdown-end">
+                <div
+                    v-if="tags.length"
+                    class="dropdown dropdown-end border-l border-gray-500 pl-2"
+                >
                     <div
                         tabindex="0"
                         role="button"
