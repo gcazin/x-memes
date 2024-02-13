@@ -31,13 +31,10 @@ const closeModal = () => {
 
 <template>
     <header>
-        <Text class="font-bold text-error">Supprimer le compte</Text>
+        <Text class="font-bold text-error">{{ $t('Supprimer le compte')}}</Text>
 
         <Text type="sub">
-            Une fois votre compte supprimé, toutes ses ressources et données
-            seront définitivement effacées. Avant de supprimer votre compte,
-            veuillez télécharger toutes les données ou informations que vous
-            souhaitez conserver.
+            {{ $t('Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.')}}
         </Text>
     </header>
 
@@ -51,14 +48,11 @@ const closeModal = () => {
     <Modal id="deleteAccountModal" @close="closeModal">
         <div class="p-6">
             <Text class="font-bold">
-                Êtes-vous sûr de vouloir supprimer votre compte ?
+                {{ $t('Êtes-vous sûr de vouloir supprimer votre compte ?')}}
             </Text>
 
             <Text type="sub">
-                Une fois votre compte supprimé, toutes ses ressources et données
-                seront définitivement effacées. Veuillez saisir votre mot de
-                passe pour confirmer que vous souhaitez supprimer définitivement
-                votre compte.
+                {{ $t('Une fois votre compte supprimé, toutes ses ressources et données seront définitivement effacées. Veuillez saisir votre mot de passe pour confirmer que vous souhaitez supprimer définitivement votre compte.')}}
             </Text>
 
             <TextInput

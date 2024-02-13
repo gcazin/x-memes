@@ -35,11 +35,10 @@ const updatePassword = () => {
 
 <template>
     <header>
-        <Text class="font-bold">Mise à jour du mot de passe</Text>
+        <Text class="font-bold">{{ $t('Mise à jour du mot de passe')}}</Text>
 
         <Text type="xs">
-            Veillez à ce que votre compte utilise un mot de passe long et
-            aléatoire pour rester sécurisé.
+            {{ $t('Veillez à ce que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé.')}}
         </Text>
     </header>
 

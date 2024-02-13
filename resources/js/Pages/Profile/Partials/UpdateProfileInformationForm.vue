@@ -26,9 +26,9 @@ formService.setForm(form).setRouteName('profile')
 
 <template>
     <header>
-        <Text class="font-bold">Informations du profil</Text>
+        <Text class="font-bold">{{ $t('Informations du profil')}}</Text>
 
-        <Text type="xs"> Mettez à jour l'adresse email de votre compte. </Text>
+        <Text type="xs">{{ $t('Mettez à jour l\'adresse email de votre compte.')}}</Text>
     </header>
 
     <form @submit.prevent="formService.handle('update')" class="mt-6 space-y-6">
