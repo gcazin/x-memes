@@ -48,7 +48,7 @@ const features = [
                     <div class="flex flex-col">
                         <img
                             class="mask mask-squircle mx-auto mb-8 w-32 shadow"
-                            src="images/favicon-with-background.jpg"
+                            src="/images/favicon-with-background.jpg"
                             alt="Logo du site X-Memes"
                         />
                         <h1 class="text-3xl font-bold lg:text-5xl">
