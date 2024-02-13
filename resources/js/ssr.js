@@ -22,9 +22,6 @@ createServer((page) =>
             app.config.globalProperties.helperService = HelperService
             app.config.globalProperties.helperService.setProps(props)
             app.config.globalProperties.formService = FormService
-            app.config.compilerOptions.isCustomElement = (tag) => {
-                return tag.startsWith('ion-')
-            }
             app.mixin({
                 methods: {
                     route: (name, params, absolute, config = Ziggy) =>
