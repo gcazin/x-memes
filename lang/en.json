@@ -1,5 +1,6 @@
 {
     "* Le mème sera en attente d'approbation par un administrateur avant d'être publié sur le site. Les administrateurs du site se réserve le droit de refuser toute image qui ne serait pas conforme.": "* The meme will await approval by an administrator before being published on the site. The site administrators reserve the right to refuse any image that does not comply.",
+    "1 image similaire a été trouvé!": "1 similar image found!",
     "100 caractères maximum.": "100 maximum characters.",
     "abonnement": "following",
     "abonné": "follower",
@@ -90,6 +91,7 @@
     "Pas encore inscrit ?": "Not registered yet?",
     "Plus aucun élémént a afficher.": "No more items to display.",
     "Poste, aime, et commente tes mèmes préférés.": "Post, like and comment on your favorite memes.",
+    "Poster quand même?": "Post anyway?",
     "Profil de :username": "Profile of :username",
     "Publications aimées de :username": "Publications liked by :username",
     "Rang": "Rank",
@@ -97,8 +99,10 @@
     "Rechercher": "Search",
     "Rechercher par nom d'utilisateur (ex: john, jack...)": "Search by user name (e.g. john, jack...)",
     "Rechercher par titre, tags... (ex: paqueta, snap...)": "Search by title, tags... (ex: kermit, snap...)",
+    "Rechercher un mème...": "Search for a meme...",
     "Récapitulatif des changements sur X-Memes": "Summary of changes to X-Memes",
     "Réponse aux questions les plus fréquemment posées.": "Answers to the most frequently asked questions.",
+    "S'il s'agit d'une erreur, tu peux quand même la poster, elle sera vérifié dans tout les cas": "If it's a mistake, you can still post it, it will be checked in any case.",
     "S'inscrire maintenant": "Register now",
     "Sans le @.": "Without the @.",
     "Sauvegarder": "Save",
@@ -140,6 +144,5 @@
     "X-Memes est maintenant disponible en anglais!": "X-Memes is now available in English!",
     "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté.": "X-Memes is a platform where you can register, publish and view memes posted by the community.",
     "X-Memes t'offre une variété de fonctionnalités, entre autres, te permettant de poster, télécharger et suivre les personnes que tu aimes.": "X-Memes offers you a variety of features, including the ability to post, upload and follow people you like.",
-    "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?",
-    "Rechercher un mème...": "Search for a meme..."
+    "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?"
 }

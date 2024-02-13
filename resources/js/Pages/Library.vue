@@ -212,7 +212,7 @@ const uploadMedia = () => {
                         :disabled="form.processing"
                     >
                         {{
-                            $t(duplicated ? `La poster quand même?` : 'Ajouter')
+                            $t(duplicated ? `Poster quand même?` : 'Ajouter')
                         }}
                     </LoadingButton>
                     <div>
