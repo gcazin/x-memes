@@ -66,7 +66,7 @@ class MediaService
             ->get();
 
         return [
-            'title' => $title ?: "Bibliothèque d'images",
+            'title' => __($title ?: "Bibliothèque d'images"),
             'medias' => $medias->paginate(),
             'tags' => $tags,
             'sortBy' => $sortBy->toArray(),

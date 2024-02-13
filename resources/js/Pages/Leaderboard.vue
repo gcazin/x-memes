@@ -12,6 +12,7 @@ import RoleBadge from '@/Components/User/RoleBadge.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
+import { usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
     leaderboard: {
@@ -21,6 +22,8 @@ const props = defineProps({
         type: Array,
     },
 })
+
+const page = usePage()
 
 const isTheFirstPage = () => {
     return props.leaderboard.current_page === 1
@@ -38,7 +41,7 @@ const calculateRank = () => {
 </script>
 
 <template>
-    <PageLayout title="Classement des meilleurs contributeurs">
+    <PageLayout :title="page.props.seo.title">
         <template #action>
             <Button @click="formService.openModal('rewards')">
                 {{ $t('Comment gagner des points ?') }}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Facades\SeoFacade as Seo;
 use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -41,6 +42,8 @@ class SearchController extends Controller
                     break;
             }
         }
+        Seo::title('Recherche un mème, un tag, ou un utilisateur')
+            ->share();
 
         return Inertia::render('Search', [
             'type' => $type,
