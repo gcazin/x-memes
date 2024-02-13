@@ -87,7 +87,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Finds the first media item returned by the given key-value pair.
      */
-    public function firstWhere($key, $value): Media
+    public function firstWhere($key, $value): ?Media
     {
         return $this->media->firstWhere($key, $value);
     }
