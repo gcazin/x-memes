@@ -12,7 +12,9 @@ class TagController extends Controller
 {
     public function __invoke(string $name): Response
     {
-        $medias = Media::withAllTags($name)->paginate(6);
+        $medias = Media::withAllTags($name)
+            ->where('lang', app()->getLocale())
+            ->paginate();
 
         SeoFacade::title(__('Les meilleures mèmes ":tag" d\'Internet', ['tag' => $name]))
             ->description('Découvre les meilleures mèmes ":tag" d\'Internet à un seul et même endroit!')
