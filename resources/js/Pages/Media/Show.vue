@@ -315,15 +315,15 @@ formService.setForm(form).setRouteName('media')
                         }}
                     </p>
                     <Section v-else>
-                        <Text>Sois le premier à commenter !</Text>
+                        <Text>{{ $t('Sois le premier à commenter !') }}</Text>
                     </Section>
                     <Comments :comments :media />
                     <Pagination :item="comments" />
 
                     <!-- Related medias -->
-                    <div class="mt-8" v-if="related && related.length">
+                    <div class="pt-8" v-if="related && related.length">
                         <Stack>
-                            <Text type="subtitle">Images similaires</Text>
+                            <Text type="subtitle">{{ $t('Images similaires') }}</Text>
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                                 <template
                                     v-for="(related, index) in related"
