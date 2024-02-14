@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -17,7 +18,7 @@ class SendMailToAllUsers extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected User $user)
     {
         //
     }
@@ -28,7 +29,7 @@ class SendMailToAllUsers extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Le classement a été mis à jour ! 🚀',
+            subject: 'X-Memes est sur ProductHunt! 🎉',
         );
     }
 
@@ -39,6 +40,9 @@ class SendMailToAllUsers extends Mailable
     {
         return new Content(
             markdown: 'emails.marketing.news',
+            with: [
+                'user' => $this->user
+            ]
         );
     }
 

@@ -1,28 +1,17 @@
 <x-mail::message>
-# Dites bonjour au tout nouveau classement de {{ config('app.name') }} !
+# Salut {{ $user->username }} !
 
-Le fonctionnement du classement a été revu, et permet à tout le monde de monter dans le classement facilement !
+Je t'envoie ce mail pour t'informer que X-Memes est sur ProductHunt, une plateforme permettant de présenter le site à un plus grand nombre! 🚀
 
-Maintenant, vous avez beaucoup plus de manière de gagner des points :
+C'est une étape importante pour moi, et si tu as quelques minutes à m'accorder, ce serait génial si tu pouvais passer sur ProductHunt et me donner un coup de main en votant pour moi et en laissant un petit commentaire.
 
-<x-mail::table>
-    | Description                                   | Points |
-    |-----------------------------------------------|--------|
-    | Votre média image a été approuvé.             | 10     |
-    | Un utilisateur a aimé votre média.            | 4      |
-    | Un utilisateur a téléchargé votre média.      | 2      |
-    | Vous avez regardé un média.                   | 1      |
-    | Un utilisateur s'est abonné à vous.           | 5      |
-    | Une personne de l'équipe s'est abonné à vous. | 20     |
-    | Récompense d'inscription.                     | 10     |
-    | Récompense de connexion quotidienne.          | 1      |
-</x-mail::table>
+Chaque vote compte énormément!
 
-<x-mail::button :url="route('leaderboard')">
-    Découvrir le nouveau classement
+<x-mail::button url="https://www.producthunt.com/posts/x-memes">
+Clique ici pour me soutenir
 </x-mail::button>
 
-On se voit sur {{ config('app.name') }} ! 🚀
+Merci d'avance pour ton soutien!
 
-Guillaume de {{ config('app.name') }}
+<span class="font-bold">Guillaume</span> de <a href="{{ route('index') }}">{{ config('app.name') }}</a>
 </x-mail::message>
