@@ -28,39 +28,47 @@ const submit = () => {
         <div class="flex w-full flex-col gap-4 lg:flex-row lg:gap-x-16">
             <div class="order-1 w-full lg:w-1/3">
                 <Stack spacing="4">
-                    <Text type="subtitle">Principales fonctionnalités</Text>
+                    <Text type="subtitle">{{
+                        $t('Principales fonctionnalités')
+                    }}</Text>
                     <Stack spacing="2">
                         <Text class="space-x-2">
-                            <Icon name="apps" size="xl" />
-                            <span
-                                >Avoir accès à la totalité des mèmes présent sur
-                                le site.</span
-                            >
+                            <Icon name="images" size="xl" />
+                            <span>{{
+                                $t(
+                                    'Avoir accès à la totalité des mèmes présent sur le site.'
+                                )
+                            }}</span>
                         </Text>
                         <Text class="space-x-2">
                             <Icon name="search" size="xl" />
-                            <span
-                                >Enfin trouver les mèmes que tu mets si
-                                longtemps à retrouver.</span
-                            >
+                            <span>{{
+                                $t(
+                                    'Enfin trouver les mèmes que tu mets si longtemps à retrouver.'
+                                )
+                            }}</span>
                         </Text>
                         <Text class="space-x-2">
                             <Icon name="heart" size="xl" />
-                            <span
-                                >Pouvoir aimer tes mèmes préférés pour ne plus
-                                jamais les perdre.</span
-                            >
+                            <span>{{
+                                $t(
+                                    'Pouvoir aimer tes mèmes préférés pour ne plus jamais les perdre.'
+                                )
+                            }}</span>
                         </Text>
                         <Text class="space-x-2">
-                            <Icon name="person-add" size="xl" />
-                            <span>Suivre les personnes que tu préfères.</span>
+                            <Icon name="user-plus" size="xl" />
+                            <span>{{
+                                $t('Suivre les utilisateurs que tu as envies.')
+                            }}</span>
                         </Text>
                         <Text class="space-x-2">
-                            <Icon name="bar-chart" size="xl" />
-                            <span
-                                >Un classement des personnes les plus
-                                actives.</span
-                            >
+                            <Icon name="chart-bar" size="xl" />
+                            <span>{{
+                                $t(
+                                    'Un classement des personnes les plus actives.'
+                                )
+                            }}</span>
                         </Text>
                     </Stack>
                 </Stack>
@@ -124,7 +132,7 @@ const submit = () => {
                                         :href="route('login')"
                                         class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                                     >
-                                        Déjà inscrit?
+                                        {{ $t('Déjà inscrit?') }}
                                     </Link>
 
                                     <button
@@ -134,7 +142,7 @@ const submit = () => {
                                         }"
                                         :disabled="form.processing"
                                     >
-                                        S'inscrire
+                                        {{ $t("S'inscrire") }}
                                     </button>
                                 </div>
                             </Stack>

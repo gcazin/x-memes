@@ -37,7 +37,7 @@ const title = computed(() => {
         )} pour la recherche '${props.query}'`
     }
 
-    return 'Recherche un mème, un tag, ou un utilisateur'
+    return trans('Recherche un mème, un tag, ou un utilisateur')
 })
 
 const searchByType = [

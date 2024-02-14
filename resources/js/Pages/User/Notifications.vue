@@ -47,9 +47,9 @@ watch(
     <PageLayout title="Notifications">
         <template #action>
             <button class="link link-secondary">
-                <Text @click="markAllAsRead" type="xs"
-                    >Tout marquer comme lu</Text
-                >
+                <Text @click="markAllAsRead" type="xs">{{
+                    $t('Tout marquer comme lu')
+                }}</Text>
             </button>
         </template>
 
@@ -62,7 +62,7 @@ watch(
                 "
                 spacing="3"
             >
-                <Text type="subtitle"> Nouveau </Text>
+                <Text type="subtitle">{{ $t('Nouveau') }}</Text>
                 <div
                     v-if="unreadNotifications.length"
                     v-for="(notification, index) in unreadNotifications"
@@ -74,7 +74,7 @@ watch(
             </Stack>
 
             <Stack>
-                <Text type="subtitle">Ancien</Text>
+                <Text type="subtitle">{{ $t('Ancien') }}</Text>
                 <template
                     v-if="
                         notifications.data.filter(
