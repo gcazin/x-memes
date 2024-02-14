@@ -51,16 +51,18 @@ const toggleTheme = (selectedTheme) => {
 </script>
 <template>
     <header>
-        <Text class="font-bold">{{ $t('Changer le thème global du site') }}</Text>
+        <Text class="font-bold">{{
+            $t('Changer le thème global du site')
+        }}</Text>
 
         <Text type="xs">
-            {{ $t('Mettez le site à votre image en changeant de thème.')}}
+            {{ $t('Mettez le site à votre image en changeant de thème.') }}
         </Text>
     </header>
 
     <div class="mt-6 flex flex-col gap-10 lg:flex-row">
         <div class="flex-1">
-            <Text class="mb-2 font-bold">{{ $t('Thème foncé')}}</Text>
+            <Text class="mb-2 font-bold">{{ $t('Thème foncé') }}</Text>
             <div
                 v-for="theme in availableThemes.filter(
                     (t) => t.type === 'dark'
@@ -81,7 +83,7 @@ const toggleTheme = (selectedTheme) => {
             </div>
         </div>
         <div class="flex-1">
-            <Text class="mb-2 font-bold">{{ $t('Thème clair')}}</Text>
+            <Text class="mb-2 font-bold">{{ $t('Thème clair') }}</Text>
             <div
                 v-for="theme in availableThemes.filter(
                     (t) => t.type === 'light'

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $users = ['super-admin', 'admin', 'moderator'];
 
-        foreach ($users as $user) {
+        collect($users)->each(function ($user) {
             User::factory()
                 ->create([
                     'username' => $user,
@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 ->assignRole(Role::all()->where('name', $user))
                 ->badges()
                 ->attach(Badge::all()->firstWhere('condition', $user)->id);
-        }
+        });
 
         if (config('app.env') !== 'production') {
             User::factory(50)->create()->chunk(10);

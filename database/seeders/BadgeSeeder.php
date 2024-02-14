@@ -48,7 +48,7 @@ class BadgeSeeder extends Seeder
                 'role'
             ),
         ];
-        foreach (array_merge($badges, $rolesBadges) as $badge) {
+        collect(array_merge($badges, $rolesBadges))->each(function ($badge) {
             Badge::create([
                 'name' => $badge[0],
                 'description' => $badge[1],
@@ -56,6 +56,6 @@ class BadgeSeeder extends Seeder
                 'condition' => $badge[3],
                 'badge_type_id' => BadgeType::all()->firstWhere('name', $badge[4])->id,
             ]);
-        }
+        });
     }
 }

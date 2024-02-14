@@ -37,9 +37,7 @@ class SendEmailsToAllUsers extends Command
             $user = $users->random();
             Mail::to($user)->send(new SendMailToAllUsers($user));
         } else {
-            $users->each(function ($user) {
-                Mail::to($user)->send(new SendMailToAllUsers($user));
-            });
+            $users->each(fn ($user) => Mail::to($user)->send(new SendMailToAllUsers($user)));
         }
 
         $this->info($users->count().' emails ont été envoyés !');

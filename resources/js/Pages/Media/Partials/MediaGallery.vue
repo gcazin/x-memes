@@ -134,7 +134,7 @@ const checkIfSortIsSelected = (sort) => {
 }
 
 /**
- * Add query tags to selected tags
+ * Adds query tags to selected tags
  */
 const addQueryTagsToSelectedTags = () => {
     if (urlParams.get('tags')) {

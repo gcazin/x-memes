@@ -183,9 +183,7 @@ class MediaController extends Controller
         if ($media->tags()->count() > 0) {
             $media->tags()->each(function ($tag) use ($media) {
                 // We take medias with this tag except the media who should be deleted
-                $medias = Media::withAnyTags([$tag])->get()->filter(function ($m) use ($media) {
-                    return $media->id !== $m->id;
-                });
+                $medias = Media::withAnyTags([$tag])->get()->filter(fn ($m) => $media->id !== $m->id);
 
                 // If the media is the only one using this tag, we remove them
                 if ($medias->count() === 0) {

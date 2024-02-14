@@ -60,9 +60,9 @@ class NotificationController extends Controller
     public function update(Request $request, string|array $id)
     {
         if ($request->has('notifications')) {
-            foreach ($request->user()->unreadNotifications as $notification) {
+            collect($request->user()->unreadNotifications)->each(function ($notification) {
                 $notification->markAsRead();
-            }
+            });
         } else {
             $notification = auth()->user()->notifications->firstWhere('id', $id);
 

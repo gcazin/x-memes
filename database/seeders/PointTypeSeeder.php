@@ -70,13 +70,13 @@ class PointTypeSeeder extends Seeder
             ],
         ];
 
-        foreach ($types as $type) {
+        collect($types)->each(function ($type) {
             PointType::create([
                 'name' => $type['name'],
                 'description' => $type['description'],
                 'amount' => $type['count'],
                 'model' => $type['model'],
             ]);
-        }
+        });
     }
 }

@@ -41,7 +41,7 @@ class SendMailToAllUsers extends Mailable
         return new Content(
             markdown: 'emails.marketing.news',
             with: [
-                'user' => $this->user
+                'user' => $this->user,
             ]
         );
     }
