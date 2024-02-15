@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Media;
 use App\Enums\PointType;
 use App\Events\MediaDestroyed;
 use App\Events\MediaPublished;
+use App\Facades\PointFacade;
 use App\Facades\PointFacade as Point;
 use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
@@ -80,6 +81,10 @@ class MediaController extends Controller
         SEO::title('Media')
             ->description('Télécharge, commente, aime et publie des mémés d\'Internet pour la communauté. Inscrivez-vous pour ne plus avoir à chercher des heures votre mémé préféré!')
             ->share();
+
+        if (auth()->user()) {
+            PointFacade::reward(null, PointType::DAILY_LOGIN);
+        }
 
         return Inertia::render('Library', [
             'title' => 'Les meilleurs mèmes d\'Internet',
