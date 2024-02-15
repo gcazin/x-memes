@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\SeoFacade as Seo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -21,6 +22,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        Seo::title('Connexion')
+            ->share();
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),

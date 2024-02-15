@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\PointType;
 use App\Facades\PointFacade;
+use App\Facades\SeoFacade;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -33,6 +34,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
+        SeoFacade::title('Inscription')
+            ->share();
+
         return Inertia::render('Auth/Register');
     }
 

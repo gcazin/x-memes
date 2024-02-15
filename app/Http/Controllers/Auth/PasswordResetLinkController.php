@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\SeoFacade as Seo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,6 +20,9 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): Response
     {
+        Seo::title('Mot de passe oublié')
+            ->share();
+
         return Inertia::render('Auth/ForgotPassword', [
             'status' => session('status'),
         ]);
