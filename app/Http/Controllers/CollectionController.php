@@ -21,7 +21,9 @@ class CollectionController extends Controller
             ->whereHas('medias')
             ->whereLocale('name', app()->getLocale())
             ->get()
-            ->map(fn ($sql) => $sql->setRelation('medias', $sql->medias->random()));
+            ->sortBy('name')
+            ->map(fn ($sql) => $sql->setRelation('medias', $sql->medias->random()))
+            ->values();
 
         Seo::title('Collections')
             ->share();
