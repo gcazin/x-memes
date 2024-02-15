@@ -15,7 +15,7 @@ const props = defineProps({
 
 const page = usePage()
 const tagsCollections = ref(props.tags)
-const showWithOneElement = ref(false)
+const showWithOneElement = ref(true)
 
 onMounted(() => {
     showCollectionWithOneElement()
