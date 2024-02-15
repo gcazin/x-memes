@@ -1,14 +1,13 @@
 <script setup>
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
-import Modal from '@/Components/Modal/Modal.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { router, usePage } from '@inertiajs/vue3'
 import { computed, onMounted, ref, toRef, watch } from 'vue'
-import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
 
 const props = defineProps({
     medias: {
@@ -52,7 +51,10 @@ onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
 
-    if (!page.props.auth.isConnected && localStorage.getItem('shouldRegister') === 'true') {
+    if (
+        !page.props.auth.isConnected &&
+        localStorage.getItem('shouldRegister') === 'true'
+    ) {
         formService.openModal('shouldRegister')
     }
 })
@@ -243,7 +245,7 @@ const fetchData = (url, filters = null) => {
 
 const showSkeleton = () => {
     if (!auth.isConnected && pagination.current_page === 3) {
-        return true;
+        return true
     }
 }
 
@@ -258,7 +260,7 @@ watch(
             newQuery &&
             newQuery.current_page === 2
         ) {
-            localStorage.setItem('shouldRegister', "true")
+            localStorage.setItem('shouldRegister', 'true')
             // formService.openModal('shouldRegister')
         }
     },
@@ -368,10 +370,7 @@ watch(
                 :key="index"
                 class="animate-[pulse_0.5s_ease-in-out]"
             >
-                <MediaItem
-                    v-if="!showSkeleton()"
-                    :media="media"
-                />
+                <MediaItem v-if="!showSkeleton()" :media="media" />
                 <template v-else>
                     <div class="space-y-6">
                         <div class="skeleton h-96"></div>
@@ -408,7 +407,11 @@ watch(
 
         <ShouldRegisterModal :is-closable="false">
             <template #title>
-                {{ $t('Inscris-toi pour avoir un accès gratuit à tous les mèmes!') }}
+                {{
+                    $t(
+                        'Inscris-toi pour avoir un accès gratuit à tous les mèmes!'
+                    )
+                }}
             </template>
         </ShouldRegisterModal>
     </Stack>

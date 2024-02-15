@@ -18,6 +18,7 @@ class CollectionController extends Controller
     public function __invoke(Request $request): Response
     {
         $tags = Tag::with('medias')
+            ->whereHas('medias')
             ->get()
             ->map(fn ($sql) => $sql->setRelation('medias', $sql->medias->random()));
 

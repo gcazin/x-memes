@@ -7,7 +7,6 @@ import TextInput from '@/Components/Form/TextInput.vue'
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
-import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Modal from '@/Components/Modal/Modal.vue'
@@ -319,7 +318,9 @@ formService.setForm(form).setRouteName('media')
                             })
                         }}
                     </p>
-                    <Section v-else-if="comments.total === 0 && auth.isConnected">
+                    <Section
+                        v-else-if="comments.total === 0 && auth.isConnected"
+                    >
                         <Text>{{ $t('Sois le premier à commenter !') }}</Text>
                     </Section>
                     <Comments :comments :media />
@@ -329,8 +330,8 @@ formService.setForm(form).setRouteName('media')
                     <div class="pt-8" v-if="related && related.length">
                         <Stack>
                             <Text type="subtitle">{{
-                                    $t('Images similaires')
-                                }}</Text>
+                                $t('Images similaires')
+                            }}</Text>
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                                 <template
                                     v-for="(related, index) in related"
@@ -381,11 +382,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-    var(--tw-shadow, 0 0 #0000);
+        var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

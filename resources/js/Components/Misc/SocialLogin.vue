@@ -23,7 +23,7 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
     >
         <a
             :href="route('socialite.redirect', 'google')"
-            class="btn relative flex-1 focus"
+            class="btn focus relative flex-1"
             :class="{ 'btn-neutral': isInAModal, 'btn-light': !isInAModal }"
         >
             <div class="flex items-center justify-center gap-4">
@@ -99,7 +99,9 @@ const text = props.isLogin ? 'Se connecter' : "S'inscrire"
         >
             <div class="flex items-center justify-between gap-4">
                 <div class="flex-1">
-                    <Text type="sub">{{ $t(`Utiliser une adresse email`) }}</Text>
+                    <Text type="sub">{{
+                        $t(`Utiliser une adresse email`)
+                    }}</Text>
                 </div>
             </div>
         </a>
