@@ -71,7 +71,7 @@ const showCollectionWithOneElement = () => {
                             "
                         size="xl"
                     />
-                    {{ $t('Afficher ceux avec un seul élément?') }}
+                    {{ $t('Afficher celles avec un seul élément?') }}
                 </Button>
             </div>
 
