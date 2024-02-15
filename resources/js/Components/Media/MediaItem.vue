@@ -51,13 +51,13 @@ const dateTime = (value) => {
                     <Stack spacing="2">
                         <Text class="font-bold">{{ media.name }}</Text>
                         <Text type="xs">{{ media.approved_at }}</Text>
-                        <div>
+                        <div class="space-x-1">
                             <a
                                 :href="route('tag.show', tag.name)"
                                 v-for="(tag, index) in media.tags"
                                 :key="index"
                             >
-                                <Tag type="secondary">
+                                <Tag type="secondary" outline>
                                     {{ tag.name }}
                                 </Tag>
                             </a>
