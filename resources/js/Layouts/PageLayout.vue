@@ -80,14 +80,12 @@ const props = page.props
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
-                            <div class="flex gap-2">
-                                <h1
-                                    class="text-2xl font-semibold leading-tight"
-                                >
-                                    {{ $t(title) }}
-                                </h1>
-                                <slot name="title" />
-                            </div>
+                            <h1
+                                class="text-2xl font-semibold leading-tight"
+                            >
+                                {{ $t(title) }}
+                            </h1>
+                            <slot name="title" />
                         </template>
                         <h1
                             v-else-if="title"
@@ -95,16 +93,14 @@ const props = page.props
                         >
                             {{ $t(title) }}
                         </h1>
-                        <template v-if="$slots.subtitle">
-                            <div class="mt-2">
-                                <slot name="subtitle" />
-                            </div>
-                        </template>
                     </div>
                     <div v-if="$slots.action" class="flex-1 text-right">
                         <slot name="action" />
                     </div>
                 </div>
+                <template v-if="$slots.subtitle">
+                    <slot name="subtitle" />
+                </template>
             </Container>
         </header>
 
