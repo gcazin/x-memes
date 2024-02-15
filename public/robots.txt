@@ -1,7 +1,7 @@
 User-agent: *
 Disallow: /admin/*
-Disallow: /profil/*
+Disallow: /profile/*
 Disallow: /notification/*
-Disallow: /rechercher/*
+Disallow: /search/*
 
 Sitemap: https://x-memes.com/sitemap.xml
