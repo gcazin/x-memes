@@ -80,9 +80,7 @@ const props = page.props
                 <div class="flex">
                     <div class="flex-1 gap-2">
                         <template v-if="$slots.title">
-                            <h1
-                                class="text-2xl font-semibold leading-tight"
-                            >
+                            <h1 class="text-2xl font-semibold leading-tight">
                                 {{ $t(title) }}
                             </h1>
                             <slot name="title" />
