@@ -119,7 +119,7 @@ it('can get reward when a staff member follow him', function () {
 it('can get reward when daily login', function () {
     $user = User::factory()->create();
 
-    actingAs($user)->get(route('library.image'));
+    actingAs($user)->get(route('library'));
     $point = $user->point()->first();
 
     expect($point->amount)->toBe(PointType::firstWhere('name', 'daily_login')->amount);
@@ -128,8 +128,8 @@ it('can get reward when daily login', function () {
 it('can is only rewarded on the first login', function () {
     $user = User::factory()->create();
 
-    actingAs($user)->get(route('library.image'));
-    actingAs($user)->get(route('library.image'));
+    actingAs($user)->get(route('library'));
+    actingAs($user)->get(route('library'));
     $point = $user->point()->first();
 
     expect($point->amount)->not->toBe(PointType::firstWhere('name', 'daily_login')->amount * 2);

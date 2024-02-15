@@ -1,8 +1,10 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import RoleBadge from '@/Components/User/RoleBadge.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { useForm, usePage } from '@inertiajs/vue3'
 import moment from 'moment'
@@ -39,12 +41,28 @@ const dateTime = (value) => {
                     loading="lazy"
                 />
             </a>
+            <div class="absolute inset-x-2 top-1" v-if="media.type === 'video'">
+                <Icon name="video" size="3xl" class="text-primary" />
+            </div>
             <div
-                class="to-slate-900/1 absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-5% p-4"
+                class="to-slate-900/1 absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-25% to-100% p-4"
             >
                 <div class="flex-1">
-                    <Text class="font-bold">{{ media.name }}</Text>
-                    <Text type="xs">{{ media.approved_at }}</Text>
+                    <Stack spacing="2">
+                        <Text class="font-bold">{{ media.name }}</Text>
+                        <Text type="xs">{{ media.approved_at }}</Text>
+                        <div>
+                            <a
+                                :href="route('tag.show', tag.name)"
+                                v-for="(tag, index) in media.tags"
+                                :key="index"
+                            >
+                                <Tag type="secondary">
+                                    {{ tag.name }}
+                                </Tag>
+                            </a>
+                        </div>
+                    </Stack>
                 </div>
                 <div class="text-right" v-if="page.props.auth.isConnected">
                     <button

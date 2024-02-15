@@ -5,7 +5,7 @@ import TextInput from '@/Components/Form/TextInput.vue'
 import UserCard from '@/Components/User/UserCard.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
+import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
 import { Head, router, useForm, usePage } from '@inertiajs/vue3'
@@ -109,7 +109,7 @@ const page = usePage()
                     </LoadingButton>
                 </div>
             </form>
-            <MediaGallery
+            <Gallery
                 v-if="type === 'medias' && !form.processing"
                 :medias="result"
             />

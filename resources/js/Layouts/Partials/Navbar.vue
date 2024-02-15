@@ -13,13 +13,13 @@ import { computed, ref } from 'vue'
 const menuItems = [
     {
         icon: 'image',
-        route: 'library.image',
-        name: 'Images',
+        route: 'library',
+        name: 'Mèmes',
     },
     {
-        icon: 'video',
-        route: 'library.video',
-        name: 'Vidéos',
+        icon: 'folder',
+        route: 'collection',
+        name: 'Collections',
     },
     {
         icon: 'chart-bar',
@@ -86,7 +86,10 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 >
                                     <a
                                         :href="route(item.route)"
-                                        :active="route().current(item.route)"
+                                        :class="{
+                                            'font-bold text-primary':
+                                                route().current(item.route),
+                                        }"
                                     >
                                         <Icon :name="item.icon" size="xl" />
                                         <Text v-if="'name' in item">
@@ -119,7 +122,11 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                         <li v-for="(item, index) in menuItems" :key="index">
                             <a
                                 :href="route(item.route)"
-                                :active="route().current(item.route)"
+                                :class="{
+                                    'font-bold text-primary': route().current(
+                                        item.route
+                                    ),
+                                }"
                             >
                                 <Icon :name="item.icon" size="xl" />
                                 <Text v-if="'name' in item">{{

@@ -6,6 +6,8 @@ import InputLabel from '@/Components/Form/InputLabel.vue'
 import TextInput from '@/Components/Form/TextInput.vue'
 import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
+import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Modal from '@/Components/Modal/Modal.vue'
@@ -19,10 +21,9 @@ import CommentForm from '@/Pages/Media/Partials/Comment/CommentForm.vue'
 import Comments from '@/Pages/Media/Partials/Comment/Comments.vue'
 import formService from '@/Services/form.service.js'
 import helperService from '@/Services/helper.service.js'
-import { Head, router, useForm, usePage } from '@inertiajs/vue3'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
-import _ from 'lodash'
 import moment from 'moment'
 import { computed } from 'vue'
 
@@ -52,9 +53,17 @@ const form = useForm({
     tags: [],
 })
 
+const likeItem = async (item) => {
+    if (!auth.isConnected) {
+        return formService.openModal('shouldRegister')
+    }
+
+    formService.handle('like', item, 'get')
+}
+
 const downloadItem = async (item) => {
     if (!auth.isConnected) {
-        router.visit(route('login'))
+        formService.openModal('shouldRegister')
     }
 
     const response = await axios.get(route('media.download', item.id), {
@@ -81,10 +90,6 @@ const tagsOptions = computed(() => {
     })
 })
 
-const getTags = () => {
-    return _.map(props.media.tags, _.partialRight(_.pick, ['id', 'name']))
-}
-
 formService.setForm(form).setRouteName('media')
 </script>
 
@@ -97,10 +102,10 @@ formService.setForm(form).setRouteName('media')
             <div class="space-x-1">
                 <a
                     :key="index"
-                    v-for="(tag, index) in getTags()"
+                    v-for="(tag, index) in media.tags"
                     :href="route('tag.show', tag.name)"
                 >
-                    <Tag outline>
+                    <Tag type="secondary">
                         {{ tag.name }}
                     </Tag>
                 </a>
@@ -148,13 +153,7 @@ formService.setForm(form).setRouteName('media')
                                     <Button
                                         outline
                                         circle
-                                        @click="
-                                            formService.handle(
-                                                'like',
-                                                media,
-                                                'get'
-                                            )
-                                        "
+                                        @click="likeItem(media)"
                                         :type="
                                             auth.isConnected
                                                 ? media.likers
@@ -320,7 +319,7 @@ formService.setForm(form).setRouteName('media')
                             })
                         }}
                     </p>
-                    <Section v-else>
+                    <Section v-else-if="comments.total === 0 && auth.isConnected">
                         <Text>{{ $t('Sois le premier à commenter !') }}</Text>
                     </Section>
                     <Comments :comments :media />
@@ -330,8 +329,8 @@ formService.setForm(form).setRouteName('media')
                     <div class="pt-8" v-if="related && related.length">
                         <Stack>
                             <Text type="subtitle">{{
-                                $t('Images similaires')
-                            }}</Text>
+                                    $t('Images similaires')
+                                }}</Text>
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                                 <template
                                     v-for="(related, index) in related"
@@ -345,6 +344,8 @@ formService.setForm(form).setRouteName('media')
                 </Stack>
             </Stack>
         </Stack>
+
+        <ShouldRegisterModal />
     </PageLayout>
 </template>
 
@@ -380,11 +381,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-        var(--tw-shadow, 0 0 #0000);
+    var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }

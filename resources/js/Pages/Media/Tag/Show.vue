@@ -1,6 +1,6 @@
 <script setup>
 import PageLayout from '@/Layouts/PageLayout.vue'
-import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
+import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import { Head, usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -19,7 +19,7 @@ const page = usePage()
     <Head :title="page.props.seo.title" />
 
     <PageLayout :title="page.props.seo.title">
-        <MediaGallery :medias="medias" />
+        <Gallery :medias="medias" />
     </PageLayout>
 </template>
 

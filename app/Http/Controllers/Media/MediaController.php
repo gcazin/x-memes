@@ -13,14 +13,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Media\StoreMediaRequest;
 use App\Http\Requests\Media\UpdateMediaRequest;
 use App\Models\Media;
+use App\Models\Tag;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use App\Services\FileService;
 use App\Services\MediaService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\SchemaOrg\Schema;
 
 class MediaController extends Controller
@@ -31,6 +35,60 @@ class MediaController extends Controller
         public MediaService $mediaService,
         public FileService $fileService
     ) {
+    }
+
+    public function index(Request $request): Response
+    {
+        $defaultSort = '-download_count';
+        $medias = QueryBuilder::for(Media::class)
+            ->where('approved', true)
+            ->where('lang', app()->getLocale())
+            ->with('tags')
+            ->defaultSort($defaultSort);
+
+        $sortBy = collect([
+            [
+                'name' => 'Par date',
+                'value' => 'created_at',
+            ],
+            [
+                'name' => 'Par titre',
+                'value' => 'name',
+            ],
+            [
+                'name' => 'Par téléchargement',
+                'value' => 'download_count',
+            ],
+        ]);
+        if ($request->has('filters') || $request->has('sort')) {
+            $medias
+                ->allowedSorts($sortBy->pluck('value')->toArray());
+
+            if ($request->has('filters.tags')) {
+                $medias
+                    ->whereHas('tags', function ($query) use ($request) {
+                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
+                    })
+                    ->allowedFilters(AllowedFilter::exact('tags.id'));
+            }
+        }
+
+        $tags = Tag::query()
+            ->whereLocale('name', app()->getLocale())
+            ->get();
+
+        SEO::title('Media')
+            ->description('Télécharge, commente, aime et publie des mémés d\'Internet pour la communauté. Inscrivez-vous pour ne plus avoir à chercher des heures votre mémé préféré!')
+            ->share();
+
+        return Inertia::render('Library', [
+            'title' => 'Les meilleurs mèmes d\'Internet',
+            'medias' => $medias->paginate(),
+            'tags' => $tags,
+            'sortBy' => $sortBy->toArray(),
+            'defaultSort' => $defaultSort,
+            'duplicatedImage' => session('duplicatedImage'),
+        ]);
     }
 
     /**
@@ -208,6 +266,6 @@ class MediaController extends Controller
 
         $media->delete();
 
-        return redirect()->to(route('library.image'));
+        return redirect()->to(route('library'));
     }
 }

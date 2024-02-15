@@ -9,7 +9,7 @@ C'est le lieu parfait pour retrouver le mème que tu as cherché désespérémen
 
 Si tu as la moindre question/ou une suggestion, n'hésite pas à me contacter sur X (<a href="https://x.com/gcazinonx" target="_blank">@gcazinonx</a>).
 
-<x-mail::button :url="route('library.image')">
+<x-mail::button :url="route('library')">
     Publier un mème
 </x-mail::button>
 

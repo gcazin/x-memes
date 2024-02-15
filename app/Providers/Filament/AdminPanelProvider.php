@@ -59,7 +59,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-document-text')
                     ->group('Paramètres'),
                 NavigationItem::make('Retour vers le site')
-                    ->url(fn () => route('library.image'))
+                    ->url(fn () => route('library'))
                     ->icon('heroicon-o-home')
                     ->group('Paramètres'),
             ])

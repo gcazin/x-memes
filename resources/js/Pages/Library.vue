@@ -9,7 +9,7 @@ import Modal from '@/Components/Modal/Modal.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
+import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
@@ -229,7 +229,7 @@ const uploadMedia = () => {
             </form>
         </Modal>
 
-        <MediaGallery
+        <Gallery
             :medias="medias"
             :tags="tags"
             :sort-by="sortBy"

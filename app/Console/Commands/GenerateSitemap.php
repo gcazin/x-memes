@@ -34,8 +34,7 @@ class GenerateSitemap extends Command
 
         Sitemap::create()
             ->add(route('index'))
-            ->add(route(name: 'library.image', absolute: false))
-            ->add(route(name: 'library.video', absolute: false))
+            ->add(route(name: 'library', absolute: false))
             ->add(route(name: 'leaderboard', absolute: false))
             ->add(User::all())
             ->add(Media::all())

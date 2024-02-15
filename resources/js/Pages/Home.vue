@@ -83,7 +83,7 @@ const features = [
                         </p>
                         <div class="space-x-2">
                             <a
-                                :href="route('library.image')"
+                                :href="route('library')"
                                 class="btn btn-primary btn-lg"
                             >
                                 <Text type="sub">{{ $t('Découvrir') }}</Text>

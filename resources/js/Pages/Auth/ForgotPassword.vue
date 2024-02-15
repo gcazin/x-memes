@@ -5,7 +5,7 @@ import TextInput from '@/Components/Form/TextInput.vue'
 import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
-import { useForm } from '@inertiajs/vue3'
+import { useForm, usePage } from '@inertiajs/vue3'
 
 defineProps({
     status: {
@@ -13,6 +13,7 @@ defineProps({
     },
 })
 
+const page = usePage()
 const form = useForm({
     email: '',
 })
@@ -23,12 +24,14 @@ const submit = () => {
 </script>
 
 <template>
-    <PageLayout title="Mot de passe oublié">
+    <PageLayout :title="page.props.seo.title">
         <Section>
             <Text>
-                Tu as oublié ton mot de passe ? Pas de problème. Indique-nous
-                ton adresse mail et on t'enverra un email qui te permettra d'en
-                choisir un nouveau.
+                {{
+                    $t(
+                        "Tu as oublié ton mot de passe ? Pas de problème. Indique-nous ton adresse mail et on t'enverra un email qui te permettra d'en choisir un nouveau."
+                    )
+                }}
             </Text>
 
             <div
@@ -40,7 +43,7 @@ const submit = () => {
 
             <form @submit.prevent="submit">
                 <TextInput
-                    label="Adresse mail"
+                    label="Adresse e-mail"
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -57,7 +60,7 @@ const submit = () => {
                         :loading="form.processing"
                         :disabled="form.processing"
                     >
-                        {{ $t('Recevoir le mail') }}
+                        {{ $t("Recevoir l'email") }}
                     </LoadingButton>
                 </div>
             </form>

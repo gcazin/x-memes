@@ -1,5 +1,5 @@
 <script setup>
-import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
+import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import UserLayout from '@/Pages/User/UserLayout.vue'
 
 defineProps({
@@ -13,7 +13,7 @@ defineProps({
 </script>
 <template>
     <UserLayout :user="user" :medias="medias">
-        <MediaGallery :medias="medias" />
+        <Gallery :medias="medias" />
     </UserLayout>
 </template>
 

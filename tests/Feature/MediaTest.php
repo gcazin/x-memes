@@ -36,7 +36,7 @@ it('should index approved medias', function () {
     ]);
 
     $response = actingAsGuest()
-        ->get(route('library.image'))
+        ->get(route('library'))
         ->assertInertia(fn (AssertableInertia $page) => $page
             ->component('Library', fn (AssertableInertia $page) => $page
                 ->component('MediaGallery')
@@ -214,7 +214,7 @@ it('can delete media that belong to him', function () {
 
     expect(Media::all()->count())->toBe(0);
 
-    $response->assertRedirect(route('library.image'));
+    $response->assertRedirect(route('library'));
 });
 
 it('cannot delete media that does not belong to him', function () {
@@ -244,7 +244,7 @@ test('a super-administrator can delete media that does not belong to them', func
 
     expect(Media::all()->count())->toBe(0);
 
-    $response->assertRedirect(route('library.image'));
+    $response->assertRedirect(route('library'));
 });
 
 test('an administrator can delete media that does not belong to them', function () {
@@ -260,7 +260,7 @@ test('an administrator can delete media that does not belong to them', function 
     expect(Media::all()->count())->toBe(0)
         ->and($response->status())->toBe(302);
 
-    $response->assertRedirect(route('library.image'));
+    $response->assertRedirect(route('library'));
 });
 
 it('can delete media and not remove tags if used', function () {

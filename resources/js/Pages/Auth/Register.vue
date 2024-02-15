@@ -7,8 +7,9 @@ import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import { Link, useForm } from '@inertiajs/vue3'
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 
+const page = usePage()
 const form = useForm({
     username: '',
     email: '',
@@ -24,7 +25,9 @@ const submit = () => {
 </script>
 
 <template>
-    <PageLayout title="Inscription">
+    <Head :title="page.props.seo.title" />
+
+    <PageLayout>
         <div class="flex w-full flex-col gap-4 lg:flex-row lg:gap-x-16">
             <div class="order-1 w-full lg:w-1/3">
                 <Stack spacing="4">
@@ -75,7 +78,7 @@ const submit = () => {
             </div>
             <div class="w-full lg:order-1 lg:flex-1">
                 <Stack>
-                    <SocialLogin />
+                    <SocialLogin :is-login="false" />
 
                     <Section>
                         <form @submit.prevent="submit">
@@ -95,7 +98,7 @@ const submit = () => {
                                 <InputError :message="form.errors.username" />
 
                                 <TextInput
-                                    label="Adresse email"
+                                    label="Adresse e-mail"
                                     id="email"
                                     type="email"
                                     class="mt-1 block w-full"

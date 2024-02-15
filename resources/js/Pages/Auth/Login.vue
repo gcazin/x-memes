@@ -8,7 +8,7 @@ import SocialLogin from '@/Components/Misc/SocialLogin.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Section from '@/Layouts/Partials/Section.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import { Link, useForm } from '@inertiajs/vue3'
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3'
 
 defineProps({
     canResetPassword: {
@@ -19,6 +19,7 @@ defineProps({
     },
 })
 
+const page = usePage()
 const form = useForm({
     username: '',
     password: '',
@@ -33,7 +34,8 @@ const submit = () => {
 </script>
 
 <template>
-    <PageLayout title="Connexion">
+    <Head :title="page.props.seo.title" />
+    <PageLayout>
         <Stack>
             <SocialLogin />
 

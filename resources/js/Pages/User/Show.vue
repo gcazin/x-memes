@@ -1,5 +1,5 @@
 <script setup>
-import MediaGallery from '@/Pages/Media/Partials/MediaGallery.vue'
+import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import UserLayout from '@/Pages/User/UserLayout.vue'
 
 const props = defineProps({
@@ -13,6 +13,6 @@ const props = defineProps({
 </script>
 <template>
     <UserLayout :user="user" :medias="medias">
-        <MediaGallery :medias="medias" number-of-cols="4" />
+        <Gallery :medias="medias" number-of-cols="4" />
     </UserLayout>
 </template>

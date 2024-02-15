@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ChangelogController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LocalizationController;
@@ -10,12 +11,10 @@ use App\Http\Controllers\Media\Comment\CommentController;
 use App\Http\Controllers\Media\Comment\LikeController as CommentLikeController;
 use App\Http\Controllers\Media\DownloadController;
 use App\Http\Controllers\Media\DuplicateController;
-use App\Http\Controllers\Media\ImageController;
 use App\Http\Controllers\Media\LikeController;
 use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\Media\RandomController;
 use App\Http\Controllers\Media\TagController;
-use App\Http\Controllers\Media\VideoController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
@@ -42,14 +41,18 @@ Route::get('language/{language}', LocalizationController::class)->name('language
 Route::prefix(LaravelLocalization::setLocale())
     ->middleware(['localeSessionRedirect', 'localizationRedirect', 'localize'])
     ->group(function () {
+        // Common page
         Route::get('/', HomeController::class)->name('index');
 
-        Route::get('library/images', ImageController::class)->name('library.image');
-        Route::get('library/videos', VideoController::class)->name('library.video');
+        // Navbar
+        Route::get('library', [MediaController::class, 'index'])->name('library');
+        Route::get('collections', CollectionController::class)->name('collection');
         Route::get('random', RandomController::class)->name('random');
         Route::get('leaderboard', LeaderboardController::class)->name('leaderboard');
+        Route::get('random', RandomController::class)->name('random');
+
+        // Footer
         Route::get('changelog', ChangelogController::class)->name('changelog');
-        // Common pages
 
         // User
         Route::name('user.')->prefix('member')->group(function () {

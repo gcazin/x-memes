@@ -8,6 +8,7 @@ import Stack from '@/Layouts/Partials/Stack.vue'
 import formService from '@/Services/form.service.js'
 import { router, usePage } from '@inertiajs/vue3'
 import { computed, onMounted, ref, toRef, watch } from 'vue'
+import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
 
 const props = defineProps({
     medias: {
@@ -30,6 +31,7 @@ const props = defineProps({
 })
 
 const page = usePage()
+const auth = page.props.auth
 const allPosts = ref(props.medias?.data ? [...props.medias.data] : null)
 const pagination = toRef(props.medias)
 const wrapper = ref(null)
@@ -49,6 +51,10 @@ const urlParams =
 onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
+
+    if (!page.props.auth.isConnected && localStorage.getItem('shouldRegister') === 'true') {
+        formService.openModal('shouldRegister')
+    }
 })
 
 /**
@@ -235,6 +241,12 @@ const fetchData = (url, filters = null) => {
     }
 }
 
+const showSkeleton = () => {
+    if (!auth.isConnected && pagination.current_page === 3) {
+        return true;
+    }
+}
+
 /**
  * Display modal when user is not registered/connected
  */
@@ -244,9 +256,10 @@ watch(
         if (
             !page.props.auth.isConnected &&
             newQuery &&
-            newQuery.current_page === 3
+            newQuery.current_page === 2
         ) {
-            formService.openModal('shouldRegister')
+            localStorage.setItem('shouldRegister', "true")
+            // formService.openModal('shouldRegister')
         }
     },
     { immediate: true }
@@ -356,11 +369,7 @@ watch(
                 class="animate-[pulse_0.5s_ease-in-out]"
             >
                 <MediaItem
-                    v-if="
-                        page.props.auth.isConnected ||
-                        (!page.props.auth.isConnected &&
-                            pagination.current_page !== 3)
-                    "
+                    v-if="!showSkeleton()"
                     :media="media"
                 />
                 <template v-else>
@@ -397,26 +406,11 @@ watch(
             </div>
         </div>
 
-        <Modal id="shouldRegisterModal" :is-closable="false" max-width="3xl">
-            <Stack spacing="8" class="text-center">
-                <Text type="title">Envie d'en voir plus ?</Text>
-                <Text>
-                    Crée un compte ou connecte-toi pour voir d'autres résultats
-                    de recherche, ajouter des mèmes à tes favoris et bien plus
-                    encore !
-                </Text>
-                <div class="space-x-2">
-                    <a :href="route('register')" class="btn btn-primary"
-                        >Inscription</a
-                    >
-                    <a
-                        :href="route('login')"
-                        class="btn btn-outline btn-primary"
-                        >Connexion</a
-                    >
-                </div>
-            </Stack>
-        </Modal>
+        <ShouldRegisterModal :is-closable="false">
+            <template #title>
+                {{ $t('Inscris-toi pour avoir un accès gratuit à tous les mèmes!') }}
+            </template>
+        </ShouldRegisterModal>
     </Stack>
 </template>
 <style scoped></style>
