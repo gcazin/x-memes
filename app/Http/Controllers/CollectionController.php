@@ -19,6 +19,7 @@ class CollectionController extends Controller
     {
         $tags = Tag::with('medias')
             ->whereHas('medias')
+            ->whereLocale('name', app()->getLocale())
             ->get()
             ->map(fn ($sql) => $sql->setRelation('medias', $sql->medias->random()));
 

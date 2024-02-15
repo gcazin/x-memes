@@ -24,7 +24,7 @@ const page = usePage()
         <template #subtitle>
             {{
                 $t(
-                    'Il y a actuellement :count collections présents sur le site.',
+                    'Il y a actuellement :count collections présentes sur le site.',
                     { count: tags.length }
                 )
             }}
