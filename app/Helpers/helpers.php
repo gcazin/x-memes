@@ -10,7 +10,7 @@ if (! function_exists('flash')) {
     {
         session()->flash('status', [
             'class' => $type,
-            'message' => $message,
+            'message' => __($message),
         ]);
     }
 

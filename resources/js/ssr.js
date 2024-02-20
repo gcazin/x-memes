@@ -8,9 +8,12 @@ import { i18nVue } from 'laravel-vue-i18n'
 import { createSSRApp, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
+
 createServer((page) =>
     createInertiaApp({
         page,
+        title: (title) => `${title} - ${appName}`,
         render: renderToString,
         resolve: (name) => {
             const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })

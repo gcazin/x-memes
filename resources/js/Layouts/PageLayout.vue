@@ -35,8 +35,10 @@ const props = page.props
 </script>
 
 <template>
-    <Head :title="title">
+    <Head>
         <template v-if="props.seo">
+            <title>{{ props.seo.title }}</title>
+
             <!-- Facebook Meta Tags -->
             <meta property="og:url" :content="props.seo.url" />
             <meta property="og:type" :content="props.seo.type" />
@@ -51,12 +53,12 @@ const props = page.props
             <meta name="twitter:title" :content="props.seo.title" />
             <meta name="twitter:description" :content="props.seo.description" />
             <meta name="twitter:image" :content="props.seo.image" />
+            <meta
+                head-key="description"
+                name="description"
+                :content="props.seo.description"
+            />
         </template>
-        <meta
-            head-key="description"
-            name="description"
-            :content="props.seo?.description"
-        />
         {{ props.jsonLD }}
     </Head>
 

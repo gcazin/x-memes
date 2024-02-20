@@ -63,6 +63,8 @@ class NotificationController extends Controller
             collect($request->user()->unreadNotifications)->each(function ($notification) {
                 $notification->markAsRead();
             });
+
+            flash('info', 'Toutes les notifications ont bien été lues.');
         } else {
             $notification = auth()->user()->notifications->firstWhere('id', $id);
 

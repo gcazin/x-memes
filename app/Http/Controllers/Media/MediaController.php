@@ -78,7 +78,7 @@ class MediaController extends Controller
             ->whereLocale('name', app()->getLocale())
             ->get();
 
-        SEO::title('Media')
+        SEO::title('Bibliothèque de mèmes')
             ->description('Télécharge, commente, aime et publie des mémés d\'Internet pour la communauté. Inscrivez-vous pour ne plus avoir à chercher des heures votre mémé préféré!')
             ->share();
 
@@ -134,7 +134,7 @@ class MediaController extends Controller
             flash(
                 'info',
                 'Le média est en attente d\'approbation,
-                un mail vous sera envoyé lorsqu\'il sera approuvé par un administrateur.'
+                un mail vous sera automatiquememnt envoyé lorsqu\'il sera approuvé par un administrateur.'
             );
 
         }

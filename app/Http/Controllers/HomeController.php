@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function __invoke(): Response|RedirectResponse
     {
-        SEO::title('X-Memes - La plateforme référence des mèmes d\'Internet')
+        SEO::title('La plateforme référence des mèmes d\'Internet')
             ->description('Télécharge, commente, aime et publie des mèmes d\'Internet pour la communauté. Inscrivez-vous dès maintenant pour ne plus avoir à chercher des heures votre mème préféré!')
             ->schema(
                 Schema::webSite()
