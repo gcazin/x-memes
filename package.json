@@ -7,6 +7,7 @@
         "prettier": "prettier . --write --log-level=silent && ./vendor/bin/pint"
     },
     "dependencies": {
+        "@sentry/vue": "^7.40.0",
         "@vue/server-renderer": "^3.4.13",
         "@vueform/multiselect": "^2.6.6",
         "chart.js": "^4.4.1",

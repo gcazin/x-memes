@@ -23,4 +23,7 @@ export default defineConfig({
         }),
         i18n()
     ],
+    optimizeDeps: {
+        exclude: ['sentry/vue']
+    }
 });

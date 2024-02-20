@@ -1,6 +1,7 @@
 import '../css/app.css'
 import './bootstrap'
 
+import * as Sentry from "@sentry/vue"
 import FormService from '@/Services/form.service.js'
 import HelperService from '@/Services/helper.service.js'
 import { Ziggy } from '@/ziggy.js'
@@ -11,6 +12,10 @@ import { createApp, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
+
+Sentry.init({
+    dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+})
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

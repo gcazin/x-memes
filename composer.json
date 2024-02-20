@@ -33,6 +33,7 @@
         "pbmedia/laravel-ffmpeg": "^8.3",
         "pusher/pusher-php-server": "^7.2",
         "sapientpro/image-comparator-laravel": "^1.0",
+        "sentry/sentry-laravel": "^4.2",
         "shuvroroy/filament-spatie-laravel-health": "^2.0",
         "spatie/laravel-health": "^1.23",
         "spatie/laravel-permission": "^6.1",
