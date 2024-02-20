@@ -44,23 +44,7 @@ const features = [
             class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
         >
             <Container>
-                <div class="flex px-0 text-center text-center">
-                    <a
-                        class="mx-auto"
-                        href="https://www.producthunt.com/posts/x-memes?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-x&#0045;memes"
-                        target="_blank"
-                    >
-                        <img
-                            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=439484&theme=light"
-                            alt="X&#0045;Memes - Say&#0032;goodbye&#0032;to&#0032;forgotten&#0032;memes | Product Hunt"
-                            style="width: 250px; height: 54px"
-                            width="250"
-                            height="54"
-                        />
-                    </a>
-                </div>
-                <div class="hero-content mx-auto px-0 pt-12 text-center">
-                    <!-- lg:pt-24 -->
+                <div class="hero-content mx-auto px-0 pt-12 text-center lg:pt-24">
                     <div class="flex flex-col">
                         <img
                             class="mask mask-squircle mx-auto mb-8 w-32 text-center shadow"
