@@ -14,7 +14,7 @@ const props = defineProps({
     circle: {
         type: Boolean,
         default: false,
-    }
+    },
 })
 
 const avatarSizeClass = computed(() => {
@@ -40,7 +40,7 @@ const getAvatar = () => {
                 :src="getAvatar()"
                 :alt="`Avatar de ${user?.username}`"
                 class="object-cover"
-                :class="{'rounded-lg': !circle, 'rounded-full': circle}"
+                :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
             />
         </div>
     </div>

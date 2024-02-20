@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class LocalizationController extends Controller
 {
@@ -14,14 +15,14 @@ class LocalizationController extends Controller
         app()->setLocale($language);
         session()->put('locale', $language);
 
-        $previous = url()->previous();
-        $languageSegment = explode('/', $previous)[3];
+        $previousUrl = url()->previous();
+        $languageSegment = explode('/', $previousUrl)[3];
 
-        $next = $previous;
-        if (in_array($languageSegment, config('app.available_locales'))) {
-            $next = str_replace($languageSegment, $language, $previous);
+        $nextUrl = $previousUrl;
+        if (in_array($languageSegment, LaravelLocalization::getSupportedLanguagesKeys())) {
+            $nextUrl = str_replace($languageSegment, $language, $previousUrl);
         }
 
-        return redirect()->to($next);
+        return redirect()->to($nextUrl);
     }
 }

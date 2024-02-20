@@ -11,6 +11,7 @@ use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,8 +55,8 @@ class AppServiceProvider extends ServiceProvider
             $languageUrls = [];
 
             $currentLocale = request()->segment(1);
-            $locales = config('app.available_locales'); // ['en', 'fr']
-            $defaultLocale = config('app.fallback_locale'); // 'en'
+            $locales = LaravelLocalization::getSupportedLanguagesKeys();
+            $defaultLocale = config('app.fallback_locale');
 
             // Remove language prefix if not default from segments
             $noPrefixSegments = request()->segments();

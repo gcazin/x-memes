@@ -3,24 +3,26 @@ import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 onMounted(() => {
     helperService.setTheme()
     currentLanguage()
+    getSupportedLocales()
 })
 
 const page = usePage()
-const availableLanguages = [
-    {
-        label: 'Français',
-        value: 'fr',
-    },
-    {
-        label: 'Anglais',
-        value: 'en',
-    },
-]
+const availableLanguages = ref([])
+const getSupportedLocales = () => {
+    const supportedLocales = page.props.supportedLocales
+
+    Object.values(supportedLocales).forEach((supportedLocale) => {
+        availableLanguages.value.push({
+            label: supportedLocale.native,
+            value: supportedLocale.regional.slice(0, 2).toLowerCase(),
+        })
+    })
+}
 
 const currentLanguage = () => {
     return page.props.locale

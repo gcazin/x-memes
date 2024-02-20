@@ -44,7 +44,9 @@ const features = [
             class="hero relative flex flex-col justify-center dark:border-b dark:border-slate-100/5 dark:bg-bottom"
         >
             <Container>
-                <div class="hero-content mx-auto px-0 pt-12 text-center lg:pt-24">
+                <div
+                    class="hero-content mx-auto px-0 pt-12 text-center lg:pt-24"
+                >
                     <div class="flex flex-col">
                         <img
                             class="mask mask-squircle mx-auto mb-8 w-32 text-center shadow"

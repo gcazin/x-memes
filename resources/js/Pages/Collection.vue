@@ -3,9 +3,9 @@ import Button from '@/Components/Button/Button.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head, usePage } from '@inertiajs/vue3'
 import { onMounted, ref } from 'vue'
-import Stack from '@/Layouts/Partials/Stack.vue'
 
 const props = defineProps({
     tags: {
@@ -47,12 +47,12 @@ const showCollectionWithOneElement = () => {
             </a>
         </template>
         <template #subtitle>
-                    {{
-                        $t(
-                            'Il y a actuellement :count collections présentes sur le site, et :show sont affichées.',
-                            { count: tags.length, show: tagsCollections.length }
-                        )
-                    }}
+            {{
+                $t(
+                    'Il y a actuellement :count collections présentes sur le site, et :show sont affichées.',
+                    { count: tags.length, show: tagsCollections.length }
+                )
+            }}
         </template>
 
         <Stack>
@@ -65,10 +65,8 @@ const showCollectionWithOneElement = () => {
                 >
                     <Icon
                         :name="
-                                !showWithOneElement
-                                    ? 'check-square'
-                                    : 'square-full'
-                            "
+                            !showWithOneElement ? 'check-square' : 'square-full'
+                        "
                         size="xl"
                     />
                     {{ $t('Afficher celles avec un seul élément?') }}
@@ -81,10 +79,10 @@ const showCollectionWithOneElement = () => {
                     v-for="tag in tagsCollections"
                     :key="tag.id"
                     :style="`background-image: url(/storage/${
-                    tag.medias.type === 'video'
-                        ? tag.medias.thumbnail_path
-                        : tag.medias.path
-                })`"
+                        tag.medias.type === 'video'
+                            ? tag.medias.thumbnail_path
+                            : tag.medias.path
+                    })`"
                 >
                     <div class="card-body">
                         <h2 class="card-title">

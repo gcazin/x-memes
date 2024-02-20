@@ -61,7 +61,9 @@ watchEffect(() => {
             role="alert"
         >
             <Icon :name="iconName" size="2xl" />
-            <Text type="sub">{{ message ? message : flash.status.message }}</Text>
+            <Text type="sub">{{
+                message ? message : flash.status.message
+            }}</Text>
             <button
                 type="button"
                 class="btn btn-ghost btn-xs ms-auto"

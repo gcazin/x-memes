@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
@@ -37,6 +38,7 @@ class HandleInertiaRequests extends Middleware
             'appName' => config('app.name'),
             'stage' => config('app.version'),
             'language' => config('app.locale'),
+            'supportedLocales' => LaravelLocalization::getSupportedLocales(),
             'auth' => [
                 'user' => $request->user(),
                 'roles' => function () use ($request) {
