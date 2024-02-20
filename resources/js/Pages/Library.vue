@@ -156,10 +156,10 @@ const uploadMedia = () => {
                             id="tags"
                             v-model="form.tags"
                             mode="tags"
-                            :close-on-select="false"
-                            :searchable="true"
-                            :create-option="true"
+                            close-on-select
+                            searchable
                             :options="tagsOptions"
+                            create-tag
                         >
                             <template #noresults>
                                 <div class="p-2">
