@@ -16,11 +16,12 @@ class LocalizationController extends Controller
         session()->put('locale', $language);
 
         $previousUrl = url()->previous();
-        $languageSegment = explode('/', $previousUrl)[3];
+        $languageSegment = explode('/', parse_url($previousUrl)['path'])[1];
 
         $nextUrl = $previousUrl;
         if (in_array($languageSegment, LaravelLocalization::getSupportedLanguagesKeys())) {
-            $nextUrl = str_replace($languageSegment, $language, $previousUrl);
+            $parseUrl = str_replace($languageSegment, $language, parse_url($previousUrl)['path']);
+            $nextUrl = config('app.url').$parseUrl;
         }
 
         return redirect()->to($nextUrl);
