@@ -116,6 +116,9 @@ class MediaResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('lang')
+                    ->label('Langue')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
