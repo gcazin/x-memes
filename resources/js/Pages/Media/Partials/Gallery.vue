@@ -303,7 +303,7 @@ watch(
                         class="btn btn-ghost btn-sm"
                     >
                         <Text type="xs">{{ $t('Trier') }}</Text>
-                        <Icon name="chevron-down" />
+                        <Icon name="angle-down" />
                     </div>
                     <ul
                         tabindex="0"
@@ -315,7 +315,7 @@ watch(
                                 {{ $t(sort.name) }}
                                 <Icon
                                     class="ms-auto inline"
-                                    :name="`arrow-${checkIfSortIsSelected(
+                                    :name="`angle-${checkIfSortIsSelected(
                                         sort.value
                                     )}`"
                                 />
@@ -333,7 +333,7 @@ watch(
                         class="btn btn-ghost btn-sm"
                     >
                         <Text type="xs">{{ $t('Filter par tags') }}</Text>
-                        <Icon name="chevron-down" />
+                        <Icon name="angle-down" />
                     </div>
                     <ul
                         tabindex="0"

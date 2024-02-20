@@ -104,7 +104,7 @@ formService.setForm(form).setRouteName('media')
                     v-for="(tag, index) in media.tags"
                     :href="route('tag.show', tag.name)"
                 >
-                    <Tag type="secondary">
+                    <Tag type="secondary" outline>
                         {{ tag.name }}
                     </Tag>
                 </a>
