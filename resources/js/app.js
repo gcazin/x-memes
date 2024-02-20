@@ -1,11 +1,11 @@
 import '../css/app.css'
 import './bootstrap'
 
-import * as Sentry from "@sentry/vue"
 import FormService from '@/Services/form.service.js'
 import HelperService from '@/Services/helper.service.js'
 import { Ziggy } from '@/ziggy.js'
 import { createInertiaApp } from '@inertiajs/vue3'
+import * as Sentry from '@sentry/vue'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { i18nVue } from 'laravel-vue-i18n'
 import { createApp, h } from 'vue'

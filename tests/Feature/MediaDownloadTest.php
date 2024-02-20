@@ -2,6 +2,7 @@
 
 use App\Models\Media;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 
 it('can add statistic to media', function () {
