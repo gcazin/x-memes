@@ -191,4 +191,9 @@ class Media extends Model implements Sitemapable
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function statistic(): HasMany
+    {
+        return $this->hasMany(MediaDownload::class);
+    }
 }
