@@ -64,29 +64,6 @@ const dateTime = (value) => {
                         </div>
                     </Stack>
                 </div>
-                <div class="text-right" v-if="page.props.auth.isConnected">
-                    <button
-                        class="btn btn-circle btn-sm w-10"
-                        @click="
-                            formService
-                                .setForm(form)
-                                .setRouteName('media')
-                                .handle('like', media, 'get')
-                        "
-                        :disabled="form.processing || !page.props.auth?.user"
-                        :class="
-                            page.props.auth?.user
-                                ? media.likers
-                                      ?.map((liker) => liker.id)
-                                      .includes($page.props.auth.user.id)
-                                    ? 'btn-outline btn-error'
-                                    : 'btn-ghost'
-                                : ''
-                        "
-                    >
-                        <Icon size="xl" name="heart" />
-                    </button>
-                </div>
             </div>
         </div>
         <div class="flex items-center pt-2">
