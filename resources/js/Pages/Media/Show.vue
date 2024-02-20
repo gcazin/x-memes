@@ -145,6 +145,7 @@ formService.setForm(form).setRouteName('media')
                             <div class="space-x-2">
                                 <div class="indicator">
                                     <span
+                                        v-if="media.likers.length > 0"
                                         class="badge indicator-item badge-error badge-sm"
                                     >
                                         {{ media.likers.length }}
@@ -169,6 +170,7 @@ formService.setForm(form).setRouteName('media')
 
                                 <div class="indicator">
                                     <span
+                                        v-if="media.download_count > 0"
                                         class="badge indicator-item badge-primary badge-sm"
                                     >
                                         {{ media.download_count }}
