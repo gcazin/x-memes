@@ -21,11 +21,18 @@ const show = ref(false)
 
 const closeAlert = () => (show.value = false)
 
-const iconColor = computed(() => {
+const toastColor = computed(() => {
     return {
-        success: 'text-success',
-        info: 'text-info',
-        error: 'text-error',
+        success: 'alert-success',
+        info: 'alert-info',
+        error: 'alert-error',
+    }[props.type ? props.type : flash.status.class]
+})
+const iconName = computed(() => {
+    return {
+        success: 'check-circle',
+        info: 'info-circle',
+        error: 'exclamation-triangle',
     }[props.type ? props.type : flash.status.class]
 })
 
@@ -34,7 +41,7 @@ watchEffect(() => {
         show.value = true
         setTimeout(() => {
             show.value = false
-        }, 5000)
+        }, 3000)
     }
 })
 </script>
@@ -49,16 +56,12 @@ watchEffect(() => {
     >
         <div
             v-if="show"
-            id="toast-success"
-            class="fixed bottom-5 right-5 z-50 mb-4 flex max-w-md items-center justify-center rounded-lg bg-base-300 p-4 shadow"
+            class="alert fixed bottom-5 right-5 z-50 mb-4 flex max-w-md items-center justify-center"
+            :class="[toastColor]"
             role="alert"
         >
-            <div class="mr-2">
-                <Icon name="checkmark-circle" size="2xl" :class="[iconColor]" />
-            </div>
-            <div class="mr-2">
-                <Text>{{ message ? message : flash.status.message }}</Text>
-            </div>
+            <Icon :name="iconName" size="2xl" />
+            <Text type="sub">{{ message ? message : flash.status.message }}</Text>
             <button
                 type="button"
                 class="btn btn-ghost btn-xs ms-auto"
