@@ -25,6 +25,7 @@ import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import moment from 'moment'
 import { computed } from 'vue'
+import JSConfetti from 'js-confetti'
 
 const props = defineProps({
     media: {
@@ -62,12 +63,15 @@ const likeItem = async (item) => {
 
 const downloadItem = async (item) => {
     if (!auth.isConnected) {
-        formService.openModal('shouldRegister')
+        return formService.openModal('shouldRegister')
     }
 
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
     })
+
+    const confetti = new JSConfetti()
+    confetti.addConfetti()
 
     const media = props.media
     const path = `${moment().valueOf()}-${media.name

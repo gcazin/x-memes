@@ -14,6 +14,7 @@ import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import { computed, ref } from 'vue'
+import JSConfetti from 'js-confetti'
 
 const props = defineProps({
     title: {
@@ -84,6 +85,9 @@ const uploadMedia = () => {
     form.post(route('media.store'), {
         onSuccess: () => {
             formService.closeModal()
+
+            const confetti = new JSConfetti()
+            confetti.addConfetti()
 
             // Can't use form.reset(), why? idk
             form.name = null
