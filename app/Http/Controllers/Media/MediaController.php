@@ -159,7 +159,6 @@ class MediaController extends Controller
 
             Point::reward($media->id, PointType::MEDIA_SEEN);
 
-            $image = $media->type === 'image' ? $media->path : $media->thumbnail_path;
             $jsonLD = Schema::webPage()
                 ->description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')
                 ->interactionStatistic(
@@ -171,7 +170,7 @@ class MediaController extends Controller
             if ($media->type === 'video') {
                 $jsonLD->mainEntity(
                     Schema::videoObject()
-                        ->contentUrl(url('/storage/'.$image))
+                        ->contentUrl(url('/storage/'.$media->path))
                         ->name($media->name)
                         ->description('Télécharge le mème '.$media->name.' facilement sur X-Memes !')
                         ->thumbnailUrl($media->thumbnail_path)
@@ -183,7 +182,7 @@ class MediaController extends Controller
             } else {
                 $jsonLD->mainEntity(
                     Schema::imageObject()
-                        ->contentUrl(url('/storage/'.$image))
+                        ->contentUrl(url('/storage/'.$media->path))
                 );
             }
 
@@ -191,7 +190,7 @@ class MediaController extends Controller
                 ->title($media->name)
                 ->type($media->type)
                 ->url(route('media.show', $media->slug))
-                ->image($image)
+                ->image($media->type === 'image' ? $media->path : $media->thumbnail_path)
                 ->schema($jsonLD->toScript())
                 ->share();
 

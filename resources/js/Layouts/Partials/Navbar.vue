@@ -300,6 +300,7 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                                 <Avatar
                                     :user="$page.props.auth.user"
                                     size="sm"
+                                    circle
                                 />
                             </div>
                             <div
