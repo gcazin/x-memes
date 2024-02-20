@@ -304,7 +304,7 @@ formService.setForm(form).setRouteName('media')
                         ></video>
                         <img
                             v-else
-                            class="pointer-events-none mx-auto h-96 w-full rounded-lg object-contain"
+                            class="pointer-events-none mx-auto w-full rounded-lg object-contain md:h-96"
                             :src="`/storage/${media.path}`"
                             :alt="media.name"
                             loading="lazy"
