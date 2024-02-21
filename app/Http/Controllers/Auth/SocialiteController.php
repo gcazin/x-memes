@@ -59,9 +59,9 @@ class SocialiteController extends Controller
                 } else {
                     $user = $this->userService->create($username, $email);
                 }
-            }
 
-            event(new Registered($user));
+                event(new Registered($user));
+            }
 
             Auth::login($user);
 
