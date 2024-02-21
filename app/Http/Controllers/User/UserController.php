@@ -27,7 +27,7 @@ class UserController extends Controller
             ->firstWhere('username', $username);
 
         Seo::title(__('Profil de :username', ['username' => $username]))
-            ->description('Profil de '.$username.' sur X-Memes - '.$user->medias_count.' mèmes publiés - '.$user->followers()->count().' abonnés')
+            ->description('Profil de '.$username.' sur X-Memes - '.$user->medias()->count().' mèmes publiés - '.$user->followers()->count().' abonnés')
             ->type('profile')
             ->share();
 

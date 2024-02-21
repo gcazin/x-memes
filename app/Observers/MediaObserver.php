@@ -18,9 +18,7 @@ class MediaObserver
     {
         $user = User::find($media->user_id);
 
-        $userMediasPublished = $user->medias
-            ->where('approved', true)
-            ->count();
+        $userMediasPublished = $user->medias()->count();
 
         $badgeType = BadgeType::all()->where('name', 'media');
         if ($badgeType->count() > 0) {
@@ -56,7 +54,7 @@ class MediaObserver
     public function deleted(Media $media): void
     {
         $user = User::find($media->user_id);
-        $userMediasPublished = $user->medias->where('approved', true)->count();
+        $userMediasPublished = $user->medias()->count();
         $badgesToRemove = $user->badges->where('condition', '>', (string) $userMediasPublished)->pluck('id');
         $user->badges()->detach($badgesToRemove);
 

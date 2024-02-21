@@ -43,7 +43,7 @@ class RewardUser extends Command
                 $point->save();
             }
 
-            $medias = $user->medias()->where('approved', true);
+            $medias = $user->medias();
             $followers = $user->followers();
 
             // User registered
