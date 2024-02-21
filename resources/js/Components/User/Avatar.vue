@@ -13,7 +13,7 @@ const props = defineProps({
     },
     circle: {
         type: Boolean,
-        default: false,
+        default: true,
     },
 })
 

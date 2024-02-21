@@ -18,6 +18,8 @@ use App\Http\Controllers\Media\TagController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
+use App\Http\Controllers\User\FollowerController;
+use App\Http\Controllers\User\FollowingController;
 use App\Http\Controllers\User\LikedController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
@@ -59,6 +61,8 @@ Route::prefix(LaravelLocalization::setLocale())
             Route::get('{username}', [UserController::class, 'show'])->name('show');
             Route::get('{username}/badges', BadgeController::class)->name('badge.index');
             Route::get('{username}/liked-publications', LikedController::class)->name('media.liked');
+            Route::get('{username}/followers', FollowerController::class)->name('follower.index');
+            Route::get('{username}/followings', FollowingController::class)->name('following.index');
         });
 
         // Media

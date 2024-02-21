@@ -30,6 +30,12 @@ class UserSeeder extends Seeder
 
         if (config('app.env') !== 'production') {
             User::factory(50)->create()->chunk(10);
+
+            /*foreach (User::all() as $user) {
+                if ($user->id !== 1) {
+                    $user->toggleFollow(User::find(1));
+                }
+            }*/
         }
     }
 }

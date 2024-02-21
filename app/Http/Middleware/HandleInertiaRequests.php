@@ -41,6 +41,9 @@ class HandleInertiaRequests extends Middleware
             'supportedLocales' => LaravelLocalization::getSupportedLocales(),
             'auth' => [
                 'user' => $request->user(),
+                'followings' => function () use ($request) {
+                    return $request->user() ? $request->user()->followings : null;
+                },
                 'roles' => function () use ($request) {
                     return $request->user() ? $request->user()->roles()->pluck('name') : null;
                 },

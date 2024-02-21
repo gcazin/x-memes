@@ -21,9 +21,9 @@ const props = defineProps({
 const page = usePage()
 
 const checkIfAuthIsFollowing = computed(() => {
-    return props.user?.followers
-        .map((follower) => follower.username)
-        .includes(page.props.auth.user?.username)
+    return page.props.auth.followings
+        .map((follower) => follower.followable_id)
+        .includes(props.user.id)
 })
 
 const form = useForm({})
@@ -37,7 +37,7 @@ const submit = () => {
 
 <template>
     <Button
-        v-if="page.props.auth?.user && page.props.auth.user.id !== user.id"
+        v-if="page.props.auth.isConnected && page.props.auth.user.id !== user.id"
         :size="size"
         :type="!inline ? 'secondary' : 'primary'"
         :outline="checkIfAuthIsFollowing"

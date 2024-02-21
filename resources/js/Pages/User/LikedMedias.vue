@@ -12,7 +12,7 @@ defineProps({
 })
 </script>
 <template>
-    <UserLayout :user="user" :medias="medias">
+    <UserLayout :user="user">
         <Gallery :medias="medias" />
     </UserLayout>
 </template>

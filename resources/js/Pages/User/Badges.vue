@@ -6,13 +6,10 @@ defineProps({
     user: {
         type: Object,
     },
-    medias: {
-        type: Array,
-    },
 })
 </script>
 <template>
-    <UserLayout :user="user" :medias="medias">
+    <UserLayout :user="user">
         <div class="grid grid-cols-2 gap-4 py-4 text-center lg:grid-cols-6">
             <div
                 v-if="user.badges.length"

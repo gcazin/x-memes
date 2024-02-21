@@ -22,24 +22,18 @@ class UserController extends Controller
 
     public function show(string $username): Response
     {
-        $user = User::with('medias')
-            ->with('followers')
-            ->withCount('followings')
+        $user = User::with(['medias', 'followers'])
+            ->withCount('followings', 'medias')
             ->firstWhere('username', $username);
 
-        $medias = null;
-        if ($user) {
-            $medias = $this->mediaRepository->paginateByUser($user->id);
-        }
-
         Seo::title(__('Profil de :username', ['username' => $username]))
-            ->description('Profil de '.$username.' sur X-Memes - '.$user->medias()->count().' mèmes publiés - '.$user->followers()->count().' abonnés')
+            ->description('Profil de '.$username.' sur X-Memes - '.$user->medias_count.' mèmes publiés - '.$user->followers()->count().' abonnés')
             ->type('profile')
             ->share();
 
         return Inertia::render('User/Show', [
             'user' => $user,
-            'medias' => $medias,
+            'medias' => $user?->medias()->paginate(),
         ]);
     }
 

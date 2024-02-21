@@ -20,9 +20,6 @@ const props = defineProps({
     user: {
         type: Object,
     },
-    medias: {
-        type: Array,
-    },
 })
 
 const page = usePage()
@@ -35,13 +32,6 @@ const form = useForm({
     github_username: auth?.github_username,
     avatar: null,
 })
-
-const downloadMediaCount =
-    props.user.medias && props.user.medias.length
-        ? props.user.medias
-              .map((media) => media.download_count)
-              .reduce((accumulator, media) => accumulator + media)
-        : 0
 
 const updateUser = () => {
     form.post(route('user.update'), {
@@ -105,7 +95,7 @@ const updateUser = () => {
                                             />
                                         </svg>
                                         <Text type="sub"
-                                            >@{{ user.x_username }}</Text
+                                        >@{{ user.x_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -125,7 +115,7 @@ const updateUser = () => {
                                             :outline="false"
                                         />
                                         <Text type="sub"
-                                            >@{{ user.github_username }}</Text
+                                        >@{{ user.github_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -135,36 +125,30 @@ const updateUser = () => {
                             <Text type="sub">
                                 {{
                                     helperService.plural(
-                                        'total' in medias
-                                            ? medias.total
-                                            : medias.length,
+                                        user.medias_count ?? user.medias.length,
                                         'publication'
                                     )
                                 }}
                             </Text>
                             <Text type="sub">
-                                {{
-                                    helperService.plural(
-                                        downloadMediaCount,
-                                        'téléchargement'
-                                    )
-                                }}
+                                <a :href="route('user.follower.index', user.username)" class="link">
+                                    {{
+                                        helperService.plural(
+                                            user.followers_count ?? user.followers.length,
+                                            'abonné'
+                                        )
+                                    }}
+                                </a>
                             </Text>
                             <Text type="sub">
-                                {{
-                                    helperService.plural(
-                                        user.followers.length,
-                                        'abonné'
-                                    )
-                                }}
-                            </Text>
-                            <Text type="sub">
-                                {{
-                                    helperService.plural(
-                                        user.followings_count,
-                                        'abonnement'
-                                    )
-                                }}
+                                <a :href="route('user.following.index', user.username)" class="link">
+                                    {{
+                                        helperService.plural(
+                                            user.followings_count ?? user.followings.length,
+                                            'abonnement'
+                                        )
+                                    }}
+                                </a>
                             </Text>
                         </div>
                     </Stack>
@@ -278,13 +262,14 @@ const updateUser = () => {
                         </Modal>
                     </div>
                 </div>
-                <div role="tablist" class="tabs tabs-lifted tabs-lg">
+
+                <div role="tablist" class="tabs tabs-bordered tabs-lg">
                     <a
                         :href="route('user.show', user.username)"
                         role="tab"
                         class="tab"
                         :class="{
-                            'bg-primary/30 font-bold':
+                            'tab-active':
                                 route().current('user.show'),
                         }"
                     >
@@ -295,7 +280,7 @@ const updateUser = () => {
                         role="tab"
                         class="tab"
                         :class="{
-                            'bg-primary/30 font-bold':
+                            'tab-active':
                                 route().current('user.media.liked'),
                         }"
                     >
@@ -306,7 +291,7 @@ const updateUser = () => {
                         role="tab"
                         class="tab"
                         :class="{
-                            'bg-primary/30 font-bold':
+                            'tab-active':
                                 route().current('user.badge.index'),
                         }"
                     >

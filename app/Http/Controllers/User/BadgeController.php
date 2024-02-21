@@ -26,7 +26,7 @@ class BadgeController extends Controller
     public function __invoke(string $username): Response
     {
         $user = User::with('followers', 'badges')
-            ->withCount('followings')
+            ->withCount('followings', 'medias')
             ->firstWhere('username', $username);
 
         $medias = $this->mediaRepository->paginateByUser($user->id);

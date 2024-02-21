@@ -6,40 +6,41 @@ namespace App\Http\Controllers\User;
 
 use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
-use App\Models\Media;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\SchemaOrg\Schema;
 
-class LikedController extends Controller
+class FollowingController extends Controller
 {
-    public function __construct(
-        protected UserRepository $userRepository
-    ) {
-    }
-
     /**
      * Handle the incoming request.
      */
     public function __invoke(Request $request, string $username): Response
     {
-        $user = User::with('followers')
-            ->withCount('followings', 'medias')
+        $user = User::with('followings')
+            ->withCount('followers', 'medias')
             ->firstWhere('username', $username);
 
-        $medias = $user->getLikedItems(Media::class)->paginate(10);
+        $followings = $user->followings()
+            ->paginate(10);
 
-        $title = __('Publications aimées de :username', ['username' => $username]);
+        $title = __('Abonnements de :username', ['username' => $username]);
         Seo::description($title)
             ->title($title)
             ->type('profile')
+            ->schema(
+                Schema::webPage()
+                    ->name($title)
+                    ->toScript()
+            )
             ->share();
 
-        return Inertia::render('User/LikedMedias', [
+        return Inertia::render('User/Followings', [
             'user' => $user,
-            'medias' => $medias,
+            'followings' => $followings
         ]);
     }
 }
