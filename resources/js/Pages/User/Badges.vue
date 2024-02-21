@@ -6,17 +6,20 @@ defineProps({
     user: {
         type: Object,
     },
+    badges: {
+        type: Array
+    }
 })
 </script>
 <template>
     <UserLayout :user="user">
         <div class="grid grid-cols-2 gap-4 py-4 text-center lg:grid-cols-6">
             <div
-                v-if="user.badges.length"
-                v-for="(badge, index) in user.badges"
+                v-if="badges.length"
+                v-for="(badge, index) in badges"
                 :key="index"
             >
-                <Badge :badge="badge" />
+                <Badge :badge="badge" :placeholder="!user.badges.find((b) => b.id === badge.id)" />
             </div>
             <div v-else>Aucun badges</div>
         </div>

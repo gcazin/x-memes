@@ -6,6 +6,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    placeholder: {
+        type: Boolean,
+        default: false,
+    }
 })
 
 const iconType = computed(() => {
@@ -20,7 +24,7 @@ const iconType = computed(() => {
 
 <template>
     <div class="text-center">
-        <div class="badge-hover">
+        <div class="badge-hover" v-if="!placeholder">
             <div class="badge-icon" :class="`badge-${iconType}`">
                 <img
                     :src="`/images/${badge.path}`"
@@ -30,6 +34,7 @@ const iconType = computed(() => {
                 />
             </div>
         </div>
+        <div v-else class="badge-placeholder"></div>
         <div class="mt-2">
             <div class="text-lg">{{ badge.name }}</div>
             <div>{{ badge.description }}</div>

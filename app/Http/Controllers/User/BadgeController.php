@@ -6,6 +6,7 @@ namespace App\Http\Controllers\User;
 
 use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
+use App\Models\Badge;
 use App\Models\User;
 use App\Repositories\MediaRepository;
 use Illuminate\Http\Request;
@@ -45,6 +46,7 @@ class BadgeController extends Controller
         return Inertia::render('User/Badges', [
             'user' => $user,
             'medias' => $medias,
+            'badges' => Badge::all(),
         ]);
     }
 }
