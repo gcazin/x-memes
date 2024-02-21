@@ -27,10 +27,10 @@ defineProps({
         <div class="flex flex-col">
             <Section
                 v-if="followings.total > 0"
-                v-for="(follower, index) in followings.data"
+                v-for="(following, index) in followings.data"
                 :key="index"
             >
-                <UserDetail :user="follower" />
+                <UserDetail :user="following" />
             </Section>
             <Section v-else>
                 <Text>{{ $t('Aucun abonnement à afficher.') }}</Text>
@@ -42,5 +42,4 @@ defineProps({
 </template>
 
 <style scoped>
-
 </style>

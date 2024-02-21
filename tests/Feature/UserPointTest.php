@@ -60,6 +60,24 @@ it('can get reward when a user like his media', function () {
         ->and($liker->points()->count())->toBe(0);
 });
 
+it('cannot get multiple reward when user spam like', function () {
+    $liked = User::factory()->create();
+    $liker = User::factory()->create();
+
+    $media = Media::factory()->create([
+        'user_id' => $liked->id,
+    ]);
+
+    actingAs($liker)->get(route('media.like', $media->id));
+    expect($liked->points()->count())->toBe(1);
+
+    actingAs($liker)->get(route('media.like', $media->id));
+    expect($liked->points()->count())->toBe(1);
+
+    actingAs($liker)->get(route('media.like', $media->id));
+    expect($liked->points()->count())->toBe(1);
+});
+
 it('can get reward when his media is approved', function () {
     $user = User::factory()->create();
     $media = Media::factory()->create([
@@ -94,10 +112,32 @@ it('can get reward when a user follow him', function () {
     actingAs($follower)->post(route('user.follow', $followable->id));
     $point = $followable->point()->first();
 
-    expect($followable->followers->count())->toBe(1)
-        ->and($follower->followings->count())->toBe(1)
-        ->and($followable->points()->count())->toBe(1)
+    expect($followable->points()->count())->toBe(1)
         ->and($point->amount)->toBe(PointType::firstWhere('name', 'user_following')->amount);
+});
+
+it('cannot get multiple reward when user spam follow', function () {
+    $follower = User::factory()->create([
+        'username' => 'follower',
+    ]);
+    $followable = User::factory()->create([
+        'username' => 'followable',
+    ]);
+
+    // Follow
+    actingAs($follower)->post(route('user.follow', $followable->id));
+    $point = $followable->point()->first();
+
+    expect($followable->points()->count())->toBe(1)
+        ->and($point->amount)->toBe(PointType::firstWhere('name', 'user_following')->amount);
+
+    // Unfollow
+    actingAs($follower)->post(route('user.follow', $followable->id));
+
+    // Follow
+    actingAs($follower)->post(route('user.follow', $followable->id));
+
+    expect($followable->points()->count())->toBe(1);
 });
 
 it('can get reward when a staff member follow him', function () {
@@ -108,11 +148,10 @@ it('can get reward when a staff member follow him', function () {
     actingAsSuperAdmin()->post(route('user.follow', $followable->id));
     $point = $followable->point()->first();
 
-    $amount = PointType::firstWhere('name', 'staff_user_following')->amount
-        + PointType::firstWhere('name', 'user_following')->amount;
+    $amount = PointType::firstWhere('name', 'staff_user_following')->amount;
 
     expect($followable->followers->count())->toBe(1)
-        ->and($followable->points()->count())->toBe(2)
+        ->and($followable->points()->count())->toBe(1)
         ->and($point->amount)->toBe($amount);
 });
 

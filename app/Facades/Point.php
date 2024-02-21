@@ -19,7 +19,7 @@ class Point
     }
 
     /**
-     * Sets the user.
+     * Set the user.
      */
     public function setUser(User $user): Point
     {
@@ -41,11 +41,16 @@ class Point
             }
 
             if (($this->user->email !== auth()->user()?->email) || ! $id) {
+                // reward auth
                 $model = $this->user->points();
             } else {
+                // reward user
                 $model = $type->model::find($id)->points();
             }
 
+            /**
+             * Check if the user has already been rewarded.
+             */
             if (! $id) {
                 $userPointAction = $model
                     ->where('point_type_id', '=', $type->id);
@@ -58,7 +63,14 @@ class Point
                     });
             }
 
+            /**
+             * Create the reward if it doesn't already exist.
+             */
             if (! $userPointAction->exists()) {
+                /**
+                 * user_id: initiator
+                 * pointable_id: null, user_id...
+                 */
                 $model->create([
                     'user_id' => $this->user->id,
                     'point_type_id' => $type->id,

@@ -24,9 +24,14 @@ class FollowController extends Controller
         $follower->toggleFollow($followable);
 
         if ($follower->hasAnyRole('super-admin', 'admin')) {
-            PointFacade::setUser($followable)->reward($follower->id, PointType::STAFF_USER_FOLLOWING);
+            if ($follower->isFollowing($followable)) {
+                PointFacade::setUser($followable)->reward($followable->id, PointType::STAFF_USER_FOLLOWING);
+            }
+        } else {
+            if ($follower->isFollowing($followable)) {
+                PointFacade::setUser($followable)->reward($followable->id, PointType::USER_FOLLOWING);
+            }
         }
-        PointFacade::setUser($followable)->reward($follower->id, PointType::USER_FOLLOWING);
 
         UserFollowed::dispatchIf($follower->isFollowing($followable), $followable, $follower);
     }

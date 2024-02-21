@@ -35,3 +35,18 @@ it('can remove statistic if media is deleted', function () {
     expect(Media::all()->count())->toBe(0)
         ->and($media->statistic()->count())->toBe(0);
 });
+
+/*it('can remove statistic if user is deleted', function () {
+    $user = User::factory()->create();
+    $media = Media::factory()->create();
+
+    actingAs($user)->get(route('media.download', $media->id));
+
+    $statistic = $media->statistic();
+
+    expect($statistic->count())->toBe(1);
+
+    $user->delete();
+
+    expect($media->refresh()->statistic()->count())->toBe(0);
+});*/

@@ -26,6 +26,8 @@ class LikeController extends Controller
 
         auth()->user()->toggleLike($media);
 
-        PointFacade::setUser($media->user)->reward($media->id, PointType::USER_LIKED_MEDIA);
+        if (auth()->user()->hasLiked($media)) {
+            PointFacade::setUser($media->user)->reward($media->id, PointType::USER_LIKED_MEDIA);
+        }
     }
 }

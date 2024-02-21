@@ -7,6 +7,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -136,6 +137,11 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
     public function medias(): HasMany
     {
         return $this->hasMany(Media::class);
+    }
+
+    public function approvedMedias(): Collection
+    {
+        return $this->medias()->where('approved_by', $this->id)->get();
     }
 
     /**

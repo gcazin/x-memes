@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Media;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,6 +62,24 @@ it('can delete their account', function () {
     $this->assertNull($user->fresh());
 });
 
+/*it('can delete their account with associated medias', function () {
+    $user = User::factory()->create();
+    $media = Media::factory()->create();
+
+    $response = $this
+        ->actingAs($user)
+        ->delete(route('profile.destroy'), [
+            'password' => 'password',
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('index'));
+
+    $this->assertGuest();
+    $this->assertNull($user->fresh());
+});*/
+
 test('correct password must be provided to delete account', function () {
     $user = User::factory()->create();
 
@@ -77,3 +96,4 @@ test('correct password must be provided to delete account', function () {
 
     $this->assertNotNull($user->fresh());
 });
+
