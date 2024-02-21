@@ -7,7 +7,6 @@ namespace App\Http\Controllers\User;
 use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -26,7 +25,7 @@ class FollowingController extends Controller
 
         $followings = $user->followings()
             ->paginate(10)
-            ->through(fn($following) => $following->followable);
+            ->through(fn ($following) => $following->followable);
 
         $title = __('Abonnements de :username', ['username' => $username]);
         Seo::description($title)
@@ -41,7 +40,7 @@ class FollowingController extends Controller
 
         return Inertia::render('User/Followings', [
             'user' => $user,
-            'followings' => $followings
+            'followings' => $followings,
         ]);
     }
 }

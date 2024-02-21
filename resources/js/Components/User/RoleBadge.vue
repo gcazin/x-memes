@@ -11,8 +11,8 @@ const props = defineProps({
     size: {
         type: String,
         required: false,
-        default: 'xl'
-    }
+        default: 'xl',
+    },
 })
 
 const page = usePage()

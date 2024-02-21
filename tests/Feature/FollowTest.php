@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\PointType;
 use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 
 it('can follow a user', function () {

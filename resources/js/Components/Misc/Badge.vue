@@ -9,7 +9,7 @@ const props = defineProps({
     placeholder: {
         type: Boolean,
         default: false,
-    }
+    },
 })
 
 const iconType = computed(() => {

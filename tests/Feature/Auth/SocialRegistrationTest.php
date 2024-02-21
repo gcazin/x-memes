@@ -9,7 +9,7 @@ it('should register a new user when using social media', function () {
         ->shouldReceive('getName')
         ->andReturn(Str::random(10))
         ->shouldReceive('getEmail')
-        ->andReturn(Str::random(10) . '@gmail.com')
+        ->andReturn(Str::random(10).'@gmail.com')
         ->shouldReceive('getAvatar')
         ->andReturn('https://en.gravatar.com/userimage');
 

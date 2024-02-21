@@ -23,9 +23,9 @@ import helperService from '@/Services/helper.service.js'
 import { Head, useForm, usePage } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
+import JSConfetti from 'js-confetti'
 import moment from 'moment'
 import { computed } from 'vue'
-import JSConfetti from 'js-confetti'
 
 const props = defineProps({
     media: {

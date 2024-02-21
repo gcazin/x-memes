@@ -95,7 +95,7 @@ const updateUser = () => {
                                             />
                                         </svg>
                                         <Text type="sub"
-                                        >@{{ user.x_username }}</Text
+                                            >@{{ user.x_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -115,7 +115,7 @@ const updateUser = () => {
                                             :outline="false"
                                         />
                                         <Text type="sub"
-                                        >@{{ user.github_username }}</Text
+                                            >@{{ user.github_username }}</Text
                                         >
                                     </Button>
                                 </a>
@@ -131,20 +131,38 @@ const updateUser = () => {
                                 }}
                             </Text>
                             <Text type="sub">
-                                <a :href="route('user.follower.index', user.username)" class="link">
+                                <a
+                                    :href="
+                                        route(
+                                            'user.follower.index',
+                                            user.username
+                                        )
+                                    "
+                                    class="link"
+                                >
                                     {{
                                         helperService.plural(
-                                            user.followers_count ?? user.followers.length,
+                                            user.followers_count ??
+                                                user.followers.length,
                                             'abonné'
                                         )
                                     }}
                                 </a>
                             </Text>
                             <Text type="sub">
-                                <a :href="route('user.following.index', user.username)" class="link">
+                                <a
+                                    :href="
+                                        route(
+                                            'user.following.index',
+                                            user.username
+                                        )
+                                    "
+                                    class="link"
+                                >
                                     {{
                                         helperService.plural(
-                                            user.followings_count ?? user.followings.length,
+                                            user.followings_count ??
+                                                user.followings.length,
                                             'abonnement'
                                         )
                                     }}
@@ -269,8 +287,7 @@ const updateUser = () => {
                         role="tab"
                         class="tab"
                         :class="{
-                            'tab-active':
-                                route().current('user.show'),
+                            'tab-active': route().current('user.show'),
                         }"
                     >
                         <Icon name="apps" size="xl" />
@@ -280,8 +297,7 @@ const updateUser = () => {
                         role="tab"
                         class="tab"
                         :class="{
-                            'tab-active':
-                                route().current('user.media.liked'),
+                            'tab-active': route().current('user.media.liked'),
                         }"
                     >
                         <Icon name="heart" size="xl" />
@@ -291,8 +307,7 @@ const updateUser = () => {
                         role="tab"
                         class="tab"
                         :class="{
-                            'tab-active':
-                                route().current('user.badge.index'),
+                            'tab-active': route().current('user.badge.index'),
                         }"
                     >
                         <Icon name="award" size="xl" />

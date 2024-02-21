@@ -7,8 +7,8 @@ defineProps({
         type: Object,
     },
     badges: {
-        type: Array
-    }
+        type: Array,
+    },
 })
 </script>
 <template>
@@ -19,7 +19,10 @@ defineProps({
                 v-for="(badge, index) in badges"
                 :key="index"
             >
-                <Badge :badge="badge" :placeholder="!user.badges.find((b) => b.id === badge.id)" />
+                <Badge
+                    :badge="badge"
+                    :placeholder="!user.badges.find((b) => b.id === badge.id)"
+                />
             </div>
             <div v-else>Aucun badges</div>
         </div>

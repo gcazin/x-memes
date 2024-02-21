@@ -9,7 +9,6 @@ use App\Events\UserFollowed;
 use App\Facades\PointFacade;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {

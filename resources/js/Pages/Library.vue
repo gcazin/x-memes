@@ -13,8 +13,8 @@ import Gallery from '@/Pages/Media/Partials/Gallery.vue'
 import formService from '@/Services/form.service.js'
 import { useForm } from '@inertiajs/vue3'
 import Multiselect from '@vueform/multiselect'
-import { computed, ref } from 'vue'
 import JSConfetti from 'js-confetti'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     title: {

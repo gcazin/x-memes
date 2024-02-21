@@ -7,8 +7,6 @@ namespace App\Http\Controllers\User;
 use App\Facades\SeoFacade as SEO;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repositories\MediaRepository;
-use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -41,7 +39,7 @@ class FollowerController extends Controller
 
         return Inertia::render('User/Followers', [
             'user' => $user,
-            'followers' => $followers
+            'followers' => $followers,
         ]);
     }
 }
