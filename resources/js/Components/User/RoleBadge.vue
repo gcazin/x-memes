@@ -8,6 +8,11 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    size: {
+        type: String,
+        required: false,
+        default: 'xl'
+    }
 })
 
 const page = usePage()
@@ -55,10 +60,9 @@ const tooltipColor = computed(() => {
     >
         <Icon
             v-if="role.length"
-            class="align-top"
+            :size="size"
             :class="[badgeColor]"
-            name="checkmark-circle"
-            :outline="false"
+            name="check-circle"
         />
     </div>
 </template>

@@ -136,7 +136,7 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
      */
     public function medias(): HasMany
     {
-        return $this->hasMany(Media::class);
+        return $this->hasMany(Media::class)->where('approved', true);
     }
 
     public function approvedMedias(): Collection

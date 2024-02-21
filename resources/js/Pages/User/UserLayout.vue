@@ -61,7 +61,7 @@ const updateUser = () => {
                         <div class="text-center lg:text-left">
                             <Text type="title">
                                 {{ user.username }}
-                                <RoleBadge :user="user" />
+                                <RoleBadge :user="user" size="3xl" />
                             </Text>
                         </div>
                         <Text>
