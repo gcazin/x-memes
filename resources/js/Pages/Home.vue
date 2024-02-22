@@ -45,52 +45,49 @@ const features = [
         >
             <Container>
                 <div
-                    class="hero-content mx-auto px-0 pt-12 text-center lg:pt-24"
+                    class="hero-content mx-auto px-0 pt-12 text-center lg:pt-16"
                 >
                     <div class="flex flex-col">
-                        <img
-                            class="mask mask-squircle mx-auto mb-8 w-32 text-center shadow"
-                            src="/images/favicon-with-background.jpg"
-                            alt="Logo du site X-Memes"
-                        />
-                        <h1 class="text-3xl font-bold lg:text-5xl">
-                            {{
-                                $t(
-                                    'La plateforme qui te permet de retrouver tes mèmes préférés!'
-                                )
-                            }}
-                        </h1>
-                        <p class="py-6 lg:text-xl">
-                            {{
-                                $t(
-                                    "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté."
-                                )
-                            }}
-                        </p>
-                        <div class="space-x-2">
-                            <a
-                                :href="route('library')"
-                                class="btn btn-primary btn-lg"
-                            >
-                                <Text type="sub">{{ $t('Découvrir') }}</Text>
-                            </a>
-                            <a
-                                :href="
+                        <Stack spacing="2">
+                            <h1 class="text-3xl font-bold lg:text-5xl">
+                                {{
+                                    $t(
+                                        'La plateforme qui te permet de retrouver tes mèmes préférés!'
+                                    )
+                                }}
+                            </h1>
+                            <p class="py-6 lg:text-xl">
+                                {{
+                                    $t(
+                                        "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a postés."
+                                    )
+                                }}
+                            </p>
+                            <div class="space-x-2">
+                                <a
+                                    :href="route('library')"
+                                    class="btn btn-primary btn-lg"
+                                >
+                                    <Text type="sub">{{ $t('Découvrir') }}</Text>
+                                </a>
+                                <a
+                                    :href="
                                     auth.isConnected
                                         ? route('user.show', auth.user.username)
                                         : route('login')
                                 "
-                                class="btn btn-outline btn-secondary btn-lg"
-                            >
-                                <Text type="sub">{{
-                                    $t(
-                                        auth.isConnected
-                                            ? 'Voir mon profil'
-                                            : 'Se connecter'
-                                    )
-                                }}</Text>
-                            </a>
-                        </div>
+                                    class="btn btn-outline btn-secondary btn-lg"
+                                >
+                                    <Text type="sub">{{
+                                            $t(
+                                                auth.isConnected
+                                                    ? 'Voir mon profil'
+                                                    : 'Se connecter'
+                                            )
+                                        }}</Text>
+                                </a>
+                            </div>
+                        </Stack>
                     </div>
                 </div>
             </Container>

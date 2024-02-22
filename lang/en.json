@@ -13,6 +13,8 @@
     "Anglais": "English",
     "Annuler": "Cancel",
     "Au hasard": "Random",
+    "Aucun abonnement à afficher.": "No subscriptions to display.",
+    "Aucun abonné à afficher.": "No subscribers to display.",
     "Aucun résultat n'a été trouvé, mais tu peux y remédier, j'dis ça j'dis rien...": "No results were found, but you can do something about it, I'm just saying...",
     "Aucun résultat à afficher. Essayer avec un autre terme.": "No results to display. Try another term.",
     "Aucune donnée à afficher.": "No data to display.",
@@ -177,7 +179,7 @@
     "X-Memes est disponible en français, anglais et espagnol!": "X-Memes is now available in French, English and Spanish!",
     "X-Memes est maintenant disponible en anglais!": "X-Memes is now available in English!",
     "X-Memes est maintenant en :locale.": "X-Memes is now in :locale.",
-    "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a posté.": "X-Memes is a platform where you can register, publish and view memes posted by the community.",
+    "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a postés.": "X-Memes is a platform where you can register, publish and view memes posted by the community.",
     "X-Memes t'offre une variété de fonctionnalités, entre autres, te permettant de poster, télécharger et suivre les personnes que tu aimes.": "X-Memes offers you a variety of features, including the ability to post, upload and follow people you like.",
     "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?"
 }
