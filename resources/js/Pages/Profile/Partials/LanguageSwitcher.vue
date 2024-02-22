@@ -31,7 +31,7 @@ const currentLanguage = () => {
 <template>
     <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-circle btn-ghost">
-            <Icon name="globe" size="2xl" />
+            <Icon name="language" size="2xl" />
         </div>
         <div
             tabindex="0"
