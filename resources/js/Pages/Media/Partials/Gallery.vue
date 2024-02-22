@@ -51,6 +51,10 @@ onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
 
+    if (page.props.auth.isConnected) {
+        localStorage.setItem('shouldRegister', 'false')
+    }
+
     if (
         !page.props.auth.isConnected &&
         localStorage.getItem('shouldRegister') === 'true'
@@ -243,12 +247,6 @@ const fetchData = (url, filters = null) => {
     }
 }
 
-const showSkeleton = () => {
-    if (!auth.isConnected && pagination.current_page === 3) {
-        return true
-    }
-}
-
 /**
  * Display modal when user is not registered/connected
  */
@@ -258,10 +256,10 @@ watch(
         if (
             !page.props.auth.isConnected &&
             newQuery &&
-            newQuery.current_page === 2
+            newQuery.current_page === 3
         ) {
+            formService.openModal('shouldRegister')
             localStorage.setItem('shouldRegister', 'true')
-            // formService.openModal('shouldRegister')
         }
     },
     { immediate: true }
@@ -370,17 +368,7 @@ watch(
                 :key="index"
                 class="animate-[pulse_0.5s_ease-in-out]"
             >
-                <MediaItem v-if="!showSkeleton()" :media="media" />
-                <template v-else>
-                    <div class="space-y-6">
-                        <div class="skeleton h-96"></div>
-                        <div class="skeleton h-96"></div>
-                        <div class="skeleton h-96"></div>
-                        <div class="skeleton h-96"></div>
-                        <div class="skeleton h-96"></div>
-                        <div class="skeleton h-96"></div>
-                    </div>
-                </template>
+                <MediaItem :media="media" />
             </div>
         </div>
         <div v-else>
