@@ -22,8 +22,16 @@ class HomeController extends Controller
                     ->url(config('app.url'))
                     ->potentialAction(
                         Schema::searchAction()
-                            ->target(config('app.url').'/search?query={search_term_string}')
-                            ->query(__('Rechercher un mème...'))
+                        ->target(
+                            Schema::entryPoint()
+                                ->urlTemplate(config('app.url').'/search?query={search_term_string}')
+                        )
+                        ->setProperty(
+                            'query-input',
+                            Schema::propertyValueSpecification()
+                                ->valueRequired(true)
+                                ->valueName('search_term_string')
+                        )
                     )
                     ->toScript()
             )
