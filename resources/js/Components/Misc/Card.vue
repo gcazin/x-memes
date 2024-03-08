@@ -10,9 +10,9 @@ defineProps({
         type: String,
         required: false,
     },
-    isLink: {
-        type: Boolean,
-        default: true,
+    routeParameter: {
+        type: String,
+        required: false,
     },
     hasBackground: {
         type: Boolean,
@@ -25,21 +25,20 @@ defineProps({
 })
 </script>
 <template>
-    <div
+    <component
+        :is="routeTo ? 'a' : 'div'"
+        :href="routeTo ? route(routeTo, routeParameter) : null"
         class="card w-full !rounded-lg bg-base-300 shadow"
         :class="{
             'bg-base-300': hasBackground,
             'card-compact': hasMedia,
         }"
     >
-        <figure v-if="hasMedia">
+        <figure v-if="hasMedia || $slots.media">
             <slot name="media"></slot>
         </figure>
-        <component
-            :is="isLink ? 'a' : 'div'"
-            :href="routeTo ? route(routeTo) : null"
-            class="card-body"
-        >
+        <div class="card-body">
+
             <Text type="subtitle" v-if="title">{{ title }}</Text>
             <Text class="font-bold">
                 <slot />
@@ -49,6 +48,6 @@ defineProps({
                     <slot name="action" />
                 </div>
             </template>
-        </component>
-    </div>
+        </div>
+    </component>
 </template>

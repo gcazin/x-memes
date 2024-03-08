@@ -5,10 +5,13 @@ import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import BlogLayout from '@/Pages/Post/Partials/BlogLayout.vue'
+import Post from '@/Pages/Post/Partials/Post.vue'
+import Button from '@/Components/Button/Button.vue'
 
 defineProps({
-    stage: {
-        type: String,
+    posts: {
+        type: Array,
     },
 })
 
@@ -120,7 +123,7 @@ const features = [
             </div>
         </div>
 
-        <div class="bg-base-300 pb-16 pt-20">
+        <div class="bg-base-300 py-14">
             <Container>
                 <Stack>
                     <p class="font-bold uppercase text-primary">
@@ -131,13 +134,13 @@ const features = [
                         {{
                             $t(
                                 "X-Memes t'offre une variété de fonctionnalités, " +
-                                    'entre autres, te permettant de poster, ' +
-                                    'télécharger et suivre les personnes que tu aimes.'
+                                'entre autres, te permettant de poster, ' +
+                                'télécharger et suivre les personnes que tu aimes.'
                             )
                         }}
                     </p>
                     <div
-                        class="grid grid-cols-1 gap-8 py-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
+                        class="grid grid-cols-1 gap-8 pt-16 text-center md:grid-cols-2 lg:grid-cols-3 lg:gap-16 xl:grid-cols-4"
                     >
                         <div
                             class="flex-1"
@@ -160,8 +163,35 @@ const features = [
             </Container>
         </div>
 
-        <Container>
-            <div class="pb-16 pt-20 text-center lg:px-0">
+        <div class="py-14">
+            <Container>
+                <Stack>
+                    <p class="font-bold uppercase text-primary">
+                        {{ $t('Blog') }}
+                    </p>
+                    <h2 class="text-4xl">{{ $t('Articles') }}</h2>
+                    <BlogLayout>
+                        <Post
+                            v-if="posts.length"
+                            v-for="(post, index) in posts"
+                            :key="index"
+                            :post
+                        />
+                        <template v-else>
+                            <Text>Aucun article de blog a été publié.</Text>
+                        </template>
+                    </BlogLayout>
+                    <div class="text-center">
+                        <a :href="route('post.index')" class="btn btn-primary btn-outline btn-lg">
+                            Voir tout
+                        </a>
+                    </div>
+                </Stack>
+            </Container>
+        </div>
+
+        <div class="bg-base-300 py-14 text-center lg:px-0">
+            <Container>
                 <Stack class="mb-16">
                     <Text class="font-bold uppercase text-primary">FAQ</Text>
                     <h2 class="text-4xl">{{ $t('Une question ?') }}</h2>
@@ -194,18 +224,18 @@ const features = [
                                         )
                                     }}
                                     (<a
-                                        class="link-primary"
-                                        href="https://twitter.com/gcazinonx"
-                                        target="_blank"
-                                        >@gcazinonx</a
-                                    >).
+                                    class="link-primary"
+                                    href="https://twitter.com/gcazinonx"
+                                    target="_blank"
+                                >@gcazinonx</a
+                                >).
                                 </Text>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
     </PageLayout>
 </template>
 

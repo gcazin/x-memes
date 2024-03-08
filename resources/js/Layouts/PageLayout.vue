@@ -16,10 +16,6 @@ defineProps({
         type: Boolean,
         default: false,
     },
-    hasHeader: {
-        type: Boolean,
-        default: true,
-    },
     hasNavbar: {
         type: Boolean,
         default: true,
@@ -81,7 +77,7 @@ const props = page.props
 
         <BlobBackground />
         <!-- Page Heading -->
-        <header v-if="hasHeader">
+        <header v-if="$slots.title || title || $slots.action || $slots.subtitle">
             <Container class="py-6">
                 <div class="flex">
                     <div class="flex-1 gap-2">
@@ -110,7 +106,9 @@ const props = page.props
 
         <!-- Page Content -->
         <main class="relative">
-            <Container v-if="!isFullSize">
+            <Container :class="{
+                'py-6': !($slots.title || title || $slots.action || $slots.subtitle)
+            }" v-if="!isFullSize">
                 <slot />
             </Container>
             <div v-else class="w-full">

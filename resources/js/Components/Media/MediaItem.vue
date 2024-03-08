@@ -70,7 +70,7 @@ const dateTime = (value) => {
                 :href="route('user.show', media.user.username)"
                 class="link flex items-center gap-x-2"
             >
-                <Avatar size="sm" :user="media.user" />
+                <Avatar size="xs" :user="media.user" />
                 <Text type="xs">
                     {{ media.user.username }}
                 </Text>

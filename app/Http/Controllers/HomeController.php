@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Facades\SeoFacade as SEO;
+use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -37,6 +38,10 @@ class HomeController extends Controller
             )
             ->share();
 
-        return Inertia::render('Home');
+        $posts = Post::published()->take(3)->latest()->get();
+
+        return Inertia::render('Home', [
+            'posts' => $posts
+        ]);
     }
 }

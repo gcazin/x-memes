@@ -10,7 +10,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class LocalizationController extends Controller
 {
-    public function __invoke(Request $request, $language): RedirectResponse
+    public function __invoke(Request $request, string $language): RedirectResponse
     {
         app()->setLocale($language);
         session()->put('locale', $language);

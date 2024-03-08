@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Interfaces\RepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository implements RepositoryInterface
 {
@@ -23,7 +24,7 @@ class UserRepository implements RepositoryInterface
         return $this->user->all();
     }
 
-    public function paginate()
+    public function paginate(): array|LengthAwarePaginator
     {
         return $this->user->paginate();
     }
@@ -31,7 +32,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Finds a user item by its ID.
      */
-    public function find($id)
+    public function find(int $id): User
     {
         return $this->user->find($id);
     }
@@ -39,7 +40,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Finds the first user item returned by the given key-value pair.
      */
-    public function firstWhere($key, $value)
+    public function firstWhere(string $key, string $value): User
     {
         return $this->user->firstWhere($key, $value);
     }

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 MediaSeeder::class,
                 CommentSeeder::class,
+                PostSeeder::class,
             ]);
 
             \Artisan::call('user:reward');

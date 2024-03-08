@@ -17,6 +17,10 @@ const page = usePage()
                 <Text type="sub">{{ $t('Journal des modifications') }}</Text>
             </a>
             -
+            <a :href="route('post.index')" class="link-hover link">
+                <Text type="sub">{{ $t('Blog') }}</Text>
+            </a>
+            -
             <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link">
                 <Text type="sub">Contact</Text>
             </a>

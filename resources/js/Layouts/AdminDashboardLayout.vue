@@ -117,7 +117,7 @@ const handleRouteLink = (to, isAbsolute = false, checkCurrent = false) => {
                                 >
                                     <Avatar
                                         :user="$page.props.auth.user"
-                                        size="sm"
+                                        size="xs"
                                     />
                                     {{ $page.props.auth.user.username }}
                                 </div>

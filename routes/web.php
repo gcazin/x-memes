@@ -15,6 +15,7 @@ use App\Http\Controllers\Media\LikeController;
 use App\Http\Controllers\Media\MediaController;
 use App\Http\Controllers\Media\RandomController;
 use App\Http\Controllers\Media\TagController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\User\BadgeController;
 use App\Http\Controllers\User\FollowController;
@@ -55,6 +56,12 @@ Route::prefix(LaravelLocalization::setLocale())
 
         // Footer
         Route::get('changelog', ChangelogController::class)->name('changelog');
+
+        // Blog
+        Route::name('post.')->prefix('blog')->group(function () {
+            Route::get('/', [PostController::class, 'index'])->name('index');
+            Route::get('article/{slug}', [PostController::class, 'show'])->name('show');
+        });
 
         // User
         Route::name('user.')->prefix('member')->group(function () {

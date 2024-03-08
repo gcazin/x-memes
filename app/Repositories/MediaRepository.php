@@ -27,7 +27,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Retrieves all approved and published media items.
      */
-    public function allApprovedMedias($force = true): mixed
+    public function allApprovedMedias(bool $force = true): mixed
     {
         $model = $this->media->published()->where('lang', app()->getLocale());
 
@@ -68,7 +68,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Paginates all approved media items by user id.
      */
-    public function paginateByUser($id)
+    public function paginateByUser(int $id)
     {
         return $this->allApprovedMedias(false)
             ->where('user_id', $id)
@@ -87,7 +87,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Finds the first media item returned by the given key-value pair.
      */
-    public function firstWhere($key, $value): ?Media
+    public function firstWhere(string $key, string $value): ?Media
     {
         return $this->media->firstWhere($key, $value);
     }
