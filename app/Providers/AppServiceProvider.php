@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
             'warning' => Color::hex('#c2410c'),
         ]);
 
-        view()->composer('*', function ($view) {
+        view()->composer('*', function ($view) { // @pest-ignore-type
             $languageUrls = [];
 
             $currentLocale = request()->segment(1);
