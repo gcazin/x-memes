@@ -41,9 +41,9 @@ const page = usePage()
                     />
                 </a>
                 <a
-                    href="https://github.com/gcazin"
+                    href="https://github.com/gcazin/x-memes"
                     target="_blank"
-                    aria-label="GitHub de Guillaume"
+                    aria-label="GitHub de X-Memes"
                 >
                     <Icon name="github" size="3xl" />
                 </a>
