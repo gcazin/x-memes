@@ -6,7 +6,7 @@ namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
 use App\Models\Tag;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
 class TagRepository implements RepositoryInterface
 {
