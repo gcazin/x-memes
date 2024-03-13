@@ -23,16 +23,16 @@ class HomeController extends Controller
                     ->url(config('app.url'))
                     ->potentialAction(
                         Schema::searchAction()
-                        ->target(
-                            Schema::entryPoint()
-                                ->urlTemplate(config('app.url').'/search?query={search_term_string}')
-                        )
-                        ->setProperty(
-                            'query-input',
-                            Schema::propertyValueSpecification()
-                                ->valueRequired(true)
-                                ->valueName('search_term_string')
-                        )
+                            ->target(
+                                Schema::entryPoint()
+                                    ->urlTemplate(config('app.url').'/search?query={search_term_string}')
+                            )
+                            ->setProperty(
+                                'query-input',
+                                Schema::propertyValueSpecification()
+                                    ->valueRequired(true)
+                                    ->valueName('search_term_string')
+                            )
                     )
                     ->toScript()
             )
@@ -41,7 +41,7 @@ class HomeController extends Controller
         $posts = Post::published()->take(3)->latest()->get();
 
         return Inertia::render('Home', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 }

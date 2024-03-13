@@ -10,10 +10,10 @@ it('can see posts index', function () {
     expect($response->status())->toBe(200);
 });
 
-it('can see post', function() {
+it('can see post', function () {
     User::factory()->create();
     $post = Post::factory()->create([
-        'is_draft' => false
+        'is_draft' => false,
     ]);
 
     $response = actingAsGuest()->get(route('post.show', $post->slug));
@@ -21,10 +21,10 @@ it('can see post', function() {
     expect($response->status())->toBe(200);
 });
 
-it('cannot see unpublished post', function() {
+it('cannot see unpublished post', function () {
     User::factory()->create();
     $post = Post::factory()->create([
-        'is_draft' => true
+        'is_draft' => true,
     ]);
 
     $response = actingAsGuest()->get(route('post.show', $post->slug));

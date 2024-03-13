@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use DavidBadura\FakerMarkdownGenerator\FakerProvider;
 use DragonCode\Support\Facades\Helpers\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,7 +27,7 @@ class PostFactory extends Factory
             'image' => 'posts/01HQN90FCDVT5QMW4NW10NWV8D.png',
             'slug' => Str::slug($title),
             'is_draft' => false,
-            'user_id' => User::all()->random()->id
+            'user_id' => User::all()->random()->id,
         ];
     }
 }

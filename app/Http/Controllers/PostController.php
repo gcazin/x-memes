@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Facades\SeoFacade;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\SchemaOrg\Schema;
@@ -18,7 +17,7 @@ class PostController extends Controller
         $posts = Post::published()->paginate();
 
         return Inertia::render('Post/Index', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
@@ -38,7 +37,7 @@ class PostController extends Controller
             ->share();
 
         return Inertia::render('Post/Show', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 }

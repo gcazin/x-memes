@@ -22,8 +22,9 @@ class StatsOverviewWidget extends BaseWidget
             Stat::make('Tags', Tag::all()->count()),
             Stat::make('Nombre de téléchargements', Media::all()->reduce(function (int $acc, Media $media) {
                 $acc += $media->download_count;
+
                 return $acc;
-            }))
+            })),
         ];
     }
 }
