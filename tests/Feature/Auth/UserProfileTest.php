@@ -6,6 +6,14 @@ use Illuminate\Support\Str;
 
 use function Pest\Laravel\actingAs;
 
+it('can see profile', function () {
+    $user = User::factory()->create();
+
+    $response = actingAsGuest()->get(route('user.show', $user->username));
+
+    expect($response->status())->toBe(200);
+});
+
 it('can update profile', function () {
     $user = User::factory()->create([
         'username' => 'old-username',

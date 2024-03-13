@@ -18,6 +18,12 @@ use Sti3bas\ScoutArray\Facades\Search;
     actingAsGuest()->get('rechercher?query=foo&type=medias');
 });*/
 
+it('can see search page', function () {
+    $response = actingAsGuest()->get(route('search'));
+
+    expect($response->status())->toBe(200);
+});
+
 it('should returns no result if media is not approved', function () {
     User::factory()->create();
     Media::factory()->create([

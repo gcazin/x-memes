@@ -159,7 +159,9 @@ class MediaController extends Controller
                 ->orderByDesc('created_at')
                 ->paginate(10);
 
-            Point::reward($media->id, PointType::MEDIA_SEEN);
+            if (auth()->user()) {
+                Point::reward($media->id, PointType::MEDIA_SEEN);
+            }
 
             $jsonLD = Schema::webPage()
                 ->description('Télécharge le mème '.$media->name.' sur X-Memes dès maintenant !')

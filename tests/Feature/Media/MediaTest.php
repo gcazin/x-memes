@@ -12,6 +12,7 @@ use App\Listeners\Media\SendMediaPublishedNotification;
 use App\Models\Media;
 use App\Models\Tag;
 use App\Models\User;
+use Database\Seeders\PointTypeSeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
@@ -42,6 +43,30 @@ it('should index approved medias', function () {
                 ->component('MediaGallery')
             )
         );
+});
+
+it('can see media', function () {
+    $this->seed(PointTypeSeeder::class);
+    User::factory()->create();
+    $media = Media::factory()->create(['approved' => 1]);
+
+    $response = actingAsGuest()
+        ->get(route('media.show', $media->slug));
+
+    expect($response->status())->toBe(200);
+});
+
+it('cannot see media if not approved', function () {
+    $this->seed(PointTypeSeeder::class);
+    User::factory()->create();
+    $media = Media::factory()->create([
+        'approved' => 0
+    ]);
+
+    $response = actingAsGuest()
+        ->get(route('media.show', $media->slug));
+
+    expect($response->status())->toBe(404);
 });
 
 it('should store media and attach tags', function () {
