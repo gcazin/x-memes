@@ -15,12 +15,13 @@ class LikeController extends Controller
     public function __construct(
         public MediaRepository $mediaRepository
     ) {
+        //
     }
 
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, $id): void
+    public function __invoke(Request $request, int $id): void
     {
         $media = $this->mediaRepository->find($id);
 

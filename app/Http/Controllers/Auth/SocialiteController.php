@@ -9,6 +9,7 @@ use App\Providers\RouteServiceProvider;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class SocialiteController extends Controller
     ) {
     }
 
-    public function redirect(Request $request)
+    public function redirect(Request $request): RedirectResponse
     {
         $provider = $request->provider;
 
@@ -35,7 +36,7 @@ class SocialiteController extends Controller
         abort(403);
     }
 
-    public function callback(Request $request)
+    public function callback(Request $request): RedirectResponse
     {
         $provider = $request->provider;
 

@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Facades\SeoFacade as Seo;
 use App\Models\Media;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -31,7 +32,7 @@ class SearchController extends Controller
                 case 'medias':
                     $result = Media::search(trim($query))
                         ->where('approved', true)
-                        ->query(function ($query) {
+                        ->query(function (Builder $query) {
                             $query
                                 ->join('taggables as ta', 'medias.id', 'ta.taggable_id')
                                 ->join('tags as t', 't.id', 'ta.tag_id')

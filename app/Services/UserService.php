@@ -18,7 +18,7 @@ class UserService
         string $email,
         ?string $password = null,
         ?array $socialUsername = []
-    ) {
+    ): User {
         return User::create([
             'name' => str()->slug($username),
             'username' => $username,

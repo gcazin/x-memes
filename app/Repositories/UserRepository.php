@@ -40,7 +40,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Finds the first user item returned by the given key-value pair.
      */
-    public function firstWhere(string $key, string $value): User
+    public function firstWhere(string $key, string $value): ?User
     {
         return $this->user->firstWhere($key, $value);
     }
@@ -48,7 +48,7 @@ class UserRepository implements RepositoryInterface
     /**
      * Retrieves a random approved user item.
      */
-    public function random()
+    public function random(): User
     {
         return $this->all()->random();
     }

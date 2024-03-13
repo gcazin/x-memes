@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterface;
 use App\Models\Tag;
+use Illuminate\Support\Collection;
 
 class TagRepository implements RepositoryInterface
 {
@@ -17,7 +18,7 @@ class TagRepository implements RepositoryInterface
     /**
      * Retrieves all tag items.
      */
-    public function all()
+    public function all(): Collection
     {
         return $this->tag->all();
     }
@@ -25,7 +26,7 @@ class TagRepository implements RepositoryInterface
     /**
      * Finds a tag item by its ID.
      */
-    public function find($id)
+    public function find(int $id): Tag
     {
         return $this->tag->find($id);
     }
@@ -33,7 +34,7 @@ class TagRepository implements RepositoryInterface
     /**
      * Finds the first tag item returned by the given key-value pair.
      */
-    public function firstWhere($key, $value)
+    public function firstWhere(string $key, string $value): ?Tag
     {
         return $this->tag->firstWhere($key, $value);
     }
@@ -41,7 +42,7 @@ class TagRepository implements RepositoryInterface
     /**
      * Retrieves a random approved tag item.
      */
-    public function random()
+    public function random(): Tag
     {
         return $this->all()->random();
     }

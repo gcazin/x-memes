@@ -28,7 +28,7 @@ class SendEmailsToAllUsers extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Début de l\'envoi des mails...');
         $users = User::all();
@@ -37,7 +37,7 @@ class SendEmailsToAllUsers extends Command
             $user = $users->random();
             Mail::to($user)->send(new SendMailToAllUsers($user));
         } else {
-            $users->each(fn ($user) => Mail::to($user)->send(new SendMailToAllUsers($user)));
+            $users->each(fn (User $user) => Mail::to($user)->send(new SendMailToAllUsers($user)));
         }
 
         $this->info($users->count().' emails ont été envoyés !');

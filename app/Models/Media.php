@@ -79,7 +79,7 @@ class Media extends Model implements Sitemapable
     public function createdAt(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+            get: fn (mixed $value) => Carbon::make($value)->diffForHumans()
         );
     }
 
@@ -89,7 +89,7 @@ class Media extends Model implements Sitemapable
     public function updatedAt(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+            get: fn (mixed $value) => Carbon::make($value)->diffForHumans()
         );
     }
 
@@ -99,7 +99,7 @@ class Media extends Model implements Sitemapable
     public function approvedAt(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value ? Carbon::make($value)->diffForHumans() : null,
+            get: fn (mixed $value) => $value ? Carbon::make($value)->diffForHumans() : null,
         );
     }
 

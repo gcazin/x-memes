@@ -25,7 +25,7 @@ class FollowingController extends Controller
 
         $followings = $user->followings()
             ->paginate(10)
-            ->through(fn ($following) => $following->followable);
+            ->through(fn (User $following) => $following->followable);
 
         $title = __('Abonnements de :username', ['username' => $username]);
         Seo::description($title)

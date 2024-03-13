@@ -8,6 +8,7 @@ use App\Models\Point as UserPoint;
 use App\Models\PointType;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Point
 {
@@ -58,7 +59,7 @@ class Point
                 $userPointAction = $model
                     ->where('point_type_id', '=', $type->id)
                     ->where('pointable_id', '=', $id)
-                    ->whereHas('type', function ($query) use ($type) {
+                    ->whereHas('type', function (Builder $query) use ($type) {
                         $query->where('model', $type->model);
                     });
             }

@@ -19,6 +19,8 @@ use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
 use App\Services\FileService;
 use App\Services\MediaService;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -67,7 +69,7 @@ class MediaController extends Controller
 
             if ($request->has('filters.tags')) {
                 $medias
-                    ->whereHas('tags', function ($query) use ($request) {
+                    ->whereHas('tags', function (Builder $query) use ($request) {
                         $query->whereIn('id', explode(',', $request->query('filters')['tags']));
                     })
                     ->allowedFilters(AllowedFilter::exact('tags.id'));
@@ -209,7 +211,7 @@ class MediaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMediaRequest $request, int $id)
+    public function update(UpdateMediaRequest $request, int $id): RedirectResponse
     {
         $media = $this->mediaRepository->find($id);
 
@@ -233,7 +235,7 @@ class MediaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $id): RedirectResponse
     {
         $media = $this->mediaRepository->find($id);
 
@@ -243,9 +245,9 @@ class MediaController extends Controller
 
         // If media has tags
         if ($media->tags()->count() > 0) {
-            $media->tags()->each(function ($tag) use ($media) {
+            $media->tags()->each(function (Tag $tag) use ($media) {
                 // We take medias with this tag except the media who should be deleted
-                $medias = Media::withAnyTags([$tag])->get()->filter(fn ($m) => $media->id !== $m->id);
+                $medias = Media::withAnyTags([$tag])->get()->filter(fn (Media $m) => $media->id !== $m->id);
 
                 // If the media is the only one using this tag, we remove them
                 if ($medias->count() === 0) {

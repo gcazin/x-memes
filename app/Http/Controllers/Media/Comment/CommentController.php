@@ -11,7 +11,7 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request): void
     {
         Comment::create([
             'content' => $request->get('content'), // phpstorm treats $request->content as an error...
@@ -24,7 +24,7 @@ class CommentController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(UpdateCommentRequest $request)
+    public function update(UpdateCommentRequest $request): void
     {
         $comment = Comment::find($request->comment_id);
 
@@ -36,7 +36,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         $comment = Comment::find($id);
 

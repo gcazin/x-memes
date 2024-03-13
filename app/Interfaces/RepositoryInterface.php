@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Interfaces;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface RepositoryInterface
 {
     public function all();
 
-    public function find(int $id);
+    public function find(int $id): Model;
 
-    public function firstWhere(string $key, string $value);
+    public function firstWhere(string $key, string $value): ?Model;
 
-    public function random();
+    public function random(): Model;
 }

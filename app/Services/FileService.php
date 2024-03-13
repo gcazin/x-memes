@@ -34,7 +34,7 @@ class FileService
     /**
      * Hashes an image using the provided UploadedFile.
      */
-    public function hashImage(UploadedFile $image)
+    public function hashImage(UploadedFile $image): string
     {
         return Comparator::convertHashToBinaryString(Comparator::hashImage($image));
     }

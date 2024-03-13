@@ -13,7 +13,7 @@ class LikeController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, $id): void
+    public function __invoke(Request $request, int $id): void
     {
         $comment = Comment::find($id);
 

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -16,8 +19,8 @@ class NotificationController extends Controller
      */
     public function index(): Response
     {
-        $notifications = tap(auth()->user()->notifications()->paginate(10), function ($value) {
-            return collect($value->items())->each(function ($notification) {
+        $notifications = tap(auth()->user()->notifications()->paginate(10), function (LengthAwarePaginator $value) {
+            return collect($value->items())->each(function (DatabaseNotification $notification) {
                 $notification->formatted_created_at = $notification->created_at->diffForHumans();
             });
         });
@@ -30,7 +33,7 @@ class NotificationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, string $id)
+    public function show(Request $request, string $id): RedirectResponse
     {
         $notification = auth()->user()->notifications->firstWhere('id', $id);
 
@@ -57,10 +60,10 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string|array $id)
+    public function update(Request $request, string|array $id): void
     {
         if ($request->has('notifications')) {
-            collect($request->user()->unreadNotifications)->each(function ($notification) {
+            collect($request->user()->unreadNotifications)->each(function (DatabaseNotification $notification) {
                 $notification->markAsRead();
             });
 
@@ -77,8 +80,8 @@ class NotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    /*public function destroy(string $id)
     {
         //
-    }
+    }*/
 }

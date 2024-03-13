@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Inertia\Middleware;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Tightenco\Ziggy\Ziggy;
@@ -48,7 +49,7 @@ class HandleInertiaRequests extends Middleware
                     return $request->user() ? $request->user()->roles()->pluck('name') : null;
                 },
                 'notifications' => fn () => $request->user()
-                    ? $request->user()->unreadNotifications->each(function ($notification) {
+                    ? $request->user()->unreadNotifications->each(function (DatabaseNotification $notification) {
                         $notification->formatted_created_at = $notification->created_at->diffForHumans();
                     })
                     : null,

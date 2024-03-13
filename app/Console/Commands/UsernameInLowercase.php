@@ -26,12 +26,12 @@ class UsernameInLowercase extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Début de la mise à jour des noms d\'utilisateurs...');
 
         $users = User::all();
-        $users->each(function ($user) {
+        $users->each(function (User $user) {
             $this->info($user->username.' changé en '.strtolower($user->username));
             $user->username = strtolower($user->username);
             $user->update();

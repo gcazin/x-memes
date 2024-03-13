@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Interfaces\RepositoryInterface;
 use App\Models\Media;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MediaRepository implements RepositoryInterface
 {
@@ -57,7 +58,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Paginates all approved media items with selected tags.
      */
-    public function paginateWithSelectedTags(string $tags)
+    public function paginateWithSelectedTags(string $tags): LengthAwarePaginator
     {
         return Media::withAnyTags(explode(',', $tags))
             ->published()
@@ -68,7 +69,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Paginates all approved media items by user id.
      */
-    public function paginateByUser(int $id)
+    public function paginateByUser(int $id): LengthAwarePaginator
     {
         return $this->allApprovedMedias(false)
             ->where('user_id', $id)
@@ -79,7 +80,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Finds a media item by its id.
      */
-    public function find($id): Media
+    public function find(int $id): Media
     {
         return $this->media->find($id);
     }
@@ -95,7 +96,7 @@ class MediaRepository implements RepositoryInterface
     /**
      * Retrieves a random approved media item.
      */
-    public function random()
+    public function random(): Media
     {
         return $this->allApprovedMedias()->random();
     }

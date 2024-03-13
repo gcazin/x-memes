@@ -11,6 +11,7 @@ use App\Models\Media;
 use App\Models\Tag;
 use App\Repositories\MediaRepository;
 use App\Repositories\TagRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -22,57 +23,7 @@ class MediaService
         protected TagRepository $tagRepository,
         protected Media $media
     ) {
-    }
-
-    public function byType(Request $request, string $type, ?string $title = null): array
-    {
-        $defaultSort = '-download_count';
-        $medias = QueryBuilder::for(Media::class)
-            ->where('type', $type)
-            ->where('approved', true)
-            ->where('lang', app()->getLocale())
-            ->defaultSort($defaultSort);
-
-        $sortBy = collect([
-            [
-                'name' => 'Par date',
-                'value' => 'created_at',
-            ],
-            [
-                'name' => 'Par titre',
-                'value' => 'name',
-            ],
-            [
-                'name' => 'Par téléchargement',
-                'value' => 'download_count',
-            ],
-        ]);
-        if ($request->has('filters') || $request->has('sort')) {
-            $medias
-                ->allowedSorts($sortBy->pluck('value')->toArray());
-
-            if ($request->has('filters.tags')) {
-                $medias
-                    ->whereHas('tags', function ($query) use ($request) {
-                        $query->whereIn('id', explode(',', $request->query('filters')['tags']));
-                    })
-                    ->allowedFilters(AllowedFilter::exact('tags.id'));
-            }
-        }
-
-        $tags = Tag::query()
-            ->whereHas('medias', fn ($query) => $query->where('type', '=', $type))
-            ->whereLocale('name', app()->getLocale())
-            ->get();
-
-        return [
-            'title' => __($title ?: "Bibliothèque d'images"),
-            'medias' => $medias->paginate(),
-            'tags' => $tags,
-            'sortBy' => $sortBy->toArray(),
-            'defaultSort' => $defaultSort,
-            'duplicatedImage' => session('duplicatedImage'),
-        ];
+        //
     }
 
     /**
@@ -97,7 +48,7 @@ class MediaService
     /**
      * Retrieves related media based on tags associated with the specified media.
      */
-    public function related($id)
+    public function related(int $id): Collection
     {
         $media = $this->mediaRepository->find($id);
         $tags = $media->tags->pluck('name')->toArray();
@@ -113,8 +64,8 @@ class MediaService
     /**
      * Format tags to be always in lowercase
      */
-    public function formatTags($tags): array
+    public function formatTags(array $tags): array
     {
-        return array_map(fn ($tag) => strtolower($tag), $tags);
+        return array_map(fn (string $tag) => strtolower($tag), $tags);
     }
 }

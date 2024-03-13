@@ -22,7 +22,7 @@ class CollectionController extends Controller
             ->whereLocale('name', app()->getLocale())
             ->get()
             ->sortBy('name')
-            ->map(fn ($sql) => $sql->setRelation('medias', $sql->medias->random()))
+            ->map(fn (Tag $sql) => $sql->setRelation('medias', $sql->medias->random()))
             ->values();
 
         Seo::title('Collections')
