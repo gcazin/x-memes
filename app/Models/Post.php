@@ -49,7 +49,7 @@ class Post extends Model
 
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('is_draft', false);
+        return $query->where('is_draft', auth()->user()->isAdmin());
     }
 
     public function user(): BelongsTo

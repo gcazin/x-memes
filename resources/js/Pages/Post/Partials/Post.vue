@@ -3,6 +3,7 @@ import Stack from '@/Layouts/Partials/Stack.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import Card from '@/Components/Misc/Card.vue'
 import Text from '@/Components/Misc/Text.vue'
+import Tag from '@/Components/Misc/Tag.vue'
 
 defineProps({
     post: {
@@ -22,6 +23,7 @@ defineProps({
             <img :src="`/storage/${post.image}`" class="w-full rounded" />
         </template>
         <Stack>
+            <Tag v-if="post.is_draft" type="secondary" outline>brouillon</Tag>
             <Text type="sub" class="line-clamp-3">{{ post.summary }}</Text>
             <div class="flex items-center gap-4">
                 <Avatar :user="post.user" size="sm" circle />
