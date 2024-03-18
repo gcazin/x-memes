@@ -47,6 +47,16 @@ class Post extends Model
         );
     }
 
+    /**
+     * Defines a custom cast for the 'updated_at' attribute to format its display.
+     */
+    public function updatedAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => Carbon::make($value)->diffForHumans()
+        );
+    }
+
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_draft', false)->orWhere('user_id', auth()->id());

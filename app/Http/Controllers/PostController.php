@@ -14,10 +14,11 @@ class PostController extends Controller
 {
     public function index(): Response
     {
-        $posts = Post::published()->paginate();
+        SeoFacade::title('Tous les articles')
+            ->share();
 
         return Inertia::render('Post/Index', [
-            'posts' => $posts,
+            'posts' => Post::published()->paginate(),
         ]);
     }
 

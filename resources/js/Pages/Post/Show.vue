@@ -49,7 +49,7 @@ const markdown = (markdown) => {
                         <li>{{ post.title }}</li>
                     </ul>
                 </div>
-                <Text>{{ post.created_at }}</Text>
+                <Text>{{ post.created_at }} <Text type="sub" class="italic">(modifié {{ post.updated_at }})</Text></Text>
                 <Text type="title">{{ post.title }}</Text>
                 <a :href="route('user.show', post.user.username)" class="flex items-center gap-2 underline">
                     <div>
