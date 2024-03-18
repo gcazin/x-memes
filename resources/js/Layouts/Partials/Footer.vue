@@ -30,14 +30,14 @@ const page = usePage()
         <nav>
             <div class="grid grid-flow-col items-center gap-4">
                 <a
-                    href="https://twitter.com/gcazinonx"
+                    href="https://twitter.com/xmemesdotcom"
                     target="_blank"
-                    aria-label="X de Guillaume"
+                    aria-label="X de X-Memes"
                 >
                     <img
                         class="w-5"
                         src="/images/misc/x.svg"
-                        alt="X de Guillaume"
+                        alt="Logo de X"
                     />
                 </a>
                 <a
