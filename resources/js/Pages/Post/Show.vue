@@ -24,12 +24,12 @@ const renderer = new marked.Renderer();
 const linkRenderer = renderer.link;
 renderer.link = (href, title, text) => {
     const html = linkRenderer.call(renderer, href, title, text);
-    return html.replace(/^<a /, '<a target="_blank" rel="nofollow" ');
+    return html.replace(/^<a /, '<a class="link link-primary" target="_blank" rel="nofollow" ');
 };
 renderer.heading = (text, level, raw) => {
     const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
     return `<h${level} id="${escapedText}">
-<a href="${escapedText}"><span class="text-secondary/50">#</span> ${text}</a>
+<a href="#${escapedText}"><span class="text-secondary/50">#</span> ${text}</a>
 </h${level}>`;
 }
 
