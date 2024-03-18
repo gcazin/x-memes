@@ -46,8 +46,6 @@ class PostResource extends Resource
                     ->columnSpanFull()
                     ->directory('posts')
                     ->image(),
-                Forms\Components\TextInput::make('slug')
-                    ->maxLength(191),
                 Forms\Components\Toggle::make('is_draft')
                     ->label('Brouillon')
                     ->required(),
