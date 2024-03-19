@@ -76,7 +76,12 @@ class PostResource extends Resource
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_draft')
-                    ->boolean(),
+                    ->label('Publié')
+                    ->boolean()
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->trueIcon('heroicon-o-x-mark')
+                    ->falseIcon('heroicon-o-check'),
                 Tables\Columns\SpatieTagsColumn::make('tags'),
                 Tables\Columns\TextColumn::make('lang')
                     ->searchable(),
