@@ -35,12 +35,14 @@ const getAvatar = () => {
 }
 </script>
 <template>
-        <div :class="[avatarSizeClass]">
-            <img
-                :src="getAvatar()"
-                :alt="`Avatar de ${user?.username}`"
-                class="object-cover"
-                :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
-            />
+        <div class="avatar">
+            <div :class="[avatarSizeClass]">
+                <img
+                    :src="getAvatar()"
+                    :alt="`Avatar de ${user?.username}`"
+                    class="object-cover"
+                    :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
+                />
+            </div>
         </div>
 </template>
