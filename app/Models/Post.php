@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Tags\HasTags;
 
-class Post extends Model
+class Post extends Model implements Sitemapable
 {
     use HasFactory, HasTags;
 
@@ -60,6 +61,11 @@ class Post extends Model
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_draft', false)->orWhere('user_id', auth()->id());
+    }
+
+    public function toSitemapTag(): string
+    {
+        return route('post.show', $this->slug);
     }
 
     public function user(): BelongsTo
