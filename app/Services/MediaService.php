@@ -58,6 +58,27 @@ class MediaService
     }
 
     /**
+     * Get the available sort options
+     */
+    public function getSortOptions(): \Illuminate\Support\Collection
+    {
+        return collect([
+            [
+                'name' => 'Par date',
+                'value' => 'created_at',
+            ],
+            [
+                'name' => 'Par titre',
+                'value' => 'name',
+            ],
+            [
+                'name' => 'Par téléchargement',
+                'value' => 'download_count',
+            ],
+        ]);
+    }
+
+    /**
      * Format tags to be always in lowercase
      */
     public function formatTags(array $tags): array

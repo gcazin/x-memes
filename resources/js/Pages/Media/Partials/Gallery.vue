@@ -41,7 +41,22 @@ const selectedFilters = ref({
         tags: [],
     },
     sort: props.defaultSort,
+    type: 'all',
 })
+const types = [
+    {
+        name: 'Image',
+        value: 'image'
+    },
+    {
+        name: 'Vidéo',
+        value: 'video'
+    },
+    {
+        name: 'Voir tout',
+        value: 'all'
+    }
+]
 const urlParams =
     typeof window !== 'undefined'
         ? new URLSearchParams(window.location.search)
@@ -172,6 +187,7 @@ const getFiltersToSend = () => {
         },
         ...(selectedFilters.value.sort && {
             sort: selectedFilters.value.sort,
+            type: selectedFilters.value.type,
         }),
     }
 }
@@ -205,6 +221,12 @@ const addSelectedSort = (index, sort) => {
     return getFiltersToSend()
 }
 
+const addSelectedType = (index, sort) => {
+    selectedFilters.value.type = sort
+
+    return getFiltersToSend()
+}
+
 /**
  * Fetch data when user clicks on tags selection
  *
@@ -219,6 +241,13 @@ const filterByTags = (tag) => {
  */
 const sortByProperty = (index, sorting) => {
     fetchData(pagination.value.first_page_url, addSelectedSort(index, sorting))
+}
+
+/**
+ * Fetch data when user clicks on type of meme selection
+ */
+const sortByType = (index, sorting) => {
+    fetchData(pagination.value.first_page_url, addSelectedType(index, sorting))
 }
 
 const fetchData = (url, filters = null) => {
@@ -291,10 +320,31 @@ watch(
                 {{ $t(getSortTitle) }}
             </div>
             <div
-                class="mt-4 flex-1 space-x-2 text-right lg:mt-0"
+                class="mt-4 flex lg:block justify-between md:justify-center w-full flex-1 space-x-2 md:text-right lg:mt-0"
                 v-if="(tags && tags.length) || sortBy"
             >
-                <div v-if="sortBy" class="dropdown">
+                <div v-if="sortBy" class="dropdown md:dropdown-end">
+                    <div
+                        tabindex="0"
+                        role="button"
+                        class="btn btn-ghost btn-sm"
+                    >
+                        <Text type="xs">{{ $t('Type de mème') }}</Text>
+                        <Icon name="angle-down" />
+                    </div>
+                    <ul
+                        tabindex="0"
+                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                        aria-labelledby="dropdownSortButton"
+                    >
+                        <li v-for="(sort, index) in types" :key="index">
+                            <a @click="sortByType(index, sort.value)">
+                                {{ $t(sort.name) }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div v-if="sortBy" class="dropdown dropdown-end border-l border-gray-500 pl-2">
                     <div
                         tabindex="0"
                         role="button"

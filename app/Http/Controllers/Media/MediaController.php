@@ -49,23 +49,17 @@ class MediaController extends Controller
             ->with('tags')
             ->defaultSort($defaultSort);
 
-        $sortBy = collect([
-            [
-                'name' => 'Par date',
-                'value' => 'created_at',
-            ],
-            [
-                'name' => 'Par titre',
-                'value' => 'name',
-            ],
-            [
-                'name' => 'Par téléchargement',
-                'value' => 'download_count',
-            ],
-        ]);
-        if ($request->has('filters') || $request->has('sort')) {
+        $sortBy = $this->mediaService->getSortOptions();
+        if ($request->has('filters') || $request->has('sort') || $request->has('type')) {
             $medias
                 ->allowedSorts($sortBy->pluck('value')->toArray());
+
+            $medias->when(
+                $request->has('type') && $request->query('type') !== 'all',
+                function (Builder $query) use ($request) {
+                    $query->where('type', $request->query('type'));
+                }
+            );
 
             if ($request->has('filters.tags')) {
                 $medias
@@ -122,6 +116,9 @@ class MediaController extends Controller
             'hash' => $file->extension() !== 'mp4' ? $this->fileService->hashImage($file) : null,
             'user_id' => $request->user()->id,
         ]);
+
+        // TODO: Fix video watermark size
+        $this->fileService->createWatermark($media);
 
         // Add tags if present
         if ($request->tags) {

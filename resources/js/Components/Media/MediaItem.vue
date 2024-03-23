@@ -40,8 +40,8 @@ const dateTime = (value) => {
                     loading="lazy"
                 />
             </a>
-            <div class="absolute inset-x-2 top-1" v-if="media.type === 'video'">
-                <Icon name="video" size="3xl" class="text-primary" />
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-base-100/50 rounded-full p-2" v-if="media.type === 'video'">
+                <Icon name="play" size="5xl" class="text-primary/80" />
             </div>
             <div
                 class="to-slate-900/1 absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-slate-900/80 from-25% to-100% p-4"
