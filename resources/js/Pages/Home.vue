@@ -8,8 +8,15 @@ import { Head, usePage } from '@inertiajs/vue3'
 import BlogLayout from '@/Pages/Post/Partials/BlogLayout.vue'
 import Post from '@/Pages/Post/Partials/Post.vue'
 import Button from '@/Components/Button/Button.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 
 defineProps({
+    users: {
+        type: Array,
+    },
+    totalUsers: {
+        type: Number,
+    },
     posts: {
         type: Array,
     },
@@ -66,6 +73,23 @@ const features = [
                                     )
                                 }}
                             </p>
+                            <div class="pb-6">
+                                <Text class="font-bold mb-1">Déjà plus de {{ totalUsers }} inscrits!</Text>
+
+                                <div class="avatar-group justify-center -space-x-6 rtl:space-x-reverse">
+                                        <Avatar
+                                            v-for="(user, index) in users"
+                                            :key="index"
+                                            :user="user"
+                                            custom-size="w-12"
+                                        />
+                                    <div class="avatar placeholder">
+                                        <div class="w-12 bg-neutral text-neutral-content">
+                                            <a :href="route('leaderboard')">+{{ totalUsers - users.length }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="space-x-2">
                                 <a
                                     :href="route('library')"

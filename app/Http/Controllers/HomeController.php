@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Facades\SeoFacade as SEO;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -38,9 +39,13 @@ class HomeController extends Controller
             )
             ->share();
 
+        $users = User::latest()->take(3)->get(['id', 'avatar']);
+        $totalUsers = ceil(User::all()->count() / 5) * 5;
         $posts = Post::published()->take(3)->latest()->get();
 
         return Inertia::render('Home', [
+            'users' => $users,
+            'totalUsers' => $totalUsers,
             'posts' => $posts,
         ]);
     }

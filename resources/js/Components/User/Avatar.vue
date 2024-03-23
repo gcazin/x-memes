@@ -11,6 +11,10 @@ const props = defineProps({
         default: 'md',
         required: false,
     },
+    customSize: {
+        type: String,
+        required: false,
+    },
     circle: {
         type: Boolean,
         default: true,
@@ -18,14 +22,18 @@ const props = defineProps({
 })
 
 const avatarSizeClass = computed(() => {
-    return {
-        full: 'w-96',
-        xl: 'w-32',
-        lg: 'w-24',
-        md: 'w-16',
-        sm: 'w-10',
-        xs: 'w-8'
-    }[props.size]
+    if (!props.customSize) {
+        return {
+            full: 'w-96',
+            xl: 'w-32',
+            lg: 'w-24',
+            md: 'w-16',
+            sm: 'w-10',
+            xs: 'w-8'
+        }[props.size]
+    }
+
+    return props.customSize
 })
 
 const getAvatar = () => {
