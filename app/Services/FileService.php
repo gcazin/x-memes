@@ -22,8 +22,8 @@ class FileService
         $thumbnailName = 'thumbnails/'.explode('.', $file->hashName())[0].'.jpg';
 
         $getFrameFromMiddle = FFMpeg::fromDisk('public')
-                ->open($path)
-                ->getDurationInSeconds() / 2;
+            ->open($path)
+            ->getDurationInSeconds() / 2;
 
         FFMpeg::fromDisk('public')
             ->open($path)

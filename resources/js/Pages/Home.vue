@@ -1,14 +1,13 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
+import Avatar from '@/Components/User/Avatar.vue'
 import PageLayout from '@/Layouts/PageLayout.vue'
 import Container from '@/Layouts/Partials/Container.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import { Head, usePage } from '@inertiajs/vue3'
 import BlogLayout from '@/Pages/Post/Partials/BlogLayout.vue'
 import Post from '@/Pages/Post/Partials/Post.vue'
-import Button from '@/Components/Button/Button.vue'
-import Avatar from '@/Components/User/Avatar.vue'
+import { Head, usePage } from '@inertiajs/vue3'
 
 defineProps({
     users: {
@@ -74,18 +73,29 @@ const features = [
                                 }}
                             </p>
                             <div class="pb-6">
-                                <Text class="font-bold mb-1">Déjà plus de {{ totalUsers }} inscrits!</Text>
+                                <Text class="mb-1 font-bold"
+                                    >Déjà plus de
+                                    {{ totalUsers }} inscrits!</Text
+                                >
 
-                                <div class="avatar-group justify-center -space-x-6 rtl:space-x-reverse">
-                                        <Avatar
-                                            v-for="(user, index) in users"
-                                            :key="index"
-                                            :user="user"
-                                            custom-size="w-12"
-                                        />
+                                <div
+                                    class="avatar-group justify-center -space-x-6 rtl:space-x-reverse"
+                                >
+                                    <Avatar
+                                        v-for="(user, index) in users"
+                                        :key="index"
+                                        :user="user"
+                                        custom-size="w-12"
+                                    />
                                     <div class="avatar placeholder">
-                                        <div class="w-12 bg-neutral text-neutral-content">
-                                            <a :href="route('leaderboard')">+{{ totalUsers - users.length }}</a>
+                                        <div
+                                            class="w-12 bg-neutral text-neutral-content"
+                                        >
+                                            <a :href="route('leaderboard')"
+                                                >+{{
+                                                    totalUsers - users.length
+                                                }}</a
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -95,23 +105,28 @@ const features = [
                                     :href="route('library')"
                                     class="btn btn-primary btn-lg"
                                 >
-                                    <Text type="sub">{{ $t('Découvrir') }}</Text>
+                                    <Text type="sub">{{
+                                        $t('Découvrir')
+                                    }}</Text>
                                 </a>
                                 <a
                                     :href="
-                                    auth.isConnected
-                                        ? route('user.show', auth.user.username)
-                                        : route('login')
-                                "
+                                        auth.isConnected
+                                            ? route(
+                                                  'user.show',
+                                                  auth.user.username
+                                              )
+                                            : route('login')
+                                    "
                                     class="btn btn-outline btn-secondary btn-lg"
                                 >
                                     <Text type="sub">{{
-                                            $t(
-                                                auth.isConnected
-                                                    ? 'Voir mon profil'
-                                                    : 'Se connecter'
-                                            )
-                                        }}</Text>
+                                        $t(
+                                            auth.isConnected
+                                                ? 'Voir mon profil'
+                                                : 'Se connecter'
+                                        )
+                                    }}</Text>
                                 </a>
                             </div>
                         </Stack>
@@ -158,8 +173,8 @@ const features = [
                         {{
                             $t(
                                 "X-Memes t'offre une variété de fonctionnalités, " +
-                                'entre autres, te permettant de poster, ' +
-                                'télécharger et suivre les personnes que tu aimes.'
+                                    'entre autres, te permettant de poster, ' +
+                                    'télécharger et suivre les personnes que tu aimes.'
                             )
                         }}
                     </p>
@@ -206,7 +221,10 @@ const features = [
                         </template>
                     </BlogLayout>
                     <div class="text-center">
-                        <a :href="route('post.index')" class="btn btn-primary btn-outline btn-lg">
+                        <a
+                            :href="route('post.index')"
+                            class="btn btn-outline btn-primary btn-lg"
+                        >
                             Voir tout
                         </a>
                     </div>
@@ -248,11 +266,11 @@ const features = [
                                         )
                                     }}
                                     (<a
-                                    class="link-primary"
-                                    href="https://twitter.com/gcazinonx"
-                                    target="_blank"
-                                >@gcazinonx</a
-                                >).
+                                        class="link-primary"
+                                        href="https://twitter.com/gcazinonx"
+                                        target="_blank"
+                                        >@gcazinonx</a
+                                    >).
                                 </Text>
                             </div>
                         </div>

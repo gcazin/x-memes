@@ -60,7 +60,7 @@ it('cannot see media if not approved', function () {
     $this->seed(PointTypeSeeder::class);
     User::factory()->create();
     $media = Media::factory()->create([
-        'approved' => 0
+        'approved' => 0,
     ]);
 
     $response = actingAsGuest()

@@ -40,7 +40,10 @@ const dateTime = (value) => {
                     loading="lazy"
                 />
             </a>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-base-100/50 rounded-full p-2" v-if="media.type === 'video'">
+            <div
+                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-base-100/50 p-2"
+                v-if="media.type === 'video'"
+            >
                 <Icon name="play" size="5xl" class="text-primary/80" />
             </div>
             <div

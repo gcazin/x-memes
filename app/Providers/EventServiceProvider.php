@@ -74,7 +74,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         Post::class => [
             PostObserver::class,
-        ]
+        ],
         /*Tag::class => [
             // Handle the tags caching.
             TagObserver::class,

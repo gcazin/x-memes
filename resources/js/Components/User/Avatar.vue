@@ -29,7 +29,7 @@ const avatarSizeClass = computed(() => {
             lg: 'w-24',
             md: 'w-16',
             sm: 'w-10',
-            xs: 'w-8'
+            xs: 'w-8',
         }[props.size]
     }
 
@@ -43,14 +43,14 @@ const getAvatar = () => {
 }
 </script>
 <template>
-        <div class="avatar">
-            <div :class="[avatarSizeClass]">
-                <img
-                    :src="getAvatar()"
-                    :alt="`Avatar de ${user?.username}`"
-                    class="object-cover"
-                    :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
-                />
-            </div>
+    <div class="avatar">
+        <div :class="[avatarSizeClass]">
+            <img
+                :src="getAvatar()"
+                :alt="`Avatar de ${user?.username}`"
+                class="object-cover"
+                :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
+            />
         </div>
+    </div>
 </template>

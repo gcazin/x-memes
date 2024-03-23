@@ -72,9 +72,9 @@ sail up
 ## 🛣️ Roadmap
 
 -   [ ] Automatically attach the avatar to the user when they register with a social network.
-- [ ] To be able to see who liked the memes.
-- [ ] Use twitter's API to automatically post new ones.
-- [ ] Correct watermark size for videos
+-   [ ] To be able to see who liked the memes.
+-   [ ] Use twitter's API to automatically post new ones.
+-   [ ] Correct watermark size for videos
 
 See [issues](https://github.com/gcazin/x-memes/issues) for a full list of proposed features (and known issues).
 

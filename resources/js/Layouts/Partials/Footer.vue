@@ -34,11 +34,7 @@ const page = usePage()
                     target="_blank"
                     aria-label="X de X-Memes"
                 >
-                    <img
-                        class="w-5"
-                        src="/images/misc/x.svg"
-                        alt="Logo de X"
-                    />
+                    <img class="w-5" src="/images/misc/x.svg" alt="Logo de X" />
                 </a>
                 <a
                     href="https://github.com/gcazin/x-memes"

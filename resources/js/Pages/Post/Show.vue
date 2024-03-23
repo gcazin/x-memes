@@ -1,17 +1,17 @@
 <script setup>
-import PageLayout from '@/Layouts/PageLayout.vue'
-import { marked } from 'marked'
-import Text from '@/Components/Misc/Text.vue'
-import Stack from '@/Layouts/Partials/Stack.vue'
-import Container from '@/Layouts/Partials/Container.vue'
-import { onMounted, ref } from 'vue'
-import Avatar from '@/Components/User/Avatar.vue'
 import Icon from '@/Components/Misc/Icon.vue'
+import Text from '@/Components/Misc/Text.vue'
+import Avatar from '@/Components/User/Avatar.vue'
+import PageLayout from '@/Layouts/PageLayout.vue'
+import Container from '@/Layouts/Partials/Container.vue'
+import Stack from '@/Layouts/Partials/Stack.vue'
+import { marked } from 'marked'
+import { onMounted, ref } from 'vue'
 
 defineProps({
     post: {
         type: Object,
-    }
+    },
 })
 
 onMounted(() => {
@@ -20,76 +20,107 @@ onMounted(() => {
 })
 
 const summary = ref(null)
-const renderer = new marked.Renderer();
-const linkRenderer = renderer.link;
+const renderer = new marked.Renderer()
+const linkRenderer = renderer.link
 renderer.link = (href, title, text) => {
-    const html = linkRenderer.call(renderer, href, title, text);
-    return html.replace(/^<a /, '<a class="link link-primary" target="_blank" rel="nofollow" ');
-};
+    const html = linkRenderer.call(renderer, href, title, text)
+    return html.replace(
+        /^<a /,
+        '<a class="link link-primary" target="_blank" rel="nofollow" '
+    )
+}
 renderer.heading = (text, level, raw) => {
-    const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+    const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
     return `<h${level} id="${escapedText}">
 <a href="#${escapedText}"><span class="text-secondary/50">#</span> ${text}</a>
-</h${level}>`;
+</h${level}>`
 }
 
 const markdown = (markdown) => {
     return marked(markdown, { renderer })
-};
+}
 </script>
 
 <template>
     <PageLayout>
         <Container>
             <Stack spacing="2">
-                <div class="text-sm breadcrumbs !py-0">
+                <div class="breadcrumbs !py-0 text-sm">
                     <ul>
                         <li><a :href="route('index')">Accueil</a></li>
                         <li><a :href="route('post.index')">Blog</a></li>
                         <li>{{ post.title }}</li>
                     </ul>
                 </div>
-                <Text>{{ post.created_at }} <Text type="sub" class="italic">(modifié {{ post.updated_at }})</Text></Text>
+                <Text
+                    >{{ post.created_at }}
+                    <Text type="sub" class="italic"
+                        >(modifié {{ post.updated_at }})</Text
+                    ></Text
+                >
                 <Text type="title">{{ post.title }}</Text>
-                <a :href="route('user.show', post.user.username)" class="flex items-center gap-2 underline">
+                <a
+                    :href="route('user.show', post.user.username)"
+                    class="flex items-center gap-2 underline"
+                >
                     <div>
                         <Avatar :user="post.user" size="sm" circle />
                     </div>
                     <Text>{{ post.user.username }}</Text>
                 </a>
                 <div class="pb-4">
-                    <img :src="`/storage/${post.image}`" class="w-full rounded-lg" />
+                    <img
+                        :src="`/storage/${post.image}`"
+                        class="w-full rounded-lg"
+                    />
                 </div>
                 <Text v-html="markdown(post.content)" />
-                <div class="inline-flex items-center justify-center w-full">
-                    <hr class="w-full h-0.5 my-8 border-0 rounded bg-primary-content">
-                    <div class="absolute px-4 -translate-x-1/2 left-1/2 bg-gray-900">
+                <div class="inline-flex w-full items-center justify-center">
+                    <hr
+                        class="my-8 h-0.5 w-full rounded border-0 bg-primary-content"
+                    />
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 bg-gray-900 px-4"
+                    >
                         <Icon name="user" size="3xl" />
                     </div>
                 </div>
-                <div class="flex items-center mt-8">
+                <div class="mt-8 flex items-center">
                     <div class="flex-1">
-                        <Text>Écrit par
+                        <Text
+                            >Écrit par
                             <a
                                 :href="route('user.show', post.user.username)"
-                                class="text-primary underline font-bold"
+                                class="font-bold text-primary underline"
                             >
                                 {{ post.user.username }}
                             </a>
                         </Text>
-                        <Text class="text-xl text-primary-content">{{ post.user.description }}</Text>
-                        <template v-if="post.user.x_username || post.user.github_username">
-                            <Text>
-                                Suivez {{ post.user.username }} sur:
-                            </Text>
+                        <Text class="text-xl text-primary-content">{{
+                            post.user.description
+                        }}</Text>
+                        <template
+                            v-if="
+                                post.user.x_username ||
+                                post.user.github_username
+                            "
+                        >
+                            <Text> Suivez {{ post.user.username }} sur: </Text>
                             <ul class="text-lg">
                                 <li v-if="post.user.x_username">
-                                    <a class="flex items-center gap-2" :href="`https://twitter.com/@${post.user.x_username}`" target="_blank">
+                                    <a
+                                        class="flex items-center gap-2"
+                                        :href="`https://twitter.com/@${post.user.x_username}`"
+                                        target="_blank"
+                                    >
                                         X (anciennement Twitter)
                                     </a>
                                 </li>
                                 <li v-if="post.user.github_username">
-                                    <a :href="`https://github.com/${post.user.github_username}`" target="_blank">
+                                    <a
+                                        :href="`https://github.com/${post.user.github_username}`"
+                                        target="_blank"
+                                    >
                                         GitHub
                                     </a>
                                 </li>
@@ -113,13 +144,13 @@ const markdown = (markdown) => {
     @apply my-4;
 }
 :deep(img):not(:deep(.avatar img)) {
-    @apply w-full my-4 rounded-lg;
+    @apply my-4 w-full rounded-lg;
 }
 :deep(h1) {
     @apply text-5xl;
 }
 :deep(h2) {
-    @apply text-4xl mb-4;
+    @apply mb-4 text-4xl;
 }
 :deep(h3) {
     @apply text-3xl;
@@ -131,6 +162,6 @@ const markdown = (markdown) => {
     @apply rounded;
 }
 :deep(blockquote) {
-    @apply text-xl italic font-semibold text-center text-primary-content;
+    @apply text-center text-xl font-semibold italic text-primary-content;
 }
 </style>

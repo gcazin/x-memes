@@ -46,16 +46,16 @@ const selectedFilters = ref({
 const types = [
     {
         name: 'Image',
-        value: 'image'
+        value: 'image',
     },
     {
         name: 'Vidéo',
-        value: 'video'
+        value: 'video',
     },
     {
         name: 'Voir tout',
-        value: 'all'
-    }
+        value: 'all',
+    },
 ]
 const urlParams =
     typeof window !== 'undefined'
@@ -334,15 +334,11 @@ watch(
         </div>
 
         <div
-            class="mt-4 flex lg:block justify-between md:justify-center w-full space-x-2 md:text-right lg:mt-0"
+            class="mt-4 flex w-full justify-between space-x-2 md:justify-center md:text-right lg:mt-0 lg:block"
             v-if="(tags && tags.length) || sortBy"
         >
             <div v-if="sortBy" class="dropdown md:dropdown-end">
-                <div
-                    tabindex="0"
-                    role="button"
-                    class="btn btn-ghost btn-sm"
-                >
+                <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
                     <Text type="xs">{{ $t('Type de mème') }}</Text>
                     <Icon name="angle-down" />
                 </div>
@@ -358,12 +354,11 @@ watch(
                     </li>
                 </ul>
             </div>
-            <div v-if="sortBy" class="dropdown dropdown-end border-l border-gray-500 pl-2">
-                <div
-                    tabindex="0"
-                    role="button"
-                    class="btn btn-ghost btn-sm"
-                >
+            <div
+                v-if="sortBy"
+                class="dropdown dropdown-end border-l border-gray-500 pl-2"
+            >
+                <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
                     <Text type="xs">{{ $t('Trier') }}</Text>
                     <Icon name="angle-down" />
                 </div>
@@ -378,8 +373,8 @@ watch(
                             <Icon
                                 class="ms-auto inline"
                                 :name="`angle-${checkIfSortIsSelected(
-                                        sort.value
-                                    )}`"
+                                    sort.value
+                                )}`"
                             />
                         </a>
                     </li>
@@ -389,11 +384,7 @@ watch(
                 v-if="tags.length"
                 class="dropdown dropdown-end border-l border-gray-500 pl-2"
             >
-                <div
-                    tabindex="0"
-                    role="button"
-                    class="btn btn-ghost btn-sm"
-                >
+                <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
                     <Text type="xs">{{ $t('Filter par tags') }}</Text>
                     <Icon name="angle-down" />
                 </div>

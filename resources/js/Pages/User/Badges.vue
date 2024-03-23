@@ -1,7 +1,7 @@
 <script setup>
 import Badge from '@/Components/Misc/Badge.vue'
-import UserLayout from '@/Pages/User/UserLayout.vue'
 import Text from '@/Components/Misc/Text.vue'
+import UserLayout from '@/Pages/User/UserLayout.vue'
 
 defineProps({
     user: {

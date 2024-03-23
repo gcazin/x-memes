@@ -38,7 +38,6 @@ defineProps({
             <slot name="media"></slot>
         </figure>
         <div class="card-body">
-
             <Text type="subtitle" v-if="title">{{ title }}</Text>
             <Text class="font-bold">
                 <slot />
