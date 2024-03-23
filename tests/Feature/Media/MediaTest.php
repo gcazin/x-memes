@@ -71,6 +71,7 @@ it('cannot see media if not approved', function () {
 
 it('should store media and attach tags', function () {
     User::factory()->create();
+    Storage::fake();
 
     $response = actingAsGuest()->post(route('media.store'), [
         'name' => 'Test Media',

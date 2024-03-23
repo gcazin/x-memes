@@ -42,18 +42,19 @@ class FileService
     {
         $watermark = public_path('/images/watermark/watermark.png');
 
-        if ($media->type === 'image') {
-            $image = Image::load('storage/'.$media->path);
+        if (Storage::exists($media->path)) {
+            $image = Image::load(Storage::disk('public')->path($media->path));
 
-            $image
-                ->watermark(
-                    $watermark,
-                    paddingX: 20,
-                    paddingY: 20,
-                    height: (int) round((5 * round($image->getHeight())) / 100)
-                )
-                ->save();
-        } /*else {
+            if ($media->type === 'image') {
+                $image
+                    ->watermark(
+                        $watermark,
+                        paddingX: 20,
+                        paddingY: 20,
+                        height: (int) round((5 * round($image->getHeight())) / 100)
+                    )
+                    ->save();
+            } /*else {
             // Take the original name
             $fileName = explode('/', $media->path)[1];
 
@@ -85,6 +86,7 @@ class FileService
             // Delete converted
             Storage::delete('medias/converted/'.$fileName);
         }*/
+        }
     }
 
     /**
