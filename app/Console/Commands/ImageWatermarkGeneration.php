@@ -24,20 +24,15 @@ class ImageWatermarkGeneration extends Command
      */
     protected $description = 'Generates new images with a watermark';
 
-    public function __construct(protected FileService $fileService)
-    {
-        parent::__construct();
-    }
-
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(FileService $fileService): void
     {
         $this->info('Commencement de la génération des watermarks...');
-        Media::all()->unique('path')->each(function (Media $media) {
+        Media::all()->unique('path')->each(function (Media $media) use ($fileService) {
             $this->info('Génération du watermark pour '.$media->slug);
-            $this->fileService->createWatermark($media);
+            $fileService->createWatermark($media);
         });
         $this->info('Génération terminée.');
     }
