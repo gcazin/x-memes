@@ -49,7 +49,7 @@ const types = [
         value: 'image'
     },
     {
-        name: 'Vidéo',
+        name: 'Vidéo',
         value: 'video'
     },
     {
@@ -112,6 +112,27 @@ const loadMorePosts = () => {
             : {}
     )
 }
+
+const getTypeTitle = computed(() => {
+    const selector = selectedFilters.value.type
+
+    let title = ''
+    if (selector) {
+        switch (selector) {
+            case 'image':
+                title += 'Images'
+                break
+            case 'video':
+                title += 'Vidéos'
+                break
+            case 'all':
+                title += 'Tous les mèmes'
+                break
+        }
+    }
+
+    return title
+})
 
 const getSortTitle = computed(() => {
     const selector = selectedFilters.value.sort
@@ -312,99 +333,98 @@ watch(
             </Stack>
         </div>
 
-        <div class="flex flex-col lg:flex-row lg:items-center">
-            <div
-                class="flex-1"
-                v-if="allPosts && allPosts.length && selectedFilters.sort"
-            >
-                {{ $t(getSortTitle) }}
-            </div>
-            <div
-                class="mt-4 flex lg:block justify-between md:justify-center w-full flex-1 space-x-2 md:text-right lg:mt-0"
-                v-if="(tags && tags.length) || sortBy"
-            >
-                <div v-if="sortBy" class="dropdown md:dropdown-end">
-                    <div
-                        tabindex="0"
-                        role="button"
-                        class="btn btn-ghost btn-sm"
-                    >
-                        <Text type="xs">{{ $t('Type de mème') }}</Text>
-                        <Icon name="angle-down" />
-                    </div>
-                    <ul
-                        tabindex="0"
-                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
-                        aria-labelledby="dropdownSortButton"
-                    >
-                        <li v-for="(sort, index) in types" :key="index">
-                            <a @click="sortByType(index, sort.value)">
-                                {{ $t(sort.name) }}
-                            </a>
-                        </li>
-                    </ul>
+        <div
+            class="mt-4 flex lg:block justify-between md:justify-center w-full space-x-2 md:text-right lg:mt-0"
+            v-if="(tags && tags.length) || sortBy"
+        >
+            <div v-if="sortBy" class="dropdown md:dropdown-end">
+                <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-ghost btn-sm"
+                >
+                    <Text type="xs">{{ $t('Type de mème') }}</Text>
+                    <Icon name="angle-down" />
                 </div>
-                <div v-if="sortBy" class="dropdown dropdown-end border-l border-gray-500 pl-2">
-                    <div
-                        tabindex="0"
-                        role="button"
-                        class="btn btn-ghost btn-sm"
-                    >
-                        <Text type="xs">{{ $t('Trier') }}</Text>
-                        <Icon name="angle-down" />
-                    </div>
-                    <ul
-                        tabindex="0"
-                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
-                        aria-labelledby="dropdownSortButton"
-                    >
-                        <li v-for="(sort, index) in sortBy" :key="index">
-                            <a @click="sortByProperty(index, sort.value)">
-                                {{ $t(sort.name) }}
-                                <Icon
-                                    class="ms-auto inline"
-                                    :name="`angle-${checkIfSortIsSelected(
+                <ul
+                    tabindex="0"
+                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                    aria-labelledby="dropdownSortButton"
+                >
+                    <li v-for="(sort, index) in types" :key="index">
+                        <a @click="sortByType(index, sort.value)">
+                            {{ $t(sort.name) }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div v-if="sortBy" class="dropdown dropdown-end border-l border-gray-500 pl-2">
+                <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-ghost btn-sm"
+                >
+                    <Text type="xs">{{ $t('Trier') }}</Text>
+                    <Icon name="angle-down" />
+                </div>
+                <ul
+                    tabindex="0"
+                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                    aria-labelledby="dropdownSortButton"
+                >
+                    <li v-for="(sort, index) in sortBy" :key="index">
+                        <a @click="sortByProperty(index, sort.value)">
+                            {{ $t(sort.name) }}
+                            <Icon
+                                class="ms-auto inline"
+                                :name="`angle-${checkIfSortIsSelected(
                                         sort.value
                                     )}`"
-                                />
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div
-                    v-if="tags.length"
-                    class="dropdown dropdown-end border-l border-gray-500 pl-2"
-                >
-                    <div
-                        tabindex="0"
-                        role="button"
-                        class="btn btn-ghost btn-sm"
-                    >
-                        <Text type="xs">{{ $t('Filter par tags') }}</Text>
-                        <Icon name="angle-down" />
-                    </div>
-                    <ul
-                        tabindex="0"
-                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
-                        aria-labelledby="dropdownTagsButton"
-                    >
-                        <li v-for="(tag, index) in tags" :key="index">
-                            <a @click="filterByTags(tag.id)">
-                                <input
-                                    :id="`checkbox-item-${tag.name}`"
-                                    type="checkbox"
-                                    :value="tag.id"
-                                    class="checkbox-primary checkbox checkbox-sm"
-                                    :checked="checkIfTagIsSelected(tag.id)"
-                                />
-                                <label for="checkbox-item-1" class="label">
-                                    {{ tag.name }}
-                                </label>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                            />
+                        </a>
+                    </li>
+                </ul>
             </div>
+            <div
+                v-if="tags.length"
+                class="dropdown dropdown-end border-l border-gray-500 pl-2"
+            >
+                <div
+                    tabindex="0"
+                    role="button"
+                    class="btn btn-ghost btn-sm"
+                >
+                    <Text type="xs">{{ $t('Filter par tags') }}</Text>
+                    <Icon name="angle-down" />
+                </div>
+                <ul
+                    tabindex="0"
+                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                    aria-labelledby="dropdownTagsButton"
+                >
+                    <li v-for="(tag, index) in tags" :key="index">
+                        <a @click="filterByTags(tag.id)">
+                            <input
+                                :id="`checkbox-item-${tag.name}`"
+                                type="checkbox"
+                                :value="tag.id"
+                                class="checkbox-primary checkbox checkbox-sm"
+                                :checked="checkIfTagIsSelected(tag.id)"
+                            />
+                            <label for="checkbox-item-1" class="label">
+                                {{ tag.name }}
+                            </label>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="text-center"
+            v-if="allPosts && allPosts.length && selectedFilters.sort"
+        >
+            {{ $t(getTypeTitle) }} - {{ $t(getSortTitle) }}
         </div>
 
         <div
