@@ -101,64 +101,36 @@ formService.setForm(form).setRouteName('media')
 
     <PageLayout>
         <Stack>
-            <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
-            <div class="space-x-1">
-                <a
-                    :key="index"
-                    v-for="(tag, index) in media.tags"
-                    :href="route('tag.show', tag.name)"
-                >
-                    <Tag type="secondary" outline>
-                        {{ tag.name }}
-                    </Tag>
-                </a>
+            <div class="flex gap-2 items-center">
+                <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
+                <div class="space-x-1">
+                    <a
+                        :key="index"
+                        v-for="(tag, index) in media.tags"
+                        :href="route('tag.show', tag.name)"
+                    >
+                        <Tag type="secondary" outline>
+                            {{ tag.name }}
+                        </Tag>
+                    </a>
+                </div>
             </div>
             <Stack>
-                <div class="flex items-center">
-                    <div class="flex-1">
-                        <div class="flex items-center gap-x-4">
-                            <div class="">
-                                <a
-                                    :href="
-                                        route('user.show', media.user.username)
-                                    "
-                                >
-                                    <Avatar :user="media.user" />
-                                </a>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <a
-                                    :href="
-                                        route('user.show', media.user.username)
-                                    "
-                                >
-                                    {{ media.user.username }}
-                                    <RoleBadge
-                                        class="!align-text-top"
-                                        :user="media.user"
-                                    />
-                                </a>
-                                <FollowButton size="sm" :user="media.user">
-                                    Suivre
-                                </FollowButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex-1 text-right">
-                        <Stack spacing="1">
-                            <div class="space-x-2">
-                                <div class="indicator">
+                <div class="flex-1 text-right">
+                    <Stack spacing="1">
+                        <div class="space-x-2">
+                            <div class="indicator">
                                     <span
                                         v-if="media.likers.length > 0"
                                         class="badge indicator-item badge-error badge-sm"
                                     >
                                         {{ media.likers.length }}
                                     </span>
-                                    <Button
-                                        outline
-                                        circle
-                                        @click="likeItem(media)"
-                                        :type="
+                                <Button
+                                    circle
+                                    ghost
+                                    @click="likeItem(media)"
+                                    :type="
                                             auth.isConnected
                                                 ? media.likers
                                                       ?.map((liker) => liker.id)
@@ -167,133 +139,133 @@ formService.setForm(form).setRouteName('media')
                                                     : ''
                                                 : ''
                                         "
-                                    >
-                                        <Icon size="xl" name="heart" />
-                                    </Button>
-                                </div>
+                                >
+                                    <Icon size="xl" name="heart" />
+                                </Button>
+                            </div>
 
-                                <div class="indicator">
+                            <div class="indicator">
                                     <span
                                         v-if="media.download_count > 0"
-                                        class="badge indicator-item badge-primary badge-sm"
+                                        class="badge indicator-item badge-sm"
                                     >
                                         {{ media.download_count }}
                                     </span>
-                                    <Button circle @click="downloadItem(media)">
-                                        <Icon size="xl" name="import" />
-                                    </Button>
-                                </div>
+                                <Button @click="downloadItem(media)">
+                                    <Icon size="xl" name="import" />
+                                    {{ $t('Télécharger') }}
+                                </Button>
+                            </div>
 
+                            <div
+                                v-if="canPerformAction"
+                                class="dropdown dropdown-end"
+                            >
                                 <div
-                                    v-if="canPerformAction"
-                                    class="dropdown dropdown-end"
+                                    tabindex="0"
+                                    role="button"
+                                    class="btn btn-ghost px-2"
                                 >
-                                    <div
-                                        tabindex="0"
-                                        role="button"
-                                        class="btn btn-ghost px-2"
-                                    >
-                                        <Icon name="ellipsis-v" size="xl" />
-                                    </div>
-                                    <ul
-                                        tabindex="0"
-                                        class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
-                                    >
-                                        <li
-                                            @click="
+                                    <Icon name="ellipsis-v" size="xl" />
+                                </div>
+                                <ul
+                                    tabindex="0"
+                                    class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+                                >
+                                    <li
+                                        @click="
                                                 formService.openModal(
                                                     'editMedia',
                                                     media
                                                 )
                                             "
-                                        >
-                                            <a>
-                                                <Icon name="edit" size="xl" />
-                                                <Text type="sub">
-                                                    {{ $t('Modifier') }}
-                                                </Text>
-                                            </a>
-                                        </li>
-                                        <li
-                                            @click="
+                                    >
+                                        <a>
+                                            <Icon name="edit" size="xl" />
+                                            <Text type="sub">
+                                                {{ $t('Modifier') }}
+                                            </Text>
+                                        </a>
+                                    </li>
+                                    <li
+                                        @click="
                                                 formService
                                                     .setForm(form)
                                                     .setRouteName('media')
                                                     .handle('destroy', media)
                                             "
-                                        >
-                                            <a class="font-bold text-error">
-                                                <Icon name="trash" size="xl" />
-                                                <Text type="sub">
-                                                    {{ $t('Supprimer') }}
-                                                </Text>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    >
+                                        <a class="font-bold text-error">
+                                            <Icon name="trash" size="xl" />
+                                            <Text type="sub">
+                                                {{ $t('Supprimer') }}
+                                            </Text>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
 
-                                <Modal
-                                    v-if="canPerformAction"
-                                    :id="`editMediaModal${media.id}`"
-                                    title="Modification de ton mème"
-                                >
-                                    <Stack>
-                                        <TextInput
-                                            label="Titre"
-                                            v-model="form.name"
+                            <Modal
+                                v-if="canPerformAction"
+                                :id="`editMediaModal${media.id}`"
+                                title="Modification de ton mème"
+                            >
+                                <Stack>
+                                    <TextInput
+                                        label="Titre"
+                                        v-model="form.name"
+                                    />
+
+                                    <div>
+                                        <InputLabel
+                                            for="tags"
+                                            value="Tags"
+                                            class="my-2"
                                         />
-
-                                        <div>
-                                            <InputLabel
-                                                for="tags"
-                                                value="Tags"
-                                                class="my-2"
-                                            />
-                                            <Multiselect
-                                                id="tags"
-                                                v-model="form.tags"
-                                                mode="tags"
-                                                :close-on-select="false"
-                                                :searchable="true"
-                                                :create-option="true"
-                                                :options="tagsOptions"
-                                            >
-                                                <template #noresults>
-                                                    <div class="p-2">
-                                                        <Text type="sub">
-                                                            Plus aucun élémént a
-                                                            afficher.
-                                                        </Text>
-                                                    </div>
-                                                </template>
-                                            </Multiselect>
-                                            <div class="text-right">
-                                                <Text type="xs">
-                                                    {{
-                                                        $t(
-                                                            'Les tags seront synchronisés après modification.'
-                                                        )
-                                                    }}
-                                                </Text>
-                                            </div>
+                                        <Multiselect
+                                            id="tags"
+                                            v-model="form.tags"
+                                            mode="tags"
+                                            :close-on-select="false"
+                                            :searchable="true"
+                                            :create-option="true"
+                                            :options="tagsOptions"
+                                        >
+                                            <template #noresults>
+                                                <div class="p-2">
+                                                    <Text type="sub">
+                                                        Plus aucun élémént a
+                                                        afficher.
+                                                    </Text>
+                                                </div>
+                                            </template>
+                                        </Multiselect>
+                                        <div class="text-right">
+                                            <Text type="xs">
+                                                {{
+                                                    $t(
+                                                        'Les tags seront synchronisés après modification.'
+                                                    )
+                                                }}
+                                            </Text>
                                         </div>
+                                    </div>
 
-                                        <LoadingButton
-                                            @click="
+                                    <LoadingButton
+                                        @click="
                                                 formService.handle(
                                                     'update',
                                                     media
                                                 )
                                             "
-                                            :loading="form.processing"
-                                        >
-                                            {{ $t('Modifier ton mème') }}
-                                        </LoadingButton>
-                                    </Stack>
-                                </Modal>
-                            </div>
-                        </Stack>
-                    </div>
+                                        :loading="form.processing"
+                                    >
+                                        {{ $t('Modifier ton mème') }}
+                                    </LoadingButton>
+                                </Stack>
+                            </Modal>
+                        </div>
+                    </Stack>
                 </div>
                 <Stack>
                     <div class="max-w-full">
@@ -314,6 +286,38 @@ formService.setForm(form).setRouteName('media')
                             loading="lazy"
                         />
                     </div>
+
+                    <Section>
+                        <div class="flex items-center gap-x-4">
+                            <div class="">
+                                <a
+                                    :href="
+                                        route('user.show', media.user.username)
+                                    "
+                                >
+                                    <Avatar :user="media.user" size="md" />
+                                </a>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <Text class="font-bold">
+                                    Posté par
+                                    <a
+                                        class="link link-secondary"
+                                        :href="
+                                        route('user.show', media.user.username)
+                                    "
+                                    >
+                                        {{ media.user.username }}
+                                        <RoleBadge
+                                            class="!align-text-top"
+                                            :user="media.user"
+                                        />
+                                    </a>
+                                </Text>
+                                <Text type="sub">{{ media.created_at }}</Text>
+                            </div>
+                        </div>
+                    </Section>
 
                     <!-- Comments -->
                     <CommentForm v-if="auth.isConnected" :media />
@@ -336,8 +340,8 @@ formService.setForm(form).setRouteName('media')
                     <div class="pt-8" v-if="related && related.length">
                         <Stack>
                             <Text type="subtitle">{{
-                                $t('Images similaires')
-                            }}</Text>
+                                    $t('Images similaires')
+                                }}</Text>
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
                                 <template
                                     v-for="(related, index) in related"
@@ -388,11 +392,11 @@ formService.setForm(form).setRouteName('media')
 }
 .multiselect.is-active {
     --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
-        var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
+    var(--tw-ring-offset-width) oklch(var(--p) / 0.3);
     --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
-        calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
+    calc(3px + var(--tw-ring-offset-width)) oklch(var(--p) / 0.3);
     box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
-        var(--tw-shadow, 0 0 #0000);
+    var(--tw-shadow, 0 0 #0000);
     --tw-ring-color: oklch(var(--p) / 0.2);
     --tw-ring-opacity: 0.3;
 }
