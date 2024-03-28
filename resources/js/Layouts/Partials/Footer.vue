@@ -54,7 +54,7 @@ const page = usePage()
                 {{ $t('Développé avec ❤️ par') }}
                 <a
                     class="link link-secondary font-bold"
-                    href="https://guillaume-cazin.fr"
+                    href="https://www.guillaume-cazin.fr"
                     target="_blank"
                 >
                     Guillaume
