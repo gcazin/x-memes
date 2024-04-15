@@ -1,4 +1,5 @@
 <script setup>
+import MediaItem from '@/Components/Media/MediaItem.vue'
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Avatar from '@/Components/User/Avatar.vue'
@@ -8,7 +9,6 @@ import Stack from '@/Layouts/Partials/Stack.vue'
 import BlogLayout from '@/Pages/Post/Partials/BlogLayout.vue'
 import Post from '@/Pages/Post/Partials/Post.vue'
 import { Head, usePage } from '@inertiajs/vue3'
-import MediaItem from '@/Components/Media/MediaItem.vue'
 
 defineProps({
     users: {
@@ -78,7 +78,7 @@ const features = [
                             </p>
                             <div class="pb-6">
                                 <Text class="mb-1 font-bold"
-                                >Déjà plus de
+                                    >Déjà plus de
                                     {{ totalUsers }} inscrits!</Text
                                 >
 
@@ -96,7 +96,7 @@ const features = [
                                             class="w-12 bg-neutral text-neutral-content"
                                         >
                                             <a :href="route('leaderboard')"
-                                            >+{{
+                                                >+{{
                                                     totalUsers - users.length
                                                 }}</a
                                             >
@@ -110,8 +110,8 @@ const features = [
                                     class="btn btn-primary btn-lg"
                                 >
                                     <Text type="sub">{{
-                                            $t('Découvrir')
-                                        }}</Text>
+                                        $t('Découvrir')
+                                    }}</Text>
                                 </a>
                                 <a
                                     :href="
@@ -125,12 +125,12 @@ const features = [
                                     class="btn btn-outline btn-secondary btn-lg"
                                 >
                                     <Text type="sub">{{
-                                            $t(
-                                                auth.isConnected
-                                                    ? 'Voir mon profil'
-                                                    : 'Se connecter'
-                                            )
-                                        }}</Text>
+                                        $t(
+                                            auth.isConnected
+                                                ? 'Voir mon profil'
+                                                : 'Se connecter'
+                                        )
+                                    }}</Text>
                                 </a>
                             </div>
                         </Stack>
@@ -177,8 +177,8 @@ const features = [
                         {{
                             $t(
                                 "X-Memes t'offre une variété de fonctionnalités, " +
-                                'entre autres, te permettant de poster, ' +
-                                'télécharger et suivre les personnes que tu aimes.'
+                                    'entre autres, te permettant de poster, ' +
+                                    'télécharger et suivre les personnes que tu aimes.'
                             )
                         }}
                     </p>
@@ -236,13 +236,15 @@ const features = [
             </Container>
         </div>
 
-        <div class="py-14 bg-base-300">
+        <div class="bg-base-300 py-14">
             <Container>
                 <Stack>
                     <p class="font-bold uppercase text-primary">
                         {{ $t('Nouveautés') }}
                     </p>
-                    <h2 class="text-4xl">{{ $t('Dernières mèmes publiés') }}</h2>
+                    <h2 class="text-4xl">
+                        {{ $t('Dernières mèmes publiés') }}
+                    </h2>
                     <div
                         v-if="medias.length"
                         class="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3"
@@ -304,11 +306,11 @@ const features = [
                                         )
                                     }}
                                     (<a
-                                    class="link-primary"
-                                    href="https://twitter.com/gcazinonx"
-                                    target="_blank"
-                                >@gcazinonx</a
-                                >).
+                                        class="link-primary"
+                                        href="https://twitter.com/gcazinonx"
+                                        target="_blank"
+                                        >@gcazinonx</a
+                                    >).
                                 </Text>
                             </div>
                         </div>
