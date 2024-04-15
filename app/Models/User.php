@@ -168,4 +168,12 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
     {
         return $this->morphMany(UserPoint::class, 'pointable');
     }
+
+    /**
+     * Get all the comments associated
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
