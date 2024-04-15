@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Overtrue\LaravelFollow\Followable;
 use Spatie\SchemaOrg\Schema;
 
 class FollowingController extends Controller
@@ -25,7 +26,7 @@ class FollowingController extends Controller
 
         $followings = $user->followings()
             ->paginate(10)
-            ->through(fn (User $following) => $following->followable);
+            ->through(fn (Followable $following) => $following->followable);
 
         $title = __('Abonnements de :username', ['username' => $username]);
         Seo::description($title)
