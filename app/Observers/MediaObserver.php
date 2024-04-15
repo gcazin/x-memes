@@ -8,36 +8,22 @@ use App\Models\Badge;
 use App\Models\BadgeType;
 use App\Models\Media;
 use App\Models\User;
+use App\Services\UserService;
 
 class MediaObserver
 {
+    public function __construct(
+        public UserService $userService
+    )
+    {
+    }
+
     /**
      * Handle the Media "created" event.
      */
     public function created(Media $media): void
     {
-        $user = User::find($media->user_id);
-
-        $userMediasPublished = $user->medias()->count();
-
-        $badgeType = BadgeType::all()->where('name', 'media');
-        if ($badgeType->count() > 0) {
-            $badge = Badge::all()
-                ->where('condition', $userMediasPublished)
-                ->firstWhere('badge_type_id', $badgeType->first()->id);
-
-            if ($badge && $badge->exists) {
-                $userBadge = $user->badges()->firstWhere('badge_id', $badge->id);
-                if (! $userBadge) {
-                    // Attach badge
-                    $user->badges()->attach($badge->id);
-                }
-            }
-        }
-
-        $media->update([
-            'lang' => app()->getLocale(),
-        ]);
+        $this->userService->attachBadge($media);
     }
 
     /**

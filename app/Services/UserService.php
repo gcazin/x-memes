@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Badge;
+use App\Models\BadgeType;
+use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -27,6 +30,32 @@ class UserService
             'avatar' => 'avatar-placeholder/'.rand(1, 4).'.jpg',
             'x_username' => array_key_first($socialUsername) === 'twitter' ? $socialUsername['twitter'] : null,
             'github_username' => array_key_first($socialUsername) === 'github' ? $socialUsername['github'] : null,
+        ]);
+    }
+
+    public function attachBadge(Media $media): void
+    {
+        $user = User::find($media->user_id);
+
+        $userMediasPublished = $user->medias()->count();
+
+        $badgeType = BadgeType::all()->where('name', 'media');
+        if ($badgeType->count() > 0) {
+            $badge = Badge::all()
+                ->where('condition', $userMediasPublished)
+                ->firstWhere('badge_type_id', $badgeType->first()->id);
+
+            if ($badge && $badge->exists) {
+                $userBadge = $user->badges()->firstWhere('badge_id', $badge->id);
+                if (! $userBadge) {
+                    // Attach badge
+                    $user->badges()->attach($badge->id);
+                }
+            }
+        }
+
+        $media->update([
+            'lang' => app()->getLocale(),
         ]);
     }
 }

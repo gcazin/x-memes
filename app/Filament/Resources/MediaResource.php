@@ -10,6 +10,7 @@ use App\Facades\PointFacade;
 use App\Filament\Resources\MediaResource\Pages;
 use App\Models\Media;
 use App\Services\MediaService;
+use App\Services\UserService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,7 +31,8 @@ class MediaResource extends Resource
     protected static ?string $navigationGroup = 'Données';
 
     public function __construct(
-        protected MediaService $mediaService
+        protected MediaService $mediaService,
+        protected UserService $userService
     ) {
     }
 
@@ -138,6 +140,8 @@ class MediaResource extends Resource
                         PointFacade::reward($media->id, PointType::MEDIA_APPROVED);
 
                         MediaApproved::dispatch($media);
+
+                        (new UserService())->attachBadge($media);
                     }),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),

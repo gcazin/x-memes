@@ -72,7 +72,6 @@ test('cannot attach badge if media not approved', function () {
     // Badge : type media (by number of medias published (1,5,10,100...))
     $mediaBadgeType = BadgeType::factory()->create(['name' => 'role']);
     // Badge : type seniority (by year (1,2,3,4...))
-    $seniorityBadgeType = BadgeType::factory()->create(['name' => 'super-admin']);
 
     // 1 published media
     $mediaBadge = Badge::factory()->create([
