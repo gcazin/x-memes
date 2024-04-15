@@ -40,6 +40,7 @@
     "Confirmation du mot de passe": "Confirm password",
     "Connexion": "Login",
     "Dernière mise à jour du site : :date": "Last site update: :date",
+    "Dernières mèmes publiés": "Latest published memes",
     "Des badges décernés en fonction de ton activité sur le site.": "Badges awarded according to your activity on the site.",
     "Déconnexion": "Logout",
     "Découvre les meilleures mèmes \":tag\" d'Internet à un seul et même endroit!": "Discover the Internet's best \":tag\" memes all in one place!",
@@ -102,6 +103,7 @@
     "Nouveau": "New",
     "Nouveau mot de passe": "New password",
     "nouveautés": "news",
+    "Nouveautés": "News",
     "OU": "OR",
     "Par date": "By date",
     "Par ordre alphabétique (A-Z)": "Alphabetical order (A-Z)",
@@ -186,7 +188,5 @@
     "X-Memes est maintenant en :locale.": "X-Memes is now in :locale.",
     "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a postés.": "X-Memes is a platform where you can register, publish and view memes posted by the community.",
     "X-Memes t'offre une variété de fonctionnalités, entre autres, te permettant de poster, télécharger et suivre les personnes que tu aimes.": "X-Memes offers you a variety of features, including the ability to post, upload and follow people you like.",
-    "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?",
-    "Nouveautés": "News",
-    "Dernières mèmes publiés": "Latest published memes"
+    "Êtes-vous sûr de vouloir supprimer votre compte ?": "Are you sure you want to delete your account ?"
 }

@@ -39,6 +39,7 @@
     "Confirmation du mot de passe": "Confirmación de contraseña",
     "Connexion": "Inicio de sesión",
     "Dernière mise à jour du site : :date": "Última actualización del sitio: :date",
+    "Dernières mèmes publiés": "Memes más publicados",
     "Des badges décernés en fonction de ton activité sur le site.": "Insignias otorgadas según tu actividad en el sitio.",
     "Déconnexion": "Cerrar sesión",
     "Découvre les meilleures mèmes \":tag\" d'Internet à un seul et même endroit!": "¡Descubre los mejores memes \":tag\" de Internet en un solo lugar!",
@@ -101,6 +102,7 @@
     "Nouveau": "Nuevo",
     "Nouveau mot de passe": "Nueva contraseña",
     "nouveautés": "novedades",
+    "Nouveautés": "Novedades",
     "OU": "O",
     "Par date": "Por fecha",
     "Par ordre alphabétique (A-Z)": "Por orden alfabético (A-Z)",
@@ -187,7 +189,5 @@
     "X-Memes est maintenant en :locale.": "X-Memes ahora está en :locale.",
     "X-Memes est une plateforme où tu peux t'inscrire, publier et voir les mèmes que la communauté a postés.": "X-Memes es una plataforma donde puedes registrarte, publicar y ver memes publicados por la comunidad.",
     "X-Memes t'offre une variété de fonctionnalités, entre autres, te permettant de poster, télécharger et suivre les personnes que tu aimes.": "X-Memes te ofrece una variedad de funciones, incluyendo la capacidad de publicar, cargar y seguir a las personas que te gustan.",
-    "Êtes-vous sûr de vouloir supprimer votre compte ?": "¿Estás seguro de que quieres eliminar tu cuenta?",
-    "Nouveautés": "Novedades",
-    "Dernières mèmes publiés": "Memes más publicados"
+    "Êtes-vous sûr de vouloir supprimer votre compte ?": "¿Estás seguro de que quieres eliminar tu cuenta?"
 }
