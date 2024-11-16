@@ -50,6 +50,7 @@ class User extends Authenticatable implements FilamentUser, Sitemapable
         'avatar',
         'x_username',
         'github_username',
+        'registered_with',
     ];
 
     /**

@@ -32,7 +32,7 @@ class DownloadController extends Controller
         MediaDownload::create([
             'media_id' => $media->id,
             'ip_address' => $request->ip(),
-            'user_id' => $request->user()->id,
+            'user_id' => $request->user()?->id,
         ]);
 
         Point::reward($media->id, PointType::MEDIA_DOWNLOADED);

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
-use App\Models\Badge;
-use App\Models\BadgeType;
 use App\Models\Media;
 use App\Models\User;
 use App\Services\UserService;
@@ -14,8 +12,7 @@ class MediaObserver
 {
     public function __construct(
         public UserService $userService
-    )
-    {
+    ) {
     }
 
     /**

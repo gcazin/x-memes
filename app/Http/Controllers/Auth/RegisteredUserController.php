@@ -59,7 +59,13 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = $this->userService->create(strtolower($request->username), $request->email, Hash::make($request->password));
+        $user = $this->userService->create(
+            strtolower($request->username),
+            $request->email,
+            Hash::make($request->password),
+            [],
+            'form'
+        );
 
         event(new Registered($user));
 

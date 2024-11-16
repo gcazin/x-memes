@@ -33,7 +33,8 @@ class MediaDownloadResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label("Nom d'utilisateur")
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->default('—'),
                 Tables\Columns\TextColumn::make('ip_address')
                     ->label('Adresse IP')
                     ->searchable(),

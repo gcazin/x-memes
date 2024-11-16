@@ -41,7 +41,7 @@ class SocialiteController extends Controller
         $provider = $request->provider;
 
         if (in_array($provider, $this->providers)) {
-            $data = Socialite::driver($request->provider)->user();
+            $data = Socialite::driver($provider)->user();
 
             $username = str()->slug($data->getName());
             $email = $data->getEmail();
@@ -56,9 +56,9 @@ class SocialiteController extends Controller
                 if ($provider === 'twitter' || $provider === 'github') {
                     $user = $this->userService->create($username, $email, null, [
                         $provider => $data->getNickname(),
-                    ]);
+                    ], $provider);
                 } else {
-                    $user = $this->userService->create($username, $email);
+                    $user = $this->userService->create($username, $email, null, [], $provider);
                 }
 
                 event(new Registered($user));

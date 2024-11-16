@@ -20,7 +20,8 @@ class UserService
         string $username,
         string $email,
         ?string $password = null,
-        ?array $socialUsername = []
+        ?array $socialUsername = [],
+        ?string $provider = null,
     ): User {
         return User::create([
             'name' => str()->slug($username),
@@ -30,6 +31,7 @@ class UserService
             'avatar' => 'avatar-placeholder/'.rand(1, 4).'.jpg',
             'x_username' => array_key_first($socialUsername) === 'twitter' ? $socialUsername['twitter'] : null,
             'github_username' => array_key_first($socialUsername) === 'github' ? $socialUsername['github'] : null,
+            'registered_with' => $provider,
         ]);
     }
 

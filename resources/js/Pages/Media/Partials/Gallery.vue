@@ -65,17 +65,6 @@ const urlParams =
 onMounted(() => {
     addQueryTagsToSelectedTags()
     infiniteScrolling()
-
-    if (page.props.auth.isConnected) {
-        localStorage.setItem('shouldRegister', 'false')
-    }
-
-    if (
-        !page.props.auth.isConnected &&
-        localStorage.getItem('shouldRegister') === 'true'
-    ) {
-        formService.openModal('shouldRegister')
-    }
 })
 
 /**
@@ -296,24 +285,6 @@ const fetchData = (url, filters = null) => {
         loading.value = false
     }
 }
-
-/**
- * Display modal when user is not registered/connected
- */
-watch(
-    () => pagination.value,
-    (newQuery) => {
-        if (
-            !page.props.auth.isConnected &&
-            newQuery &&
-            newQuery.current_page === 3
-        ) {
-            formService.openModal('shouldRegister')
-            localStorage.setItem('shouldRegister', 'true')
-        }
-    },
-    { immediate: true }
-)
 </script>
 <template>
     <Stack>

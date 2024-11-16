@@ -64,6 +64,9 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('registered_with')
+                    ->default('—')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('lang')
                     ->label('Langue')
                     ->toggleable(isToggledHiddenByDefault: true),

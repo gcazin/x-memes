@@ -62,7 +62,18 @@ const likeItem = async (item) => {
 
 const downloadItem = async (item) => {
     if (!auth.isConnected) {
-        return formService.openModal('shouldRegister')
+        const numberOfDownloads = localStorage.getItem('numberOfDownloads')
+        if (numberOfDownloads) {
+            console.log('ici?')
+            localStorage.setItem('numberOfDownloads', parseInt(numberOfDownloads,10) + 1)
+            if (parseInt(numberOfDownloads, 10) >= 1) {
+                formService.openModal('shouldRegister')
+            }
+        } else {
+            localStorage.setItem('numberOfDownloads', '1')
+        }
+
+        return;
     }
 
     const response = await axios.get(route('media.download', item.id), {

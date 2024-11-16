@@ -75,6 +75,7 @@ Route::prefix(LaravelLocalization::setLocale())
         // Media
         Route::name('media.')->prefix('media')->group(function () {
             Route::get('{slug}', [MediaController::class, 'show'])->name('show');
+            Route::get('{id}/download', DownloadController::class)->name('download');
         });
 
         // Tag
@@ -101,7 +102,6 @@ Route::prefix(LaravelLocalization::setLocale())
             Route::name('media.')->prefix('media')->group(function () {
                 Route::post('duplicate', DuplicateController::class)->name('duplicate');
                 Route::get('{id}/like', LikeController::class)->name('like');
-                Route::get('{id}/download', DownloadController::class)->name('download');
 
                 Route::name('comment.')->prefix('commentaire')->group(function () {
                     Route::post('{id}', [CommentController::class, 'store'])->name('store');
