@@ -37,8 +37,7 @@ class MediaController extends Controller
         public TagRepository $tagRepository,
         public MediaService $mediaService,
         public FileService $fileService
-    ) {
-    }
+    ) {}
 
     public function index(Request $request): Response
     {

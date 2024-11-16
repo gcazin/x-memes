@@ -28,7 +28,7 @@ class UserService
             'username' => $username,
             'email' => $email,
             'password' => $password ?? Str::random(),
-            'avatar' => 'avatar-placeholder/'.rand(1, 4).'.jpg',
+            'avatar' => 'avatar-placeholder',
             'x_username' => array_key_first($socialUsername) === 'twitter' ? $socialUsername['twitter'] : null,
             'github_username' => array_key_first($socialUsername) === 'github' ? $socialUsername['github'] : null,
             'registered_with' => $provider,

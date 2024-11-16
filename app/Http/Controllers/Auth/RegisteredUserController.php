@@ -26,8 +26,7 @@ class RegisteredUserController extends Controller
 {
     public function __construct(
         protected UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
      * Display the registration view.

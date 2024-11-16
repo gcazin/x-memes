@@ -14,8 +14,7 @@ class MediaRepository implements RepositoryInterface
     public function __construct(
         /** @var Media $media */
         protected Media $media
-    ) {
-    }
+    ) {}
 
     /**
      * Retrieves all media items.

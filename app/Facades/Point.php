@@ -98,7 +98,7 @@ class Point
      */
     public function putUserInLeaderboard(): void
     {
-        $point = new UserPoint();
+        $point = new UserPoint;
         $point->user_id = $this->user->id;
         $point->save();
     }

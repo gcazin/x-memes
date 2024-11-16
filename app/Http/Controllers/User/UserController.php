@@ -18,8 +18,7 @@ class UserController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository
-    ) {
-    }
+    ) {}
 
     public function show(string $username): Response
     {

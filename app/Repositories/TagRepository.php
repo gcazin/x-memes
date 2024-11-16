@@ -12,8 +12,7 @@ class TagRepository implements RepositoryInterface
 {
     public function __construct(
         protected Tag $tag
-    ) {
-    }
+    ) {}
 
     /**
      * Retrieves all tag items.

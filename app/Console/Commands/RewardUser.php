@@ -38,7 +38,7 @@ class RewardUser extends Command
 
         $users->each(function (User $user) use ($users) {
             if (! $user->point()->exists()) {
-                $point = new UserPoint();
+                $point = new UserPoint;
                 $point->user_id = $user->id;
                 $point->save();
             }
