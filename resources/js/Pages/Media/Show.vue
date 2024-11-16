@@ -24,7 +24,7 @@ import Multiselect from '@vueform/multiselect'
 import saveAs from 'file-saver'
 import JSConfetti from 'js-confetti'
 import moment from 'moment'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
     media: {
@@ -46,6 +46,7 @@ const props = defineProps({
 
 const page = usePage()
 const auth = page.props.auth
+const loading = ref(false)
 
 const form = useForm({
     name: null,
@@ -64,18 +65,17 @@ const downloadItem = async (item) => {
     if (!auth.isConnected) {
         const numberOfDownloads = localStorage.getItem('numberOfDownloads')
         if (numberOfDownloads) {
-            console.log('ici?')
             localStorage.setItem('numberOfDownloads', parseInt(numberOfDownloads,10) + 1)
             if (parseInt(numberOfDownloads, 10) >= 1) {
                 formService.openModal('shouldRegister')
+                return;
             }
         } else {
             localStorage.setItem('numberOfDownloads', '1')
         }
-
-        return;
     }
 
+    loading.value = true
     const response = await axios.get(route('media.download', item.id), {
         responseType: 'blob',
     })
@@ -88,6 +88,7 @@ const downloadItem = async (item) => {
         .toLowerCase()
         .replaceAll(' ', '-')}-x-memes.${media.extension}`
     saveAs(response.data, path)
+    loading.value = false
 }
 
 const canPerformAction =
@@ -161,7 +162,7 @@ formService.setForm(form).setRouteName('media')
                                 >
                                     {{ media.download_count }}
                                 </span>
-                                <Button @click="downloadItem(media)">
+                                <Button @click="downloadItem(media)" :disabled="loading">
                                     <Icon size="xl" name="import" />
                                     {{ $t('Télécharger') }}
                                 </Button>
