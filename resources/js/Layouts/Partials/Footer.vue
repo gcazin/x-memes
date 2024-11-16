@@ -1,11 +1,8 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
-import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import { usePage } from '@inertiajs/vue3'
 import moment from 'moment'
-
-const page = usePage()
 </script>
 
 <template>
@@ -24,8 +21,6 @@ const page = usePage()
             <a href="mailto:contact@guillaume-cazin.fr" class="link-hover link">
                 <Text type="sub">Contact</Text>
             </a>
-            -
-            <LanguageSwitcher />
         </nav>
         <nav>
             <div class="grid grid-flow-col items-center gap-4">

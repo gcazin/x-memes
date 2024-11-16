@@ -5,7 +5,6 @@ import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
 import Avatar from '@/Components/User/Avatar.vue'
 import Container from '@/Layouts/Partials/Container.vue'
-import LanguageSwitcher from '@/Pages/Profile/Partials/LanguageSwitcher.vue'
 import helperService from '@/Services/helper.service.js'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
@@ -139,9 +138,6 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
 
                 <div class="navbar-end gap-1">
                     <!-- When the user is not connected -->
-
-                    <LanguageSwitcher />
-
                     <template v-if="!page.props?.auth?.isConnected">
                         <div class="hidden space-x-1 2xl:block">
                             <a class="btn btn-primary" :href="route('login')">

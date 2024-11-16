@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 it('can be render login page', function () {
     $response = $this->get(route('login'));
@@ -13,7 +12,7 @@ it('can be render login page', function () {
 it('can authenticate using the login screen with his username', function () {
     $user = User::factory()->create();
 
-    $response = $this->post(LaravelLocalization::localizeUrl('login'), [
+    $response = $this->post(route('login'), [
         'username' => $user->username,
         'password' => 'password',
     ]);

@@ -41,7 +41,7 @@ class HomeController extends Controller
             )
             ->share();
 
-        $users = User::latest()->take(3)->get(['id', 'avatar']);
+        $users = User::latest()->take(3)->get(['id', 'username', 'avatar']);
         $totalUsers = ceil(User::all()->count() / 5) * 5;
         $totalDownloads = MediaDownload::all()->count();
         $posts = Post::published()->take(3)->latest()->get();
