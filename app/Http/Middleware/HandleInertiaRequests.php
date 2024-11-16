@@ -39,7 +39,6 @@ class HandleInertiaRequests extends Middleware
             'appName' => config('app.name'),
             'stage' => config('app.version'),
             'language' => config('app.locale'),
-            'supportedLocales' => LaravelLocalization::getSupportedLocales(),
             'auth' => [
                 'user' => $request->user(),
                 'followings' => function () use ($request) {

@@ -14,10 +14,6 @@
         <!-- Icons set -->
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-        @foreach ($languageUrls as $language => $url)
-            <link rel="alternate" hreflang="{{ $language }}" href="{{ url('/') }}/{{ $url }}" />
-        @endforeach
-
         <!-- Scripts -->
         @routes
         @vite('resources/js/app.js')
