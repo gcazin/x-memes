@@ -7,7 +7,6 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 use Inertia\Middleware;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware

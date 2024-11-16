@@ -25,7 +25,6 @@ use App\Http\Controllers\User\LikedController;
 use App\Http\Controllers\User\NotificationController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 /*

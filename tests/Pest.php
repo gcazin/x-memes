@@ -43,11 +43,6 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-
-uses()->beforeEach(function () {
-    $this->refreshApplicationWithLocale('en');
-})->in('Unit', 'Feature');
-
 function actingAsSuperAdmin()
 {
     $role = Role::create(['name' => 'super-admin']);
