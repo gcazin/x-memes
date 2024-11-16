@@ -112,7 +112,7 @@ formService.setForm(form).setRouteName('media')
 
     <PageLayout>
         <Stack>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-col lg:flex-row lg:items-center gap-2">
                 <Text type="subtitle" class="text-3xl">{{ media.name }}</Text>
                 <div class="space-x-1">
                     <a

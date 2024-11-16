@@ -15,8 +15,7 @@ class DuplicateController extends Controller
     public function __construct(
         public MediaRepository $mediaRepository,
         public FileService $fileService
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the incoming request.

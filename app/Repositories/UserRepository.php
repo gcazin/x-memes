@@ -13,8 +13,7 @@ class UserRepository implements RepositoryInterface
 {
     public function __construct(
         protected User $user
-    ) {
-    }
+    ) {}
 
     /**
      * Retrieves all user items.

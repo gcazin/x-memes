@@ -17,8 +17,7 @@ class LikedController extends Controller
 {
     public function __construct(
         protected UserRepository $userRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the incoming request.

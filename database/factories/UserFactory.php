@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'username' => str_replace('.', '', $name),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'avatar' => 'avatar-placeholder/'.fake()->numberBetween(1, 4).'.jpg',
+            'avatar' => 'avatar-placeholder',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'created_at' => fake()->dateTimeBetween('-1 week', now()),

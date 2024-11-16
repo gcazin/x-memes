@@ -33,8 +33,7 @@ class MediaResource extends Resource
     public function __construct(
         protected MediaService $mediaService,
         protected UserService $userService
-    ) {
-    }
+    ) {}
 
     public static function form(Form $form): Form
     {
@@ -141,7 +140,7 @@ class MediaResource extends Resource
 
                         MediaApproved::dispatch($media);
 
-                        (new UserService())->attachBadge($media);
+                        (new UserService)->attachBadge($media);
                     }),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),

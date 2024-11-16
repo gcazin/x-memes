@@ -22,8 +22,7 @@ class SocialiteController extends Controller
     public function __construct(
         protected UserRepository $userRepository,
         protected UserService $userService
-    ) {
-    }
+    ) {}
 
     public function redirect(Request $request): RedirectResponse
     {

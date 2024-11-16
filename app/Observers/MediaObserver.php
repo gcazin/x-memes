@@ -12,8 +12,7 @@ class MediaObserver
 {
     public function __construct(
         public UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the Media "created" event.

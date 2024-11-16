@@ -17,8 +17,7 @@ class DownloadController extends Controller
 {
     public function __construct(
         public MediaRepository $mediaRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the incoming request.

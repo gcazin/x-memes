@@ -21,11 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind('point', function () {
-            return new Point();
+            return new Point;
         });
 
         $this->app->bind('seo', function () {
-            return new SEO();
+            return new SEO;
         });
     }
 

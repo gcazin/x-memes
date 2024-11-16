@@ -36,7 +36,7 @@ class WaitlistController extends Controller
             ],
         ]);
 
-        $waitList = new Waitlist();
+        $waitList = new Waitlist;
 
         $waitList->email = $request->email;
 

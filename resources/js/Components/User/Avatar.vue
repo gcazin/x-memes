@@ -38,7 +38,7 @@ const avatarSizeClass = computed(() => {
 
 const getAvatar = () => {
     return props.user.avatar.includes('avatar-placeholder')
-        ? `/images/${props.user.avatar}`
+        ? `https://api.dicebear.com/9.x/initials/svg?seed=${props.user?.username}&scale=90`
         : `/storage/${props.user.avatar}`
 }
 </script>
