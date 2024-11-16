@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Widgets;
 
 use App\Models\User;
@@ -15,7 +17,7 @@ class UserRegisteredWith extends ChartWidget
     protected function getData(): array
     {
         $data = User::query()
-            ->selectRaw('id, COALESCE(registered_with, "not available") as registered_with, COUNT(*) as count')
+            ->selectRaw('id, COALESCE(registered_with, "non disponible") as registered_with, COUNT(*) as count')
             ->groupBy('registered_with')
             ->get();
 
