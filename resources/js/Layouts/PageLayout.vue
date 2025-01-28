@@ -5,6 +5,7 @@ import Container from '@/Layouts/Partials/Container.vue'
 import Footer from '@/Layouts/Partials/Footer.vue'
 import Navbar from '@/Layouts/Partials/Navbar.vue'
 import { Head, usePage } from '@inertiajs/vue3'
+import Text from '@/Components/Misc/Text.vue'
 
 defineProps({
     title: {
@@ -61,6 +62,14 @@ const props = page.props
         class="relative min-h-screen bg-base-100 pb-6"
         style="background: url(/images/background/noise.webp)"
     >
+        <div class="relative z-50 bg-base-300 px-2 py-2 lg:px-0" v-if="page.props.announcement">
+            <div class="text-center">
+                <Text type="sub">
+                    {{ page.props.announcement }}
+                </Text>
+            </div>
+        </div>
+
         <Navbar v-if="hasNavbar" />
 
         <BlobBackground />

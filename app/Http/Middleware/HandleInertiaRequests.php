@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 use Inertia\Middleware;
@@ -38,6 +39,7 @@ class HandleInertiaRequests extends Middleware
             'appName' => config('app.name'),
             'stage' => config('app.version'),
             'language' => config('app.locale'),
+            'announcement' => Announcement::firstWhere('is_active', true)?->message,
             'auth' => [
                 'user' => $request->user(),
                 'followings' => function () use ($request) {
