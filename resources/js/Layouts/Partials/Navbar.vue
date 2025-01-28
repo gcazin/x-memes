@@ -140,8 +140,8 @@ if (page.props.auth?.user && typeof window !== 'undefined') {
                     <!-- When the user is not connected -->
                     <template v-if="!page.props?.auth?.isConnected">
                         <div class="hidden space-x-1 2xl:block">
-                            <a class="btn btn-primary" :href="route('login')">
-                                <Text type="xs">{{ $t('Connexion') }}</Text>
+                            <a class="btn btn-outline" :href="route('register')">
+                                <Text type="xs">Inscription</Text>
                             </a>
                         </div>
                         <div class="dropdown dropdown-end block 2xl:hidden">

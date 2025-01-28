@@ -6,7 +6,6 @@ use App\Http\Controllers\ChangelogController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderboardController;
-use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\Media\Comment\CommentController;
 use App\Http\Controllers\Media\Comment\LikeController as CommentLikeController;
 use App\Http\Controllers\Media\DownloadController;
@@ -77,6 +76,24 @@ Route::name('tag.')->prefix('tag')->group(function () {
     Route::get('{name}', TagController::class)->name('show');
 });
 
+// Media
+Route::resource('media', MediaController::class)->except(['index', 'create', 'show']);
+Route::name('media.')->prefix('media')->group(function () {
+    Route::post('duplicate', DuplicateController::class)->name('duplicate');
+    Route::get('{id}/like', LikeController::class)->name('like');
+
+    Route::name('comment.')->prefix('commentaire')->group(function () {
+        Route::post('{id}', [CommentController::class, 'store'])->name('store');
+        Route::put('{id}', [CommentController::class, 'update'])->name('update');
+        Route::get('{id}/like', CommentLikeController::class)->name('like');
+        Route::delete('{id}', [CommentController::class, 'destroy'])->name('destroy');
+
+        Route::name('reply.')->group(function () {
+            Route::post('{id}/reply', [CommentController::class, 'store'])->name('store');
+        });
+    });
+});
+
 // Auth
 Route::middleware('auth')->group(function () {
     Route::get('search', SearchController::class)->name('search');
@@ -90,23 +107,6 @@ Route::middleware('auth')->group(function () {
         Route::get('profile', [ProfileController::class, 'edit'])->name('edit');
         Route::put('profile', [ProfileController::class, 'update'])->name('update');
         Route::delete('profile', [ProfileController::class, 'destroy'])->name('destroy');
-    });
-
-    Route::resource('media', MediaController::class)->except(['index', 'create', 'show']);
-    Route::name('media.')->prefix('media')->group(function () {
-        Route::post('duplicate', DuplicateController::class)->name('duplicate');
-        Route::get('{id}/like', LikeController::class)->name('like');
-
-        Route::name('comment.')->prefix('commentaire')->group(function () {
-            Route::post('{id}', [CommentController::class, 'store'])->name('store');
-            Route::put('{id}', [CommentController::class, 'update'])->name('update');
-            Route::get('{id}/like', CommentLikeController::class)->name('like');
-            Route::delete('{id}', [CommentController::class, 'destroy'])->name('destroy');
-
-            Route::name('reply.')->group(function () {
-                Route::post('{id}/reply', [CommentController::class, 'store'])->name('store');
-            });
-        });
     });
 
     Route::resource('notification', NotificationController::class);

@@ -159,7 +159,7 @@ class Media extends Model implements Sitemapable
     /**
      * Represents the user who uploaded the media item.
      */
-    public function user(): BelongsTo
+    public function user(): ?BelongsTo
     {
         return $this->belongsTo(User::class);
     }

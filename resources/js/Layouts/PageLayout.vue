@@ -1,5 +1,4 @@
 <script setup>
-import Text from '@/Components/Misc/Text.vue'
 import Toast from '@/Components/Misc/Toast.vue'
 import BlobBackground from '@/Layouts/Partials/BlobBackground.vue'
 import Container from '@/Layouts/Partials/Container.vue'

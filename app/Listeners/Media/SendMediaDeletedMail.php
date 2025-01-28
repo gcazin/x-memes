@@ -24,6 +24,10 @@ class SendMediaDeletedMail implements ShouldQueue
      */
     public function handle(MediaDestroyed $event): void
     {
+        if (! is_null($event->media->user_id)) {
+            return;
+        }
+
         Mail::to($event->media->user)->send(new MediaDeletedMail($event->media));
     }
 }

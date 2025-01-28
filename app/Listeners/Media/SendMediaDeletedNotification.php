@@ -23,6 +23,10 @@ class SendMediaDeletedNotification implements ShouldQueue
      */
     public function handle(MediaDestroyed $event): void
     {
+        if (! is_null($event->media->user_id)) {
+            return;
+        }
+
         $event->media->user->notify(new DeletedMediaNotification($event->media));
     }
 }

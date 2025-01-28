@@ -19,7 +19,9 @@ class MediaObserver
      */
     public function created(Media $media): void
     {
-        $this->userService->attachBadge($media);
+        if (! is_null($media->user_id)) {
+            $this->userService->attachBadge($media);
+        }
     }
 
     /**
@@ -35,13 +37,15 @@ class MediaObserver
      */
     public function deleted(Media $media): void
     {
-        $user = User::find($media->user_id);
-        $userMediasPublished = $user->medias()->count();
-        $badgesToRemove = $user->badges->where('condition', '>', (string) $userMediasPublished)->pluck('id');
-        $user->badges()->detach($badgesToRemove);
+        if (! is_null($media->user_id)) {
+            $user = User::find($media->user_id);
+            $userMediasPublished = $user->medias()->count();
+            $badgesToRemove = $user->badges->where('condition', '>', (string) $userMediasPublished)->pluck('id');
+            $user->badges()->detach($badgesToRemove);
 
-        if ($userMediasPublished === 0) {
-            $user->badges()->detach();
+            if ($userMediasPublished === 0) {
+                $user->badges()->detach();
+            }
         }
     }
 

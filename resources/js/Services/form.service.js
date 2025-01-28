@@ -59,6 +59,7 @@ class FormService {
             this.setProperties(item)
         }
 
+        console.log(document.querySelector(this.modalName))
         document.querySelector(this.modalName).showModal()
     }
 
