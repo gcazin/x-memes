@@ -57,6 +57,9 @@
 
         <!-- and it's easy to individually load additional languages -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6772331798480508"
+                crossorigin="anonymous"></script>
     </head>
     <body class="font-sans antialiased !mb-0">
         @inertia
