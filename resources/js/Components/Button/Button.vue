@@ -47,6 +47,7 @@ const buttonColor = () => {
 }
 const buttonSize = () => {
     return {
+        full: 'btn-block',
         lg: 'btn-lg',
         md: '',
         sm: 'btn-sm',

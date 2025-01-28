@@ -41,7 +41,7 @@ const submit = () => {
 
             <a
                 :href="route('register')"
-                class="btn btn-primary btn-wide w-full"
+                class="btn btn-outline w-full"
             >
                 <Icon name="user-plus" size="2xl" />
                 {{ $t('Pas encore inscrit ?') }}

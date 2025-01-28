@@ -24,6 +24,8 @@ class SendMediaApprovedMail implements ShouldQueue
      */
     public function handle(MediaApproved $event): void
     {
-        Mail::to($event->media->user)->send(new MediaApprovedMail($event->media));
+        if (! is_null($event->media->user_id)) {
+            Mail::to($event->media->user)->send(new MediaApprovedMail($event->media));
+        }
     }
 }

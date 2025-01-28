@@ -5,9 +5,8 @@ import ShouldRegisterModal from '@/Components/Misc/ShouldRegisterModal.vue'
 import Tag from '@/Components/Misc/Tag.vue'
 import Text from '@/Components/Misc/Text.vue'
 import Stack from '@/Layouts/Partials/Stack.vue'
-import formService from '@/Services/form.service.js'
 import { router, usePage } from '@inertiajs/vue3'
-import { computed, onMounted, ref, toRef, watch } from 'vue'
+import { computed, onMounted, ref, toRef } from 'vue'
 
 const props = defineProps({
     medias: {

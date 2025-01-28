@@ -1,7 +1,6 @@
 <script setup>
 import Icon from '@/Components/Misc/Icon.vue'
 import Text from '@/Components/Misc/Text.vue'
-import { usePage } from '@inertiajs/vue3'
 import moment from 'moment'
 </script>
 

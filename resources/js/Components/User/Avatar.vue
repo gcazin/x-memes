@@ -4,7 +4,7 @@ import { computed } from 'vue'
 const props = defineProps({
     user: {
         type: Object,
-        required: true,
+        required: false,
     },
     size: {
         type: String,
@@ -37,9 +37,13 @@ const avatarSizeClass = computed(() => {
 })
 
 const getAvatar = () => {
-    return props.user.avatar.includes('avatar-placeholder')
-        ? `https://api.dicebear.com/9.x/initials/svg?seed=${props.user?.username}&scale=90`
-        : `/storage/${props.user.avatar}`
+    if (props.user) {
+        return props.user.avatar.includes('avatar-placeholder')
+            ? `https://api.dicebear.com/9.x/initials/svg?seed=${props.user?.username}&scale=90`
+            : `/storage/${props.user.avatar}`
+    }
+
+    return `/images/avatars/default-avatar.png`
 }
 </script>
 <template>
@@ -47,9 +51,13 @@ const getAvatar = () => {
         <div :class="[avatarSizeClass]">
             <img
                 :src="getAvatar()"
-                :alt="`Avatar de ${user?.username}`"
+                :alt="user ? `Avatar de ${user?.username}` : 'Avatar'"
                 class="object-cover"
-                :class="{ 'rounded-lg': !circle, 'rounded-full': circle }"
+                :class="{
+                    'rounded-lg': !circle,
+                    'rounded-full': circle,
+                    'bg-white': !user,
+                }"
             />
         </div>
     </div>

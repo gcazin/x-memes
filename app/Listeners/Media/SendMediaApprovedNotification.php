@@ -23,6 +23,10 @@ class SendMediaApprovedNotification implements ShouldQueue
      */
     public function handle(MediaApproved $event): void
     {
+        if (! is_null($event->media->user_id)) {
+            return;
+        }
+
         $event->media->user->notify(new ApprovedMediaNotification($event->media));
     }
 }

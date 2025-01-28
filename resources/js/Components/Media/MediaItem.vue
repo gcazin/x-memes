@@ -69,16 +69,22 @@ const dateTime = (value) => {
             </div>
         </div>
         <div class="flex items-center pt-2">
-            <a
-                :href="route('user.show', media.user.username)"
-                class="link flex items-center gap-x-2"
-            >
-                <Avatar size="xs" :user="media.user" />
-                <Text type="xs">
-                    {{ media.user.username }}
-                </Text>
-                <RoleBadge :user="media.user" />
-            </a>
+            <template v-if="media.user">
+                <a
+                    :href="route('user.show', media.user.username)"
+                    class="link flex items-center gap-x-2"
+                >
+                    <Avatar size="xs" :user="media.user" />
+                    <Text type="xs">
+                        {{ media.user.username }}
+                    </Text>
+                    <RoleBadge :user="media.user" />
+                </a>
+            </template>
+            <div class="flex items-center justify-center gap-x-2" v-else>
+                <Avatar size="xs" />
+                <Text type="xs">Anonyme</Text>
+            </div>
             <div class="flex-1">
                 <div class="flex justify-end gap-x-2">
                     <div

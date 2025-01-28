@@ -11,7 +11,7 @@ class UserDownloadsRegistered extends ChartWidget
 {
     protected static ?string $heading = 'Téléchargements par statut d\'utilisateur';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $maxHeight = '250px';
 

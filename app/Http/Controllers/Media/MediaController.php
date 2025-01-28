@@ -77,7 +77,7 @@ class MediaController extends Controller
             ->description('Télécharge, commente, aime et publie des mémés d\'Internet pour la communauté. Inscrivez-vous pour ne plus avoir à chercher des heures votre mémé préféré!')
             ->share();
 
-        if (auth()->user()) {
+        if (auth()->check()) {
             PointFacade::reward(null, PointType::DAILY_LOGIN);
         }
 
@@ -113,7 +113,7 @@ class MediaController extends Controller
             'type' => $file->extension() === 'mp4' ? 'video' : 'image',
             'slug' => Str::slug($request->name),
             'hash' => $file->extension() !== 'mp4' ? $this->fileService->hashImage($file) : null,
-            'user_id' => $request->user()->id,
+            'user_id' => auth()->check() ? auth()->user()->id : null,
         ]);
 
         // TODO: Fix video watermark size
@@ -124,9 +124,11 @@ class MediaController extends Controller
             $media->attachTags($this->mediaService->formatTags($request->tags));
         }
 
-        MediaPublished::dispatch($media);
+        if (auth()->check()) {
+            MediaPublished::dispatch($media);
+        }
 
-        if ($request->user()->isSuperAdmin()) {
+        if (auth()->check() && $request->user()->isSuperAdmin()) {
             $this->mediaService->approve($media->id);
         } else {
             flash(
@@ -155,7 +157,7 @@ class MediaController extends Controller
                 ->orderByDesc('created_at')
                 ->paginate(10);
 
-            if (auth()->user()) {
+            if (auth()->check()) {
                 Point::reward($media->id, PointType::MEDIA_SEEN);
             }
 

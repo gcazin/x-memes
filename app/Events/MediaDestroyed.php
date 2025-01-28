@@ -29,6 +29,8 @@ class MediaDestroyed implements ShouldBroadcast
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel('App.Models.User.'.$this->media->user_id);
+        if (! is_null($this->media->user_id)) {
+            return new PrivateChannel('App.Models.User.'.$this->media->user_id);
+        }
     }
 }

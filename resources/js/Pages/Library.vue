@@ -101,7 +101,7 @@ const uploadMedia = () => {
 
 <template>
     <PageLayout :title="title">
-        <template #action v-if="$page.props.auth?.isConnected">
+        <template #action>
             <Button @click="formService.openModal('addMedia')">{{
                 $t('Ajouter un mème')
             }}</Button>
@@ -218,15 +218,9 @@ const uploadMedia = () => {
                         {{ $t(duplicated ? `Poster quand même?` : 'Ajouter') }}
                     </LoadingButton>
                     <div>
-                        <Text type="xs" class="italic">
-                            {{
-                                $t(
-                                    "* Le mème sera en attente d'approbation " +
-                                        "par un administrateur avant d'être publié sur le site. " +
-                                        'Les administrateurs du site se réserve ' +
-                                        'le droit de refuser toute image qui ne serait pas conforme.'
-                                )
-                            }}
+                        <Text class="fw-bold text-center">
+                            Le mème sera en attente d'approbation par un administrateur avant d'être publié sur le site.
+                            Les administrateurs du site se réserve le droit de refuser toute image qui ne serait pas conforme.
                         </Text>
                     </div>
                 </Stack>

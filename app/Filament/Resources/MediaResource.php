@@ -92,7 +92,8 @@ class MediaResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Utilisateur')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->default('Anonyme'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Titre')
                     ->searchable(),
@@ -136,11 +137,11 @@ class MediaResource extends Resource
 
                         $media->update();
 
-                        PointFacade::reward($media->id, PointType::MEDIA_APPROVED);
-
-                        MediaApproved::dispatch($media);
-
-                        (new UserService)->attachBadge($media);
+                        if (! is_null($media->user_id)) {
+                            PointFacade::reward($media->id, PointType::MEDIA_APPROVED);
+                            MediaApproved::dispatch($media);
+                            (new UserService)->attachBadge($media);
+                        }
                     }),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
